@@ -1,6 +1,7 @@
 
 # Booger GPT 
 - A quick & dirty C# application that interacts with OpenAI GPT-3.5 Turbo API
+![](https://github.com/KarmaScripter/Booger/blob/main/Resources/Images/Booger.png)
 
 ## Setup
 Create an Open AI account to obtain an API key (free):

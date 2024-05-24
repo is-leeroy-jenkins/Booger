@@ -29,9 +29,9 @@ If you don't have .NET 8 installed, remove net8.0-windows in Booger.csproj.
 - [Resources](https://github.com/KarmaScripter/Booger/tree/main/Resources)- images, documents, files, etc
 
 
-# Supporting Libraries
+## Supporting Libraries
 
-## Whetstone.ChatGPT
+Whetstone.ChatGPT
 Does all the heavy lifting for ChatGPT API calls.
 
 https://www.nuget.org/packages/Whetstone.ChatGPT

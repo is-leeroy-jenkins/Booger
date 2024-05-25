@@ -1,6 +1,6 @@
 
 
-![](https://github.com/KarmaScripter/Booger/blob/main/Resources/Images/Booger.png)
+![](https://github.com/KarmaScripter/Booger/blob/main/Resources/Images/ProjectTemplate.png)
 
 - A quick & dirty C# application that interacts with OpenAI GPT-3.5 Turbo API
 

@@ -3,6 +3,7 @@
 ![](https://github.com/KarmaScripter/Booger/blob/main/Resources/Images/ProjectTemplate.png)
 
 - A quick & dirty C# application that interacts with OpenAI GPT-3.5 Turbo API
+- Based on WPF and Net6. Can also be used with Net8.
 
 ## Setup
 Create an Open AI account to obtain an API key (free):

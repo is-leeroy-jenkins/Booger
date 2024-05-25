@@ -56,6 +56,7 @@ namespace Booger
     [ SuppressMessage( "ReSharper", "UsePatternMatching" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    [ SuppressMessage( "ReSharper", "ConvertIfStatementToSwitchStatement" ) ]
     public partial class ChatWindow : Window
     {
         /// <summary>
@@ -91,7 +92,7 @@ namespace Booger
         /// <summary>
         /// The chat ListView scroll viewer
         /// </summary>
-        private ScrollViewer? _chatViewer;
+        private ScrollViewer _chatViewer;
 
         /// <summary>
         /// The chat context menu
@@ -101,7 +102,7 @@ namespace Booger
         /// <summary>
         /// The message ListView scroll viewer
         /// </summary>
-        private ScrollViewer? _messageViewer;
+        private ScrollViewer _messageViewer;
 
         /// <summary>
         /// The message context menu
@@ -281,9 +282,9 @@ namespace Booger
         /// </summary>
         /// <param name="element">The element.</param>
         /// <returns></returns>
-        private ScrollViewer GetScrollViewer( UIElement? element )
+        private ScrollViewer GetScrollViewer( UIElement element )
         {
-            ScrollViewer? _viewer = null;
+            ScrollViewer _viewer = null;
             if( element != null )
             {
                 for( var _i = 0;

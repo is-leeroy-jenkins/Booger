@@ -54,7 +54,7 @@ namespace Booger
         /// <summary>
         /// The window place
         /// </summary>
-        private WindowPlace? _windowPlace;
+        private WindowPlace _windowPlace;
 
         /// <inheritdoc />
         /// <summary>

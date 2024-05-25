@@ -75,7 +75,7 @@ namespace Booger
         /// </summary>
         /// <param name="prompt">The prompt.</param>
         /// <returns></returns>
-        public async Task<ChatGPTChatCompletionResponse?> CreateChatCompletionAsync( string prompt )
+        public async Task<ChatGPTChatCompletionResponse> CreateChatCompletionAsync( string prompt )
         {
             var _gptRequest = new ChatGPTChatCompletionRequest
             {
@@ -105,7 +105,7 @@ namespace Booger
         /// </summary>
         /// <param name="prompt">The prompt.</param>
         /// <returns></returns>
-        public IAsyncEnumerable<ChatGPTChatCompletionStreamResponse?> StreamChatCompletionAsync(
+        public IAsyncEnumerable<ChatGPTChatCompletionStreamResponse> StreamChatCompletionAsync(
             string prompt )
         {
             var _completionRequest = new ChatGPTChatCompletionRequest
@@ -136,7 +136,7 @@ namespace Booger
         /// </summary>
         /// <param name="prompt">The prompt.</param>
         /// <returns></returns>
-        public async Task<byte[ ]?> CreateImageAsync( string prompt )
+        public async Task<byte[ ]> CreateImageAsync( string prompt )
         {
             var _imageRequest = new ChatGPTCreateImageRequest
             {
@@ -145,7 +145,7 @@ namespace Booger
                 ResponseFormat = CreatedImageFormat.Base64
             };
 
-            byte[ ]? _imageBytes = null;
+            byte[ ] _imageBytes = null;
             var _imageResponse = await _chatGptClient.CreateImageAsync( _imageRequest );
             if( _imageResponse != null )
             {

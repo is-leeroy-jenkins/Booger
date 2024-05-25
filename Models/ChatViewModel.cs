@@ -99,7 +99,7 @@ namespace Booger
         /// <value>
         /// The update UI action.
         /// </value>
-        public Action<UpdateUIEnum>? UpdateUIAction { get; set; }
+        public Action<UpdateUIEnum> UpdateUIAction { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this instance is command not busy.
@@ -158,7 +158,7 @@ namespace Booger
         /// The selected message
         /// </summary>
         [ ObservableProperty ]
-        private Message? _selectedMessage;
+        private Message _selectedMessage;
 
         /// <summary>
         /// The image pane visibility
@@ -176,7 +176,7 @@ namespace Booger
         /// The result image
         /// </summary>
         [ ObservableProperty ]
-        public byte[ ]? _resultImage;
+        public byte[ ] _resultImage;
 
         /// <summary>
         /// The is streaming mode

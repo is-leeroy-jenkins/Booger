@@ -8,7 +8,8 @@
         MinWidth="500" Icon="/Application.png" Background="#FF141414" BorderBrush="#FF0078D4"
         Foreground="#FFF7F5F5" Margin="1,1,1,1" Padding="1,1,1,1" BorderThickness="1,0,1,1"
         HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Title="Booger GPT">
-    <Grid FocusManager.FocusedElement="{Binding ElementName=ChatInputTextBox}">
+    <Grid FocusManager.FocusedElement="{Binding ElementName=ChatInputTextBox}"
+          Background="#00000000">
         <!-- Header section -->
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
@@ -19,8 +20,8 @@
         <Grid.ColumnDefinitions>
             <!--Without MaxWidth, the right colmn could be hidden when left column stretched-->
             <ColumnDefinition Width="250" MinWidth="200" MaxWidth="400" />
-            <ColumnDefinition Width="377*" MinWidth="100" />
-            <ColumnDefinition Width="162*" />
+            <ColumnDefinition Width="753*" MinWidth="100" />
+            <ColumnDefinition Width="325*" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="20" />
         </Grid.ColumnDefinitions>
@@ -46,14 +47,14 @@
                 <ui:SimpleStackPanel Orientation="Horizontal">
                     <TextBox Text="GPT-3.5 " FontSize="20" FontWeight="SemiBold" IsReadOnly="True"
                              HorizontalAlignment="Left" VerticalAlignment="Center"
-                             Foreground="#FF0078D4" Background="Transparent" BorderThickness="0" />
+                             Foreground="#FF6ABDFC" Background="Transparent" BorderThickness="0" />
                 </ui:SimpleStackPanel>
             </ui:SimpleStackPanel>
         </Border>
         <!--Chat list-->
         <ui:ListView x:Name="ChatListView" Grid.Row="1" Grid.Column="0"
                      IsEnabled="{Binding IsCommandNotBusy}" ItemsSource="{Binding ChatList}"
-                     SelectedItem="{Binding SelectedChat}" Background="Black" BorderBrush="#FF0078D4"
+                     SelectedItem="{Binding SelectedChat}" Background="#FF141414" BorderBrush="#FF0078D4"
                      BorderThickness="0,1" SelectionMode="Single"
                      ScrollViewer.IsDeferredScrollingEnabled="False" ScrollViewer.CanContentScroll="True"
                      Margin="0,0,0,2" Foreground="#FFF5F3F3">
@@ -140,20 +141,21 @@
         <Grid Grid.Row="1" Grid.Column="2" Visibility="{Binding ImagePaneVisibility}"
               Margin="10,0,11,0" Grid.ColumnSpan="3" Background="#FF141414">
             <Grid.RowDefinitions>
-                <RowDefinition Height="35.662" />
-                <RowDefinition Height="24.338" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="70" />
+                <RowDefinition Height="76" />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition MinWidth="200" />
-                <ColumnDefinition Width="Auto" MinWidth="97.512" />
+                <ColumnDefinition Width="Auto" MinWidth="114" />
             </Grid.ColumnDefinitions>
             <TextBox Text="{Binding ImageInput, UpdateSourceTrigger=PropertyChanged}"
                      TextWrapping="Wrap" IsEnabled="{Binding IsCommandNotBusy}"
                      ui:ControlHelper.PlaceholderText="A place name, etc."
-                     SpellCheck.IsEnabled="True" Background="#FF4B4B4B" FontSize="14"
-                     Padding="1,1,1,1" Margin="15,6,7,518" Foreground="White" BorderBrush="#FF0078D4"
-                     Grid.RowSpan="3" CaretBrush="#FF0078D4" RenderTransformOrigin="0.5,0.5">
+                     SpellCheck.IsEnabled="True" Background="#FF4B4B4B" FontSize="12"
+                     Padding="1,1,1,1" Margin="13,2,17,0" Foreground="White" BorderBrush="#FF0078D4"
+                     CaretBrush="#000077D4" RenderTransformOrigin="0.5,0.5" Height="43"
+                     VerticalAlignment="Top">
                 <TextBox.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform />
@@ -170,9 +172,9 @@
             <Button Content="Image" ToolTip="Create an image by a name"
                     Command="{Binding CreateImageCommand}"
                     Style="{DynamicResource AccentButtonStyle}"
-                    IsEnabled="{Binding IsCommandNotBusy}" FontSize="16" Padding="10,0,10,3"
-                    Margin="225,8,0,12" Grid.RowSpan="2" VerticalAlignment="Stretch" Width="77"
-                    Grid.ColumnSpan="2" />
+                    IsEnabled="{Binding IsCommandNotBusy}" FontSize="12" Padding="10,0,10,3"
+                    VerticalAlignment="Top" Width="94" Grid.Column="1" HorizontalAlignment="Center"
+                    Height="43" />
             <Image Grid.Row="2" Grid.ColumnSpan="2"
                    Source="{Binding ResultImage, TargetNullValue={x:Null}}" VerticalAlignment="Top"
                    MaxWidth="600" MaxHeight="400" Margin="10,10,10,0" Height="0" />
@@ -235,7 +237,7 @@
                      Text="{Binding ChatInput, UpdateSourceTrigger=PropertyChanged}"
                      TextWrapping="Wrap" MaxHeight="170" VerticalScrollBarVisibility="Auto"
                      AcceptsReturn="False" VerticalAlignment="Stretch" Background="#FF4B4B4B"
-                     FontSize="16" Padding="7,2,0,5" Margin="12,10,10,7" BorderBrush="#FF0078D4"
+                     FontSize="12" Padding="7,2,0,5" Margin="12,10,10,7" BorderBrush="#FF0078D4"
                      Foreground="#FFFBF8F8">
                 <TextBox.InputBindings>
                     <!--Now Enter to Send-->
@@ -262,23 +264,23 @@
                     </Style>
                 </StackPanel.Resources>
                 <Button Content="Send" ToolTip="Enter is the same as Send"
-                        Command="{Binding SendCommand}" Width="72" />
+                        Command="{Binding SendCommand}" Width="72" FontSize="12" />
                 <Expander ExpandDirection="Right" IsExpanded="True" Margin="10,0,0,0"
                           VerticalAlignment="Bottom" Foreground="#FFF3EFEF" Background="#000078D4"
-                          BorderBrush="#FF0078D4" FontSize="12" Height="39" Width="649">
+                          BorderBrush="#FF0078D4" FontSize="12" Height="39" Width="638">
                     <StackPanel Orientation="Horizontal" Width="630">
                         <Button Content="Explain" Command="{Binding ExplainCommand}"
                                 ToolTip="Explain input (usually short like ML.NET)"
                                 IsEnabled="{Binding IsCommandNotBusy}" Margin="3,2,0,0"
-                                VerticalAlignment="Center" Width="94" />
+                                VerticalAlignment="Center" Width="94" FontSize="12" />
                         <Button Content="Translate to" Command="{Binding TranslateToCommand}"
                                 ToolTip="Translate input to selected language"
                                 IsEnabled="{Binding IsCommandNotBusy}" Margin="3,2,0,0"
-                                VerticalAlignment="Center" />
+                                VerticalAlignment="Center" FontSize="12" />
                         <ComboBox Grid.Column="1" IsEnabled="{Binding IsCommandNotBusy}" Height="36"
                                   Width="124" FontWeight="SemiBold" ItemsSource="{Binding LangList}"
                                   SelectedItem="{Binding SelectedLang}" Margin="3,2,0,0"
-                                  Background="#FF005A9E" Foreground="#FFF5F1F1" FontSize="20"
+                                  Background="#FF005A9E" Foreground="#FFF5F1F1" FontSize="12"
                                   VerticalAlignment="Center" />
                     </StackPanel>
                 </Expander>
@@ -288,8 +290,8 @@
         <Border Grid.Row="3" Grid.ColumnSpan="5" BorderBrush="Gray" BorderThickness="0,1,0,0"
                 Background="#19000000" Margin="0,5,0,0">
             <TextBlock Text="{Binding StatusMessage}" ToolTip="{Binding StatusMessage}"
-                       FontSize="14" FontWeight="SemiBold" Margin="10,5,0,0" HorizontalAlignment="Left"
-                       Width="1338" Background="#FF141414" />
+                       FontWeight="SemiBold" Margin="10,5,0,0" HorizontalAlignment="Left" Width="1338"
+                       Background="#FF141414" />
         </Border>
     </Grid>
 </Window>

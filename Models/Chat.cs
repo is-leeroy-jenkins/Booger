@@ -8,7 +8,7 @@
 // ******************************************************************************************
 // <copyright file="Chat.cs" company="Terry D. Eppler">
 //    This is a Federal Budget, Finance, and Accounting application
-//    for the US Environmental Protection Agency (US EPA).
+//    for EPA analysts
 //    Copyright ©  2024  Terry Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -52,7 +52,7 @@ namespace Booger
         /// <summary>
         /// The name
         /// </summary>
-        [ObservableProperty]
+        [ ObservableProperty ]
         private string _name = string.Empty;
 
         /// <summary>

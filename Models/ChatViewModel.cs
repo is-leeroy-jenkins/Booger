@@ -1,15 +1,14 @@
 ﻿// ******************************************************************************************
-//     Assembly:                Booger GPT
+//     Assembly:                Booger
 //     Author:                  Terry D. Eppler
-//     Created:                 05-24-2024
+//     Created:                 08-01-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        05-24-2024
+//     Last Modified On:        08-01-2024
 // ******************************************************************************************
 // <copyright file="ChatViewModel.cs" company="Terry D. Eppler">
-//    This is a Federal Budget, Finance, and Accounting application
-//    for the US Environmental Protection Agency (US EPA).
-//    Copyright ©  2024  Terry Eppler
+//     Booger is a quick & dirty application in C sharp for interacting with the OpenAI GPT API.
+//     Copyright ©  2022 Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the “Software”),
@@ -31,7 +30,7 @@
 //    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //    DEALINGS IN THE SOFTWARE.
 // 
-//    You can contact me at:   terryeppler@gmail.com or eppler.terry@epa.gov
+//    You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
 //   ChatViewModel.cs
@@ -214,8 +213,7 @@ namespace Booger
         /// The status message
         /// </summary>
         [ ObservableProperty ]
-        private string _statusMessage =
-            "Ctrl+Enter for input of multiple lines. Enter-Key to send." 
+        private string _statusMessage = "Ctrl+Enter for input of multiple lines. Enter-Key to send."
             + " Ctrl+UpArrow | DownArrow to navigate previous input lines";
 
         /// <summary>
@@ -252,6 +250,7 @@ namespace Booger
                 if( !AddNewChatIfNotExists( ) )
                 {
                     StatusMessage = "'New Chat' already exists";
+
                     return;
                 }
 
@@ -278,6 +277,7 @@ namespace Booger
             var _newChat = _chatHistory.AddNewChat( );
             ChatList.Add( _newChat );
             SelectedChat = _newChat;
+
             return true;
         }
 
@@ -551,6 +551,7 @@ namespace Booger
             if( prompt.Length < 2 )
             {
                 StatusMessage = "Prompt must be at least 2 characters";
+
                 return false;
             }
 
@@ -623,9 +624,8 @@ namespace Booger
         private async Task SendStreamingMode( string prompt )
         {
             var _message = SelectedChat.AddMessage( "Bot", string.Empty );
-            await foreach( var _response in
-                _gptService.StreamChatCompletionAsync( prompt )
-                    .ConfigureAwait( false ) )
+            await foreach( var _response in _gptService.StreamChatCompletionAsync( prompt )
+                .ConfigureAwait( false ) )
             {
                 if( _response is not null )
                 {
@@ -665,7 +665,7 @@ namespace Booger
         [ RelayCommand ]
         private void ExpandOrCollapseImagePane( )
         {
-            ImagePaneVisibility = ( ImagePaneVisibility == Visibility.Visible )
+            ImagePaneVisibility = ImagePaneVisibility == Visibility.Visible
                 ? Visibility.Collapsed
                 : Visibility.Visible;
         }
@@ -722,7 +722,7 @@ namespace Booger
         private void SetCommandBusy( bool isCommandBusy, bool isSendCommand = false )
         {
             IsCommandBusy = isCommandBusy;
-            OnPropertyChanged( nameof( IsCommandNotBusy ) );
+            OnPropertyChanged( nameof( ChatViewModel.IsCommandNotBusy ) );
             if( isSendCommand )
             {
                 IsSendCommandBusy = isCommandBusy;

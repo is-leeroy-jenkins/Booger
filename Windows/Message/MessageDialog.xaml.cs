@@ -1,15 +1,14 @@
 ﻿// ******************************************************************************************
-//     Assembly:             Badger
+//     Assembly:                Booger
 //     Author:                  Terry D. Eppler
-//     Created:                 05-24-2024
+//     Created:                 08-01-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        05-24-2024
+//     Last Modified On:        08-01-2024
 // ******************************************************************************************
 // <copyright file="MessageDialog.xaml.cs" company="Terry D. Eppler">
-//    This is a Federal Budget, Finance, and Accounting application
-//    for the US Environmental Protection Agency (US EPA).
-//    Copyright ©  2024  Terry Eppler
+//     Booger is a quick & dirty application in C sharp for interacting with the OpenAI GPT API.
+//     Copyright ©  2022 Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the “Software”),
@@ -31,7 +30,7 @@
 //    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //    DEALINGS IN THE SOFTWARE.
 // 
-//    You can contact me at:   terryeppler@gmail.com or eppler.terry@epa.gov
+//    You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
 //   MessageDialog.xaml.cs
@@ -41,19 +40,8 @@
 namespace Badjao
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Data;
-    using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
-    using System.Windows.Shapes;
 
     /// <inheritdoc />
     /// <summary>
@@ -65,7 +53,7 @@ namespace Badjao
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     [ SuppressMessage( "ReSharper", "InconsistentNaming" ) ]
     [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
-    public partial class MessageDialog : Window
+    public class MessageDialog : Window
     {
         /// <summary>
         /// The locked object
@@ -143,7 +131,7 @@ namespace Badjao
         /// Initializes a new instance of the
         /// <see cref="T:Badger.MessageDialog" /> class.
         /// </summary>
-        public MessageDialog( ) 
+        public MessageDialog( )
             : base( )
         {
         }
@@ -154,7 +142,7 @@ namespace Badjao
         /// <see cref="T:Badger.MessageDialog" /> class.
         /// </summary>
         /// <param name="message">The message.</param>
-        public MessageDialog( string message ) 
+        public MessageDialog( string message )
             : this( )
         {
         }

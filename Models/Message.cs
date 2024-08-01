@@ -1,15 +1,14 @@
 ﻿// ******************************************************************************************
-//     Assembly:                Booger GPT
+//     Assembly:                Booger
 //     Author:                  Terry D. Eppler
-//     Created:                 05-24-2024
+//     Created:                 08-01-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        05-24-2024
+//     Last Modified On:        08-01-2024
 // ******************************************************************************************
 // <copyright file="Message.cs" company="Terry D. Eppler">
-//    This is a Federal Budget, Finance, and Accounting application
-//    for EPA analysts
-//    Copyright ©  2024  Terry Eppler
+//     Booger is a quick & dirty application in C sharp for interacting with the OpenAI GPT API.
+//     Copyright ©  2022 Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the “Software”),
@@ -31,7 +30,7 @@
 //    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //    DEALINGS IN THE SOFTWARE.
 // 
-//    You can contact me at:   terryeppler@gmail.com or eppler.terry@epa.gov
+//    You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
 //   Message.cs

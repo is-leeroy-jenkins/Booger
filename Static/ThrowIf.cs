@@ -1,15 +1,14 @@
 ﻿// ******************************************************************************************
-//     Assembly:                Booger GPT
+//     Assembly:                Booger
 //     Author:                  Terry D. Eppler
-//     Created:                 04-29-2023
+//     Created:                 08-01-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        05-31-2023
+//     Last Modified On:        08-01-2024
 // ******************************************************************************************
 // <copyright file="ThrowIf.cs" company="Terry D. Eppler">
-//    This is a Federal Budget, Finance, and Accounting application for the
-//    US Environmental Protection Agency (US EPA).
-//    Copyright ©  2023  Terry Eppler
+//     Booger is a quick & dirty application in C sharp for interacting with the OpenAI GPT API.
+//     Copyright ©  2022 Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the “Software”),
@@ -31,7 +30,7 @@
 //    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //    DEALINGS IN THE SOFTWARE.
 // 
-//    You can contact me at:   terryeppler@gmail.com or eppler.terry@epa.gov
+//    You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
 //   ThrowIf.cs
@@ -76,6 +75,7 @@ namespace Booger
                     if( string.IsNullOrEmpty( _args ) )
                     {
                         var _message = @$"The '{paramName}' is null!";
+
                         throw new ArgumentNullException( _message );
                     }
 
@@ -86,6 +86,7 @@ namespace Booger
                     if( _action == null )
                     {
                         var _message = @$"The '{paramName}' is null!";
+
                         throw new ArgumentNullException( _message );
                     }
 
@@ -96,6 +97,7 @@ namespace Booger
                     if( _control == null )
                     {
                         var _message = @$"The '{paramName}' is null!";
+
                         throw new ArgumentNullException( _message );
                     }
 
@@ -106,6 +108,7 @@ namespace Booger
                     if( _eventArgs == null )
                     {
                         var _message = @$"The '{paramName}' is null!";
+
                         throw new ArgumentNullException( _message );
                     }
 
@@ -116,6 +119,7 @@ namespace Booger
                     if( _adapter == null )
                     {
                         var _message = @$"The '{paramName}' is null!";
+
                         throw new ArgumentNullException( _message );
                     }
 
@@ -124,10 +128,11 @@ namespace Booger
                 case DataRow _row:
                 {
                     var _items = _row?.ItemArray;
-                    if( ( _items.Length == 0 ) 
-                       || ( _items == null ) )
+                    if( _items.Length == 0
+                        || _items == null )
                     {
                         var _message = @$"The '{paramName}' is null!";
+
                         throw new ArgumentNullException( _message );
                     }
 
@@ -138,6 +143,7 @@ namespace Booger
                     if( _mailMessage == null )
                     {
                         var _message = @$"The '{paramName}' is null!";
+
                         throw new ArgumentNullException( _message );
                     }
 
@@ -148,6 +154,7 @@ namespace Booger
                     if( _grid == null )
                     {
                         var _message = @$"The '{paramName}' is null!";
+
                         throw new ArgumentNullException( _message );
                     }
 
@@ -158,6 +165,7 @@ namespace Booger
                     if( argument == null )
                     {
                         var _message = @$"The '{paramName}' is null!";
+
                         throw new ArgumentNullException( _message );
                     }
 
@@ -182,6 +190,7 @@ namespace Booger
                     if( string.IsNullOrEmpty( _args ) )
                     {
                         var _message = @$"The '{paramName}' is empty!";
+
                         throw new ArgumentNullException( _message );
                     }
 
@@ -192,17 +201,19 @@ namespace Booger
                     if( _listSource == null )
                     {
                         var _message = @$"The IListSource '{paramName}' is empty!";
+
                         throw new ArgumentException( _message );
                     }
-                    
+
                     break;
                 }
                 case IBindingList _bindingList:
                 {
-                    if( _bindingList == null 
-                       || _bindingList.IsEmpty( ) )
+                    if( _bindingList == null
+                        || _bindingList.IsEmpty( ) )
                     {
                         var _message = @$"The IBindingList '{paramName}' is empty!";
+
                         throw new ArgumentException( _message );
                     }
 
@@ -210,21 +221,23 @@ namespace Booger
                 }
                 case IEnumerable<string> _list:
                 {
-                    if( _list == null 
-                       || _list.Any( ) != true )
+                    if( _list == null
+                        || _list.Any( ) != true )
                     {
                         var _message = @$"The IEnumerable<string> '{paramName}' is empty!";
+
                         throw new ArgumentException( _message );
                     }
-                    
+
                     break;
                 }
                 case IEnumerable<byte> _data:
                 {
                     if( _data == null
-                       || _data.Any( ) != true )
+                        || _data.Any( ) != true )
                     {
                         var _message = @$"The IEnumerable<string> '{paramName}' is empty!";
+
                         throw new ArgumentException( _message );
                     }
 
@@ -232,43 +245,47 @@ namespace Booger
                 }
                 case IEnumerable<DataRow> _rows:
                 {
-                    if( _rows == null 
-                       || _rows?.Any( ) != true )
+                    if( _rows == null
+                        || _rows?.Any( ) != true )
                     {
                         var _message = @$"The IEnumerable<DataRow> '{paramName}' is empty!";
+
                         throw new ArgumentException( _message );
                     }
-                    
+
                     break;
                 }
                 case ICollection _collection:
                 {
-                    if( _collection == null 
-                       || _collection.IsEmpty( ) )
+                    if( _collection == null
+                        || _collection.IsEmpty( ) )
                     {
                         var _message = @$"The ICollection '{paramName}' is empty!";
+
                         throw new ArgumentException( _message );
                     }
-                    
+
                     break;
                 }
                 case IDictionary<string, object> _dict:
                 {
-                    if( _dict == null 
-                       || _dict.Keys.Count > 0 )
+                    if( _dict == null
+                        || _dict.Keys.Count > 0 )
                     {
                         var _message = @$"The IDictionary<string, object> '{paramName}' is empty!";
+
                         throw new ArgumentException( _message );
                     }
-                    
+
                     break;
                 }
                 case IDictionary<string, string> _nvp:
                 {
                     if( _nvp == null
-                       || _nvp.Keys.Count > 0 )
+                        || _nvp.Keys.Count > 0 )
                     {
                         var _message = @$"The IDictionary<string, string> '{paramName}' is empty!";
+
                         throw new ArgumentException( _message );
                     }
 
@@ -279,6 +296,7 @@ namespace Booger
                     if( argument == null )
                     {
                         var _message = @$"The '{paramName}' is null!";
+
                         throw new ArgumentNullException( _message );
                     }
 

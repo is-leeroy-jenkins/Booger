@@ -1,15 +1,14 @@
 ﻿// ******************************************************************************************
-//     Assembly:             Badger
+//     Assembly:                Booger
 //     Author:                  Terry D. Eppler
-//     Created:                 05-24-2024
+//     Created:                 08-01-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        05-24-2024
+//     Last Modified On:        08-01-2024
 // ******************************************************************************************
 // <copyright file="ChatWindow.xaml.cs" company="Terry D. Eppler">
-//    This is a Federal Budget, Finance, and Accounting application
-//    for the US Environmental Protection Agency (US EPA).
-//    Copyright ©  2024  Terry Eppler
+//     Booger is a quick & dirty application in C sharp for interacting with the OpenAI GPT API.
+//     Copyright ©  2022 Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the “Software”),
@@ -31,7 +30,7 @@
 //    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //    DEALINGS IN THE SOFTWARE.
 // 
-//    You can contact me at:   terryeppler@gmail.com or eppler.terry@epa.gov
+//    You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
 //   ChatWindow.xaml.cs
@@ -143,12 +142,15 @@ namespace Booger
             {
                 case UpdateUIEnum.SetFocusToChatInput:
                     ChatInputTextBox.Focus( );
+
                     break;
                 case UpdateUIEnum.SetupMessageListViewScrollViewer:
                     SetupMessageListViewScrollViewer( );
+
                     break;
                 case UpdateUIEnum.MessageListViewScrollToBottom:
                     _messageViewer?.ScrollToBottom( );
+
                     break;
             }
         }
@@ -288,18 +290,16 @@ namespace Booger
             if( element != null )
             {
                 for( var _i = 0;
-                    _i < VisualTreeHelper.GetChildrenCount( element ) && _viewer == null;
-                    _i++ )
+                    _i < VisualTreeHelper.GetChildrenCount( element ) && _viewer == null; _i++ )
                 {
                     if( VisualTreeHelper.GetChild( element, _i ) is ScrollViewer )
                     {
-                        _viewer = (ScrollViewer)( VisualTreeHelper.GetChild( element, _i ) );
+                        _viewer = (ScrollViewer)VisualTreeHelper.GetChild( element, _i );
                     }
                     else
                     {
-                        _viewer =
-                            GetScrollViewer(
-                                VisualTreeHelper.GetChild( element, _i ) as UIElement );
+                        _viewer = GetScrollViewer(
+                            VisualTreeHelper.GetChild( element, _i ) as UIElement );
                     }
                 }
             }
@@ -316,8 +316,8 @@ namespace Booger
         private void OnChatListMouseRightButtonUp( object sender, MouseButtonEventArgs e )
         {
             if( e.Device.Target is Grid
-               || e.Device.Target is TextBox
-               || e.Device.Target is TextBlock )
+                || e.Device.Target is TextBox
+                || e.Device.Target is TextBlock )
             {
                 var _chat = ( e.Device.Target as FrameworkElement )?.DataContext as Chat;
                 if( _chat != null )
@@ -334,13 +334,12 @@ namespace Booger
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="MouseButtonEventArgs"/>
         /// instance containing the event data.</param>
-        private void OnMessageListMouseRightButtonUp( object sender,
-            MouseButtonEventArgs e )
+        private void OnMessageListMouseRightButtonUp( object sender, MouseButtonEventArgs e )
         {
             var _target = e.Device.Target?.ToString( );
             if( e.Device.Target is Grid
-               || _target == "System.Windows.Controls.TextBoxView"
-               || e.Device.Target is TextBlock )
+                || _target == "System.Windows.Controls.TextBoxView"
+                || e.Device.Target is TextBlock )
             {
                 var _message = ( e.Device.Target as FrameworkElement )?.DataContext as Message;
                 if( _message != null )
@@ -362,18 +361,21 @@ namespace Booger
             var _mi = args.Source as MenuItem;
             var _chat = _chatMenu.Tag as Chat;
             if( _mi != null
-               && _chat != null )
+                && _chat != null )
             {
                 switch( _mi.Header as string )
                 {
                     case ChatWindow.NEW_CHAT:
                         _viewModel.NewChat( );
+
                         break;
                     case ChatWindow.COPY_CHAT_PROMPT:
                         _viewModel.CopyChatPrompt( _chat );
+
                         break;
                     case ChatWindow.DELETE_CHAT:
                         _viewModel.DeleteChat( _chat );
+
                         break;
                 }
             }
@@ -390,15 +392,17 @@ namespace Booger
             var _mi = args.Source as MenuItem;
             var _message = _contextMenu.Tag as Message;
             if( _mi != null
-               && _message != null )
+                && _message != null )
             {
                 switch( _mi.Header as string )
                 {
                     case ChatWindow.COPY_MESSAGE:
                         _viewModel.CopyMessage( _message );
+
                         break;
                     case ChatWindow.DELETE_MESSAGE:
                         _viewModel.DeleteMessage( _message );
+
                         break;
                 }
             }
@@ -426,7 +430,7 @@ namespace Booger
         private void OnPreviewKeyDown( object sender, KeyEventArgs e )
         {
             if( e.Key == Key.Enter
-               && Keyboard.Modifiers == ModifierKeys.Control )
+                && Keyboard.Modifiers == ModifierKeys.Control )
             {
                 var _mainWindow = sender as ChatWindow;
                 if( _mainWindow != null )
@@ -439,7 +443,7 @@ namespace Booger
                 }
             }
             else if( ( e.Key == Key.Up || e.Key == Key.Down )
-                    && ( e.KeyboardDevice.Modifiers & ModifierKeys.Control ) != 0 )
+                && ( e.KeyboardDevice.Modifiers & ModifierKeys.Control ) != 0 )
             {
                 var _inputTextBox = Keyboard.FocusedElement as TextBox;
                 if( _inputTextBox?.Name == "ChatInputTextBox" )

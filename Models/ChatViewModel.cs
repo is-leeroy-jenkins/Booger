@@ -612,6 +612,7 @@ namespace Booger
             // GPT-3.5
             var _completionResponse = await _gptService.CreateChatCompletionAsync( prompt );
             var _message = _completionResponse?.GetMessage( );
+
             return _message?.Content ?? string.Empty;
         }
 
@@ -623,8 +624,8 @@ namespace Booger
         {
             var _message = SelectedChat.AddMessage( "Bot", string.Empty );
             await foreach( var _response in
-                          _gptService.StreamChatCompletionAsync( prompt )
-                              .ConfigureAwait( false ) )
+                _gptService.StreamChatCompletionAsync( prompt )
+                    .ConfigureAwait( false ) )
             {
                 if( _response is not null )
                 {

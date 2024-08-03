@@ -6,10 +6,9 @@
 //     Last Modified By:        Terry D. Eppler
 //     Last Modified On:        05-24-2024
 // ******************************************************************************************
-// <copyright file="ErrorDialog.xaml.cs" company="Terry D. Eppler">
-//    This is a Federal Budget, Finance, and Accounting application
-//    for the US Environmental Protection Agency (US EPA).
-//    Copyright ©  2024  Terry Eppler
+// <copyright file="ErrorWindow.xaml.cs" company="Terry D. Eppler">
+//     Booger is a quick & dirty application in C sharp for interacting with the OpenAI GPT API.
+//     Copyright ©  2022 Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the “Software”),
@@ -34,7 +33,7 @@
 //    You can contact me at:   terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
-//   ErrorDialog.xaml.cs
+//   ErrorWindow.xaml.cs
 // </summary>
 // ******************************************************************************************
 
@@ -55,7 +54,7 @@ namespace Booger
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     [ SuppressMessage( "ReSharper", "ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract" ) ]
     [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
-    public class ErrorDialog : Window
+    public class ErrorWindow : Window
     {
         /// <summary>
         /// The locked object
@@ -146,7 +145,7 @@ namespace Booger
         /// Initializes a new instance of the
         /// <see cref="T:Badger.ErrorDialog" /> class.
         /// </summary>
-        public ErrorDialog( )
+        public ErrorWindow( )
             : base( )
         {
         }
@@ -158,7 +157,7 @@ namespace Booger
         /// class.
         /// </summary>
         /// <param name="exception"> The exception. </param>
-        public ErrorDialog( Exception exception )
+        public ErrorWindow( Exception exception )
             : this( )
         {
             _exception = exception;
@@ -173,7 +172,7 @@ namespace Booger
         /// </summary>
         /// <param name="exception">The exception.</param>
         /// <param name="title">The title.</param>
-        public ErrorDialog( Exception exception, string title )
+        public ErrorWindow( Exception exception, string title )
             : this( )
         {
             _exception = exception;
@@ -188,7 +187,7 @@ namespace Booger
         /// class.
         /// </summary>
         /// <param name="errorMessage"> The message. </param>
-        public ErrorDialog( string errorMessage )
+        public ErrorWindow( string errorMessage )
             : this( )
         {
             _exception = new Exception( errorMessage );
@@ -203,7 +202,7 @@ namespace Booger
         /// </summary>
         /// <param name="title">The title.</param>
         /// <param name="message">The message.</param>
-        public ErrorDialog( string title, string message )
+        public ErrorWindow( string title, string message )
             : this( )
         {
             _exception = new Exception( message );
@@ -416,7 +415,7 @@ namespace Booger
                 InitializeTextBox( );
                 InitializeTimer( );
                 if( !string.IsNullOrEmpty( _titleText )
-                   && !string.IsNullOrEmpty( _errorMessage ) )
+                    && !string.IsNullOrEmpty( _errorMessage ) )
                 {
                 }
             }

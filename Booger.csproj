@@ -54,7 +54,21 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="ModernWpfUI" Version="0.9.7-preview.2" />
     <PackageReference Include="RestoreWindowPlace" Version="2.1.0" />
+    <PackageReference Include="Syncfusion.Edit.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.Licensing" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.SfChromelessWindow.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.SfColorPalette.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.SfHubTile.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.Shared.Base" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.Themes.FluentDark.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.UI.WPF.NET" Version="24.1.41" />
     <PackageReference Include="System.Speech" Version="9.0.0-preview.4.24266.19" />
+    <PackageReference Include="ToastNotifications" Version="2.5.1" />
+    <PackageReference Include="ToastNotifications.Messages.Net6" Version="1.0.4" />
+    <PackageReference Include="ToastNotifications.Net6" Version="1.0.4" />
     <PackageReference Include="Whetstone.ChatGPT" Version="1.8.1" />
   </ItemGroup>
 

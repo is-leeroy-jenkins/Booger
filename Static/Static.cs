@@ -7,7 +7,7 @@
 //     Last Modified On:        08-01-2024
 // ******************************************************************************************
 // <copyright file="Static.cs" company="Terry D. Eppler">
-//     Booger is a quick & dirty application in C sharp for interacting with the OpenAI GPT API.
+//     Booger is a quick & dirty WPF application in C sharp for interacting with the OpenAI GPT API.
 //     Copyright ©  2022 Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -285,7 +285,7 @@ namespace Booger
         /// <param name="ex">The exception.</param>
         private static void Fail( Exception ex )
         {
-            var _error = new ErrorDialog( ex );
+            var _error = new ErrorWindow( ex );
             _error?.SetText( );
             _error?.ShowDialog( );
         }

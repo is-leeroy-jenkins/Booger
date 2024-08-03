@@ -13,8 +13,8 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <IncludeSymbols>True</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <ApplicationIcon>Resources\Images\Application.ico</ApplicationIcon>
-    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <ApplicationIcon>Resources\Assets\Form\Application.ico</ApplicationIcon>
+    <EnforceCodeStyleInBuild>False</EnforceCodeStyleInBuild>
     <Title>Booger</Title>
     <Authors>Terry D. Eppler</Authors>
     <Company>US EPA</Company>
@@ -23,6 +23,8 @@
     <Copyright>Terry D. Eppler</Copyright>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
+    <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
+    <AnalysisLevel>6.0-minimum</AnalysisLevel>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -43,11 +45,31 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Application.png" />
+    <None Remove="Resources\Assets\Application.png" />
+    <None Remove="Resources\Assets\Booger.png" />
+    <None Remove="Resources\Assets\Dialog\FileBrowse.png" />
+    <None Remove="Resources\Assets\Menu\CalculatorItem.png" />
+    <None Remove="Resources\Assets\Menu\CalendarItem.png" />
+    <None Remove="Resources\Assets\Menu\ChromeItem.png" />
+    <None Remove="Resources\Assets\Menu\ClockItem.png" />
+    <None Remove="Resources\Assets\Menu\CloseItem.png" />
+    <None Remove="Resources\Assets\Menu\ControlPanelItem.png" />
+    <None Remove="Resources\Assets\Menu\DocumentaionItem.png" />
+    <None Remove="Resources\Assets\Menu\EdgeItem.png" />
+    <None Remove="Resources\Assets\Menu\ExitItem.png" />
+    <None Remove="Resources\Assets\Menu\FileItem.png" />
+    <None Remove="Resources\Assets\Menu\FirefoxItem.png" />
+    <None Remove="Resources\Assets\Menu\FolderItem.png" />
+    <None Remove="Resources\Assets\Menu\MapItem.png" />
+    <None Remove="Resources\Assets\Menu\MediaPlayerItem.png" />
+    <None Remove="Resources\Assets\Menu\OneDriveItem.png" />
+    <None Remove="Resources\Assets\Menu\RefreshItem.png" />
+    <None Remove="Resources\Assets\Menu\SaveItem.png" />
+    <None Remove="Resources\Assets\Menu\TaskManagerItem.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Images\Application.ico" />
+    <Content Include="Resources\Assets\Form\Application.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -73,7 +95,30 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Application.png" />
+    <Resource Include="Resources\Assets\Dialog\FileBrowse.png" />
+    <Resource Include="Resources\Assets\Form\Application.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </Resource>
+    <Resource Include="Resources\Assets\Form\Booger.png" />
+    <Resource Include="Resources\Assets\Menu\CalculatorItem.png" />
+    <Resource Include="Resources\Assets\Menu\CalendarItem.png" />
+    <Resource Include="Resources\Assets\Menu\ChromeItem.png" />
+    <Resource Include="Resources\Assets\Menu\ClockItem.png" />
+    <Resource Include="Resources\Assets\Menu\CloseItem.png" />
+    <Resource Include="Resources\Assets\Menu\ControlPanelItem.png" />
+    <Resource Include="Resources\Assets\Menu\DocumentaionItem.png" />
+    <Resource Include="Resources\Assets\Menu\EdgeItem.png" />
+    <Resource Include="Resources\Assets\Menu\ExitItem.png" />
+    <Resource Include="Resources\Assets\Menu\FileItem.png" />
+    <Resource Include="Resources\Assets\Menu\FirefoxItem.png" />
+    <Resource Include="Resources\Assets\Menu\FolderItem.png" />
+    <Resource Include="Resources\Assets\Menu\MapItem.png" />
+    <Resource Include="Resources\Assets\Menu\MediaPlayerItem.png" />
+    <Resource Include="Resources\Assets\Menu\OneDriveItem.png" />
+    <Resource Include="Resources\Assets\Menu\RefreshItem.png" />
+    <Resource Include="Resources\Assets\Menu\SaveItem.png" />
+    <Resource Include="Resources\Assets\Menu\TaskManagerItem.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -86,10 +131,6 @@
       <PackagePath>\</PackagePath>
     </None>
     <None Update="Resources\Application.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Update="Resources\Images\Application.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

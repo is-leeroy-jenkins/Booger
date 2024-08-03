@@ -1,14 +1,16 @@
 ﻿// ******************************************************************************************
-//     Assembly:                Booger GPT
+//     Assembly:                Badger
 //     Author:                  Terry D. Eppler
-//     Created:                 05-24-2024
+//     Created:                 08-01-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        05-24-2024
+//     Last Modified On:        08-01-2024
 // ******************************************************************************************
 // <copyright file="ErrorWindow.xaml.cs" company="Terry D. Eppler">
-//     Booger is a quick & dirty application in C sharp for interacting with the OpenAI GPT API.
-//     Copyright ©  2022 Terry D. Eppler
+//    Badger is data analysis and reporting tool for EPA Analysts
+//    based on WPF, NET6.0, and written in C-Sharp.
+// 
+//    Copyright ©  2024  Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the “Software”),
@@ -30,7 +32,7 @@
 //    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //    DEALINGS IN THE SOFTWARE.
 // 
-//    You can contact me at:   terryeppler@gmail.com or eppler.terry@epa.gov
+//    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
 //   ErrorWindow.xaml.cs
@@ -41,7 +43,11 @@ namespace Booger
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Input;
+    using System.Windows.Media;
 
     /// <inheritdoc />
     /// <summary>
@@ -53,18 +59,63 @@ namespace Booger
     [ SuppressMessage( "ReSharper", "InconsistentNaming" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     [ SuppressMessage( "ReSharper", "ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract" ) ]
-    [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
-    public class ErrorWindow : Window
+    [ SuppressMessage( "ReSharper", "FieldCanBeMadeReadOnly.Global" ) ]
+    [ SuppressMessage( "ReSharper", "UnusedParameter.Global" ) ]
+    public partial class ErrorWindow : Window, IDisposable
     {
+        /// <summary>
+        /// The busy
+        /// </summary>
+        private bool _busy;
+
         /// <summary>
         /// The locked object
         /// </summary>
         private object _path;
 
         /// <summary>
-        /// The busy
+        /// The back color
         /// </summary>
-        private bool _busy;
+        private protected Color _backColor = new Color( )
+        {
+            A = 255,
+            R = 43,
+            G = 0,
+            B = 0
+        };
+
+        /// <summary>
+        /// The back hover color
+        /// </summary>
+        private protected Color _backHover = new Color( )
+        {
+            A = 255,
+            R = 128,
+            G = 0,
+            B = 0
+        };
+
+        /// <summary>
+        /// The border color
+        /// </summary>
+        private protected Color _borderColor = new Color( )
+        {
+            A = 255,
+            R = 255,
+            G = 0,
+            B = 0
+        };
+
+        /// <summary>
+        /// The border hover color
+        /// </summary>
+        private protected Color _borderHover = new Color( )
+        {
+            A = 255,
+            R = 128,
+            G = 0,
+            B = 0
+        };
 
         /// <summary>
         /// The exception
@@ -72,14 +123,31 @@ namespace Booger
         private protected Exception _exception;
 
         /// <summary>
-        /// The title
+        /// The fore color
         /// </summary>
-        private protected string _titleText;
+        private protected Color _foreColor = new Color( )
+        {
+            A = 255,
+            R = 255,
+            G = 255,
+            B = 255
+        };
+
+        /// <summary>
+        /// The fore hover color
+        /// </summary>
+        private protected Color _foreHover = new Color( )
+        {
+            A = 255,
+            R = 255,
+            G = 255,
+            B = 255
+        };
 
         /// <summary>
         /// The message
         /// </summary>
-        private protected string _errorMessage;
+        private protected string _message;
 
         /// <summary>
         /// The status update
@@ -87,73 +155,56 @@ namespace Booger
         private protected Action _statusUpdate;
 
         /// <summary>
-        /// Gets or sets the exception.
+        /// The title
         /// </summary>
-        /// <value>
-        /// The exception.
-        /// </value>
-        public Exception Exception
-        {
-            get
-            {
-                return _exception;
-            }
-            private protected set
-            {
-                _exception = value;
-            }
-        }
+        private protected string _text;
 
         /// <summary>
-        /// Gets the title text.
+        /// The theme
         /// </summary>
-        /// <value>
-        /// The title text.
-        /// </value>
-        public string TitleText
-        {
-            get
-            {
-                return _titleText;
-            }
-            private protected set
-            {
-                _titleText = value;
-            }
-        }
+        private protected readonly DarkMode _theme = new DarkMode( );
 
         /// <summary>
-        /// Gets the message text.
+        /// The timer
         /// </summary>
-        /// <value>
-        /// The message text.
-        /// </value>
-        public string ErrorMessage
-        {
-            get
-            {
-                return _errorMessage;
-            }
-            private protected set
-            {
-                _errorMessage = value;
-            }
-        }
+        private protected Timer _timer;
 
         /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="T:Badger.ErrorDialog" /> class.
+        /// <see cref="T:Booger.ErrorWindow" /> class.
         /// </summary>
         public ErrorWindow( )
-            : base( )
         {
+            InitializeComponent( );
+            InitializeDelegates( );
+            RegisterCallbacks( );
+
+            // Basic Properties
+            Width = 560;
+            Height = 250;
+            FontFamily = new FontFamily( "Segoe UI" );
+            FontSize = 12d;
+            WindowStyle = _theme.WindowStyle;
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            HorizontalAlignment = HorizontalAlignment.Stretch;
+            VerticalAlignment = VerticalAlignment.Stretch;
+            Background = _theme.BackColor;
+            Foreground = _theme.ForeColor;
+            BorderBrush = _theme.RedColor;
+            Topmost = true;
+            ToolTip = "click to clear";
+
+            // Event Wiring
+            IsVisibleChanged += OnVisibleChanged;
+            MouseLeftButtonDown += OnClick;
+            MouseRightButtonDown += OnClick;
         }
 
         /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="T:Badger.ErrorDialog" />
+        /// <see cref="T:Booger.ErrorWindow" />
         /// class.
         /// </summary>
         /// <param name="exception"> The exception. </param>
@@ -161,53 +212,104 @@ namespace Booger
             : this( )
         {
             _exception = exception;
-            _errorMessage = exception.ToLogString( exception.Message );
-            _titleText = "There has been an error!";
+            MessageText.Content = exception.ToLogString( exception.Message );
+            Header.Content = "There has been an error!";
         }
 
         /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="T:Badger.ErrorDialog" /> class.
+        /// <see cref="T:Booger.ErrorWindow" /> class.
         /// </summary>
         /// <param name="exception">The exception.</param>
         /// <param name="title">The title.</param>
         public ErrorWindow( Exception exception, string title )
-            : this( )
+            : this( exception )
         {
             _exception = exception;
-            _errorMessage = exception.ToLogString( exception.Message );
-            _titleText = title;
+            MessageText.Content = exception.ToLogString( exception.Message );
+            Header.Content = title;
         }
 
         /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="T:Badger.ErrorDialog" />
+        /// <see cref="T:Booger.ErrorWindow" />
         /// class.
         /// </summary>
-        /// <param name="errorMessage"> The message. </param>
-        public ErrorWindow( string errorMessage )
+        /// <param name="message"> The message. </param>
+        public ErrorWindow( string message )
             : this( )
         {
-            _exception = new Exception( errorMessage );
-            _errorMessage = _exception.ToLogString( errorMessage );
-            _titleText = "There has been an error!";
+            MessageText.Content = message;
+            Header.Content = "There has been an error!";
         }
 
         /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="T:Badger.ErrorDialog" /> class.
+        /// <see cref="T:Booger.ErrorWindow" /> class.
         /// </summary>
         /// <param name="title">The title.</param>
         /// <param name="message">The message.</param>
         public ErrorWindow( string title, string message )
             : this( )
         {
-            _exception = new Exception( message );
-            _errorMessage = _exception.ToLogString( message );
-            _titleText = title;
+            Header.Content = title;
+            MessageText.Content = message;
+        }
+
+        /// <summary>
+        /// Sets the text.
+        /// </summary>
+        public void SetText( )
+        {
+            try
+            {
+                MessageText.Content = _exception?.ToLogString( "" );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary> Called when [load]. </summary>
+        /// <param name="sender"> The sender. </param>
+        /// <param name="e">
+        /// The
+        /// <see cref="EventArgs"/>
+        /// instance containing the event data.
+        /// </param>
+        public void OnVisibleChanged( object sender, DependencyPropertyChangedEventArgs e )
+        {
+            try
+            {
+                Opacity = 0;
+                InitializeTimer( );
+                FadeInAsync( this );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary>
+        /// Initializes the timer.
+        /// </summary>
+        private void InitializeTimer( )
+        {
+            try
+            {
+                var _callback = new TimerCallback( UpdateStatus );
+                _timer = new Timer( _callback, null, 0, 80 );
+            }
+            catch( Exception ex )
+            {
+                _timer?.Dispose( );
+                Fail( ex );
+            }
         }
 
         /// <summary>
@@ -219,9 +321,9 @@ namespace Booger
             {
                 //CloseButton.Click += OnCloseButtonClick;
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                Fail( _ex );
+                Fail( ex );
             }
         }
 
@@ -234,9 +336,9 @@ namespace Booger
             {
                 _statusUpdate += UpdateStatus;
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                Fail( _ex );
+                Fail( ex );
             }
         }
 
@@ -248,68 +350,78 @@ namespace Booger
             try
             {
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                Fail( _ex );
+                Fail( ex );
             }
         }
 
         /// <summary>
         /// Initializes the text box.
         /// </summary>
-        private void InitializeTextBox( )
+        private void InitializeTextBoxes( )
         {
             try
             {
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                Fail( _ex );
+                Fail( ex );
             }
         }
 
         /// <summary>
-        /// Initializes the timer.
+        /// Fades the in asynchronous.
         /// </summary>
-        private void InitializeTimer( )
+        /// <param name="form">The o.</param>
+        /// <param name="interval">The interval.</param>
+        private async void FadeInAsync( Window form, int interval = 80 )
         {
             try
             {
+                ThrowIf.Null( form, nameof( form ) );
+                while( form.Opacity < 1.0 )
+                {
+                    await Task.Delay( interval );
+                    form.Opacity += 0.05;
+                }
+
+                form.Opacity = 1;
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                Fail( _ex );
+                Fail( ex );
             }
         }
 
         /// <summary>
-        /// Invokes if needed.
+        /// Fades the out asynchronous.
         /// </summary>
-        /// <param name="action">The action.</param>
-        public void InvokeIf( Action action )
+        /// <param name="window">The o.</param>
+        /// <param name="interval">The interval.</param>
+        private async void FadeOutAsync( Window window, int interval = 80 )
         {
             try
             {
-                ThrowIf.Null( action, nameof( action ) );
-                if( true )
+                ThrowIf.Null( window, nameof( window ) );
+                while( window.Opacity > 0.0 )
                 {
-                    //BeginInvoke( action );
+                    await Task.Delay( interval );
+                    window.Opacity -= 0.05;
                 }
-                else
-                {
-                    //action.Invoke( );
-                }
+
+                window.Opacity = 0;
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                Fail( _ex );
+                Fail( ex );
             }
         }
 
         /// <summary>
         /// Begins the initialize.
         /// </summary>
-        private void StartInit( )
+        private void Busy( )
         {
             try
             {
@@ -329,55 +441,9 @@ namespace Booger
                     }
                 }
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                Fail( _ex );
-            }
-        }
-
-        /// <summary>
-        /// Ends the initialize.
-        /// </summary>
-        private protected void StopInit( )
-        {
-            try
-            {
-                if( _path == null )
-                {
-                    _path = new object( );
-                    lock( _path )
-                    {
-                        _busy = false;
-                    }
-                }
-                else
-                {
-                    lock( _path )
-                    {
-                        _busy = false;
-                    }
-                }
-            }
-            catch( Exception _ex )
-            {
-                Fail( _ex );
-            }
-        }
-
-        /// <summary>
-        /// Sets the text.
-        /// </summary>
-        public void SetText( )
-        {
-            try
-            {
-                var _logString = _exception.ToLogString( "" );
-
-                //TextBox.Text = _logString;
-            }
-            catch( Exception _ex )
-            {
-                Fail( _ex );
+                Fail( ex );
             }
         }
 
@@ -388,77 +454,44 @@ namespace Booger
         {
             try
             {
-                var _now = DateTime.Now;
-                var _date = _now.ToShortDateString( );
-                var _status = _now.ToLongTimeString( );
-
-                //StatusLabel.Text = $"{_date} - {_status}";
+                StatusLabel.Content = DateTime.Now.ToLongTimeString( );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                Fail( _ex );
+                Fail( ex );
             }
         }
 
-        /// <summary> Called when [load]. </summary>
-        /// <param name="sender"> The sender. </param>
-        /// <param name="e">
-        /// The
-        /// <see cref="EventArgs"/>
-        /// instance containing the event data.
-        /// </param>
-        public void OnLoad( object sender, EventArgs e )
+        /// <summary>
+        /// Updates the status.
+        /// </summary>
+        private void UpdateStatus( object state )
         {
             try
             {
-                InitializeLabels( );
-                InitializeTextBox( );
-                InitializeTimer( );
-                if( !string.IsNullOrEmpty( _titleText )
-                    && !string.IsNullOrEmpty( _errorMessage ) )
-                {
-                }
+                Dispatcher.BeginInvoke( _statusUpdate );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                Fail( _ex );
+                Fail( ex );
             }
         }
 
-        /// <summary> Called when [close button click]. </summary>
-        /// <param name="sender"> The sender. </param>
-        /// <param name="e">
-        /// The
-        /// <see cref="EventArgs"/>
-        /// instance containing the event data.
-        /// </param>
-        public void OnCloseButtonClick( object sender, EventArgs e )
+        /// <summary>
+        /// Called when [click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="MouseEventArgs"/>
+        /// instance containing the event data.</param>
+        private void OnClick( object sender, MouseEventArgs e )
         {
             try
             {
                 Close( );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                Fail( _ex );
-            }
-        }
-
-        /// <summary>
-        /// Called when [timer tick].
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/>
-        /// instance containing the event data.</param>
-        private void OnTimerTick( object sender, EventArgs e )
-        {
-            try
-            {
-                InvokeIf( _statusUpdate );
-            }
-            catch( Exception _ex )
-            {
-                Fail( _ex );
+                Fail( ex );
             }
         }
 
@@ -469,6 +502,88 @@ namespace Booger
         private void Fail( Exception ex )
         {
             Console.WriteLine( ex.Message );
+        }
+
+        /// <summary>
+        /// Invokes if needed.
+        /// </summary>
+        /// <param name="action">The action.</param>
+        private protected void InvokeIf( Action action )
+        {
+            try
+            {
+                ThrowIf.Null( action, nameof( action ) );
+                if( Dispatcher.CheckAccess( ) )
+                {
+                    action?.Invoke( );
+                }
+                else
+                {
+                    Dispatcher.BeginInvoke( action );
+                }
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary>
+        /// Ends the initialize.
+        /// </summary>
+        private protected void Chill( )
+        {
+            try
+            {
+                if( _path == null )
+                {
+                    _path = new object( );
+                    lock( _path )
+                    {
+                        _busy = false;
+                    }
+                }
+                else
+                {
+                    lock( _path )
+                    {
+                        _busy = false;
+                    }
+                }
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Performs application-defined tasks
+        /// associated with freeing, releasing,
+        /// or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose( )
+        {
+            Dispose( true );
+            GC.SuppressFinalize( this );
+        }
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing">
+        /// <c>true</c>
+        /// to release both managed
+        /// and unmanaged resources;
+        /// <c>false</c> to release only unmanaged resources.
+        /// </param>
+        protected virtual void Dispose( bool disposing )
+        {
+            if( disposing )
+            {
+                _timer?.Dispose( );
+            }
         }
     }
 }

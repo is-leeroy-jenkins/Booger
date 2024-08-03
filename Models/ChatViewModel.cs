@@ -1,13 +1,15 @@
 ﻿// ******************************************************************************************
-//     Assembly:                Booger
+//     Assembly:                Sniffy
 //     Author:                  Terry D. Eppler
-//     Created:                 08-01-2024
+//     Created:                 08-03-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        08-01-2024
+//     Last Modified On:        08-03-2024
 // ******************************************************************************************
 // <copyright file="ChatViewModel.cs" company="Terry D. Eppler">
-//     Booger is a quick & dirty application in C sharp for interacting with the OpenAI GPT API.
+//     Sniffy is a tiny .NET WPF tool that can be used to establish TCP (raw) or
+//     WebSocket connections and exchange text messages for testing/debugging purposes.
+// 
 //     Copyright ©  2022 Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy

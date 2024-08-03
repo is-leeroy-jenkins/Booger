@@ -6,10 +6,10 @@
     xmlns:local="clr-namespace:Booger"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
-    xmlns:syncfusionskin="[syncfusionskin ]clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+    xmlns:syncfusionskin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:ui="http://schemas.modernwpf.com/2019"
-    x:Name="Chat"
+    x:Name="ChatView"
     Title="Booger GPT"
     Width="1350"
     Height="750"
@@ -24,7 +24,7 @@
     BorderBrush="#FF0078D4"
     BorderThickness="1,0,1,1"
     Foreground="#FFF7F5F5"
-    Icon="/Application.png"
+    Icon="/Resources/Assets/Form/Application.png"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
@@ -41,6 +41,100 @@
             <Setter Property="Foreground" Value="#FF9CD3FD" />
         </Style>
     </Window.Resources>
+
+    <!--  ******************************************** Context Menu ******************************************  -->
+
+    <Window.ContextMenu>
+        <ContextMenu Name="ChatWindowContextMenu">
+            <syncfusion:MenuItemAdv
+                Click="OnFileMenuOptionClick"
+                Header="File"
+                ToolTip="Browse File System">
+                <syncfusion:MenuItemAdv.Icon>
+                    <Image Source="/Resources/Assets/Menu/FileItem.png" />
+                </syncfusion:MenuItemAdv.Icon>
+            </syncfusion:MenuItemAdv>
+
+            <syncfusion:MenuItemAdv
+                Click="OnFolderMenuOptionClick"
+                Header="Folder"
+                ToolTip="Browse Directories">
+                <syncfusion:MenuItemAdv.Icon>
+                    <Image Source="/Resources/Assets/Menu/FolderItem.png" />
+                </syncfusion:MenuItemAdv.Icon>
+            </syncfusion:MenuItemAdv>
+
+            <Separator />
+
+            <syncfusion:MenuItemAdv
+                Click="OnChromeOptionClick"
+                Header="Chrome"
+                ToolTip="Launch Chrome Browser">
+                <syncfusion:MenuItemAdv.Icon>
+                    <Image Source="/Resources/Assets/Menu/ChromeItem.png" />
+                </syncfusion:MenuItemAdv.Icon>
+            </syncfusion:MenuItemAdv>
+
+            <syncfusion:MenuItemAdv
+                Click="OnEdgeOptionClick"
+                Header="Edge"
+                ToolTip="Launch Edge Browser">
+                <syncfusion:MenuItemAdv.Icon>
+                    <Image Source="/Resources/Assets/Menu/EdgeItem.png" />
+                </syncfusion:MenuItemAdv.Icon>
+            </syncfusion:MenuItemAdv>
+
+            <syncfusion:MenuItemAdv
+                Click="OnFirefoxOptionClick"
+                Header="FireFox"
+                ToolTip="Launch Firefox Browser">
+                <syncfusion:MenuItemAdv.Icon>
+                    <Image Source="/Resources/Assets/Menu/FirefoxItem.png" />
+                </syncfusion:MenuItemAdv.Icon>
+            </syncfusion:MenuItemAdv>
+
+            <Separator />
+
+            <syncfusion:MenuItemAdv
+                Click="OnCalculatorMenuOptionClick"
+                Header="Calculator"
+                ToolTip="Open Calculator">
+                <syncfusion:MenuItemAdv.Icon>
+                    <Image Source="/Resources/Assets/Menu/CalculatorItem.png" />
+                </syncfusion:MenuItemAdv.Icon>
+            </syncfusion:MenuItemAdv>
+
+            <syncfusion:MenuItemAdv
+                Click="OnControlPanelOptionClick"
+                Header="Control Panel"
+                ToolTip="Windows Control Panel">
+                <syncfusion:MenuItemAdv.Icon>
+                    <Image Source="/Resources/Assets/Menu/ControlPanelItem.png" />
+                </syncfusion:MenuItemAdv.Icon>
+            </syncfusion:MenuItemAdv>
+
+            <syncfusion:MenuItemAdv
+                Click="OnTaskManagerOptionClick"
+                Header="Task Manager"
+                ToolTip="Windows Task Manager">
+                <syncfusion:MenuItemAdv.Icon>
+                    <Image Source="/Resources/Assets/Menu/TaskManagerItem.png" />
+                </syncfusion:MenuItemAdv.Icon>
+            </syncfusion:MenuItemAdv>
+
+            <Separator />
+
+            <syncfusion:MenuItemAdv
+                Click="OnCloseOptionClick"
+                Header="Exit"
+                ToolTip="Exit Application">
+                <syncfusion:MenuItemAdv.Icon>
+                    <Image Source="/Resources/Assets/Menu/CloseItem.png" />
+                </syncfusion:MenuItemAdv.Icon>
+            </syncfusion:MenuItemAdv>
+
+        </ContextMenu>
+    </Window.ContextMenu>
 
     <!--  *********************************** Grid Panel ***************************************  -->
 
@@ -77,11 +171,11 @@
                 Orientation="Horizontal">
                 <ui:CommandBar
                     x:Name="ChatCommandBar"
-                    HorizontalAlignment="Left"
+                    HorizontalAlignment="Center"
                     Background="#FF141414"
                     BorderBrush="#FFF0F4F7"
                     DefaultLabelPosition="Bottom"
-                    Foreground="#FFB0C4DE">
+                    Foreground="#FFB0C4DE" Height="60" VerticalAlignment="Center">
 
                     <!--  *******************  SymbolIcon: enum Symbol in Symbol.cs in ModernWpf  ***********************  -->
 
@@ -94,7 +188,7 @@
                         FontWeight="SemiBold"
                         Foreground="#FFB0C4DE"
                         Icon="NewFolder"
-                        Label="New Chat" />
+                        Label="New Chat" Height="50" />
                     <ui:AppBarSeparator
                         Margin="0,10,0,0"
                         Background="#FF141414"
@@ -106,7 +200,7 @@
                     x:Name="StreamingCheckBox"
                     Margin="0,15,0,0"
                     VerticalAlignment="Top"
-                    Background="#FF2D2D2D"
+                    Background="#667385"
                     BorderBrush="#FF0078D4"
                     Content="Streaming Mode"
                     FontWeight="SemiBold"
@@ -114,6 +208,7 @@
                     IsChecked="{Binding IsStreamingMode}"
                     ToolTip="Streaming Mode: return a piece at a time" />
                 <ui:AppBarSeparator Margin="0,10,0,0" />
+
                 <ui:SimpleStackPanel Orientation="Horizontal">
                     <TextBox
                         x:Name="ChatTextBox"
@@ -273,9 +368,9 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition MinWidth="200" />
-                <ColumnDefinition
-                    Width="Auto"
-                    MinWidth="114" />
+                <ColumnDefinition Width="104" />
+                <ColumnDefinition Width="19" />
+                <ColumnDefinition Width="1" />
             </Grid.ColumnDefinitions>
             <TextBox
                 x:Name="PlaceHolderTextBox"
@@ -313,7 +408,8 @@
             <Button
                 x:Name="ImageButton"
                 Grid.Column="1"
-                Width="94"
+                Grid.ColumnSpan="2"
+                Width="122"
                 Height="43"
                 Padding="10,0,10,3"
                 HorizontalAlignment="Center"
@@ -322,11 +418,10 @@
                 Content="Image"
                 FontSize="12"
                 IsEnabled="{Binding IsCommandNotBusy}"
-                Style="{DynamicResource AccentButtonStyle}"
                 ToolTip="Create an image by a name" />
             <Image
                 Grid.Row="2"
-                Grid.ColumnSpan="2"
+                Grid.ColumnSpan="3"
                 Height="0"
                 MaxWidth="600"
                 MaxHeight="400"
@@ -456,7 +551,6 @@
                 Orientation="Horizontal">
                 <StackPanel.Resources>
                     <Style
-                        BasedOn="{StaticResource AccentButtonStyle}"
                         TargetType="Button">
                         <Setter Property="Height" Value="36" />
                         <Setter Property="FontSize" Value="20" />

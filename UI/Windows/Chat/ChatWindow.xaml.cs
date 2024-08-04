@@ -145,6 +145,17 @@ namespace Booger
         public ChatWindow( ChatViewModel viewModel )
         {
             InitializeComponent( );
+
+            // Window Properties
+            ResizeMode = _theme.SizeMode;
+            FontFamily = _theme.FontFamily;
+            FontSize = _theme.FontSize;
+            Padding = _theme.Padding;
+            BorderThickness = _theme.BorderThickness;
+            WindowStartupLocation = _theme.StartLocation;
+            Background = _theme.BackColor;
+            Foreground = _theme.ForeColor;
+            BorderBrush = _theme.BorderColor;
             DataContext = _viewModel = viewModel;
             _viewModel.UpdateUIAction = UpdateUserInterface;
             Loaded += OnMainWindowLoaded;

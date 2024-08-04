@@ -76,6 +76,8 @@ namespace Booger
             Height = 100;
             FontFamily = _theme.FontFamily;
             FontSize = _theme.FontSize;
+            Padding = _theme.Padding;
+            Margin = _theme.Margin;
             BorderThickness = _theme.BorderThickness;
             Background = _theme.ControlColor;
             Foreground = _theme.LightBlueColor;

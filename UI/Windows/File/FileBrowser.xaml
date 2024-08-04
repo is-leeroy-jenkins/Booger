@@ -18,11 +18,11 @@
     BorderBrush="#FF0078D4"
     BorderThickness="1,1,1,1"
     Foreground="#FFA0BDFC"
-    Icon="/Re/FileBrowse.png"
+    Icon="/Resources/Assets/Dialog/FileBrowse.png"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-<!--  ******************************************** Context Menu ******************************************  -->
+    <!--  ******************************************** Context Menu ******************************************  -->
 
     <Grid x:Name="BrowserGrid">
         <Grid.RowDefinitions>
@@ -57,16 +57,6 @@
             Content="Time"
             FontSize="10" />
         <local:MetroTile
-            x:Name="SelectButton"
-            Grid.Row="2"
-            Grid.Column="1"
-            Width="95"
-            Height="35"
-            Margin="335,0,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Header="" />
-        <local:MetroTile
             x:Name="BrowseButton"
             Grid.Row="2"
             Grid.Column="1"
@@ -75,17 +65,16 @@
             Margin="10,27,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Header="" />
+            Header="Browse" />
         <local:MetroTile
             x:Name="ClearButton"
             Grid.Row="2"
             Grid.Column="1"
             Width="90"
             Height="35"
-            Margin="165,27,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Header="" />
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Header="Clear" />
         <!--  ReSharper disable once Xaml.MissingGridIndex  -->
         <local:MetroLabel
             x:Name="DateLabel"
@@ -261,6 +250,16 @@
             Margin="5,4,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Source="/Resources/Assets/ExtensionImages/XLSX.png" />
+            Source="/Resources/Assets/EXT/XLSX.png" />
+        <local:MetroTile
+            x:Name="SelectButton"
+            Grid.Row="2"
+            Grid.Column="1"
+            Width="90"
+            Height="35"
+            Margin="340,0,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Header="Select" />
     </Grid>
 </Window>

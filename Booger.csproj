@@ -76,22 +76,68 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="ModernWpfUI" Version="0.9.7-preview.2" />
     <PackageReference Include="RestoreWindowPlace" Version="2.1.0" />
-    <PackageReference Include="Syncfusion.Edit.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.Licensing" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfChromelessWindow.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfColorPalette.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfHubTile.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.Shared.Base" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.Shared.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.Themes.FluentDark.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.Tools.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.UI.WPF.NET" Version="24.1.41" />
     <PackageReference Include="System.Speech" Version="9.0.0-preview.4.24266.19" />
     <PackageReference Include="ToastNotifications" Version="2.5.1" />
     <PackageReference Include="ToastNotifications.Messages.Net6" Version="1.0.4" />
     <PackageReference Include="ToastNotifications.Net6" Version="1.0.4" />
     <PackageReference Include="Whetstone.ChatGPT" Version="1.8.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Syncfusion.Calculate.Base">
+      <HintPath>Libraries\Syncfusion.Calculate.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Calculate.WPF">
+      <HintPath>Libraries\Syncfusion.Calculate.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Licensing">
+      <HintPath>Libraries\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfChromelessWindow.Wpf">
+      <HintPath>Libraries\Syncfusion.SfChromelessWindow.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfHubTile.Wpf">
+      <HintPath>Libraries\Syncfusion.SfHubTile.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfInput.Wpf">
+      <HintPath>Libraries\Syncfusion.SfInput.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfShared.Wpf">
+      <HintPath>Libraries\Syncfusion.SfShared.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfSkinManager.WPF">
+      <HintPath>Libraries\Syncfusion.SfSkinManager.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.Base">
+      <HintPath>Libraries\Syncfusion.Shared.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.Windows">
+      <HintPath>Libraries\Syncfusion.Shared.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.WPF">
+      <HintPath>Libraries\Syncfusion.Shared.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.WPF.Classic">
+      <HintPath>Libraries\Syncfusion.Shared.WPF.Classic.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Themes.FluentDark.WPF">
+      <HintPath>Libraries\Syncfusion.Themes.FluentDark.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.MVVM.WPF">
+      <HintPath>Libraries\Syncfusion.Tools.MVVM.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.Windows">
+      <HintPath>Libraries\Syncfusion.Tools.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.Wpf">
+      <HintPath>Libraries\Syncfusion.Tools.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.Wpf.Classic">
+      <HintPath>Libraries\Syncfusion.Tools.WPF.Classic.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.Wpf.resources">
+      <HintPath>Libraries\Syncfusion.Tools.WPF.Resources.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

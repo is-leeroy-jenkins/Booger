@@ -41,10 +41,16 @@ namespace Booger
 {
     using System.Diagnostics.CodeAnalysis;
     using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Configuration;
     using System.IO;
     using System.Windows;
+    using System.Windows.Media;
     using RestoreWindowPlace;
+    using Syncfusion.Licensing;
+    using Syncfusion.SfSkinManager;
+    using Syncfusion.Themes.FluentDark.WPF;
 
     /// <inheritdoc />
     /// <summary>
@@ -52,11 +58,66 @@ namespace Booger
     [ SuppressMessage( "ReSharper", "RedundantExtendsListEntry" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
     public partial class App : Application
-    {
+    {    
+        /// <summary>
+         /// The controls
+         /// </summary>
+        public static string[ ] Controls =
+        {
+            "ComboBoxAdv",
+            "MetroComboBox",
+            "MetroDatagrid",
+            "SfDataGrid",
+            "ToolBarAdv",
+            "ToolStrip",
+            "MetroCalendar",
+            "CalendarEdit",
+            "PivotGridControl",
+            "MetroPivotGrid",
+            "SfChart",
+            "SfChart3D",
+            "SfHeatMap",
+            "SfMap",
+            "MetroMap",
+            "EditControl",
+            "CheckListBox",
+            "MetroEditor",
+            "DropDownButtonAdv",
+            "MetroDropDown",
+            "TextBoxExt",
+            "SfCircularProgressBar",
+            "SfLinearProgressBar",
+            "GridControl",
+            "MetroGridControl",
+            "TabControlExt",
+            "MetroTabControl",
+            "SfTextInputLayout",
+            "MetroTextInput",
+            "SfSpreadsheet",
+            "SfSpreadsheetRibbon",
+            "MenuItemAdv",
+            "ButtonAdv",
+            "Carousel",
+            "ColorEdit",
+            "SfCalculator",
+            "SfMultiColumnDropDownControl"
+        };
+
         /// <summary>
         /// The window place
         /// </summary>
         private WindowPlace? _windowPlace;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="App"/> class.
+        /// </summary>
+        public App( ) 
+            : base( )
+        {
+            var _key = ConfigurationManager.AppSettings[ "UI" ];
+            SyncfusionLicenseProvider.RegisterLicense( _key );
+            RegisterTheme( );
+        }
 
         /// <inheritdoc />
         /// <summary>
@@ -110,6 +171,29 @@ namespace Booger
             {
                 // skip
             }
+        }
+
+        /// <summary>
+        /// Registers the theme.
+        /// </summary>
+        private void RegisterTheme( )
+        {
+            var _theme = new FluentDarkThemeSettings
+            {
+                PrimaryBackground = new SolidColorBrush( Color.FromRgb( 20, 20, 20 ) ),
+                PrimaryColorForeground = new SolidColorBrush( Color.FromRgb( 0, 120, 212 ) ),
+                PrimaryForeground = new SolidColorBrush( Color.FromRgb( 222, 222, 222 ) ),
+                BodyFontSize = 12,
+                HeaderFontSize = 16,
+                SubHeaderFontSize = 14,
+                TitleFontSize = 14,
+                SubTitleFontSize = 126,
+                BodyAltFontSize = 10,
+                FontFamily = new FontFamily( "Segoe UI" )
+            };
+
+            SfSkinManager.RegisterThemeSettings( "FluentDark", _theme );
+            SfSkinManager.ApplyStylesOnApplication = true;
         }
 
         /// <summary>

@@ -1,0 +1,464 @@
+﻿<UserControl
+    x:Class="Booger.LiveChatUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid FocusManager.FocusedElement="{Binding ElementName=ChatInputTextBox}">
+        <!--  Header section  -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="45" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <!--  Without MaxWidth, the right colmn could be hidden when left column stretched  -->
+            <ColumnDefinition
+                Width="240"
+                MinWidth="200"
+                MaxWidth="400" />
+            <ColumnDefinition
+                Width="*"
+                MinWidth="100" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+
+        <!--  Top app bar area  -->
+        <Border
+            Grid.Row="0"
+            Grid.ColumnSpan="4"
+            BorderThickness="0"
+            IsEnabled="{Binding IsCommandNotBusy}">
+            <ui:SimpleStackPanel
+                Background="#19000000"
+                Orientation="Horizontal">
+                <ui:CommandBar
+                    HorizontalAlignment="Left"
+                    DefaultLabelPosition="Bottom">
+                    <!--  SymbolIcon: enum Symbol in Symbol.cs in ModernWpf  -->
+                    <ui:AppBarButton
+                        Width="60"
+                        Margin="10,0,5,0"
+                        Command="{Binding NewChatCommand}"
+                        FontWeight="SemiBold"
+                        Icon="NewFolder"
+                        Label="New Chat" />
+                    <ui:AppBarButton
+                        Width="90"
+                        Margin="5,0"
+                        Command="{Binding AddToHistoryCommand}"
+                        CommandParameter="{Binding SelectedChat}"
+                        FontWeight="SemiBold"
+                        Icon="Add"
+                        IsEnabled="{Binding AddToHistoryButtonEnabled}"
+                        Label="Add to History" />
+                    <ui:AppBarSeparator Margin="0,10,0,0" />
+                </ui:CommandBar>
+                <CheckBox
+                    Margin="0,15,0,0"
+                    VerticalAlignment="Top"
+                    Content="Streaming Mode"
+                    FontWeight="SemiBold"
+                    IsChecked="{Binding IsStreamingMode}"
+                    ToolTip="Streaming Mode: return a piece at a time" />
+                <ui:AppBarSeparator Margin="0,10,0,0" />
+                <ui:SimpleStackPanel Orientation="Horizontal">
+                    <TextBox
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        FontSize="20"
+                        FontWeight="SemiBold"
+                        Foreground="#FF0078D4"
+                        IsReadOnly="True"
+                        Text="GPT-3.5 Turbo" />
+                </ui:SimpleStackPanel>
+            </ui:SimpleStackPanel>
+        </Border>
+
+        <!--  Chat list  -->
+        <ui:ListView
+            x:Name="ChatListView"
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="0,0,0,2"
+            Background="Black"
+            BorderBrush="LightGray"
+            BorderThickness="0,1"
+            IsEnabled="{Binding IsCommandNotBusy}"
+            ItemsSource="{Binding ChatList}"
+            ScrollViewer.CanContentScroll="True"
+            ScrollViewer.IsDeferredScrollingEnabled="False"
+            SelectedItem="{Binding SelectedChat}"
+            SelectionMode="Single">
+            <ui:ListView.ItemContainerStyle>
+                <Style TargetType="ui:ListViewItem">
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="FontWeight" Value="SemiBold" />
+                            <Setter Property="Background" Value="#FF0078D4" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ui:ListView.ItemContainerStyle>
+            <ui:ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0">
+                        <TextBlock
+                            Margin="5,5,0,5"
+                            FontSize="18"
+                            Foreground="White"
+                            Text="{Binding Name, Mode=OneWay}"
+                            TextWrapping="Wrap" />
+                    </Grid>
+                </DataTemplate>
+            </ui:ListView.ItemTemplate>
+        </ui:ListView>
+        <!--  Selected chat's message list  -->
+        <!--  Without VirtualizingPanel.ScrollUnit="Pixel", the last row doesn't seem to be fully visible  -->
+        <ui:ListView
+            x:Name="MessageListView"
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="0,2,2,2"
+            AlternationCount="2"
+            Background="#08000000"
+            BorderBrush="LightGray"
+            BorderThickness="0,1"
+            ItemsSource="{Binding SelectedChat.MessageList}"
+            ScrollViewer.CanContentScroll="True"
+            ScrollViewer.IsDeferredScrollingEnabled="False"
+            SelectionMode="Single"
+            VirtualizingPanel.ScrollUnit="Pixel">
+            <ui:ListView.ItemContainerStyle>
+                <Style TargetType="ui:ListViewItem">
+                    <!--  Disable selection: https://stackoverflow.com/questions/1051215/wpf-listview-turn-off-selection  -->
+                    <Setter Property="Focusable" Value="False" />
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="FontWeight" Value="SemiBold" />
+                        </Trigger>
+                        <!--  RichTextBox Background="Transparent" below needed to look smooth  -->
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                            <Setter Property="Background" Value="#0F000000" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ui:ListView.ItemContainerStyle>
+            <ui:ListView.ItemTemplate>
+                <DataTemplate>
+                    <!--  Need Grid (not StackPanel) for TextBlock to wrap  -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel>
+                            <TextBlock
+                                Margin="0,8,0,5"
+                                VerticalAlignment="Top"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="{Binding Sender}" />
+                            <Button
+                                Margin="-8,0,0,0"
+                                Background="Transparent"
+                                Command="{Binding DataContext.CopyMessageCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                                CommandParameter="{Binding .}"
+                                IsEnabled="{Binding DataContext.IsCommandNotBusy, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                                ToolTip="Copy Me and Bot messages to clipboard"
+                                Visibility="{Binding CopyButtonVisibility}">
+                                <ui:SymbolIcon Symbol="Copy" />
+                            </Button>
+                        </StackPanel>
+                        <!--  RichTextBox allows copying selection in the RichTextBox control  -->
+                        <RichTextBox
+                            Grid.Column="1"
+                            Margin="0,0,5,2"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            IsReadOnly="True">
+                            <FlowDocument>
+                                <Paragraph>
+                                    <Run
+                                        FontSize="20"
+                                        FontWeight="Normal"
+                                        Text="{Binding Text}" />
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                    </Grid>
+                </DataTemplate>
+            </ui:ListView.ItemTemplate>
+        </ui:ListView>
+        <!--  Image Pane on the right  -->
+        <Grid
+            Grid.Row="1"
+            Grid.Column="2"
+            Visibility="{Binding ImagePaneVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="*"
+                    MinWidth="200" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox
+                Margin="12,10,10,5"
+                Padding="7,7,0,5"
+                ui:ControlHelper.PlaceholderText="A place name, etc."
+                Background="#08000000"
+                FontSize="20"
+                IsEnabled="{Binding IsCommandNotBusy}"
+                SpellCheck.IsEnabled="True"
+                Text="{Binding ImageInput, UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="Wrap">
+                <TextBox.InputBindings>
+                    <KeyBinding
+                        Key="Enter"
+                        Command="{Binding CreateImageCommand}" />
+                    <KeyBinding
+                        Key="Esc"
+                        Command="{Binding ClearImageInputCommand}" />
+                </TextBox.InputBindings>
+                <TextBox.CaretBrush>
+                    <LinearGradientBrush MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="0,1">
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStop Offset="0" Color="#990078D4" />
+                            <GradientStop Offset="0.5" Color="#990078D4" />
+                            <GradientStop Offset="1" Color="#990078D4" />
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </TextBox.CaretBrush>
+            </TextBox>
+            <Button
+                Grid.Column="1"
+                Height="40"
+                Margin="2,8,10,5"
+                Padding="10,0,10,3"
+                Command="{Binding CreateImageCommand}"
+                Content="Image"
+                FontSize="20"
+                IsEnabled="{Binding IsCommandNotBusy}"
+                ToolTip="Create an image by a name" />
+            <Image
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                MaxWidth="600"
+                MaxHeight="400"
+                Margin="10,10,10,0"
+                VerticalAlignment="Top"
+                Source="{Binding ResultImage, TargetNullValue={x:Null}}" />
+        </Grid>
+        <!--  Expand/Collapse button on right side for Image Pane  -->
+        <Button
+            Grid.Row="1"
+            Grid.Column="3"
+            Height="50"
+            Background="Transparent"
+            BorderBrush="LightGray"
+            BorderThickness="1,0,0,0"
+            Command="{Binding ExpandOrCollapseImagePaneCommand}"
+            ToolTip="Expand / Collapse Image Pane">
+            <Button.Resources>
+                <Polygon
+                    x:Key="PolygonRight"
+                    Margin="0,0,3,0"
+                    Fill="#1e70ca"
+                    Points="0,0,0,40,10,20" />
+                <Polygon
+                    x:Key="PolygonLeft"
+                    Margin="0,0,3,0"
+                    Fill="#1e70ca"
+                    Points="10,0,10,40,0,20" />
+                <SolidColorBrush
+                    x:Key="MouseOverBackground"
+                    Color="Red" />
+            </Button.Resources>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <!--  Make background transparent (TemplateBinding). See comments on Button style in app.xaml.  -->
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1.4" ScaleY="1.4" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <DataTrigger
+                            Binding="{Binding ImagePaneVisibility}"
+                            Value="Visible">
+                            <Setter Property="Content" Value="{StaticResource PolygonRight}" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding ImagePaneVisibility}"
+                            Value="Collapsed">
+                            <Setter Property="Content" Value="{StaticResource PolygonLeft}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <!--  Vertical splitter between the 2 lists  -->
+        <GridSplitter
+            Grid.Row="1"
+            Width="6"
+            Margin="0,0,0,2"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Stretch"
+            Background="LightGray" />
+
+        <!--  Chat input and current result  -->
+        <Grid
+            Grid.Row="2"
+            Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="*"
+                    MinWidth="200" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!--  #08000000 ligher than #19000000  -->
+            <!--  AcceptsReturn="True" needed for Paste from clipboard, MaxHeight for height limit  -->
+            <TextBox
+                x:Name="ChatInputTextBox"
+                MaxHeight="170"
+                Margin="12,10,10,7"
+                Padding="7,2,0,5"
+                VerticalAlignment="Stretch"
+                AcceptsReturn="False"
+                Background="#08000000"
+                FontSize="20"
+                IsEnabled="{Binding IsCommandNotBusy}"
+                SpellCheck.IsEnabled="True"
+                Text="{Binding ChatInput, UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Auto">
+                <TextBox.InputBindings>
+                    <!--  Now Enter to Send  -->
+                    <KeyBinding
+                        Key="Enter"
+                        Command="{Binding SendCommand}" />
+                    <KeyBinding
+                        Key="Esc"
+                        Command="{Binding ClearChatInputCommand}" />
+                </TextBox.InputBindings>
+                <TextBox.CaretBrush>
+                    <LinearGradientBrush MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="0,1">
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStop Offset="0" Color="#990078D4" />
+                            <GradientStop Offset="0.5" Color="#990078D4" />
+                            <GradientStop Offset="1" Color="#990078D4" />
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </TextBox.CaretBrush>
+            </TextBox>
+
+            <StackPanel
+                Grid.Column="1"
+                Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <!--  AccentButtonStyle is from modernwpf  -->
+                    <Style
+                        BasedOn="{StaticResource AccentButtonStyle}"
+                        TargetType="Button">
+                        <Setter Property="Height" Value="36" />
+                        <Setter Property="FontSize" Value="20" />
+                        <Setter Property="Padding" Value="10,0,10,3" />
+                    </Style>
+                </StackPanel.Resources>
+
+                <Button
+                    Margin="3,2,0,0"
+                    Command="{Binding SendCommand}"
+                    Content="Send"
+                    ToolTip="Enter is the same as Send" />
+                <Expander
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Bottom"
+                    ExpandDirection="Right"
+                    IsExpanded="True">
+                    <StackPanel
+                        Margin="0,0,0,8"
+                        Orientation="Horizontal">
+                        <Button
+                            Margin="5,0,0,0"
+                            Command="{Binding ExplainCommand}"
+                            Content="Explain"
+                            IsEnabled="{Binding IsCommandNotBusy}"
+                            ToolTip="Explain input (usually short like ML.NET)" />
+                        <Button
+                            Margin="15,0,0,0"
+                            Command="{Binding TranslateToCommand}"
+                            Content="Translate to"
+                            IsEnabled="{Binding IsCommandNotBusy}"
+                            ToolTip="Translate input to selected language" />
+                        <ComboBox
+                            Grid.Column="1"
+                            Width="100"
+                            Height="32"
+                            Margin="10,0,0,0"
+                            FontWeight="SemiBold"
+                            IsEnabled="{Binding IsCommandNotBusy}"
+                            ItemsSource="{Binding LangList}"
+                            SelectedItem="{Binding SelectedLang}" />
+                        <Button
+                            Margin="15,0,0,0"
+                            Command="{Binding SpeakCommand}"
+                            Content="Speak"
+                            IsEnabled="{Binding IsCommandNotBusy}"
+                            ToolTip="Speak input (English only)" />
+                        <CheckBox
+                            Margin="10,0,0,0"
+                            Content="Female voice"
+                            FontWeight="SemiBold"
+                            IsChecked="{Binding IsFemaleVoice}" />
+                    </StackPanel>
+                </Expander>
+            </StackPanel>
+        </Grid>
+
+        <!--  StatusMessage  -->
+        <Border
+            Grid.Row="3"
+            Grid.ColumnSpan="4"
+            Margin="0,5,0,0"
+            Background="#19000000"
+            BorderBrush="Gray"
+            BorderThickness="0,1,0,0">
+            <TextBlock
+                Margin="10,5,0,0"
+                FontSize="18"
+                FontWeight="SemiBold"
+                Text="{Binding StatusMessage}"
+                ToolTip="{Binding StatusMessage}" />
+        </Border>
+    </Grid>
+</UserControl>

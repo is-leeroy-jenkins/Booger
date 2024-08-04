@@ -1,12 +1,12 @@
 ﻿// ******************************************************************************************
-//     Assembly:                Booger
+//     Assembly:              Booger
 //     Author:                  Terry D. Eppler
 //     Created:                 08-04-2024
 // 
 //     Last Modified By:        Terry D. Eppler
 //     Last Modified On:        08-04-2024
 // ******************************************************************************************
-// <copyright file="Chat.cs" company="Terry D. Eppler">
+// <copyright file="HistoryChat.cs" company="Terry D. Eppler">
 //     Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
 //     based on NET6 and written in C-Sharp.
 // 
@@ -35,34 +35,23 @@
 //    You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
-//   Chat.cs
+//   HistoryChat.cs
 // </summary>
 // ******************************************************************************************
 
 namespace Booger
 {
-    using System.Collections.ObjectModel;
+    using System;
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using CommunityToolkit.Mvvm.ComponentModel;
 
-    /// <inheritdoc />
+    // DB counterpart (table) of class Chat
     /// <summary>
+    /// 
     /// </summary>
-    /// <seealso cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservableObject" />
-    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
-    public partial class Chat : ObservableObject
+    [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
+    public class HistoryChat
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Chat"/> class.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        public Chat( string name )
-        {
-            Name = name;
-            MessageList = new ObservableCollection<Message>( );
-        }
-
-        // When used, primary key if DB configured, otherwise, unique number used in memory
         /// <summary>
         /// Gets or sets the identifier.
         /// </summary>
@@ -71,51 +60,29 @@ namespace Booger
         /// </value>
         public int Id { get; set; }
 
-        // ObservableProperty needed for a new chat name update on the left panel
         /// <summary>
-        /// The name
-        /// </summary>
-        [ ObservableProperty ]
-        private string _name = string.Empty;
-
-        // When false, chat is for 'Explain' or 'Translate to'
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is send.
+        /// Gets or sets the name.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance is send; otherwise, <c>false</c>.
+        /// The name.
         /// </value>
-        public bool IsSend { get; set; } = true;
+        public string Name { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Gets or sets the modified time.
+        /// </summary>
+        /// <value>
+        /// The modified time.
+        /// </value>
+        public DateTime ModifiedTime { get; set; } = DateTime.Now;
+
+        // Navigation property
         /// <summary>
         /// Gets or sets the message list.
         /// </summary>
         /// <value>
         /// The message list.
         /// </value>
-        public ObservableCollection<Message> MessageList { get; set; }
-
-        /// <summary>
-        /// Adds the message.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="text">The text.</param>
-        /// <returns></returns>
-        public Message AddMessage( string sender, string text )
-        {
-            var message = new Message( sender, text );
-            AddMessage( message );
-
-            return message;
-        }
-
-        /// <summary>
-        /// Adds the message.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        public void AddMessage( Message message )
-        {
-            MessageList.Add( message );
-        }
+        public ICollection<HistoryMessage> MessageList { get; set; } = null!;
     }
 }

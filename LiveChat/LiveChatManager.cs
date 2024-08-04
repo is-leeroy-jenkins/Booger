@@ -1,12 +1,12 @@
 ﻿// ******************************************************************************************
-//     Assembly:              Booger
+//     Assembly:                Booger
 //     Author:                  Terry D. Eppler
 //     Created:                 08-04-2024
 // 
 //     Last Modified By:        Terry D. Eppler
 //     Last Modified On:        08-04-2024
 // ******************************************************************************************
-// <copyright file="ChatHistory.cs" company="Terry D. Eppler">
+// <copyright file="LiveChatManager.cs" company="Terry D. Eppler">
 //     Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
 //     based on NET6 and written in C-Sharp.
 // 
@@ -35,29 +35,34 @@
 //    You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
-//   ChatHistory.cs
+//   LiveChatManager.cs
 // </summary>
 // ******************************************************************************************
 
 namespace Booger
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
     /// <summary>
     /// 
     /// </summary>
-    public class ChatHistory
+    [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    public class LiveChatManager
     {
         /// <summary>
         /// The new chat name
         /// </summary>
-        private const string _NewChatName = "New Chat";
+        private const string _newChatName = "New Chat";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ChatHistory"/> class.
+        /// Initializes a new instance of the
+        /// <see cref="LiveChatManager"/> class.
         /// </summary>
-        public ChatHistory( )
+        public LiveChatManager( )
         {
             ChatList = new List<Chat>( );
         }
@@ -81,7 +86,7 @@ namespace Booger
         {
             get
             {
-                return ChatList.Exists( x => x.Name == ChatHistory._NewChatName );
+                return ChatList.Exists( x => x.Name == LiveChatManager._newChatName );
             }
         }
 
@@ -94,7 +99,7 @@ namespace Booger
         /// </returns>
         public bool IsNewChat( string name )
         {
-            return name == ChatHistory._NewChatName;
+            return name == LiveChatManager._newChatName;
         }
 
         /// <summary>
@@ -103,7 +108,7 @@ namespace Booger
         /// <returns></returns>
         public Chat AddNewChat( )
         {
-            return AddChat( ChatHistory._NewChatName );
+            return AddChat( LiveChatManager._newChatName );
         }
 
         /// <summary>
@@ -134,7 +139,9 @@ namespace Booger
         /// <param name="newName">The new name.</param>
         public void RenameNewChat( string newName )
         {
-            var chat = ChatList.FirstOrDefault( x => x.Name.Equals( ChatHistory._NewChatName ) );
+            var chat =
+                ChatList.FirstOrDefault( x => x.Name.Equals( LiveChatManager._newChatName ) );
+
             if( chat != null )
             {
                 var maxToDisplayInSelectedChat = 120;

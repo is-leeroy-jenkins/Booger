@@ -3,31 +3,19 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFrameworks>net6.0-windows</TargetFrameworks>
-    <Version>1.3</Version>
+    <Version>1.4</Version>
     <Nullable>disable</Nullable>
     <UseWPF>true</UseWPF>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
-    <StartupObject>Booger.App</StartupObject>
-    <PackageIcon>Application.png</PackageIcon>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <IncludeSymbols>True</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <ApplicationIcon>Resources\Assets\Form\Application.ico</ApplicationIcon>
-    <EnforceCodeStyleInBuild>False</EnforceCodeStyleInBuild>
-    <Title>Booger</Title>
-    <Authors>Terry D. Eppler</Authors>
-    <Company>US EPA</Company>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <Description>Booger is a quick &amp; dirty application that interacts with OpenAI GPT-3.5 written in C#.</Description>
-    <Copyright>Terry D. Eppler</Copyright>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
-    <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
-    <AnalysisLevel>6.0-minimum</AnalysisLevel>
+    <Platforms>AnyCPU;x86</Platforms>
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <DebugType>full</DebugType>
   </PropertyGroup>
 
@@ -35,19 +23,82 @@
     <DebugType>none</DebugType>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|AnyCPU'">
     <Optimize>True</Optimize>
-    <DebugType>portable</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|x86'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows|x86'">
+    <Optimize>True</Optimize>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|AnyCPU'">
-    <DebugType>portable</DebugType>
+    <Optimize>True</Optimize>
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows|AnyCPU'">
+    <Optimize>True</Optimize>
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|x86'">
+    <Optimize>True</Optimize>
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows|x86'">
+    <Optimize>True</Optimize>
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Assets\Application.png" />
-    <None Remove="Resources\Assets\Booger.png" />
+    <Compile Remove="Migrations\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <None Remove="Migrations\**" />
+    <Page Remove="Migrations\**" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Remove="Resources\Assets\Dialog\Cancel.png" />
     <None Remove="Resources\Assets\Dialog\FileBrowse.png" />
+    <None Remove="Resources\Assets\Dialog\Main.png" />
+    <None Remove="Resources\Assets\Dialog\SplashNotification.png" />
+    <None Remove="Resources\Assets\EXT\ACCDB.png" />
+    <None Remove="Resources\Assets\EXT\CSV.png" />
+    <None Remove="Resources\Assets\EXT\DB.png" />
+    <None Remove="Resources\Assets\EXT\DLL.png" />
+    <None Remove="Resources\Assets\EXT\DOC.png" />
+    <None Remove="Resources\Assets\EXT\DOCX.png" />
+    <None Remove="Resources\Assets\EXT\EXE.png" />
+    <None Remove="Resources\Assets\EXT\HTML.png" />
+    <None Remove="Resources\Assets\EXT\MDB.png" />
+    <None Remove="Resources\Assets\EXT\MDF.png" />
+    <None Remove="Resources\Assets\EXT\PDF.png" />
+    <None Remove="Resources\Assets\EXT\PNG.png" />
+    <None Remove="Resources\Assets\EXT\PPTX.png" />
+    <None Remove="Resources\Assets\EXT\PY.png" />
+    <None Remove="Resources\Assets\EXT\SDF.png" />
+    <None Remove="Resources\Assets\EXT\SQL.png" />
+    <None Remove="Resources\Assets\EXT\TXT.png" />
+    <None Remove="Resources\Assets\EXT\XLS.png" />
+    <None Remove="Resources\Assets\EXT\XLSX.png" />
+    <None Remove="Resources\Assets\EXT\XML.png" />
+    <None Remove="Resources\Assets\Form\App.ico" />
+    <None Remove="Resources\Assets\Form\Application.ico" />
+    <None Remove="Resources\Assets\Form\Application.png" />
+    <None Remove="Resources\Assets\Form\Booger.png" />
     <None Remove="Resources\Assets\Menu\CalculatorItem.png" />
     <None Remove="Resources\Assets\Menu\CalendarItem.png" />
     <None Remove="Resources\Assets\Menu\ChromeItem.png" />
@@ -66,86 +117,74 @@
     <None Remove="Resources\Assets\Menu\RefreshItem.png" />
     <None Remove="Resources\Assets\Menu\SaveItem.png" />
     <None Remove="Resources\Assets\Menu\TaskManagerItem.png" />
+    <None Remove="workload-install.ps1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Assets\Form\Application.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-    <PackageReference Include="ModernWpfUI" Version="0.9.7-preview.2" />
+    <PackageReference Include="CommunityToolkit.Common" Version="8.2.2" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />    
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.20">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.20" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.20">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="ModernWpfUI" Version="0.9.6" />
     <PackageReference Include="RestoreWindowPlace" Version="2.1.0" />
-    <PackageReference Include="System.Speech" Version="9.0.0-preview.4.24266.19" />
-    <PackageReference Include="ToastNotifications" Version="2.5.1" />
+    <PackageReference Include="Syncfusion.SfHubTile.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.SfInput.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.Shared.Base" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.Themes.FluentDark.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="24.1.41" />
+    <PackageReference Include="System.Speech" Version="8.0.0" />
     <PackageReference Include="ToastNotifications.Messages.Net6" Version="1.0.4" />
     <PackageReference Include="ToastNotifications.Net6" Version="1.0.4" />
-    <PackageReference Include="Whetstone.ChatGPT" Version="1.8.1" />
+    <PackageReference Include="Whetstone.ChatGPT" Version="1.7.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Syncfusion.Calculate.Base">
-      <HintPath>Libraries\Syncfusion.Calculate.Base.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.Calculate.WPF">
-      <HintPath>Libraries\Syncfusion.Calculate.WPF.dll</HintPath>
-    </Reference>
+    <Folder Include="Libraries\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Syncfusion.Licensing">
       <HintPath>Libraries\Syncfusion.Licensing.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.SfChromelessWindow.Wpf">
-      <HintPath>Libraries\Syncfusion.SfChromelessWindow.WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.SfHubTile.Wpf">
-      <HintPath>Libraries\Syncfusion.SfHubTile.WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.SfInput.Wpf">
-      <HintPath>Libraries\Syncfusion.SfInput.WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.SfShared.Wpf">
-      <HintPath>Libraries\Syncfusion.SfShared.WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.SfSkinManager.WPF">
-      <HintPath>Libraries\Syncfusion.SfSkinManager.WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.Shared.Base">
-      <HintPath>Libraries\Syncfusion.Shared.Base.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.Shared.Windows">
-      <HintPath>Libraries\Syncfusion.Shared.Windows.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.Shared.WPF">
-      <HintPath>Libraries\Syncfusion.Shared.WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.Shared.WPF.Classic">
-      <HintPath>Libraries\Syncfusion.Shared.WPF.Classic.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.Themes.FluentDark.WPF">
-      <HintPath>Libraries\Syncfusion.Themes.FluentDark.WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.Tools.MVVM.WPF">
-      <HintPath>Libraries\Syncfusion.Tools.MVVM.WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.Tools.Windows">
-      <HintPath>Libraries\Syncfusion.Tools.Windows.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.Tools.Wpf">
-      <HintPath>Libraries\Syncfusion.Tools.WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.Tools.Wpf.Classic">
-      <HintPath>Libraries\Syncfusion.Tools.WPF.Classic.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.Tools.Wpf.resources">
-      <HintPath>Libraries\Syncfusion.Tools.WPF.Resources.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Assets\Dialog\Cancel.png" />
     <Resource Include="Resources\Assets\Dialog\FileBrowse.png" />
-    <Resource Include="Resources\Assets\Form\Application.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </Resource>
+    <Resource Include="Resources\Assets\Dialog\Main.png" />
+    <Resource Include="Resources\Assets\Dialog\SplashNotification.png" />
+    <Resource Include="Resources\Assets\EXT\ACCDB.png" />
+    <Resource Include="Resources\Assets\EXT\CSV.png" />
+    <Resource Include="Resources\Assets\EXT\DB.png" />
+    <Resource Include="Resources\Assets\EXT\DLL.png" />
+    <Resource Include="Resources\Assets\EXT\DOC.png" />
+    <Resource Include="Resources\Assets\EXT\DOCX.png" />
+    <Resource Include="Resources\Assets\EXT\EXE.png" />
+    <Resource Include="Resources\Assets\EXT\HTML.png" />
+    <Resource Include="Resources\Assets\EXT\MDB.png" />
+    <Resource Include="Resources\Assets\EXT\MDF.png" />
+    <Resource Include="Resources\Assets\EXT\PDF.png" />
+    <Resource Include="Resources\Assets\EXT\PNG.png" />
+    <Resource Include="Resources\Assets\EXT\PPTX.png" />
+    <Resource Include="Resources\Assets\EXT\PY.png" />
+    <Resource Include="Resources\Assets\EXT\SDF.png" />
+    <Resource Include="Resources\Assets\EXT\SQL.png" />
+    <Resource Include="Resources\Assets\EXT\TXT.png" />
+    <Resource Include="Resources\Assets\EXT\XLS.png" />
+    <Resource Include="Resources\Assets\EXT\XLSX.png" />
+    <Resource Include="Resources\Assets\EXT\XML.png" />
+    <Resource Include="Resources\Assets\Form\App.ico" />
+    <Resource Include="Resources\Assets\Form\Application.ico" />
+    <Resource Include="Resources\Assets\Form\Application.png" />
     <Resource Include="Resources\Assets\Form\Booger.png" />
     <Resource Include="Resources\Assets\Menu\CalculatorItem.png" />
     <Resource Include="Resources\Assets\Menu\CalendarItem.png" />
@@ -165,20 +204,5 @@
     <Resource Include="Resources\Assets\Menu\RefreshItem.png" />
     <Resource Include="Resources\Assets\Menu\SaveItem.png" />
     <Resource Include="Resources\Assets\Menu\TaskManagerItem.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="LICENSE">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Update="README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Update="Resources\Application.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+  </ItemGroup>  
 </Project>

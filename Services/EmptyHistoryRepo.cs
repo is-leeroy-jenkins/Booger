@@ -1,12 +1,12 @@
 ﻿// ******************************************************************************************
-//     Assembly:              Booger
+//     Assembly:                Booger
 //     Author:                  Terry D. Eppler
 //     Created:                 08-04-2024
 // 
 //     Last Modified By:        Terry D. Eppler
 //     Last Modified On:        08-04-2024
 // ******************************************************************************************
-// <copyright file="ChatHistory.cs" company="Terry D. Eppler">
+// <copyright file="EmptyHistoryRepo.cs" company="Terry D. Eppler">
 //     Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
 //     based on NET6 and written in C-Sharp.
 // 
@@ -35,119 +35,103 @@
 //    You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
-//   ChatHistory.cs
+//   EmptyHistoryRepo.cs
 // </summary>
 // ******************************************************************************************
 
 namespace Booger
 {
     using System.Collections.Generic;
-    using System.Linq;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// 
     /// </summary>
-    public class ChatHistory
+    /// <seealso cref="Booger.IHistoryRepo" />
+    [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
+    [ SuppressMessage( "ReSharper", "FieldCanBeMadeReadOnly.Local" ) ]
+    public class EmptyHistoryRepo : IHistoryRepo
     {
         /// <summary>
-        /// The new chat name
+        /// The chat list
         /// </summary>
-        private const string _NewChatName = "New Chat";
+        private List<Chat> _chatList;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ChatHistory"/> class.
+        /// Initializes a new instance of the <see cref="EmptyHistoryRepo" /> class.
         /// </summary>
-        public ChatHistory( )
+        public EmptyHistoryRepo( )
         {
-            ChatList = new List<Chat>( );
+            _chatList = new List<Chat>( );
         }
 
-        // On the left panel
         /// <summary>
-        /// Gets the chat list.
+        /// Gets the database configuration information.
         /// </summary>
         /// <value>
-        /// The chat list.
+        /// The database configuration information.
         /// </value>
-        public List<Chat> ChatList { get; }
-
-        /// <summary>
-        /// Creates new chatexists.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [new chat exists]; otherwise, <c>false</c>.
-        /// </value>
-        public bool NewChatExists
+        public string DBConfigInfo
         {
             get
             {
-                return ChatList.Exists( x => x.Name == ChatHistory._NewChatName );
+                return "Database not configured (list below not saved)";
             }
         }
 
         /// <summary>
-        /// Determines whether [is new chat] [the specified name].
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns>
-        ///   <c>true</c> if [is new chat] [the specified name]; otherwise, <c>false</c>.
-        /// </returns>
-        public bool IsNewChat( string name )
-        {
-            return name == ChatHistory._NewChatName;
-        }
-
-        /// <summary>
-        /// Adds the new chat.
+        /// Loads the chat list.
         /// </summary>
         /// <returns></returns>
-        public Chat AddNewChat( )
+        public List<Chat> LoadChatList( )
         {
-            return AddChat( ChatHistory._NewChatName );
+            // Uncomment this to insert testing data
+            //DevDebugInitializeChatList();
+
+            return _chatList;
         }
 
+        // chat.Id remains as 0
         /// <summary>
         /// Adds the chat.
         /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns></returns>
-        public Chat AddChat( string name )
+        /// <param name="chat">The chat.</param>
+        public void AddChat( Chat chat )
         {
-            var chat = new Chat( name );
-            ChatList.Add( chat );
-
-            return chat;
         }
 
         /// <summary>
         /// Deletes the chat.
         /// </summary>
-        /// <param name="name">The name.</param>
-        public void DeleteChat( string name )
+        /// <param name="chat">The chat.</param>
+        public void DeleteChat( Chat chat )
         {
-            ChatList.RemoveAll( x => x.Name == name );
         }
 
         /// <summary>
-        /// Renames the new chat.
+        /// Devs the debug initialize chat list.
         /// </summary>
-        /// <param name="newName">The new name.</param>
-        public void RenameNewChat( string newName )
+        private void DevDebugInitializeChatList( )
         {
-            var chat = ChatList.FirstOrDefault( x => x.Name.Equals( ChatHistory._NewChatName ) );
-            if( chat != null )
-            {
-                var maxToDisplayInSelectedChat = 120;
-                if( newName.Length <= maxToDisplayInSelectedChat )
-                {
-                    chat.Name = newName;
-                }
-                else
-                {
-                    // NOTE: lose original prompt for a short UI display
-                    chat.Name = newName.Substring( 0, maxToDisplayInSelectedChat );
-                }
-            }
+            var prompt = "TestPrompt1";
+            var promptDisplay = prompt;
+            var newMessage = new Message( "Me", promptDisplay );
+            var chat = new Chat( prompt );
+            chat.AddMessage( newMessage );
+
+            //string result = "TestPrompt1 result";
+            chat.AddMessage( "Bot",
+                "TestPrompt1 result" );//.Replace("Bot: ", string.Empty));            
+
+            _chatList.Add( chat );
+            prompt = "TestPrompt2";
+            promptDisplay = prompt;
+            newMessage = new Message( "Me", promptDisplay );
+            chat = new Chat( prompt );
+            chat.AddMessage( newMessage );
+            chat.AddMessage( "Bot", "TestPrompt2 result" );
+            _chatList.Add( chat );
         }
     }
 }

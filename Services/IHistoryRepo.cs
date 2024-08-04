@@ -1,14 +1,14 @@
 ﻿// ******************************************************************************************
-//     Assembly:                Booger
+//     Assembly:              Booger
 //     Author:                  Terry D. Eppler
 //     Created:                 08-04-2024
 // 
 //     Last Modified By:        Terry D. Eppler
 //     Last Modified On:        08-04-2024
 // ******************************************************************************************
-// <copyright file="ChatViewModel.cs" company="Terry D. Eppler">
-//     Booger is a quick & dirty C# application that interacts with OpenAI GPT-3.5 Turbo API
-//     based on WPF, .NET6 (also 8), and written in C-Sharp.
+// <copyright file="IHistoryRepo.cs" company="Terry D. Eppler">
+//     Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
+//     based on NET6 and written in C-Sharp.
 // 
 //     Copyright ©  2022 Terry D. Eppler
 // 
@@ -35,70 +35,43 @@
 //    You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
-//   ChatViewModel.cs
+//   IHistoryRepo.cs
 // </summary>
 // ******************************************************************************************
 
 namespace Booger
 {
-    using System;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Reflection;
+    using System.Collections.Generic;
 
     /// <summary>
     /// 
     /// </summary>
-    [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
-    public class ChatViewModel
+    public interface IHistoryRepo
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ChatViewModel"/> class.
-        /// </summary>
-        /// <param name="historyRepo">
-        /// The history repo.
-        /// </param>
-        /// <param name="chatGPTService">
-        /// The chat GPT service.
-        /// </param>
-        public ChatViewModel( IHistoryRepo historyRepo, ChatGptService chatGPTService )
-        {
-            HistoryViewModel = new HistoryViewModel( historyRepo );
-            LiveChatViewModel = new LiveChatViewModel( historyRepo, chatGPTService );
-
-            // <Version>1.3</Version> in .csproj
-            var appVer = Assembly.GetExecutingAssembly( ).GetName( ).Version!;
-            var dotnetVer = Environment.Version;
-            AppTitle =
-                $"C# WPF ChatGPT v{appVer.Major}.{appVer.Minor} (.NET {dotnetVer.Major}.{dotnetVer.Minor}.{dotnetVer.Build} runtime) by Peter Sun";
-#if DEBUG
-            AppTitle += " - DEBUG";
-#endif
-        }
-
-        /// <summary>
-        /// Gets the application title.
+        /// Gets the database configuration information.
         /// </summary>
         /// <value>
-        /// The application title.
+        /// The database configuration information.
         /// </value>
-        public string AppTitle { get; }
+        public string DBConfigInfo { get; }
 
-        // Bind to LiveChat tab item
         /// <summary>
-        /// Gets the live chat view model.
+        /// Loads the chat list.
         /// </summary>
-        /// <value>
-        /// The live chat view model.
-        /// </value>
-        public LiveChatViewModel LiveChatViewModel { get; }
+        /// <returns></returns>
+        public List<Chat> LoadChatList( );
 
-        // Bind to History tab item
         /// <summary>
-        /// Gets the history view model.
+        /// Adds the chat.
         /// </summary>
-        /// <value>
-        /// The history view model.
-        /// </value>
-        public HistoryViewModel HistoryViewModel { get; }
+        /// <param name="chat">The chat.</param>
+        public void AddChat( Chat chat );
+
+        /// <summary>
+        /// Deletes the chat.
+        /// </summary>
+        /// <param name="chat">The chat.</param>
+        public void DeleteChat( Chat chat );
     }
 }

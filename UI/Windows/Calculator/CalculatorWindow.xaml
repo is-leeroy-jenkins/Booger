@@ -5,22 +5,28 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Booger"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
     xmlns:syncfusionskin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
-    x:Name="CalculationView"
-    Title="Calculator"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
+    x:Name="CalculatorView"
+    Title="Booger Calculator"
     Width="410"
     Height="460"
+    Padding="1,1,1,1"
     syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentDark}"
     Background="Black"
     BorderBrush="#FF0078D4"
     BorderThickness="1,1,1,1"
     FontSize="9"
     Foreground="#FFC5D1DA"
+    ResizeMode="NoResize"
     Topmost="True"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
+
     <!--  ********************************    Calculator   ********************************************  -->
+
     <Canvas>
         <local:MetroCalculator
             x:Name="Device"

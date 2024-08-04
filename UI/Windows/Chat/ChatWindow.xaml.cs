@@ -48,6 +48,10 @@ namespace Booger
     using System.Collections.Specialized;
     using System.Threading;
     using ModernWpf.Controls;
+    using ToastNotifications;
+    using ToastNotifications.Lifetime;
+    using ToastNotifications.Messages;
+    using ToastNotifications.Position;
 
     /// <inheritdoc />
     [ SuppressMessage( "ReSharper", "RedundantExtendsListEntry" ) ]
@@ -226,7 +230,9 @@ namespace Booger
         /// <summary>
         /// Shows the chat context menu.
         /// </summary>
-        /// <param name="chat">The chat.</param>
+        /// <param name="chat">
+        /// The chat.
+        /// </param>
         public void ShowChatContextMenu( Chat chat )
         {
             _chatMenu.Tag = chat;
@@ -278,7 +284,9 @@ namespace Booger
         /// <summary>
         /// Shows the message context menu.
         /// </summary>
-        /// <param name="message">The message.</param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
         public void ShowMessageContextMenu( Message message )
         {
             _contextMenu.Tag = message;
@@ -319,29 +327,90 @@ namespace Booger
         /// <summary>
         /// Gets the scroll viewer.
         /// </summary>
-        /// <param name="element">The element.</param>
-        /// <returns></returns>
+        /// <param name="element">
+        /// The element.
+        /// </param>
+        /// <returns>
+        /// ScrollViewer
+        /// </returns>
         private protected ScrollViewer GetScrollViewer( UIElement element )
         {
             ScrollViewer _viewer = null;
             if( element != null )
             {
-                for( var _i = 0;
-                    _i < VisualTreeHelper.GetChildrenCount( element ) && _viewer == null; _i++ )
+                try
                 {
-                    if( VisualTreeHelper.GetChild( element, _i ) is ScrollViewer )
+                    for( var _i = 0;
+                        _i < VisualTreeHelper.GetChildrenCount( element ) && _viewer == null; _i++ )
                     {
-                        _viewer = (ScrollViewer)VisualTreeHelper.GetChild( element, _i );
+                        if( VisualTreeHelper.GetChild( element, _i ) is ScrollViewer )
+                        {
+                            _viewer = (ScrollViewer)VisualTreeHelper.GetChild( element, _i );
+                        }
+                        else
+                        {
+                            _viewer = 
+                                GetScrollViewer( VisualTreeHelper.GetChild( element, _i ) as UIElement );
+                        }
                     }
-                    else
-                    {
-                        _viewer = 
-                            GetScrollViewer( VisualTreeHelper.GetChild( element, _i ) as UIElement );
-                    }
+                }
+                catch( Exception e )
+                {
+                    Fail( e );
+
+                    return default( ScrollViewer );
                 }
             }
 
             return _viewer;
+        }
+
+
+        /// <summary>
+        /// Creates the notifier.
+        /// </summary>
+        /// <returns></returns>
+        private Notifier CreateNotifier( )
+        {
+            try
+            {
+                var _position = new PrimaryScreenPositionProvider( Corner.BottomRight, 10, 10 );
+                var _lifeTime = new TimeAndCountBasedLifetimeSupervisor( TimeSpan.FromSeconds( 5 ),
+                    MaximumNotificationCount.UnlimitedNotifications( ) );
+
+                return new Notifier( _config =>
+                {
+                    _config.LifetimeSupervisor = _lifeTime;
+                    _config.PositionProvider = _position;
+                    _config.Dispatcher = Application.Current.Dispatcher;
+                } );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+
+                return default( Notifier );
+            }
+        }
+
+        /// <summary>
+        /// Sends the notification.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        private void SendNotification( string message )
+        {
+            try
+            {
+                ThrowIf.Null( message, nameof( message ) );
+                var _notification = CreateNotifier( );
+                _notification.ShowInformation( message );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
         }
 
         /// <summary>
@@ -359,8 +428,15 @@ namespace Booger
                 var _chat = ( e.Device.Target as FrameworkElement )?.DataContext as Chat;
                 if( _chat != null )
                 {
-                    ShowChatContextMenu( _chat );
-                    e.Handled = true;
+                    try
+                    {
+                        ShowChatContextMenu( _chat );
+                        e.Handled = true;
+                    }
+                    catch( Exception ex )
+                    {
+                        Fail( ex );
+                    }
                 }
             }
         }
@@ -381,8 +457,15 @@ namespace Booger
                 var _message = ( e.Device.Target as FrameworkElement )?.DataContext as Message;
                 if( _message != null )
                 {
-                    ShowMessageContextMenu( _message );
-                    e.Handled = true;
+                    try
+                    {
+                        ShowMessageContextMenu( _message );
+                        e.Handled = true;
+                    }
+                    catch( Exception ex )
+                    {
+                        Fail( ex );
+                    }
                 }
             }
         }
@@ -400,20 +483,27 @@ namespace Booger
             if( _mi != null
                 && _chat != null )
             {
-                switch( _mi.Header as string )
+                try
                 {
-                    case ChatWindow.NEW_CHAT:
-                        _viewModel.NewChat( );
+                    switch( _mi.Header as string )
+                    {
+                        case ChatWindow.NEW_CHAT:
+                            _viewModel.NewChat( );
 
-                        break;
-                    case ChatWindow.COPY_CHAT_PROMPT:
-                        _viewModel.CopyChatPrompt( _chat );
+                            break;
+                        case ChatWindow.COPY_CHAT_PROMPT:
+                            _viewModel.CopyChatPrompt( _chat );
 
-                        break;
-                    case ChatWindow.DELETE_CHAT:
-                        _viewModel.DeleteChat( _chat );
+                            break;
+                        case ChatWindow.DELETE_CHAT:
+                            _viewModel.DeleteChat( _chat );
 
-                        break;
+                            break;
+                    }
+                }
+                catch( Exception e )
+                {
+                    Fail( e );
                 }
             }
         }
@@ -431,16 +521,23 @@ namespace Booger
             if( _mi != null
                 && _message != null )
             {
-                switch( _mi.Header as string )
+                try
                 {
-                    case ChatWindow.COPY_MESSAGE:
-                        _viewModel.CopyMessage( _message );
+                    switch( _mi.Header as string )
+                    {
+                        case ChatWindow.COPY_MESSAGE:
+                            _viewModel.CopyMessage( _message );
 
-                        break;
-                    case ChatWindow.DELETE_MESSAGE:
-                        _viewModel.DeleteMessage( _message );
+                            break;
+                        case ChatWindow.DELETE_MESSAGE:
+                            _viewModel.DeleteMessage( _message );
 
-                        break;
+                            break;
+                    }
+                }
+                catch( Exception ex )
+                {
+                    Fail( ex );
                 }
             }
         }
@@ -453,9 +550,16 @@ namespace Booger
         /// instance containing the event data.</param>
         private void OnMainWindowLoaded( object sender, RoutedEventArgs e )
         {
-            SetupChatListViewScrollViewer( );
-            _messageViewer = GetScrollViewer( MessageListView );
-            SetupMessageListViewScrollViewer( );
+            try
+            {
+                SetupChatListViewScrollViewer( );
+                _messageViewer = GetScrollViewer( MessageListView );
+                SetupMessageListViewScrollViewer( );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
         }
 
         /// <summary>
@@ -469,23 +573,37 @@ namespace Booger
             if( e.Key == Key.Enter
                 && Keyboard.Modifiers == ModifierKeys.Control )
             {
-                var _mainWindow = sender as ChatWindow;
-                if( _mainWindow != null )
+                try
                 {
-                    var _textBox = _mainWindow.ChatInputTextBox;
-                    var _caretIndex = _textBox.CaretIndex;
-                    _textBox.Text = _textBox.Text.Insert( _caretIndex, Environment.NewLine );
-                    _textBox.CaretIndex = _caretIndex + Environment.NewLine.Length;
-                    e.Handled = true;
+                    var _mainWindow = sender as ChatWindow;
+                    if( _mainWindow != null )
+                    {
+                        var _textBox = _mainWindow.ChatInputTextBox;
+                        var _caretIndex = _textBox.CaretIndex;
+                        _textBox.Text = _textBox.Text.Insert( _caretIndex, Environment.NewLine );
+                        _textBox.CaretIndex = _caretIndex + Environment.NewLine.Length;
+                        e.Handled = true;
+                    }
+                }
+                catch( Exception ex )
+                {
+                    Fail( ex );
                 }
             }
             else if( ( e.Key == Key.Up || e.Key == Key.Down )
                 && ( e.KeyboardDevice.Modifiers & ModifierKeys.Control ) != 0 )
             {
-                var _inputTextBox = Keyboard.FocusedElement as TextBox;
-                if( _inputTextBox?.Name == "ChatInputTextBox" )
+                try
                 {
-                    _viewModel.PrevNextChatInput( e.Key == Key.Up );
+                    var _inputTextBox = Keyboard.FocusedElement as TextBox;
+                    if( _inputTextBox?.Name == "ChatInputTextBox" )
+                    {
+                        _viewModel.PrevNextChatInput( e.Key == Key.Up );
+                    }
+                }
+                catch( Exception ex )
+                {
+                    Fail( ex );
                 }
             }
         }
@@ -507,7 +625,7 @@ namespace Booger
                     Topmost = true
                 };
 
-                _calculator.Show( );
+                _calculator.ShowDialog( );
             }
             catch( Exception ex )
             {

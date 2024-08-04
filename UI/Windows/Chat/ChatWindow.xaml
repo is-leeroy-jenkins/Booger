@@ -286,7 +286,7 @@
             x:Name="MessageListView"
             Canvas.Left="267"
             Canvas.Top="56"
-            Width="665"
+            Width="655"
             Height="511"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
@@ -319,10 +319,10 @@
         <!--  ************************************************ Righthand side ****************************************  -->
 
         <Grid
-            Canvas.Left="972"
+            Canvas.Left="942"
             Canvas.Top="56"
-            Width="409"
-            Height="500"
+            Width="439"
+            Height="522"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Background="#FF141414"
@@ -613,11 +613,11 @@
 
         <TextBlock
             Canvas.Left="16"
-            Canvas.Top="487"
+            Canvas.Top="482"
             Width="1368"
             Height="30"
             Padding="1,1,1,1"
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Background="#FF141414"
             FontWeight="SemiBold"

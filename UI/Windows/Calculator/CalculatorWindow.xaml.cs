@@ -47,7 +47,6 @@ namespace Booger
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
-    using System.Windows.Media;
 
     /// <inheritdoc />
     /// <summary>
@@ -76,21 +75,19 @@ namespace Booger
             : base( )
         {
             // Theme Properties
-            SfSkinManager.ApplyStylesOnApplication = true;
-            SfSkinManager.SetTheme( this, new Theme( "FluentDark" ) );
+            //SfSkinManager.SetTheme( this, new Theme( "FluentDark" ) );
 
             // Window Plumbing
             InitializeComponent( );
-            RegisterCallbacks( );
 
             // Window Properties
             FontFamily = _theme.FontFamily;
             FontSize = _theme.FontSize;
             Height = 460;
             Width = 410;
-            Padding = new Thickness( 1 );
-            Margin = new Thickness( 1 );
-            BorderThickness = new Thickness( 1 );
+            Padding = _theme.Padding;
+            Margin = _theme.Margin;
+            BorderThickness = _theme.BorderThickness;
             WindowStyle = WindowStyle.None;
             Title = "Calculator";
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
@@ -110,7 +107,7 @@ namespace Booger
             try
             {
                 CloseButton.MouseLeftButtonDown += OnCloseButtonClick;
-                PictureBox.MouseLeftButtonDown += OnLeftClick;
+                PictureBox.MouseLeftButtonDown += OnRightClick;
             }
             catch( Exception ex )
             {
@@ -191,7 +188,7 @@ namespace Booger
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/>
         /// instance containing the event data.</param>
-        private void OnLeftClick( object sender, MouseButtonEventArgs e )
+        private void OnRightClick( object sender, MouseButtonEventArgs e )
         {
             try
             {

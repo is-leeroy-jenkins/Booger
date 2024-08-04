@@ -2,8 +2,8 @@
 
 ﻿![](https://github.com/is-leeroy-jenkins/Booger/blob/main/Resources/Assets/Github/Repo.png)
 
-- A quick & dirty C# application that interacts with OpenAI GPT-3.5 Turbo API
-- Based on WPF and Net6. Can also be used with Net8.
+- A quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
+- Based on .NET6 and written in C#.
 
 ## Setup
 Create an Open AI account to obtain an API key (free):

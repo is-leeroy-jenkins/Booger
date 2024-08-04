@@ -1,6 +1,6 @@
 
 
-![](https://github.com/KarmaScripter/Booger/blob/main/Resources/Images/ProjectTemplate.png)
+![]([https://github.com/is-leeroy-jenkins/Booger/blob/main/Resources/Assets/Github/Reop.png])
 
 - A quick & dirty C# application that interacts with OpenAI GPT-3.5 Turbo API
 - Based on WPF and Net6. Can also be used with Net8.

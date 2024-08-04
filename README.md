@@ -23,13 +23,14 @@ If you don't have .NET 8 installed, remove net8.0-windows in Booger.csproj.
 
 ## Code
 
-- [Static](https://github.com/KarmaScripter/Booger/tree/main/Static) - other tools available.
-- [Enuerations](https://github.com/KarmaScripter/Booger/tree/main/Enumerations)  - enumerations used by Booger.
-- [Services](https://github.com/KarmaScripter/Booger/tree/main/Services) - chat gpt services.
-- [Extensions](https://github.com/KarmaScripter/Booger/tree/main/Extensions) - extension methods.
-- [Models](https://github.com/KarmaScripter/Booger/tree/main/Models) - classes for prompting and training.
-- [Windows](https://github.com/KarmaScripter/Booger/tree/main/Windows) - controls for the user interface and related functionality.
-- [Resources](https://github.com/KarmaScripter/Booger/tree/main/Resources)- images, documents, files, etc
+- [Static](https://github.com/is-leeroy-jenkins/Booger/tree/main/Static) - other tools available.
+- [Enuerations](https://github.com/is-leeroy-jenkins/Booger/tree/main/Enumerations)  - enumerations used by Booger.
+- [Services](https://github.com/is-leeroy-jenkins/Booger/tree/main/Services) - chat gpt services.
+- [Extensions](https://github.com/is-leeroy-jenkins/Booger/tree/main/Extensions) - extension methods.
+- [Models](https://github.com/is-leeroy-jenkins/Booger/tree/main/Models) - classes for prompting and training.
+- [Windows](https://github.com/is-leeroy-jenkins/Booger/tree/main/Windows) - windows for the user interface and related functionality.
+- [Controls](https://github.com/is-leeroy-jenkins/Booger/tree/main/Controls) - controls for the user interface and related functionality.
+- [Resources](https://github.com/is-leeroy-jenkins/Booger/tree/main/Resources)- images, documents, files, etc
 
 
 ## Supporting Libraries

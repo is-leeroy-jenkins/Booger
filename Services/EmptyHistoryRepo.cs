@@ -1,16 +1,16 @@
 ﻿// ******************************************************************************************
 //     Assembly:                Booger
 //     Author:                  Terry D. Eppler
-//     Created:                 08-04-2024
+//     Created:                 08-05-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        08-04-2024
+//     Last Modified On:        08-05-2024
 // ******************************************************************************************
 // <copyright file="EmptyHistoryRepo.cs" company="Terry D. Eppler">
-//     Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
-//     based on NET6 and written in C-Sharp.
+//    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
+//    based on NET6 and written in C-Sharp.
 // 
-//     Copyright ©  2022 Terry D. Eppler
+//    Copyright ©  2024  Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the “Software”),
@@ -32,7 +32,7 @@
 //    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //    DEALINGS IN THE SOFTWARE.
 // 
-//    You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
+//    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
 //   EmptyHistoryRepo.cs
@@ -42,36 +42,16 @@
 namespace Booger
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <seealso cref="Booger.IHistoryRepo" />
-    [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
-    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
-    [ SuppressMessage( "ReSharper", "FieldCanBeMadeReadOnly.Local" ) ]
     public class EmptyHistoryRepo : IHistoryRepo
     {
-        /// <summary>
-        /// The chat list
-        /// </summary>
         private List<Chat> _chatList;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EmptyHistoryRepo" /> class.
-        /// </summary>
         public EmptyHistoryRepo( )
         {
             _chatList = new List<Chat>( );
         }
 
-        /// <summary>
-        /// Gets the database configuration information.
-        /// </summary>
-        /// <value>
-        /// The database configuration information.
-        /// </value>
         public string DBConfigInfo
         {
             get
@@ -80,38 +60,22 @@ namespace Booger
             }
         }
 
-        /// <summary>
-        /// Loads the chat list.
-        /// </summary>
-        /// <returns></returns>
         public List<Chat> LoadChatList( )
         {
             // Uncomment this to insert testing data
             //DevDebugInitializeChatList();
-
             return _chatList;
         }
 
         // chat.Id remains as 0
-        /// <summary>
-        /// Adds the chat.
-        /// </summary>
-        /// <param name="chat">The chat.</param>
         public void AddChat( Chat chat )
         {
         }
 
-        /// <summary>
-        /// Deletes the chat.
-        /// </summary>
-        /// <param name="chat">The chat.</param>
         public void DeleteChat( Chat chat )
         {
         }
 
-        /// <summary>
-        /// Devs the debug initialize chat list.
-        /// </summary>
         private void DevDebugInitializeChatList( )
         {
             var prompt = "TestPrompt1";

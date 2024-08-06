@@ -1,16 +1,16 @@
 ﻿// ******************************************************************************************
-//     Assembly:              Booger
+//     Assembly:                Booger
 //     Author:                  Terry D. Eppler
-//     Created:                 08-04-2024
+//     Created:                 08-05-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        08-04-2024
+//     Last Modified On:        08-05-2024
 // ******************************************************************************************
 // <copyright file="ChatHistory.cs" company="Terry D. Eppler">
-//     Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
-//     based on NET6 and written in C-Sharp.
+//    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
+//    based on NET6 and written in C-Sharp.
 // 
-//     Copyright ©  2022 Terry D. Eppler
+//    Copyright ©  2024  Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the “Software”),
@@ -32,7 +32,7 @@
 //    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //    DEALINGS IN THE SOFTWARE.
 // 
-//    You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
+//    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
 //   ChatHistory.cs
@@ -44,39 +44,18 @@ namespace Booger
     using System.Collections.Generic;
     using System.Linq;
 
-    /// <summary>
-    /// 
-    /// </summary>
     public class ChatHistory
     {
-        /// <summary>
-        /// The new chat name
-        /// </summary>
         private const string _NewChatName = "New Chat";
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ChatHistory"/> class.
-        /// </summary>
         public ChatHistory( )
         {
             ChatList = new List<Chat>( );
         }
 
         // On the left panel
-        /// <summary>
-        /// Gets the chat list.
-        /// </summary>
-        /// <value>
-        /// The chat list.
-        /// </value>
         public List<Chat> ChatList { get; }
 
-        /// <summary>
-        /// Creates new chatexists.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [new chat exists]; otherwise, <c>false</c>.
-        /// </value>
         public bool NewChatExists
         {
             get
@@ -85,53 +64,28 @@ namespace Booger
             }
         }
 
-        /// <summary>
-        /// Determines whether [is new chat] [the specified name].
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns>
-        ///   <c>true</c> if [is new chat] [the specified name]; otherwise, <c>false</c>.
-        /// </returns>
         public bool IsNewChat( string name )
         {
             return name == ChatHistory._NewChatName;
         }
 
-        /// <summary>
-        /// Adds the new chat.
-        /// </summary>
-        /// <returns></returns>
         public Chat AddNewChat( )
         {
             return AddChat( ChatHistory._NewChatName );
         }
 
-        /// <summary>
-        /// Adds the chat.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns></returns>
         public Chat AddChat( string name )
         {
             var chat = new Chat( name );
             ChatList.Add( chat );
-
             return chat;
         }
 
-        /// <summary>
-        /// Deletes the chat.
-        /// </summary>
-        /// <param name="name">The name.</param>
         public void DeleteChat( string name )
         {
             ChatList.RemoveAll( x => x.Name == name );
         }
 
-        /// <summary>
-        /// Renames the new chat.
-        /// </summary>
-        /// <param name="newName">The new name.</param>
         public void RenameNewChat( string newName )
         {
             var chat = ChatList.FirstOrDefault( x => x.Name.Equals( ChatHistory._NewChatName ) );

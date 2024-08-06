@@ -4,11 +4,12 @@
     <OutputType>WinExe</OutputType>
     <TargetFrameworks>net6.0-windows</TargetFrameworks>
     <Version>1.4</Version>
-    <Nullable>disable</Nullable>
+    <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
     <Platforms>AnyCPU;x86</Platforms>
-    <StartupObject></StartupObject>
+    <PackageId>Booger</PackageId>
+    <Authors>Booger</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -31,98 +32,22 @@
     <Optimize>True</Optimize>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows|AnyCPU'">
-    <Optimize>True</Optimize>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|x86'">
     <Optimize>True</Optimize>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows|x86'">
-    <Optimize>True</Optimize>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|AnyCPU'">
-    <Optimize>True</Optimize>
-    <DebugType>embedded</DebugType>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows|AnyCPU'">
-    <Optimize>True</Optimize>
-    <DebugType>embedded</DebugType>
+    <Optimize>False</Optimize>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|x86'">
-    <Optimize>True</Optimize>
-    <DebugType>embedded</DebugType>
+    <Optimize>False</Optimize>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows|x86'">
-    <Optimize>True</Optimize>
-    <DebugType>embedded</DebugType>
-  </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\**" />
-    <EmbeddedResource Remove="Migrations\**" />
-    <None Remove="Migrations\**" />
-    <Page Remove="Migrations\**" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <None Remove="Resources\Assets\Dialog\Cancel.png" />
-    <None Remove="Resources\Assets\Dialog\FileBrowse.png" />
-    <None Remove="Resources\Assets\Dialog\Main.png" />
-    <None Remove="Resources\Assets\Dialog\SplashNotification.png" />
-    <None Remove="Resources\Assets\EXT\ACCDB.png" />
-    <None Remove="Resources\Assets\EXT\CSV.png" />
-    <None Remove="Resources\Assets\EXT\DB.png" />
-    <None Remove="Resources\Assets\EXT\DLL.png" />
-    <None Remove="Resources\Assets\EXT\DOC.png" />
-    <None Remove="Resources\Assets\EXT\DOCX.png" />
-    <None Remove="Resources\Assets\EXT\EXE.png" />
-    <None Remove="Resources\Assets\EXT\HTML.png" />
-    <None Remove="Resources\Assets\EXT\MDB.png" />
-    <None Remove="Resources\Assets\EXT\MDF.png" />
-    <None Remove="Resources\Assets\EXT\PDF.png" />
-    <None Remove="Resources\Assets\EXT\PNG.png" />
-    <None Remove="Resources\Assets\EXT\PPTX.png" />
-    <None Remove="Resources\Assets\EXT\PY.png" />
-    <None Remove="Resources\Assets\EXT\SDF.png" />
-    <None Remove="Resources\Assets\EXT\SQL.png" />
-    <None Remove="Resources\Assets\EXT\TXT.png" />
-    <None Remove="Resources\Assets\EXT\XLS.png" />
-    <None Remove="Resources\Assets\EXT\XLSX.png" />
-    <None Remove="Resources\Assets\EXT\XML.png" />
-    <None Remove="Resources\Assets\Form\App.ico" />
-    <None Remove="Resources\Assets\Form\Application.ico" />
-    <None Remove="Resources\Assets\Form\Application.png" />
-    <None Remove="Resources\Assets\Form\Booger.png" />
-    <None Remove="Resources\Assets\Menu\CalculatorItem.png" />
-    <None Remove="Resources\Assets\Menu\CalendarItem.png" />
-    <None Remove="Resources\Assets\Menu\ChromeItem.png" />
-    <None Remove="Resources\Assets\Menu\ClockItem.png" />
-    <None Remove="Resources\Assets\Menu\CloseItem.png" />
-    <None Remove="Resources\Assets\Menu\ControlPanelItem.png" />
-    <None Remove="Resources\Assets\Menu\DocumentaionItem.png" />
-    <None Remove="Resources\Assets\Menu\EdgeItem.png" />
-    <None Remove="Resources\Assets\Menu\ExitItem.png" />
-    <None Remove="Resources\Assets\Menu\FileItem.png" />
-    <None Remove="Resources\Assets\Menu\FirefoxItem.png" />
-    <None Remove="Resources\Assets\Menu\FolderItem.png" />
-    <None Remove="Resources\Assets\Menu\MapItem.png" />
-    <None Remove="Resources\Assets\Menu\MediaPlayerItem.png" />
-    <None Remove="Resources\Assets\Menu\OneDriveItem.png" />
-    <None Remove="Resources\Assets\Menu\RefreshItem.png" />
-    <None Remove="Resources\Assets\Menu\SaveItem.png" />
-    <None Remove="Resources\Assets\Menu\TaskManagerItem.png" />
-    <None Remove="workload-install.ps1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Common" Version="8.2.2" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />    
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+    <PackageReference Include="EPPlus" Version="7.2.2" />    
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.20">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -134,35 +59,22 @@
     </PackageReference>
     <PackageReference Include="ModernWpfUI" Version="0.9.6" />
     <PackageReference Include="RestoreWindowPlace" Version="2.1.0" />
-    <PackageReference Include="Syncfusion.SfAccordion.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfBusyIndicator.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfChromelessWindow.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfColorPalette.WPF" Version="24.1.41" />
     <PackageReference Include="Syncfusion.SfHubTile.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfInput.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfNavigationDrawer.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfProgressBar.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.SfRichTextBoxAdv.WPF" Version="24.1.41" />
     <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfTreeNavigator.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfTreeView.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.SfTextInputLayout.WPF" Version="24.1.41" />
     <PackageReference Include="Syncfusion.Shared.Base" Version="24.1.41" />
     <PackageReference Include="Syncfusion.Shared.WPF" Version="24.1.41" />
     <PackageReference Include="Syncfusion.Themes.FluentDark.WPF" Version="24.1.41" />
     <PackageReference Include="Syncfusion.Tools.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.UI.WPF.NET" Version="24.1.41" />
+    <PackageReference Include="System.Data.OleDb" Version="8.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
     <PackageReference Include="System.Speech" Version="8.0.0" />
     <PackageReference Include="ToastNotifications.Messages.Net6" Version="1.0.4" />
     <PackageReference Include="ToastNotifications.Net6" Version="1.0.4" />
     <PackageReference Include="Whetstone.ChatGPT" Version="1.7.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Libraries\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Syncfusion.Licensing">
-      <HintPath>Libraries\Syncfusion.Licensing.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
@@ -191,9 +103,9 @@
     <Resource Include="Resources\Assets\EXT\XLSX.png" />
     <Resource Include="Resources\Assets\EXT\XML.png" />
     <Resource Include="Resources\Assets\Form\App.ico" />
-    <Resource Include="Resources\Assets\Form\Application.ico" />
     <Resource Include="Resources\Assets\Form\Application.png" />
     <Resource Include="Resources\Assets\Form\Booger.png" />
+    <Resource Include="Resources\Assets\Menu\App.ico" />
     <Resource Include="Resources\Assets\Menu\CalculatorItem.png" />
     <Resource Include="Resources\Assets\Menu\CalendarItem.png" />
     <Resource Include="Resources\Assets\Menu\ChromeItem.png" />
@@ -212,5 +124,20 @@
     <Resource Include="Resources\Assets\Menu\RefreshItem.png" />
     <Resource Include="Resources\Assets\Menu\SaveItem.png" />
     <Resource Include="Resources\Assets\Menu\TaskManagerItem.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CefSharp.Wpf">
+      <HintPath>..\Booger\Libraries\CefSharp.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Data.WPF">
+      <HintPath>..\Booger\Libraries\Syncfusion.Data.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Licensing">
+      <HintPath>..\Booger\Libraries\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SqlServerCe">
+      <HintPath>..\Booger\Libraries\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
   </ItemGroup>  
 </Project>

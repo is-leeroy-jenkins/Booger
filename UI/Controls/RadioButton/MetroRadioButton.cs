@@ -1,14 +1,16 @@
 ﻿// ******************************************************************************************
 //     Assembly:                Booger
 //     Author:                  Terry D. Eppler
-//     Created:                 08-01-2024
+//     Created:                 08-04-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        08-01-2024
+//     Last Modified On:        08-04-2024
 // ******************************************************************************************
 // <copyright file="MetroRadioButton.cs" company="Terry D. Eppler">
-//     Booger is a quick & dirty WPF application in C sharp for interacting with the OpenAI GPT API.
-//     Copyright ©  2022 Terry D. Eppler
+//    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
+//    based on NET6 and written in C-Sharp.
+// 
+//    Copyright ©  2024  Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the “Software”),

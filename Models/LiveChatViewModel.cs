@@ -1,16 +1,16 @@
 ﻿// ******************************************************************************************
 //     Assembly:                Booger
 //     Author:                  Terry D. Eppler
-//     Created:                 08-04-2024
+//     Created:                 08-05-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        08-04-2024
+//     Last Modified On:        08-05-2024
 // ******************************************************************************************
 // <copyright file="LiveChatViewModel.cs" company="Terry D. Eppler">
-//     Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
-//     based on NET6 and written in C-Sharp.
+//    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
+//    based on NET6 and written in C-Sharp.
 // 
-//     Copyright ©  2022 Terry D. Eppler
+//    Copyright ©  2024  Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the “Software”),
@@ -32,7 +32,7 @@
 //    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //    DEALINGS IN THE SOFTWARE.
 // 
-//    You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
+//    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
 //   LiveChatViewModel.cs
@@ -44,7 +44,6 @@ namespace Booger
     using System;
     using System.Collections.ObjectModel;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows;
@@ -54,46 +53,22 @@ namespace Booger
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Messaging;
     using Whetstone.ChatGPT;
+    using Whetstone.ChatGPT.Models;
 
     // C# .NET 6 / 8 WPF, Whetstone ChatGPT, CommunityToolkit MVVM, ModernWpfUI, RestoreWindowPlace
-    /// <inheritdoc />
-    /// <summary>
-    /// </summary>
-    /// <seealso cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservableObject" />
-    [ SuppressMessage( "ReSharper", "FieldCanBeMadeReadOnly.Local" ) ]
     public partial class LiveChatViewModel : ObservableObject
     {
-        /// <summary>
-        /// The history repo
-        /// </summary>
         private IHistoryRepo _historyRepo;
 
-        /// <summary>
-        /// The chat GPT service
-        /// </summary>
-        private ChatGptService _chatGPTService;
+        private WhetstoneChatGPTService _chatGPTService;
 
-        /// <summary>
-        /// The live chat manager
-        /// </summary>
         private LiveChatManager _liveChatManager = new LiveChatManager( );
 
-        /// <summary>
-        /// The chat input list
-        /// </summary>
         private List<string> _chatInputList = new List<string>( );
 
-        /// <summary>
-        /// The chat input list index
-        /// </summary>
         private int _chatInputListIndex = -1;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LiveChatViewModel"/> class.
-        /// </summary>
-        /// <param name="historyRepo">The history repo.</param>
-        /// <param name="chatGPTService">The chat GPT service.</param>
-        public LiveChatViewModel( IHistoryRepo historyRepo, ChatGptService chatGPTService )
+        public LiveChatViewModel( IHistoryRepo historyRepo, WhetstoneChatGPTService chatGPTService )
         {
             _historyRepo = historyRepo;
             _chatGPTService = chatGPTService;
@@ -105,20 +80,8 @@ namespace Booger
             // DevDebugInitialize();
         }
 
-        /// <summary>
-        /// Gets or sets the update UI action.
-        /// </summary>
-        /// <value>
-        /// The update UI action.
-        /// </value>
-        public Action<UpdateUIEnum> UpdateUIAction { get; set; }
+        public Action<UpdateUIEnum>? UpdateUIAction { get; set; }
 
-        /// <summary>
-        /// Gets a value indicating whether this instance is command not busy.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is command not busy; otherwise, <c>false</c>.
-        /// </value>
         public bool IsCommandNotBusy
         {
             get
@@ -127,68 +90,32 @@ namespace Booger
             }
         }
 
-        /// <summary>
-        /// The is command busy
-        /// </summary>
         [ ObservableProperty ]
         private bool _isCommandBusy;
 
-        /// <summary>
-        /// Gets the chat list.
-        /// </summary>
-        /// <value>
-        /// The chat list.
-        /// </value>
         public ObservableCollection<Chat> ChatList { get; }
 
-        /// <summary>
-        /// The selected chat
-        /// </summary>
         [ ObservableProperty ]
         private Chat _selectedChat;
 
-        /// <summary>
-        /// The chat input
-        /// </summary>
         [ ObservableProperty ]
         private string _chatInput;
 
-        /// <summary>
-        /// The image pane visibility
-        /// </summary>
         [ ObservableProperty ]
         private Visibility _imagePaneVisibility = Visibility.Collapsed;
 
-        /// <summary>
-        /// The image input
-        /// </summary>
         [ ObservableProperty ]
         private string _imageInput = "A tennis court";
 
-        /// <summary>
-        /// The result image
-        /// </summary>
         [ ObservableProperty ]
-        public byte[ ] _resultImage;
+        public byte[ ]? _resultImage;
 
-        /// <summary>
-        /// The add to history button enabled
-        /// </summary>
         [ ObservableProperty ]
         public bool _addToHistoryButtonEnabled;
 
-        /// <summary>
-        /// The is streaming mode
-        /// </summary>
         [ ObservableProperty ]
         private bool _isStreamingMode = true;
 
-        /// <summary>
-        /// Gets the language list.
-        /// </summary>
-        /// <value>
-        /// The language list.
-        /// </value>
         public string[ ] LangList { get; } =
         {
             "English",
@@ -197,29 +124,17 @@ namespace Booger
             "Spanish"
         };
 
-        /// <summary>
-        /// The selected language
-        /// </summary>
         [ ObservableProperty ]
         public string _selectedLang = "Spanish";
 
-        /// <summary>
-        /// The is female voice
-        /// </summary>
         [ ObservableProperty ]
         private bool _isFemaleVoice = true;
 
-        /// <summary>
-        /// The status message
-        /// </summary>
         [ ObservableProperty ]
         private string _statusMessage =
             "Ctrl+Enter for input of multiple lines. Enter-Key to send. Ctrl+UpArrow | DownArrow to navigate previous input lines";
 
         // Also RelayCommand from AppBar
-        /// <summary>
-        /// Creates new chat.
-        /// </summary>
         [ RelayCommand ]
         private void NewChat( )
         {
@@ -228,7 +143,6 @@ namespace Booger
                 if( !AddNewChatIfNotExists( ) )
                 {
                     StatusMessage = "'New Chat' already exists";
-
                     return;
                 }
 
@@ -241,9 +155,6 @@ namespace Booger
             }
         }
 
-        /// <summary>
-        /// Devs the debug initialize.
-        /// </summary>
         private void DevDebugInitialize( )
         {
             var prompt = "TestPrompt1";
@@ -265,10 +176,6 @@ namespace Booger
             PostProcessOnSend( prompt );
         }
 
-        /// <summary>
-        /// Adds the new chat if not exists.
-        /// </summary>
-        /// <returns></returns>
         private bool AddNewChatIfNotExists( )
         {
             if( _liveChatManager.NewChatExists )
@@ -280,15 +187,10 @@ namespace Booger
             var newChat = _liveChatManager.AddNewChat( );
             ChatList.Add( newChat );
             SelectedChat = newChat;
-
             return true;
         }
 
         // Up/Previous or down/next chat input in the chat input list
-        /// <summary>
-        /// Previouses the next chat input.
-        /// </summary>
-        /// <param name="isUp">if set to <c>true</c> [is up].</param>
         public void PrevNextChatInput( bool isUp )
         {
             if( _chatInputList.IsNotEmpty( ) )
@@ -333,10 +235,6 @@ namespace Booger
             }
         }
 
-        /// <summary>
-        /// Adds to history.
-        /// </summary>
-        /// <param name="chat">The chat.</param>
         [ RelayCommand ]
         private void AddToHistory( Chat chat )
         {
@@ -349,10 +247,6 @@ namespace Booger
         }
 
         // If DB is configured, chat.Id will be PK (i.e. DB insert already called)    
-        /// <summary>
-        /// Fixups the chat identifier.
-        /// </summary>
-        /// <param name="chat">The chat.</param>
         private void FixupChatId( Chat chat )
         {
             if( chat.Id == 0 )
@@ -365,10 +259,6 @@ namespace Booger
         }
 
         // Both XAML (important DataContext in DataContext.CopyMessageCommand) binding and menu item
-        /// <summary>
-        /// Copies the message.
-        /// </summary>
-        /// <param name="message">The message.</param>
         [ RelayCommand ]
         public void CopyMessage( Message message )
         {
@@ -387,9 +277,6 @@ namespace Booger
             }
         }
 
-        /// <summary>
-        /// Sends this instance.
-        /// </summary>
         [ RelayCommand ]
         private async Task Send( )
         {
@@ -433,28 +320,18 @@ namespace Booger
             UpdateUIAction?.Invoke( UpdateUIEnum.MessageListViewScrollToBottom );
         }
 
-        /// <summary>
-        /// Explains this instance.
-        /// </summary>
         [ RelayCommand ]
         private async Task Explain( )
         {
             await ExecutePost( "Explain" );
         }
 
-        /// <summary>
-        /// Translates to.
-        /// </summary>
         [ RelayCommand ]
         private async Task TranslateTo( )
         {
             await ExecutePost( $"Translate to {SelectedLang}" );
         }
 
-        /// <summary>
-        /// Executes the post.
-        /// </summary>
-        /// <param name="prefix">The prefix.</param>
         private async Task ExecutePost( string prefix )
         {
             if( IsCommandBusy )
@@ -495,9 +372,6 @@ namespace Booger
             UpdateUIAction?.Invoke( UpdateUIEnum.MessageListViewScrollToBottom );
         }
 
-        /// <summary>
-        /// Speaks this instance.
-        /// </summary>
         [ RelayCommand ]
         private void Speak( )
         {
@@ -533,19 +407,12 @@ namespace Booger
             UpdateUIAction?.Invoke( UpdateUIEnum.SetFocusToChatInput );
         }
 
-        /// <summary>
-        /// Validates the input.
-        /// </summary>
-        /// <param name="input">The input.</param>
-        /// <param name="prompt">The prompt.</param>
-        /// <returns></returns>
         private bool ValidateInput( string input, out string prompt )
         {
             prompt = input.Trim( );
             if( prompt.Length < 2 )
             {
                 StatusMessage = "Prompt must be at least 2 characters";
-
                 return false;
             }
 
@@ -553,10 +420,6 @@ namespace Booger
         }
 
         // Build 'context' for ChatGPT
-        /// <summary>
-        /// Builds the previous prompts.
-        /// </summary>
-        /// <returns></returns>
         private string BuildPreviousPrompts( )
         {
             var previousPrompts = string.Empty;
@@ -577,11 +440,6 @@ namespace Booger
             return previousPrompts;
         }
 
-        /// <summary>
-        /// Sends the specified prompt.
-        /// </summary>
-        /// <param name="prompt">The prompt.</param>
-        /// <param name="promptDisplay">The prompt display.</param>
         private async Task Send( string prompt, string promptDisplay )
         {
             var newMessage = new Message( "Me", promptDisplay );
@@ -601,32 +459,22 @@ namespace Booger
             ChatInput = string.Empty;
         }
 
-        /// <summary>
-        /// Does the send.
-        /// </summary>
-        /// <param name="prompt">The prompt.</param>
-        /// <returns></returns>
         private async Task<string> DoSend( string prompt )
         {
             // GPT-3.5
             var completionResponse = await _chatGPTService.CreateChatCompletionAsync( prompt );
             var message = completionResponse?.GetMessage( );
-
             return message?.Content ?? string.Empty;
         }
 
-        /// <summary>
-        /// Sends the streaming mode.
-        /// </summary>
-        /// <param name="prompt">The prompt.</param>
         private async Task SendStreamingMode( string prompt )
         {
             // Append with message.Text below
             var message = SelectedChat.AddMessage( "Bot", string.Empty );
 
             // GPT-3.5
-            await foreach( var response in _chatGPTService.StreamChatCompletionAsync( prompt )
-                .ConfigureAwait( false ) )
+            await foreach( var response in
+                _chatGPTService.StreamChatCompletionAsync( prompt ).ConfigureAwait( false ) )
             {
                 if( response is not null )
                 {
@@ -636,10 +484,6 @@ namespace Booger
             }
         }
 
-        /// <summary>
-        /// Posts the process on send.
-        /// </summary>
-        /// <param name="prompt">The prompt.</param>
         private void PostProcessOnSend( string prompt )
         {
             // Handle new chat
@@ -665,9 +509,6 @@ namespace Booger
             }
         }
 
-        /// <summary>
-        /// Expands the or collapse image pane.
-        /// </summary>
         [ RelayCommand ]
         private void ExpandOrCollapseImagePane( )
         {
@@ -676,9 +517,6 @@ namespace Booger
                 : Visibility.Visible;
         }
 
-        /// <summary>
-        /// Creates the image.
-        /// </summary>
         [ RelayCommand ]
         private async Task CreateImage( )
         {
@@ -705,9 +543,6 @@ namespace Booger
         }
 
         // ESC key maps to ClearChatInputCommand
-        /// <summary>
-        /// Clears the chat input.
-        /// </summary>
         [ RelayCommand ]
         private void ClearChatInput( )
         {
@@ -715,20 +550,12 @@ namespace Booger
         }
 
         // ESC key maps to ClearImageInputCommand
-        /// <summary>
-        /// Clears the image input.
-        /// </summary>
         [ RelayCommand ]
         private void ClearImageInput( )
         {
             ImageInput = string.Empty;
         }
 
-        /// <summary>
-        /// Sets the command busy.
-        /// </summary>
-        /// <param name="isCommandBusy">if set to <c>true</c> [is command busy].</param>
-        /// <param name="isSendCommand">if set to <c>true</c> [is send command].</param>
         private void SetCommandBusy( bool isCommandBusy, bool isSendCommand = false )
         {
             IsCommandBusy = isCommandBusy;
@@ -742,10 +569,6 @@ namespace Booger
         }
 
         // partial method (CommunityToolkit MVVM)
-        /// <summary>
-        /// Called when [selected chat changed].
-        /// </summary>
-        /// <param name="value">The value.</param>
         partial void OnSelectedChatChanged( Chat value )
         {
             UpdateAddToHistoryButton( value );
@@ -756,10 +579,6 @@ namespace Booger
             }
         }
 
-        /// <summary>
-        /// Updates the add to history button.
-        /// </summary>
-        /// <param name="value">The value.</param>
         private void UpdateAddToHistoryButton( Chat value )
         {
             AddToHistoryButtonEnabled = value != null && !_liveChatManager.IsNewChat( value.Name );

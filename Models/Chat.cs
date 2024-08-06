@@ -1,16 +1,16 @@
 ﻿// ******************************************************************************************
 //     Assembly:                Booger
 //     Author:                  Terry D. Eppler
-//     Created:                 08-04-2024
+//     Created:                 08-05-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        08-04-2024
+//     Last Modified On:        08-05-2024
 // ******************************************************************************************
 // <copyright file="Chat.cs" company="Terry D. Eppler">
-//     Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
-//     based on NET6 and written in C-Sharp.
+//    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
+//    based on NET6 and written in C-Sharp.
 // 
-//     Copyright ©  2022 Terry D. Eppler
+//    Copyright ©  2024  Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the “Software”),
@@ -32,7 +32,7 @@
 //    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //    DEALINGS IN THE SOFTWARE.
 // 
-//    You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
+//    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
 //   Chat.cs
@@ -42,20 +42,10 @@
 namespace Booger
 {
     using System.Collections.ObjectModel;
-    using System.Diagnostics.CodeAnalysis;
     using CommunityToolkit.Mvvm.ComponentModel;
 
-    /// <inheritdoc />
-    /// <summary>
-    /// </summary>
-    /// <seealso cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservableObject" />
-    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
     public partial class Chat : ObservableObject
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Chat"/> class.
-        /// </summary>
-        /// <param name="name">The name.</param>
         public Chat( string name )
         {
             Name = name;
@@ -63,56 +53,24 @@ namespace Booger
         }
 
         // When used, primary key if DB configured, otherwise, unique number used in memory
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
         public int Id { get; set; }
 
         // ObservableProperty needed for a new chat name update on the left panel
-        /// <summary>
-        /// The name
-        /// </summary>
         [ ObservableProperty ]
         private string _name = string.Empty;
 
         // When false, chat is for 'Explain' or 'Translate to'
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is send.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is send; otherwise, <c>false</c>.
-        /// </value>
         public bool IsSend { get; set; } = true;
 
-        /// <summary>
-        /// Gets or sets the message list.
-        /// </summary>
-        /// <value>
-        /// The message list.
-        /// </value>
         public ObservableCollection<Message> MessageList { get; set; }
 
-        /// <summary>
-        /// Adds the message.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="text">The text.</param>
-        /// <returns></returns>
         public Message AddMessage( string sender, string text )
         {
             var message = new Message( sender, text );
             AddMessage( message );
-
             return message;
         }
 
-        /// <summary>
-        /// Adds the message.
-        /// </summary>
-        /// <param name="message">The message.</param>
         public void AddMessage( Message message )
         {
             MessageList.Add( message );

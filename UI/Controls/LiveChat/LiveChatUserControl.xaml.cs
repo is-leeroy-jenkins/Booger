@@ -47,19 +47,29 @@ namespace Booger
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Collections.Specialized;
+    using System.Diagnostics.CodeAnalysis;
     using ModernWpf.Controls;
+    using Syncfusion.SfSkinManager;
 
+    /// <inheritdoc />
     /// <summary>
-    /// 
     /// </summary>
-    /// <seealso cref="System.Windows.Controls.UserControl" />
-    /// <seealso cref="System.Windows.Markup.IComponentConnector" />
+    /// <seealso cref="T:System.Windows.Controls.UserControl" />
+    /// <seealso cref="T:System.Windows.Markup.IComponentConnector" />
+    [ SuppressMessage( "ReSharper", "FieldCanBeMadeReadOnly.Local" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     public partial class LiveChatUserControl : UserControl
     {
         /// <summary>
+        /// The theme
+        /// </summary>
+        private protected readonly DarkMode _theme = new DarkMode( );
+
+        /// <summary>
         /// The copy message
         /// </summary>
-        private const string _CopyMessage = "Copy";
+        private const string _copyMessage = "Copy";
 
         /// <summary>
         /// The already loaded
@@ -81,18 +91,27 @@ namespace Booger
         /// </summary>
         private ContextMenu _messageContextMenu;
 
+        /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of the <see cref="LiveChatUserControl" /> class.
+        /// Initializes a new instance of the
+        /// <see cref="T:Booger.LiveChatUserControl" /> class.
         /// </summary>
         public LiveChatUserControl( )
         {
+            // Theme Properties
+            SfSkinManager.SetTheme( this, new Theme( "FluentDark" ) );
+
+            // Window Properties
             InitializeComponent( );
-            Loaded += LiveChatUserControl_Loaded;
-            PreviewKeyDown += LiveChatUserControl_PreviewKeyDown;
-            MessageListView.PreviewMouseRightButtonUp += MessageListView_PreviewMouseRightButtonUp;
+            Background = _theme.BackColor;
+            Foreground = _theme.ForeColor;
+            BorderBrush = _theme.BorderColor;
+            Loaded += OnLoaded;
+            PreviewKeyDown += OnPreviewKeyDown;
+            MessageListView.PreviewMouseRightButtonUp += OnPreviewMouseRightButtonUp;
             _messageContextMenu = new ContextMenu( );
             _messageContextMenu.AddHandler( MenuItem.ClickEvent,
-                new RoutedEventHandler( MessageMenuOnClick ) );
+                new RoutedEventHandler( OnMessageMenuClick ) );
         }
 
         /// <summary>
@@ -124,57 +143,6 @@ namespace Booger
             }
         }
 
-        /// <summary>
-        /// Handles the Loaded event of the LiveChatUserControl control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-        private void LiveChatUserControl_Loaded( object sender, RoutedEventArgs e )
-        {
-            if( !_alreadyLoaded )
-            {
-                _alreadyLoaded = true;
-                LiveChatViewModel = (LiveChatViewModel)DataContext;
-                LiveChatViewModel.UpdateUIAction = UpdateUI;
-                SetupChatListViewScrollViewer( );
-                _messageListViewScrollViewer = GetScrollViewer( MessageListView );
-                SetupMessageListViewScrollViewer( );
-            }
-        }
-
-        /// <summary>
-        /// Handles the PreviewKeyDown event of the LiveChatUserControl control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="KeyEventArgs" /> instance containing the event data.</param>
-        private void LiveChatUserControl_PreviewKeyDown( object sender, KeyEventArgs e )
-        {
-            if( e.Key == Key.Enter
-                && Keyboard.Modifiers == ModifierKeys.Control )
-            {
-                // Ctrl+Enter for input of multiple lines
-                var liveChatUserControl = sender as LiveChatUserControl;
-                if( liveChatUserControl != null )
-                {
-                    // ChatGPT mostly answered this!
-                    var textBox = liveChatUserControl.ChatInputTextBox;
-                    var caretIndex = textBox.CaretIndex;
-                    textBox.Text = textBox.Text.Insert( caretIndex, Environment.NewLine );
-                    textBox.CaretIndex = caretIndex + Environment.NewLine.Length;
-                    e.Handled = true;
-                }
-            }
-            else if( ( e.Key == Key.Up || e.Key == Key.Down )
-                && ( e.KeyboardDevice.Modifiers & ModifierKeys.Control ) != 0 )
-            {
-                // Use CTRL+Up/Down to allow Up/Down alone for multiple lines in ChatInputTextBox
-                var inputTextBox = Keyboard.FocusedElement as TextBox;
-                if( inputTextBox?.Name == "ChatInputTextBox" )
-                {
-                    LiveChatViewModel?.PrevNextChatInput( e.Key == Key.Up );
-                }
-            }
-        }
 
         /// <summary>
         /// Setups the chat ListView scroll viewer.
@@ -186,10 +154,10 @@ namespace Booger
             _chatListViewScrollViewer = GetScrollViewer( ChatListView );
 
             // Based on: https://stackoverflow.com/a/1426312	
-            var notifyCollectionChanged = ChatListView.ItemsSource as INotifyCollectionChanged;
-            if( notifyCollectionChanged != null )
+            var _notifyCollectionChanged = ChatListView.ItemsSource as INotifyCollectionChanged;
+            if( _notifyCollectionChanged != null )
             {
-                notifyCollectionChanged.CollectionChanged += ( sender, e ) =>
+                _notifyCollectionChanged.CollectionChanged += ( sender, e ) =>
                 {
                     _chatListViewScrollViewer?.ScrollToBottom( );
                 };
@@ -203,40 +171,44 @@ namespace Booger
         /// </summary>
         private void SetupMessageListViewScrollViewer( )
         {
-            var notifyCollectionChanged = MessageListView.ItemsSource as INotifyCollectionChanged;
-            if( notifyCollectionChanged != null )
+            var _notifyCollectionChanged = MessageListView.ItemsSource as INotifyCollectionChanged;
+            if( _notifyCollectionChanged != null )
             {
-                notifyCollectionChanged.CollectionChanged += ( sender, e ) =>
+                _notifyCollectionChanged.CollectionChanged += ( sender, e ) =>
                 {
                     _messageListViewScrollViewer?.ScrollToBottom( );
                 };
             }
         }
 
+        // From: https://stackoverflow.com/a/41136328
+        // This is part of implementing the "automatically scroll to the bottom" functionality.
         /// <summary>
-        /// Handles the PreviewMouseRightButtonUp event of the MessageListView control.
+        /// Gets the scroll viewer.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="MouseButtonEventArgs" /> instance containing the event data.</param>
-        private void MessageListView_PreviewMouseRightButtonUp( object sender,
-            MouseButtonEventArgs e )
+        /// <param name="element">The element.</param>
+        /// <returns></returns>
+        private ScrollViewer? GetScrollViewer( UIElement? element )
         {
-            // Note: target could be System.Windows.Controls.TextBoxView (in .NET 6)
-            //          but it's internal (seen in debugger) and not accessible, so use string
-            var target = e.Device.Target?.ToString( );
-
-            // Hit test for image, text, blank space below text (Border)
-            if( e.Device.Target is Grid
-                || target == "System.Windows.Controls.TextBoxView"
-                || e.Device.Target is TextBlock )
+            ScrollViewer? _scrollViewer = null;
+            if( element != null )
             {
-                var message = ( e.Device.Target as FrameworkElement )?.DataContext as Message;
-                if( message != null )
+                for( var _i = 0;
+                    _i < VisualTreeHelper.GetChildrenCount( element ) && _scrollViewer == null; _i++ )
                 {
-                    ShowMessageContextMenu( message );
-                    e.Handled = true;
+                    if( VisualTreeHelper.GetChild( element, _i ) is ScrollViewer )
+                    {
+                        _scrollViewer = (ScrollViewer)VisualTreeHelper.GetChild( element, _i );
+                    }
+                    else
+                    {
+                        _scrollViewer =
+                            GetScrollViewer( VisualTreeHelper.GetChild( element, _i ) as UIElement );
+                    }
                 }
             }
+
+            return _scrollViewer;
         }
 
         /// <summary>
@@ -263,7 +235,7 @@ namespace Booger
             // Copy to clipboard
             _messageContextMenu.Items.Add( new MenuItem
             {
-                Header = LiveChatUserControl._CopyMessage,
+                Header = LiveChatUserControl._copyMessage,
                 FontSize = 20,
                 Icon = new FontIcon
                 {
@@ -275,55 +247,283 @@ namespace Booger
         }
 
         /// <summary>
+        /// Handles the Loaded event of the LiveChatUserControl control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
+        private void OnLoaded( object sender, RoutedEventArgs e )
+        {
+            if( !_alreadyLoaded )
+            {
+                _alreadyLoaded = true;
+                LiveChatViewModel = (LiveChatViewModel)DataContext;
+                LiveChatViewModel.UpdateUIAction = UpdateUI;
+                SetupChatListViewScrollViewer( );
+                _messageListViewScrollViewer = GetScrollViewer( MessageListView );
+                SetupMessageListViewScrollViewer( );
+            }
+        }
+
+        /// <summary>
+        /// Handles the PreviewKeyDown event of the LiveChatUserControl control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyEventArgs" /> instance containing the event data.</param>
+        private void OnPreviewKeyDown( object sender, KeyEventArgs e )
+        {
+            if( e.Key == Key.Enter
+                && Keyboard.Modifiers == ModifierKeys.Control )
+            {
+                // Ctrl+Enter for input of multiple lines
+                var _liveChatUserControl = sender as LiveChatUserControl;
+                if( _liveChatUserControl != null )
+                {
+                    // ChatGPT mostly answered this!
+                    var _textBox = _liveChatUserControl.ChatInputTextBox;
+                    var _caretIndex = _textBox.CaretIndex;
+                    _textBox.Text = _textBox.Text.Insert( _caretIndex, Environment.NewLine );
+                    _textBox.CaretIndex = _caretIndex + Environment.NewLine.Length;
+                    e.Handled = true;
+                }
+            }
+            else if( ( e.Key == Key.Up || e.Key == Key.Down )
+                && ( e.KeyboardDevice.Modifiers & ModifierKeys.Control ) != 0 )
+            {
+                // Use CTRL+Up/Down to allow Up/Down alone for multiple lines in ChatInputTextBox
+                var _inputTextBox = Keyboard.FocusedElement as TextBox;
+                if( _inputTextBox?.Name == "ChatInputTextBox" )
+                {
+                    LiveChatViewModel?.PrevNextChatInput( e.Key == Key.Up );
+                }
+            }
+        }
+
+        /// <summary>
+        /// Handles the PreviewMouseRightButtonUp event of the MessageListView control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseButtonEventArgs" /> instance containing the event data.</param>
+        private void OnPreviewMouseRightButtonUp( object sender,
+            MouseButtonEventArgs e )
+        {
+            // Note: target could be System.Windows.Controls.TextBoxView (in .NET 6)
+            //          but it's internal (seen in debugger) and not accessible, so use string
+            var _target = e.Device.Target?.ToString( );
+
+            // Hit test for image, text, blank space below text (Border)
+            if( e.Device.Target is Grid
+                || _target == "System.Windows.Controls.TextBoxView"
+                || e.Device.Target is TextBlock )
+            {
+                var _message = ( e.Device.Target as FrameworkElement )?.DataContext as Message;
+                if( _message != null )
+                {
+                    ShowMessageContextMenu( _message );
+                    e.Handled = true;
+                }
+            }
+        }
+
+        /// <summary>
         /// Messages the menu on click.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-        private void MessageMenuOnClick( object sender, RoutedEventArgs args )
+        private void OnMessageMenuClick( object sender, RoutedEventArgs args )
         {
-            var mi = args.Source as MenuItem;
-            var message = _messageContextMenu.Tag as Message;
-            if( mi != null
-                && message != null
+            var _mi = args.Source as MenuItem;
+            var _message = _messageContextMenu.Tag as Message;
+            if( _mi != null
+                && _message != null
                 && LiveChatViewModel != null )
             {
-                switch( mi.Header as string )
+                switch( _mi.Header as string )
                 {
-                    case LiveChatUserControl._CopyMessage:
-                        LiveChatViewModel.CopyMessage( message );
+                    case LiveChatUserControl._copyMessage:
+                        LiveChatViewModel.CopyMessage( _message );
                         break;
                 }
             }
         }
 
-        // From: https://stackoverflow.com/a/41136328
-        // This is part of implementing the "automatically scroll to the bottom" functionality.
         /// <summary>
-        /// Gets the scroll viewer.
+        /// Called when [calculator menu option click].
         /// </summary>
-        /// <param name="element">The element.</param>
-        /// <returns></returns>
-        private ScrollViewer? GetScrollViewer( UIElement? element )
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// instance containing the event data.</param>
+        private void OnCalculatorMenuOptionClick( object sender, RoutedEventArgs e )
         {
-            ScrollViewer? scrollViewer = null;
-            if( element != null )
+            try
             {
-                for( var i = 0;
-                    i < VisualTreeHelper.GetChildrenCount( element ) && scrollViewer == null; i++ )
+                var _calculator = new CalculatorWindow
                 {
-                    if( VisualTreeHelper.GetChild( element, i ) is ScrollViewer )
-                    {
-                        scrollViewer = (ScrollViewer)VisualTreeHelper.GetChild( element, i );
-                    }
-                    else
-                    {
-                        scrollViewer =
-                            GetScrollViewer( VisualTreeHelper.GetChild( element, i ) as UIElement );
-                    }
-                }
-            }
+                    WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                    Topmost = true
+                };
 
-            return scrollViewer;
+                _calculator.Show( );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary>
+        /// Called when [file menu option click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// instance containing the event data.</param>
+        private void OnFileMenuOptionClick( object sender, RoutedEventArgs e )
+        {
+            try
+            {
+                var _fileBrowser = new FileBrowser
+                {
+                    WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                    Topmost = true
+                };
+
+                _fileBrowser.Show( );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary>
+        /// Called when [folder menu option click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// instance containing the event data.</param>
+        private void OnFolderMenuOptionClick( object sender, RoutedEventArgs e )
+        {
+            try
+            {
+                var _fileBrowser = new FileBrowser
+                {
+                    WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                    Topmost = true
+                };
+
+                _fileBrowser.Show( );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary>
+        /// Called when [control panel option click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// instance containing the event data.</param>
+        private void OnControlPanelOptionClick( object sender, RoutedEventArgs e )
+        {
+            try
+            {
+                WinMinion.LaunchControlPanel( );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary>
+        /// Called when [task manager option click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// instance containing the event data.</param>
+        private void OnTaskManagerOptionClick( object sender, RoutedEventArgs e )
+        {
+            try
+            {
+                WinMinion.LaunchTaskManager( );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary>
+        /// Called when [close option click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// instance containing the event data.</param>
+        private void OnCloseOptionClick( object sender, RoutedEventArgs e )
+        {
+            try
+            {
+                Application.Current.Shutdown( );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary>
+        /// Called when [chrome option click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// containing the event data.</param>
+        private void OnChromeOptionClick( object sender, RoutedEventArgs e )
+        {
+            try
+            {
+                WebMinion.RunChrome( );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary>
+        /// Called when [edge option click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// instance containing the event data.</param>
+        private void OnEdgeOptionClick( object sender, RoutedEventArgs e )
+        {
+            try
+            {
+                WebMinion.RunEdge( );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary>
+        /// Called when [firefox option click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// containing the event data.</param>
+        private void OnFirefoxOptionClick( object sender, RoutedEventArgs e )
+        {
+            try
+            {
+                WebMinion.RunFirefox( );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
         }
 
         /// <summary>

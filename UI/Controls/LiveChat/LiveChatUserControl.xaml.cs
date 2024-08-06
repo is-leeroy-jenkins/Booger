@@ -9,15 +9,38 @@ namespace Booger
     using System.Collections.Specialized;
     using ModernWpf.Controls;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="System.Windows.Controls.UserControl" />
+    /// <seealso cref="System.Windows.Markup.IComponentConnector" />
     public partial class LiveChatUserControl : UserControl
     {
-        private const string _CopyMessage = "Copy";        
+        /// <summary>
+        /// The copy message
+        /// </summary>
+        private const string _CopyMessage = "Copy";
 
+        /// <summary>
+        /// The already loaded
+        /// </summary>
         private bool _alreadyLoaded;
-        private ScrollViewer? _chatListViewScrollViewer;        
+        /// <summary>
+        /// The chat ListView scroll viewer
+        /// </summary>
+        private ScrollViewer? _chatListViewScrollViewer;
+        /// <summary>
+        /// The message ListView scroll viewer
+        /// </summary>
         private ScrollViewer? _messageListViewScrollViewer;
+        /// <summary>
+        /// The message context menu
+        /// </summary>
         private ContextMenu _messageContextMenu;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LiveChatUserControl"/> class.
+        /// </summary>
         public LiveChatUserControl()
         {
             InitializeComponent();
@@ -29,9 +52,19 @@ namespace Booger
             _messageContextMenu.AddHandler(MenuItem.ClickEvent, new RoutedEventHandler(MessageMenuOnClick));
         }
 
+        /// <summary>
+        /// Gets or sets the live chat view model.
+        /// </summary>
+        /// <value>
+        /// The live chat view model.
+        /// </value>
         public LiveChatViewModel? LiveChatViewModel { get; set; }
 
         // Update UI from ChatViewModel
+        /// <summary>
+        /// Updates the UI.
+        /// </summary>
+        /// <param name="updateUIEnum">The update UI enum.</param>
         private void UpdateUI(UpdateUIEnum updateUIEnum)
         {
             switch (updateUIEnum)
@@ -48,6 +81,11 @@ namespace Booger
             }
         }
 
+        /// <summary>
+        /// Handles the Loaded event of the LiveChatUserControl control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void LiveChatUserControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (!_alreadyLoaded)
@@ -62,6 +100,11 @@ namespace Booger
             }
         }
 
+        /// <summary>
+        /// Handles the PreviewKeyDown event of the LiveChatUserControl control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         private void LiveChatUserControl_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter && Keyboard.Modifiers == ModifierKeys.Control)
@@ -89,6 +132,9 @@ namespace Booger
             }
         }
 
+        /// <summary>
+        /// Setups the chat ListView scroll viewer.
+        /// </summary>
         private void SetupChatListViewScrollViewer()
         {
             // Get the ScrollViewer from the ListView. We'll need that in order to reliably
@@ -108,6 +154,9 @@ namespace Booger
 
         // Needs to re-setup because MessageListView.ItemsSource resets with SelectedChat.MessageList
         // Note: technically there could be a leak without doing 'CollectionChanged -='
+        /// <summary>
+        /// Setups the message ListView scroll viewer.
+        /// </summary>
         private void SetupMessageListViewScrollViewer()
         {
             INotifyCollectionChanged? notifyCollectionChanged = MessageListView.ItemsSource as INotifyCollectionChanged;
@@ -119,7 +168,12 @@ namespace Booger
                 };
             }
         }
-        
+
+        /// <summary>
+        /// Handles the PreviewMouseRightButtonUp event of the MessageListView control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
         private void MessageListView_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             // Note: target could be System.Windows.Controls.TextBoxView (in .NET 6)
@@ -138,8 +192,12 @@ namespace Booger
                     e.Handled = true;
                 }
             }
-        }        
+        }
 
+        /// <summary>
+        /// Shows the message context menu.
+        /// </summary>
+        /// <param name="message">The message.</param>
         public void ShowMessageContextMenu(Message message)
         {
             _messageContextMenu.Tag = message;
@@ -163,7 +221,12 @@ namespace Booger
             });            
             _messageContextMenu.IsOpen = true;
         }
-        
+
+        /// <summary>
+        /// Messages the menu on click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void MessageMenuOnClick(object sender, RoutedEventArgs args)
         {
             MenuItem? mi = args.Source as MenuItem;
@@ -180,6 +243,11 @@ namespace Booger
 
         // From: https://stackoverflow.com/a/41136328
         // This is part of implementing the "automatically scroll to the bottom" functionality.
+        /// <summary>
+        /// Gets the scroll viewer.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <returns></returns>
         private ScrollViewer? GetScrollViewer(UIElement? element)
         {
             ScrollViewer? scrollViewer = null;
@@ -197,7 +265,19 @@ namespace Booger
                     }
                 }
             }
+
             return scrollViewer;
+        }
+
+        /// <summary>
+        /// Fails the specified ex.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        private protected void Fail( Exception ex )
+        {
+            var _error = new ErrorWindow( ex );
+            _error?.SetText( );
+            _error?.ShowDialog( );
         }
     }
 }

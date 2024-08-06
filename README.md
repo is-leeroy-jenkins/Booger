@@ -28,8 +28,8 @@ If you don't have .NET 8 installed, remove net8.0-windows in Booger.csproj.
 - [Services](https://github.com/is-leeroy-jenkins/Booger/tree/main/Services) - chat gpt services.
 - [Extensions](https://github.com/is-leeroy-jenkins/Booger/tree/main/Extensions) - extension methods.
 - [Models](https://github.com/is-leeroy-jenkins/Booger/tree/main/Models) - classes for prompting and training.
-- [Windows](https://github.com/is-leeroy-jenkins/Booger/tree/main/Windows) - windows for the user interface and related functionality.
-- [Controls](https://github.com/is-leeroy-jenkins/Booger/tree/main/Controls) - controls for the user interface and related functionality.
+- [Controls](https://github.com/is-leeroy-jenkins/Booger/tree/main/UI/Controls) - controls for the user interface and related functionality.
+- [Windows](https://github.com/is-leeroy-jenkins/Booger/tree/main/UI/Windows) - windows for the user interface and related functionality.
 - [Resources](https://github.com/is-leeroy-jenkins/Booger/tree/main/Resources)- images, documents, files, etc
 
 

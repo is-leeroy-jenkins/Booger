@@ -44,6 +44,11 @@
     <Optimize>False</Optimize>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="CSharpWpfChatGPT.png" />
+    <None Remove="CSharpWpfChatGPT2.png" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />

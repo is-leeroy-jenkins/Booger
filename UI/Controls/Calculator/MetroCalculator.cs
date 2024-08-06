@@ -44,7 +44,6 @@ namespace Booger
     using Syncfusion.Windows.Controls.Input;
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using System.Windows.Media;
 
     /// <inheritdoc />
     /// <summary>
@@ -71,9 +70,9 @@ namespace Booger
             : base( )
         {
             // Control Properties
-            SetResourceReference( MetroCalculator.StyleProperty, typeof( SfCalculator ) );
-            FontFamily = new FontFamily( "Segoe UI" );
-            FontSize = 12;
+            SetResourceReference( StyleProperty, typeof( SfCalculator ) );
+            FontFamily = _theme.FontFamily;
+            FontSize = _theme.FontSize;
             Background = _theme.BackColor;
             BorderBrush = _theme.BorderColor;
             Foreground = _theme.ForeColor;

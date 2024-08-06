@@ -24,7 +24,7 @@ If you don't have .NET 8 installed, remove net8.0-windows in Booger.csproj.
 ## Code
 
 - [Static](https://github.com/is-leeroy-jenkins/Booger/tree/main/Static) - other tools available.
-- [Enuerations](https://github.com/is-leeroy-jenkins/Booger/tree/main/Enumerations)  - enumerations used by Booger.
+- [Enumerations](https://github.com/is-leeroy-jenkins/Booger/tree/main/Enumerations)  - enumerations used by Booger.
 - [Services](https://github.com/is-leeroy-jenkins/Booger/tree/main/Services) - chat gpt services.
 - [Extensions](https://github.com/is-leeroy-jenkins/Booger/tree/main/Extensions) - extension methods.
 - [Models](https://github.com/is-leeroy-jenkins/Booger/tree/main/Models) - classes for prompting and training.

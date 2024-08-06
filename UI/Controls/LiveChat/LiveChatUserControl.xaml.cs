@@ -50,6 +50,10 @@ namespace Booger
     using System.Diagnostics.CodeAnalysis;
     using ModernWpf.Controls;
     using Syncfusion.SfSkinManager;
+    using ToastNotifications;
+    using ToastNotifications.Lifetime;
+    using ToastNotifications.Messages;
+    using ToastNotifications.Position;
 
     /// <inheritdoc />
     /// <summary>
@@ -121,6 +125,53 @@ namespace Booger
         /// The live chat view model.
         /// </value>
         public LiveChatViewModel? LiveChatViewModel { get; set; }
+
+        /// <summary>
+        /// Creates the notifier.
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        private Notifier CreateNotifier( )
+        {
+            try
+            {
+                var _position = new PrimaryScreenPositionProvider( Corner.BottomRight, 10, 10 );
+                var _lifeTime = new TimeAndCountBasedLifetimeSupervisor( TimeSpan.FromSeconds( 5 ),
+                    MaximumNotificationCount.UnlimitedNotifications( ) );
+
+                return new Notifier( _config =>
+                {
+                    _config.LifetimeSupervisor = _lifeTime;
+                    _config.PositionProvider = _position;
+                    _config.Dispatcher = Application.Current.Dispatcher;
+                } );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+                return default( Notifier );
+            }
+        }
+
+        /// <summary>
+        /// Sends the notification.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        private void SendNotification( string message )
+        {
+            try
+            {
+                ThrowIf.Null( message, nameof( message ) );
+                var _notification = CreateNotifier( );
+                _notification.ShowInformation( message );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
 
         // Update UI from ChatViewModel
         /// <summary>

@@ -18,12 +18,6 @@
     <!--  ******************************************** Resources *********************************************  -->
 
     <UserControl.Resources>
-        <Style TargetType="syncfusion:GroupDropArea">
-            <Setter Property="Height" Value="80" />
-            <Setter Property="Foreground" Value="#FFFFFFFF" />
-            <Setter Property="Background" Value="#012336" />
-            <Setter Property="BorderBrush" Value="#0078D4" />
-        </Style>
         <Style
             x:Name="ToolTipStyle"
             TargetType="ToolTip">
@@ -37,9 +31,11 @@
 <!--  ******************************************** Context Menu ******************************************  -->
 
     <UserControl.ContextMenu>
-        <ContextMenu Name="ChatWindowContextMenu">
+        <ContextMenu Name="LiveChatContextMenu">
             <syncfusion:MenuItemAdv
+                Background="#FF282828"
                 Click="OnFileMenuOptionClick"
+                Foreground="#FFdedede"
                 Header="File"
                 ToolTip="Browse File System">
                 <syncfusion:MenuItemAdv.Icon>
@@ -48,7 +44,9 @@
             </syncfusion:MenuItemAdv>
 
             <syncfusion:MenuItemAdv
+                Background="#FF282828"
                 Click="OnFolderMenuOptionClick"
+                Foreground="#FFdedede"
                 Header="Folder"
                 ToolTip="Browse Directories">
                 <syncfusion:MenuItemAdv.Icon>
@@ -59,7 +57,9 @@
             <Separator />
 
             <syncfusion:MenuItemAdv
+                Background="#FF282828"
                 Click="OnChromeOptionClick"
+                Foreground="#FFdedede"
                 Header="Chrome"
                 ToolTip="Launch Chrome Browser">
                 <syncfusion:MenuItemAdv.Icon>
@@ -68,7 +68,9 @@
             </syncfusion:MenuItemAdv>
 
             <syncfusion:MenuItemAdv
+                Background="#FF282828"
                 Click="OnEdgeOptionClick"
+                Foreground="#FFdedede"
                 Header="Edge"
                 ToolTip="Launch Edge Browser">
                 <syncfusion:MenuItemAdv.Icon>
@@ -77,7 +79,9 @@
             </syncfusion:MenuItemAdv>
 
             <syncfusion:MenuItemAdv
+                Background="#FF282828"
                 Click="OnFirefoxOptionClick"
+                Foreground="#FFdedede"
                 Header="FireFox"
                 ToolTip="Launch Firefox Browser">
                 <syncfusion:MenuItemAdv.Icon>
@@ -88,7 +92,9 @@
             <Separator />
 
             <syncfusion:MenuItemAdv
+                Background="#FF282828"
                 Click="OnCalculatorMenuOptionClick"
+                Foreground="#FFdedede"
                 Header="Calculator"
                 ToolTip="Open Calculator">
                 <syncfusion:MenuItemAdv.Icon>
@@ -97,7 +103,9 @@
             </syncfusion:MenuItemAdv>
 
             <syncfusion:MenuItemAdv
+                Background="#FF282828"
                 Click="OnControlPanelOptionClick"
+                Foreground="#FFdedede"
                 Header="Control Panel"
                 ToolTip="Windows Control Panel">
                 <syncfusion:MenuItemAdv.Icon>
@@ -106,7 +114,9 @@
             </syncfusion:MenuItemAdv>
 
             <syncfusion:MenuItemAdv
+                Background="#FF282828"
                 Click="OnTaskManagerOptionClick"
+                Foreground="#FFdedede"
                 Header="Task Manager"
                 ToolTip="Windows Task Manager">
                 <syncfusion:MenuItemAdv.Icon>
@@ -117,7 +127,9 @@
             <Separator />
 
             <syncfusion:MenuItemAdv
+                Background="#FF282828"
                 Click="OnCloseOptionClick"
+                Foreground="#FFdedede"
                 Header="Exit"
                 ToolTip="Exit Application">
                 <syncfusion:MenuItemAdv.Icon>

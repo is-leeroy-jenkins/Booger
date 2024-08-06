@@ -13,6 +13,136 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+ 
+
+<!--  ******************************************** Resources *********************************************  -->
+
+    <UserControl.Resources>
+        <Style
+            x:Name="ToolTipStyle"
+            TargetType="ToolTip">
+            <Setter Property="BorderThickness" Value="1,1,1,1" />
+            <Setter Property="BorderBrush" Value="#0078D4" />
+            <Setter Property="Background" Value="#FF000000" />
+            <Setter Property="Foreground" Value="#FF9CD3FD" />
+        </Style>
+    </UserControl.Resources>
+
+
+<!--  ******************************************** Context Menu ******************************************  -->
+
+    <UserControl.ContextMenu>
+        <ContextMenu Name="ChatHistoryContextMenu">
+            <syncfusion:MenuItemAdv
+                Background="#FF282828"
+                Click="OnFileMenuOptionClick"
+                Foreground="#FFdedede"
+                Header="File"
+                ToolTip="Browse File System">
+                <syncfusion:MenuItemAdv.Icon>
+                    <Image Source="/Resources/Assets/Menu/FileItem.png" />
+                </syncfusion:MenuItemAdv.Icon>
+            </syncfusion:MenuItemAdv>
+
+            <syncfusion:MenuItemAdv
+                Background="#FF282828"
+                Click="OnFolderMenuOptionClick"
+                Foreground="#FFdedede"
+                Header="Folder"
+                ToolTip="Browse Directories">
+                <syncfusion:MenuItemAdv.Icon>
+                    <Image Source="/Resources/Assets/Menu/FolderItem.png" />
+                </syncfusion:MenuItemAdv.Icon>
+            </syncfusion:MenuItemAdv>
+
+            <Separator />
+
+            <syncfusion:MenuItemAdv
+                Background="#FF282828"
+                Click="OnChromeOptionClick"
+                Foreground="#FFdedede"
+                Header="Chrome"
+                ToolTip="Launch Chrome Browser">
+                <syncfusion:MenuItemAdv.Icon>
+                    <Image Source="/Resources/Assets/Menu/ChromeItem.png" />
+                </syncfusion:MenuItemAdv.Icon>
+            </syncfusion:MenuItemAdv>
+
+            <syncfusion:MenuItemAdv
+                Background="#FF282828"
+                Click="OnEdgeOptionClick"
+                Foreground="#FFdedede"
+                Header="Edge"
+                ToolTip="Launch Edge Browser">
+                <syncfusion:MenuItemAdv.Icon>
+                    <Image Source="/Resources/Assets/Menu/EdgeItem.png" />
+                </syncfusion:MenuItemAdv.Icon>
+            </syncfusion:MenuItemAdv>
+
+            <syncfusion:MenuItemAdv
+                Background="#FF282828"
+                Click="OnFirefoxOptionClick"
+                Foreground="#FFdedede"
+                Header="FireFox"
+                ToolTip="Launch Firefox Browser">
+                <syncfusion:MenuItemAdv.Icon>
+                    <Image Source="/Resources/Assets/Menu/FirefoxItem.png" />
+                </syncfusion:MenuItemAdv.Icon>
+            </syncfusion:MenuItemAdv>
+
+            <Separator />
+
+            <syncfusion:MenuItemAdv
+                Background="#FF282828"
+                Click="OnCalculatorMenuOptionClick"
+                Foreground="#FFdedede"
+                Header="Calculator"
+                ToolTip="Open Calculator">
+                <syncfusion:MenuItemAdv.Icon>
+                    <Image Source="/Resources/Assets/Menu/CalculatorItem.png" />
+                </syncfusion:MenuItemAdv.Icon>
+            </syncfusion:MenuItemAdv>
+
+            <syncfusion:MenuItemAdv
+                Background="#FF282828"
+                Click="OnControlPanelOptionClick"
+                Foreground="#FFdedede"
+                Header="Control Panel"
+                ToolTip="Windows Control Panel">
+                <syncfusion:MenuItemAdv.Icon>
+                    <Image Source="/Resources/Assets/Menu/ControlPanelItem.png" />
+                </syncfusion:MenuItemAdv.Icon>
+            </syncfusion:MenuItemAdv>
+
+            <syncfusion:MenuItemAdv
+                Background="#FF282828"
+                Click="OnTaskManagerOptionClick"
+                Foreground="#FFdedede"
+                Header="Task Manager"
+                ToolTip="Windows Task Manager">
+                <syncfusion:MenuItemAdv.Icon>
+                    <Image Source="/Resources/Assets/Menu/TaskManagerItem.png" />
+                </syncfusion:MenuItemAdv.Icon>
+            </syncfusion:MenuItemAdv>
+
+            <Separator />
+
+            <syncfusion:MenuItemAdv
+                Background="#FF282828"
+                Click="OnCloseOptionClick"
+                Foreground="#FFdedede"
+                Header="Exit"
+                ToolTip="Exit Application">
+                <syncfusion:MenuItemAdv.Icon>
+                    <Image Source="/Resources/Assets/Menu/CloseItem.png" />
+                </syncfusion:MenuItemAdv.Icon>
+            </syncfusion:MenuItemAdv>
+
+        </ContextMenu>
+    </UserControl.ContextMenu>
+
+<!--  ******************************************** Grid Panel *********************************************  -->
+   
     <Grid>
         <!--  Header section  -->
         <Grid.RowDefinitions>

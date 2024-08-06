@@ -142,27 +142,27 @@
 
 <!--  ******************************************** Tab Control ******************************************  -->
 
-    <TabControl Background="LightGray">
+    <TabControl Background="#FF282828">
         <TabItem
             x:Name="LiveChatTabItem"
-            BorderBrush="Black"
+            BorderBrush="#FF0078D4"
             BorderThickness="1,1,1,0">
             <TabItem.Header>
                 <TextBlock
                     Margin="6,2"
-                    Foreground="#FF0078D4"
+                    Foreground="#FFA0BDFC"
                     Text="Live Chat" />
             </TabItem.Header>
             <local:LiveChatUserControl DataContext="{Binding LiveChatViewModel}" />
         </TabItem>
         <TabItem
             x:Name="HistoryTabItem"
-            BorderBrush="Black"
+            BorderBrush="#FF0078D4"
             BorderThickness="1,1,1,0">
             <TabItem.Header>
                 <TextBlock
                     Margin="6,2"
-                    Foreground="Black"
+                    Foreground="#FFA0BDFC"
                     Text="History" />
             </TabItem.Header>
             <local:HistoryUserControl DataContext="{Binding HistoryViewModel}" />

@@ -39,21 +39,48 @@
 // </summary>
 // ******************************************************************************************
 
+/// <summary>
+/// 
+/// </summary>
 namespace Booger
 {
     using System.Windows;
     using CommunityToolkit.Mvvm.ComponentModel;
 
+    /// <inheritdoc />
+    /// <summary>
+    /// </summary>
+    /// <seealso cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservableObject" />
     public partial class Message : ObservableObject
     {
+        /// <summary>
+        /// Gets or sets the sender.
+        /// </summary>
+        /// <value>
+        /// The sender.
+        /// </value>
         public string Sender { get; set; }
 
         // For appending text in Streaming Mode
-        [ ObservableProperty ]
+        /// <summary>
+        /// The text
+        /// </summary>
+        [ObservableProperty ]
         private string _text = string.Empty;
 
+        /// <summary>
+        /// Gets or sets the copy button visibility.
+        /// </summary>
+        /// <value>
+        /// The copy button visibility.
+        /// </value>
         public Visibility CopyButtonVisibility { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Message"/> class.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="text">The text.</param>
         public Message( string sender, string text )
         {
             Sender = sender;

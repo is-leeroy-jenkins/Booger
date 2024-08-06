@@ -41,17 +41,34 @@
 
 namespace Booger
 {
+    using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
 
+    [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
+    [ SuppressMessage( "ReSharper", "FieldCanBeMadeReadOnly.Local" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
     public class EmptyHistoryRepo : IHistoryRepo
     {
+        /// <summary>
+        /// The chat list
+        /// </summary>
         private List<Chat> _chatList;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EmptyHistoryRepo"/> class.
+        /// </summary>
         public EmptyHistoryRepo( )
         {
             _chatList = new List<Chat>( );
         }
 
+        /// <summary>
+        /// Gets the database configuration information.
+        /// </summary>
+        /// <value>
+        /// The database configuration information.
+        /// </value>
         public string DBConfigInfo
         {
             get
@@ -60,6 +77,10 @@ namespace Booger
             }
         }
 
+        /// <summary>
+        /// Loads the chat list.
+        /// </summary>
+        /// <returns></returns>
         public List<Chat> LoadChatList( )
         {
             // Uncomment this to insert testing data
@@ -68,34 +89,56 @@ namespace Booger
         }
 
         // chat.Id remains as 0
+        /// <summary>
+        /// Adds the chat.
+        /// </summary>
+        /// <param name="chat">The chat.</param>
         public void AddChat( Chat chat )
         {
         }
 
+        /// <summary>
+        /// Deletes the chat.
+        /// </summary>
+        /// <param name="chat">The chat.</param>
         public void DeleteChat( Chat chat )
         {
         }
 
+        /// <summary>
+        /// Devs the debug initialize chat list.
+        /// </summary>
         private void DevDebugInitializeChatList( )
         {
-            var prompt = "TestPrompt1";
-            var promptDisplay = prompt;
-            var newMessage = new Message( "Me", promptDisplay );
-            var chat = new Chat( prompt );
-            chat.AddMessage( newMessage );
+            var _prompt = "TestPrompt1";
+            var _promptDisplay = _prompt;
+            var _newMessage = new Message( "Me", _promptDisplay );
+            var _chat = new Chat( _prompt );
+            _chat.AddMessage( _newMessage );
 
             //string result = "TestPrompt1 result";
-            chat.AddMessage( "Bot",
+            _chat.AddMessage( "Bot",
                 "TestPrompt1 result" );//.Replace("Bot: ", string.Empty));            
 
-            _chatList.Add( chat );
-            prompt = "TestPrompt2";
-            promptDisplay = prompt;
-            newMessage = new Message( "Me", promptDisplay );
-            chat = new Chat( prompt );
-            chat.AddMessage( newMessage );
-            chat.AddMessage( "Bot", "TestPrompt2 result" );
-            _chatList.Add( chat );
+            _chatList.Add( _chat );
+            _prompt = "TestPrompt2";
+            _promptDisplay = _prompt;
+            _newMessage = new Message( "Me", _promptDisplay );
+            _chat = new Chat( _prompt );
+            _chat.AddMessage( _newMessage );
+            _chat.AddMessage( "Bot", "TestPrompt2 result" );
+            _chatList.Add( _chat );
+        }
+
+        /// <summary>
+        /// Fails the specified ex.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        private protected void Fail( Exception ex )
+        {
+            var _error = new ErrorWindow( ex );
+            _error?.SetText( );
+            _error?.ShowDialog( );
         }
     }
 }

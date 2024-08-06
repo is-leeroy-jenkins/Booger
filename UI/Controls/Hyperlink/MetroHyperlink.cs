@@ -1,12 +1,12 @@
 ﻿// ******************************************************************************************
 //     Assembly:                Booger
 //     Author:                  Terry D. Eppler
-//     Created:                 08-05-2024
+//     Created:                 08-06-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        08-05-2024
+//     Last Modified On:        08-06-2024
 // ******************************************************************************************
-// <copyright file="IHistoryRepo.cs" company="Terry D. Eppler">
+// <copyright file="MetroHyperlink.cs" company="Terry D. Eppler">
 //    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
 //    based on NET6 and written in C-Sharp.
 // 
@@ -35,43 +35,70 @@
 //    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
-//   IHistoryRepo.cs
+//   MetroHyperlink.cs
 // </summary>
 // ******************************************************************************************
 
+// ReSharper disable All
+
 namespace Booger
 {
-    using System.Collections.Generic;
+    using ModernWpf.Controls;
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Windows.Media;
 
+    /// <inheritdoc />
     /// <summary>
-    /// 
     /// </summary>
-    public interface IHistoryRepo
+    /// <seealso cref="T:Wpf.Ui.Controls.HyperlinkButton" />
+    [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
+    public class MetroHyperlink : HyperlinkButton
     {
         /// <summary>
-        /// Gets the database configuration information.
+        /// The theme
         /// </summary>
-        /// <value>
-        /// The database configuration information.
-        /// </value>
-        public string DBConfigInfo { get; }
+        private protected readonly DarkMode _theme = new DarkMode( );
 
         /// <summary>
-        /// Loads the chat list.
+        /// Initializes a new instance of the
+        /// <see cref="MetroHyperlink"/> class.
         /// </summary>
-        /// <returns></returns>
-        public List<Chat> LoadChatList( );
+        public MetroHyperlink( )
+            : base( )
+        {
+            // Basic Settings
+            Height = 110;
+            Width = 22;
+            FontFamily = new FontFamily( "Segoe UI" );
+            FontSize = 12;
+            Background = _theme.Transparent;
+            Foreground = _theme.BorderColor;
+            BorderBrush = _theme.Transparent;
+        }
 
         /// <summary>
-        /// Adds the chat.
+        /// Initializes a new instance of the
+        /// <see cref="MetroHyperlink"/> class.
         /// </summary>
-        /// <param name="chat">The chat.</param>
-        public void AddChat( Chat chat );
+        /// <param name = "text" > </param>
+        /// <param name="uri">The URI.</param>
+        public MetroHyperlink( string text, string uri )
+            : this( )
+        {
+            Content = text;
+            NavigateUri = new Uri( uri );
+        }
 
         /// <summary>
-        /// Deletes the chat.
+        /// Fails the specified _ex.
         /// </summary>
-        /// <param name="chat">The chat.</param>
-        public void DeleteChat( Chat chat );
+        /// <param name="_ex">The _ex.</param>
+        private protected void Fail( Exception _ex )
+        {
+            var _error = new ErrorWindow( _ex );
+            _error?.SetText( );
+            _error?.ShowDialog( );
+        }
     }
 }

@@ -1,10 +1,10 @@
 ﻿// ******************************************************************************************
 //     Assembly:                Booger
 //     Author:                  Terry D. Eppler
-//     Created:                 08-04-2024
+//     Created:                 08-06-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        08-04-2024
+//     Last Modified On:        08-06-2024
 // ******************************************************************************************
 // <copyright file="MetroCalculator.cs" company="Terry D. Eppler">
 //    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
@@ -70,7 +70,7 @@ namespace Booger
             : base( )
         {
             // Control Properties
-            SetResourceReference( StyleProperty, typeof( SfCalculator ) );
+            SetResourceReference( MetroCalculator.StyleProperty, typeof( SfCalculator ) );
             FontFamily = _theme.FontFamily;
             FontSize = _theme.FontSize;
             Background = _theme.BackColor;

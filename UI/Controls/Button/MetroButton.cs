@@ -6,7 +6,7 @@
 //     Last Modified By:        Terry D. Eppler
 //     Last Modified On:        08-06-2024
 // ******************************************************************************************
-// <copyright file="MetroComboBoxItem.cs" company="Terry D. Eppler">
+// <copyright file="MetroButton.cs" company="Terry D. Eppler">
 //    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
 //    based on NET6 and written in C-Sharp.
 // 
@@ -35,7 +35,7 @@
 //    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
-//   MetroComboBoxItem.cs
+//   MetroButton.cs
 // </summary>
 // ******************************************************************************************
 
@@ -45,67 +45,70 @@ namespace Booger
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Windows;
+    using System.Windows.Input;
+    using System.Windows.Media;
 
     /// <inheritdoc />
     /// <summary>
     /// </summary>
-    /// <seealso cref="T:Syncfusion.Windows.Tools.Controls.ComboBoxItemAdv" />
+    /// <seealso cref="T:System.Windows.Controls.Canvas" />
     [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     [ SuppressMessage( "ReSharper", "InconsistentNaming" ) ]
-    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
     [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
-    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
-    public class MetroComboBoxItem : ComboBoxItemAdv
+    public class MetroButton : ButtonAdv
     {
         /// <summary>
         /// The theme
         /// </summary>
         private protected readonly DarkMode _theme = new DarkMode( );
 
-        /// <summary>
-        /// Gets or sets an arbitrary object value that can be used
-        /// to store custom information about this element.
-        /// </summary>
-        public new object Tag { get; set; }
-
         /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="T:Booger.MetroComboBoxItem" /> class.
+        /// <see cref="T:Booger.Button" /> class.
         /// </summary>
-        public MetroComboBoxItem( )
+        public MetroButton( )
             : base( )
         {
             // Control Properties
-            SetResourceReference( MetroComboBoxItem.StyleProperty, typeof( ComboBoxItemAdv ) );
-            Height = 22;
-            Padding = new Thickness( 10, 1, 1, 1 );
+            SetResourceReference( MetroButton.StyleProperty, typeof( ButtonAdv ) );
+            FontFamily = _theme.FontFamily;
+            FontSize = _theme.FontSize;
+            Width = 140;
+            Height = 50;
+            IconHeight = 16;
+            IconWidth = 16;
+            SizeMode = SizeMode.Normal;
+            HorizontalContentAlignment = HorizontalAlignment.Center;
+            VerticalContentAlignment = VerticalAlignment.Center;
+            BorderThickness = _theme.BorderThickness;
             Background = _theme.ControlColor;
-            BorderBrush = _theme.ControlColor;
             Foreground = _theme.ForeColor;
+            BorderBrush = _theme.BorderColor;
 
             // Event Wiring
-            MouseEnter += OnItemMouseEnter;
-            MouseLeave += OnItemMouseLeave;
+            MouseEnter += OnMouseEnter;
+            MouseLeave += OnMouseLeave;
         }
 
-        /// <summary>
-        /// Called when [item mouse enter].
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/>
-        /// instance containing the event data.</param>
-        private protected void OnItemMouseEnter( object sender, EventArgs e )
+        /// <summary> Called when [mouse enter]. </summary>
+        /// <param name="sender"> The sender. </param>
+        /// <param name="e">
+        /// The
+        /// <see cref="EventArgs"/>
+        /// instance containing the event data.
+        /// </param>
+        private void OnMouseEnter( object sender, MouseEventArgs e )
         {
             try
             {
-                if( sender is MetroComboBoxItem _item )
+                if( sender is MetroButton _button )
                 {
-                    _item.Foreground = _theme.WhiteColor;
-                    _item.Background = _theme.SteelBlueColor;
-                    _item.BorderBrush = _theme.SteelBlueColor;
+                    _button.Foreground = _theme.WhiteColor;
+                    _button.Background = _theme.DarkBlueColor;
+                    _button.BorderBrush = _theme.LightBlueColor;
                 }
             }
             catch( Exception ex )
@@ -114,21 +117,22 @@ namespace Booger
             }
         }
 
-        /// <summary>
-        /// Called when [item mouse leave].
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/>
-        /// instance containing the event data.</param>
-        private protected void OnItemMouseLeave( object sender, EventArgs e )
+        /// <summary> Called when [mouse leave]. </summary>
+        /// <param name="sender"> The sender. </param>
+        /// <param name="e">
+        /// The
+        /// <see cref="EventArgs"/>
+        /// instance containing the event data.
+        /// </param>
+        private void OnMouseLeave( object sender, MouseEventArgs e )
         {
             try
             {
-                if( sender is MetroComboBoxItem _item )
+                if( sender is MetroButton _button )
                 {
-                    _item.Foreground = _theme.ForeColor;
-                    _item.Background = _theme.ControlColor;
-                    _item.BorderBrush = _theme.ControlColor;
+                    _button.Foreground = _theme.LightBlueColor;
+                    _button.Background = _theme.ControlColor;
+                    _button.BorderBrush = _theme.ControlColor;
                 }
             }
             catch( Exception ex )

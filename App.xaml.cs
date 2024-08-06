@@ -1,23 +1,72 @@
 ﻿namespace Booger
 {
     using System;
+    using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Windows;
     using System.Windows.Media;
     using RestoreWindowPlace;
+    using Syncfusion.Licensing;
     using Syncfusion.SfSkinManager;
     using Syncfusion.Themes.FluentDark.WPF;
 
+    /// <inheritdoc />
     /// <summary>
-    /// 
     /// </summary>
-    /// <seealso cref="System.Windows.Application" />
+    /// <seealso cref="T:System.Windows.Application" />
+    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
+    [ SuppressMessage( "ReSharper", "RedundantExtendsListEntry" ) ]
     public partial class App : Application
     {
         /// <summary>
         /// The window place
         /// </summary>
-        private WindowPlace? _windowPlace;
+        private WindowPlace _windowPlace;
+
+        /// <summary>
+        /// The controls
+        /// </summary>
+        public static string[ ] _controls =
+        {
+            "ComboBoxAdv",
+            "MetroComboBox",
+            "MetroDatagrid",
+            "ToolBarAdv",
+            "ToolStrip",
+            "MetroCalendar",
+            "CalendarEdit",
+            "PivotGridControl",
+            "MetroPivotGrid",
+            "MetroMap",
+            "EditControl",
+            "CheckListBox",
+            "MetroEditor",
+            "DropDownButtonAdv",
+            "MetroDropDown",
+            "GridControl",
+            "MetroGridControl",
+            "TabControlExt",
+            "MetroTabControl",
+            "MetroTextInput",
+            "MenuItemAdv",
+            "ButtonAdv",
+            "Carousel",
+            "ColorEdit",
+            "SfChart",
+            "SfChart3D",
+            "SfHeatMap",
+            "SfMap",
+            "SfDataGrid",
+            "SfTextBoxExt",
+            "SfCircularProgressBar",
+            "SfLinearProgressBar",
+            "SfTextInputLayout",
+            "SfSpreadsheet",
+            "SfSpreadsheetRibbon",
+            "SfCalculator",
+            "SfMultiColumnDropDownControl"
+        };
 
         /// <inheritdoc />
         /// <summary>
@@ -31,31 +80,34 @@
             base.OnStartup( e );
             try
             {
+                var _key = ConfigurationManager.AppSettings[ "UI" ];
+                SyncfusionLicenseProvider.RegisterLicense( _key );
+
                 // TODO 1: See README.md and get your OpenAI API key: https://platform.openai.com/account/api-keys
                 // TODO 2: You can modify ChatViewModel to set default selected language: _selectedLang = LangList[..]
                 // TODO 3: Give my article 5 stars:) at https://www.codeproject.com/Tips/5377103/ChatGPT-API-in-Csharp-WPF-XAML-MVVM
-                string openaiApiKey;
+                string _openaiApiKey;
                 if( e.Args?.Length > 0
                     && e.Args[ 0 ].StartsWith( '/' ) )
                 {
                     // OpenAI API key from command line parameter such as "/sk-Ih...WPd" after removing '/'
-                    openaiApiKey = e.Args[ 0 ].Remove( 0, 1 );
+                    _openaiApiKey = e.Args[ 0 ].Remove( 0, 1 );
                 }
                 else
                 {
                     // Put your key from above here instead of using a command line parameter in the 'if' block
-                    openaiApiKey = "<Your Open AI API Key is something like \"sk-Ih...WPd\">";
+                    _openaiApiKey = "<Your Open AI API Key is something like \"sk-Ih...WPd\">";
                 }
 
                 // Programmatically switch between SqlHistoryRepo and EmptyHistoryRepo
                 // If you have configured SQL Server, try SqlHistoryRepo
                 //IHistoryRepo historyRepo = new SqlHistoryRepo();
-                IHistoryRepo historyRepo = new EmptyHistoryRepo( );
-                var chatGPTService = new WhetstoneChatGPTService( openaiApiKey );
-                var mainViewModel = new MainViewModel( historyRepo, chatGPTService );
-                var mainWindow = new MainWindow( mainViewModel );
-                SetupRestoreWindowPlace( mainWindow );
-                mainWindow.Show( );
+                IHistoryRepo _historyRepo = new EmptyHistoryRepo( );
+                var _chatGptService = new ChatGptService( _openaiApiKey );
+                var _mainViewModel = new MainViewModel( _historyRepo, _chatGptService );
+                var _mainWindow = new MainWindow( _mainViewModel );
+                SetupRestoreWindowPlace( _mainWindow );
+                _mainWindow.Show( );
             }
             catch( Exception ex )
             {
@@ -64,6 +116,11 @@
             }
         }
 
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Application.Exit" /> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.Windows.ExitEventArgs" />
+        /// that contains the event data.</param>
         protected override void OnExit( ExitEventArgs e )
         {
             base.OnExit( e );
@@ -73,15 +130,20 @@
             }
             catch( Exception )
             {
+                // Do nothing
             }
         }
 
+        /// <summary>
+        /// Setups the restore window place.
+        /// </summary>
+        /// <param name="mainWindow">The main window.</param>
         private void SetupRestoreWindowPlace( MainWindow mainWindow )
         {
-            string windowPlaceConfigFilePath = Path.Combine( AppDomain.CurrentDomain.BaseDirectory,
+            var _windowPlaceConfigFilePath = Path.Combine( AppDomain.CurrentDomain.BaseDirectory,
                 "Booger.config" );
 
-            _windowPlace = new WindowPlace( windowPlaceConfigFilePath );
+            _windowPlace = new WindowPlace( _windowPlaceConfigFilePath );
             _windowPlace.Register( mainWindow );
 
             // This logic works but I don't like the window being maximized

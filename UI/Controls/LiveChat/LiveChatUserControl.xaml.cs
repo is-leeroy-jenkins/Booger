@@ -1,10 +1,10 @@
 ﻿// ******************************************************************************************
 //     Assembly:                Booger
 //     Author:                  Terry D. Eppler
-//     Created:                 08-05-2024
+//     Created:                 08-06-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        08-05-2024
+//     Last Modified On:        08-06-2024
 // ******************************************************************************************
 // <copyright file="LiveChatUserControl.xaml.cs" company="Terry D. Eppler">
 //    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
@@ -63,6 +63,11 @@ namespace Booger
     [ SuppressMessage( "ReSharper", "FieldCanBeMadeReadOnly.Local" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
+    [ SuppressMessage( "ReSharper", "UsePatternMatching" ) ]
+    [ SuppressMessage( "ReSharper", "UnusedVariable" ) ]
+    [ SuppressMessage( "ReSharper", "SuggestBaseTypeForParameter" ) ]
+    [ SuppressMessage( "ReSharper", "RedundantExtendsListEntry" ) ]
     public partial class LiveChatUserControl : UserControl
     {
         /// <summary>
@@ -83,12 +88,12 @@ namespace Booger
         /// <summary>
         /// The chat ListView scroll viewer
         /// </summary>
-        private ScrollViewer? _chatListViewScrollViewer;
+        private ScrollViewer _chatListViewScrollViewer;
 
         /// <summary>
         /// The message ListView scroll viewer
         /// </summary>
-        private ScrollViewer? _messageListViewScrollViewer;
+        private ScrollViewer _messageListViewScrollViewer;
 
         /// <summary>
         /// The message context menu
@@ -124,7 +129,7 @@ namespace Booger
         /// <value>
         /// The live chat view model.
         /// </value>
-        public LiveChatViewModel? LiveChatViewModel { get; set; }
+        public LiveChatViewModel LiveChatViewModel { get; set; }
 
         /// <summary>
         /// Creates the notifier.
@@ -177,7 +182,9 @@ namespace Booger
         /// <summary>
         /// Updates the UI.
         /// </summary>
-        /// <param name="updateUIEnum">The update UI enum.</param>
+        /// <param name="updateUIEnum">
+        /// The update UI enum.
+        /// </param>
         private void UpdateUI( UpdateUIEnum updateUIEnum )
         {
             switch( updateUIEnum )
@@ -193,7 +200,6 @@ namespace Booger
                     break;
             }
         }
-
 
         /// <summary>
         /// Setups the chat ListView scroll viewer.
@@ -239,27 +245,28 @@ namespace Booger
         /// </summary>
         /// <param name="element">The element.</param>
         /// <returns></returns>
-        private ScrollViewer? GetScrollViewer( UIElement? element )
+        private ScrollViewer GetScrollViewer( UIElement element )
         {
-            ScrollViewer? _scrollViewer = null;
+            ScrollViewer _viewer = null;
             if( element != null )
             {
                 for( var _i = 0;
-                    _i < VisualTreeHelper.GetChildrenCount( element ) && _scrollViewer == null; _i++ )
+                    _i < VisualTreeHelper.GetChildrenCount( element ) && _viewer == null;
+                    _i++ )
                 {
                     if( VisualTreeHelper.GetChild( element, _i ) is ScrollViewer )
                     {
-                        _scrollViewer = (ScrollViewer)VisualTreeHelper.GetChild( element, _i );
+                        _viewer = (ScrollViewer)VisualTreeHelper.GetChild( element, _i );
                     }
                     else
                     {
-                        _scrollViewer =
+                        _viewer =
                             GetScrollViewer( VisualTreeHelper.GetChild( element, _i ) as UIElement );
                     }
                 }
             }
 
-            return _scrollViewer;
+            return _viewer;
         }
 
         /// <summary>
@@ -286,7 +293,7 @@ namespace Booger
             // Copy to clipboard
             _messageContextMenu.Items.Add( new MenuItem
             {
-                Header = LiveChatUserControl._copyMessage,
+                Header = _copyMessage,
                 FontSize = 20,
                 Icon = new FontIcon
                 {
@@ -301,7 +308,8 @@ namespace Booger
         /// Handles the Loaded event of the LiveChatUserControl control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" />
+        /// instance containing the event data.</param>
         private void OnLoaded( object sender, RoutedEventArgs e )
         {
             if( !_alreadyLoaded )
@@ -319,7 +327,8 @@ namespace Booger
         /// Handles the PreviewKeyDown event of the LiveChatUserControl control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="KeyEventArgs" /> instance containing the event data.</param>
+        /// <param name="e">The <see cref="KeyEventArgs" />
+        /// instance containing the event data.</param>
         private void OnPreviewKeyDown( object sender, KeyEventArgs e )
         {
             if( e.Key == Key.Enter
@@ -331,9 +340,6 @@ namespace Booger
                 {
                     // ChatGPT mostly answered this!
                     var _textBox = _liveChatUserControl.ChatInputTextBox;
-                    var _caretIndex = _textBox.CaretIndex;
-                    _textBox.Text = _textBox.Text.Insert( _caretIndex, Environment.NewLine );
-                    _textBox.CaretIndex = _caretIndex + Environment.NewLine.Length;
                     e.Handled = true;
                 }
             }
@@ -353,7 +359,8 @@ namespace Booger
         /// Handles the PreviewMouseRightButtonUp event of the MessageListView control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="MouseButtonEventArgs" /> instance containing the event data.</param>
+        /// <param name="e">The <see cref="MouseButtonEventArgs" />
+        /// instance containing the event data.</param>
         private void OnPreviewMouseRightButtonUp( object sender,
             MouseButtonEventArgs e )
         {
@@ -379,7 +386,8 @@ namespace Booger
         /// Messages the menu on click.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
+        /// <param name="args">The <see cref="RoutedEventArgs" />
+        /// instance containing the event data.</param>
         private void OnMessageMenuClick( object sender, RoutedEventArgs args )
         {
             var _mi = args.Source as MenuItem;

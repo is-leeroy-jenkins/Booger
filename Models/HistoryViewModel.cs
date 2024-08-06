@@ -1,10 +1,10 @@
 ﻿// ******************************************************************************************
 //     Assembly:                Booger
 //     Author:                  Terry D. Eppler
-//     Created:                 08-05-2024
+//     Created:                 08-06-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        08-05-2024
+//     Last Modified On:        08-06-2024
 // ******************************************************************************************
 // <copyright file="HistoryViewModel.cs" company="Terry D. Eppler">
 //    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
@@ -43,16 +43,33 @@ namespace Booger
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Windows;
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
     using CommunityToolkit.Mvvm.Messaging;
 
+    /// <inheritdoc />
+    /// <summary>
+    /// </summary>
+    /// <seealso cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservableObject" />
+    [ SuppressMessage( "ReSharper", "FieldCanBeMadeReadOnly.Local" ) ]
+    [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     public partial class HistoryViewModel : ObservableObject
     {
+        /// <summary>
+        /// The history repo
+        /// </summary>
         private IHistoryRepo _historyRepo;
 
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="HistoryViewModel"/> class.
+        /// </summary>
+        /// <param name="historyRepo">The history repo.</param>
+        [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
         public HistoryViewModel( IHistoryRepo historyRepo )
         {
             _historyRepo = historyRepo;
@@ -60,6 +77,12 @@ namespace Booger
             RegisterAddChatMessage( );
         }
 
+        /// <summary>
+        /// Gets the database configuration information.
+        /// </summary>
+        /// <value>
+        /// The database configuration information.
+        /// </value>
         public string DBConfigInfo
         {
             get
@@ -68,14 +91,29 @@ namespace Booger
             }
         }
 
+        /// <summary>
+        /// Gets the chat list.
+        /// </summary>
+        /// <value>
+        /// The chat list.
+        /// </value>
         public ObservableCollection<Chat> ChatList { get; }
 
+        /// <summary>
+        /// The selected chat
+        /// </summary>
         [ ObservableProperty ]
-        private Chat? _selectedChat;
+        private Chat _selectedChat;
 
+        /// <summary>
+        /// The status message
+        /// </summary>
         [ ObservableProperty ]
         private string _statusMessage = "List of history chats";
 
+        /// <summary>
+        /// Registers the add chat message.
+        /// </summary>
         private void RegisterAddChatMessage( )
         {
             WeakReferenceMessenger.Default.Register<AddChatMessage>( this, ( recipient, message ) =>
@@ -84,18 +122,22 @@ namespace Booger
                 // WeakReferenceMessenger.Default.Send(new AddChatMessage(chat));
                 if( message != null )
                 {
-                    var chat = message.Chat;
-                    var existingChat = ChatList.FirstOrDefault( x => x.Id == chat.Id );
-                    if( existingChat != null )
+                    var _chat = message.Chat;
+                    var _existingChat = ChatList.FirstOrDefault( x => x.Id == _chat.Id );
+                    if( _existingChat != null )
                     {
-                        ChatList.Remove( existingChat );
+                        ChatList.Remove( _existingChat );
                     }
 
-                    ChatList.Add( chat );
+                    ChatList.Add( _chat );
                 }
             } );
         }
 
+        /// <summary>
+        /// Deletes the history chat.
+        /// </summary>
+        /// <param name="chat">The chat.</param>
         [ RelayCommand ]
         private void DeleteHistoryChat( Chat chat )
         {
@@ -116,22 +158,31 @@ namespace Booger
             }
         }
 
+        /// <summary>
+        /// Copies the message.
+        /// </summary>
+        /// <param name="message">The message.</param>
         [ RelayCommand ]
         public void CopyMessage( Message message )
         {
             if( SelectedChat != null )
             {
-                var meIndex = SelectedChat.MessageList.IndexOf( message ) - 1;
-                if( meIndex >= 0 )
+                var _meIndex = SelectedChat.MessageList.IndexOf( message ) - 1;
+                if( _meIndex >= 0 )
                 {
-                    Clipboard.SetText(
-                        $"Me: {SelectedChat.MessageList[ meIndex ].Text}\n\n{message.Text}" );
-
+                    var _prefix = $"{SelectedChat.MessageList[ _meIndex ].Text}\n\n{message.Text}";
+                    var _text = "Me: " + _prefix;
+                    Clipboard.SetText( _text );
                     StatusMessage = "Both Me and Bot messages copied to clipboard";
                 }
             }
         }
 
+        /// <summary>
+        /// Confirms the delete.
+        /// </summary>
+        /// <param name="chat">The chat.</param>
+        /// <returns></returns>
         private bool ConfirmDelete( Chat chat )
         {
             return MessageBox.Show(
@@ -139,6 +190,17 @@ namespace Booger
                     "Confirm Delete",
                     MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No )
                 == MessageBoxResult.Yes;
+        }
+
+        /// <summary>
+        /// Fails the specified ex.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        private protected void Fail( Exception ex )
+        {
+            var _error = new ErrorWindow( ex );
+            _error?.SetText( );
+            _error?.ShowDialog( );
         }
     }
 }

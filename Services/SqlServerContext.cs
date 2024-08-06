@@ -41,30 +41,96 @@
 
 namespace Booger
 {
+    using System;
     using Microsoft.EntityFrameworkCore;
 
     // Reference ('Code First'): 
     // PM> Add-Migration InitialCreate (set to 'Any CPU', not x86)
     // PM> Update-Database 
+    /// <inheritdoc />
+    /// <summary>
+    /// </summary>
+    /// <seealso cref="T:Microsoft.EntityFrameworkCore.DbContext" />
     public class SqlServerContext : DbContext
     {
+        /// <summary>
+        /// The connection string
+        /// </summary>
         private readonly string _connectionString;
 
         // This ctor is needed for PM> Update-Database
+        /// <inheritdoc />
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Booger.SqlServerContext" /> class.
+        /// </summary>
+        /// <remarks>
+        /// See <see href="https://aka.ms/efcore-docs-dbcontext">
+        /// DbContext lifetime, configuration, and initialization</see>
+        /// for more information and examples.
+        /// </remarks>
         public SqlServerContext( )
         {
-            _connectionString = SqlHistoryRepo.SqlConnectionString;
+            _connectionString = SqlHistoryRepo._sqlConnectionString;
         }
 
         // DbSet maps a table in DB
+        /// <summary>
+        /// Gets or sets the history chat.
+        /// </summary>
+        /// <value>
+        /// The history chat.
+        /// </value>
         public DbSet<HistoryChat> HistoryChat { get; set; }
 
+        /// <summary>
+        /// Gets or sets the history message.
+        /// </summary>
+        /// <value>
+        /// The history message.
+        /// </value>
         public DbSet<HistoryMessage> HistoryMessage { get; set; }
 
+        /// <inheritdoc />
+        /// <summary>
+        /// Override this method to configure the database (and other options) to be used for this context.
+        /// This method is called for each instance of the context that is created.
+        /// The base implementation does nothing.
+        /// </summary>
+        /// <param name="optionsBuilder">A builder used to create or
+        /// modify options for this context.
+        /// Databases (and other extensions)
+        /// typically define extension methods on this object
+        /// that allow you to configure the context.</param>
+        /// <remarks>
+        /// <para>
+        /// In situations where an instance of
+        /// <see cref="T:Microsoft.EntityFrameworkCore.DbContextOptions" />
+        /// may or may not have been passed
+        /// to the constructor, you can use
+        /// <see cref="P:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.IsConfigured" />
+        /// to determine if
+        /// the options have already been set, and skip some or all of the logic in
+        /// </para>
+        /// <para>
+        /// See <see href="https://aka.ms/efcore-docs-dbcontext">DbContext lifetime, configuration, and initialization</see>
+        /// for more information and examples.
+        /// </para>
+        /// </remarks>
         protected override void OnConfiguring( DbContextOptionsBuilder optionsBuilder )
         {
             base.OnConfiguring( optionsBuilder );
             optionsBuilder.UseSqlServer( _connectionString );
+        }
+
+        /// <summary>
+        /// Fails the specified ex.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        private protected void Fail( Exception ex )
+        {
+            var _error = new ErrorWindow( ex );
+            _error?.SetText( );
+            _error?.ShowDialog( );
         }
     }
 }

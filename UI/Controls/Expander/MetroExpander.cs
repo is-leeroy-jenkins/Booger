@@ -1,12 +1,12 @@
 ﻿// ******************************************************************************************
 //     Assembly:                Booger
 //     Author:                  Terry D. Eppler
-//     Created:                 08-05-2024
+//     Created:                 08-06-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        08-05-2024
+//     Last Modified On:        08-06-2024
 // ******************************************************************************************
-// <copyright file="IHistoryRepo.cs" company="Terry D. Eppler">
+// <copyright file="MetroExpander.cs" company="Terry D. Eppler">
 //    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
 //    based on NET6 and written in C-Sharp.
 // 
@@ -35,43 +35,66 @@
 //    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
-//   IHistoryRepo.cs
+//   MetroExpander.cs
 // </summary>
 // ******************************************************************************************
 
 namespace Booger
 {
-    using System.Collections.Generic;
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Media;
 
+    /// <inheritdoc />
     /// <summary>
-    /// 
     /// </summary>
-    public interface IHistoryRepo
+    /// <seealso cref="T:System.Windows.Controls.Expander" />
+    [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
+    [ SuppressMessage( "ReSharper", "InconsistentNaming" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    public class MetroExpander : Expander
     {
         /// <summary>
-        /// Gets the database configuration information.
+        /// The theme
         /// </summary>
-        /// <value>
-        /// The database configuration information.
-        /// </value>
-        public string DBConfigInfo { get; }
+        private protected readonly DarkMode _theme = new DarkMode( );
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="T:Booger.MetroExpander" /> class.
+        /// </summary>
+        public MetroExpander( )
+            : base( )
+        {
+            // Basic Properties
+            FontFamily = new FontFamily( "Segoe UI" );
+            FontSize = 12;
+            Width = 250;
+            Height = 250;
+            HorizontalAlignment = HorizontalAlignment.Center;
+            VerticalAlignment = VerticalAlignment.Stretch;
+            HorizontalContentAlignment = HorizontalAlignment.Center;
+            VerticalContentAlignment = VerticalAlignment.Stretch;
+            Margin = new Thickness( 3 );
+            Padding = new Thickness( 1 );
+            BorderThickness = new Thickness( 1 );
+            Background = _theme.BackColor;
+            Foreground = _theme.ForeColor;
+            BorderBrush = _theme.BorderColor;
+        }
 
         /// <summary>
-        /// Loads the chat list.
+        /// Fails the specified _ex.
         /// </summary>
-        /// <returns></returns>
-        public List<Chat> LoadChatList( );
-
-        /// <summary>
-        /// Adds the chat.
-        /// </summary>
-        /// <param name="chat">The chat.</param>
-        public void AddChat( Chat chat );
-
-        /// <summary>
-        /// Deletes the chat.
-        /// </summary>
-        /// <param name="chat">The chat.</param>
-        public void DeleteChat( Chat chat );
+        /// <param name="_ex">The _ex.</param>
+        private protected void Fail( Exception _ex )
+        {
+            var _error = new ErrorWindow( _ex );
+            _error?.SetText( );
+            _error?.ShowDialog( );
+        }
     }
 }

@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFrameworks>net6.0-windows</TargetFrameworks>
     <Version>1.4</Version>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <UseWPF>true</UseWPF>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
     <Platforms>AnyCPU;x86</Platforms>
@@ -64,6 +64,7 @@
     </PackageReference>
     <PackageReference Include="ModernWpfUI" Version="0.9.6" />
     <PackageReference Include="RestoreWindowPlace" Version="2.1.0" />
+    <PackageReference Include="Syncfusion.Licensing" Version="24.1.41" />
     <PackageReference Include="Syncfusion.SfHubTile.WPF" Version="24.1.41" />
     <PackageReference Include="Syncfusion.SfRichTextBoxAdv.WPF" Version="24.1.41" />
     <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="24.1.41" />
@@ -137,9 +138,6 @@
     </Reference>
     <Reference Include="Syncfusion.Data.WPF">
       <HintPath>..\Booger\Libraries\Syncfusion.Data.WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.Licensing">
-      <HintPath>..\Booger\Libraries\Syncfusion.Licensing.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SqlServerCe">
       <HintPath>..\Booger\Libraries\System.Data.SqlServerCe.dll</HintPath>

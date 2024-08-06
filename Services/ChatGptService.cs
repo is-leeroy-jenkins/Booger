@@ -1,12 +1,12 @@
 ﻿// ******************************************************************************************
 //     Assembly:                Booger
 //     Author:                  Terry D. Eppler
-//     Created:                 08-05-2024
+//     Created:                 08-06-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        08-05-2024
+//     Last Modified On:        08-06-2024
 // ******************************************************************************************
-// <copyright file="WhetstoneChatGPTService.cs" company="Terry D. Eppler">
+// <copyright file="ChatGptService.cs" company="Terry D. Eppler">
 //    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
 //    based on NET6 and written in C-Sharp.
 // 
@@ -35,31 +35,52 @@
 //    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
-//   WhetstoneChatGPTService.cs
+//   ChatGptService.cs
 // </summary>
 // ******************************************************************************************
 
 namespace Booger
 {
+    using System;
     using System.Threading.Tasks;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Whetstone.ChatGPT.Models;
     using Whetstone.ChatGPT;
 
-    public class WhetstoneChatGPTService
+    /// <summary>
+    /// 
+    /// </summary>
+    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
+    [ SuppressMessage( "ReSharper", "UseNullPropagation" ) ]
+    [ SuppressMessage( "ReSharper", "FieldCanBeMadeReadOnly.Local" ) ]
+    [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
+    public class ChatGptService
     {
-        private ChatGPTClient _chatGPTClient;
+        /// <summary>
+        /// The chat GPT client
+        /// </summary>
+        private ChatGPTClient _chatGptClient;
 
-        public WhetstoneChatGPTService( string openaiApiKey )
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChatGptService"/> class.
+        /// </summary>
+        /// <param name="openaiApiKey">The openai API key.</param>
+        public ChatGptService( string openaiApiKey )
         {
-            _chatGPTClient = new ChatGPTClient( openaiApiKey );
+            _chatGptClient = new ChatGPTClient( openaiApiKey );
         }
 
         // After 2024-01-04, must use GPT-3.5 with ChatGPT35Models.Turbo because Davinci003 (etc) is deprecated.
         // https://platform.openai.com/docs/deprecations/deprecation-history
-        public async Task<ChatGPTChatCompletionResponse?> CreateChatCompletionAsync( string prompt )
+        /// <summary>
+        /// Creates the chat completion asynchronous.
+        /// </summary>
+        /// <param name="prompt">The prompt.</param>
+        /// <returns></returns>
+        public async Task<ChatGPTChatCompletionResponse> CreateChatCompletionAsync( string prompt )
         {
-            var gptRequest = new ChatGPTChatCompletionRequest
+            var _gptRequest = new ChatGPTChatCompletionRequest
             {
                 Model = ChatGPT35Models.Turbo,
                 Messages = new List<ChatGPTChatCompletionMessage>( )
@@ -79,14 +100,19 @@ namespace Booger
                 MaxTokens = 500
             };
 
-            return await _chatGPTClient.CreateChatCompletionAsync( gptRequest );
+            return await _chatGptClient.CreateChatCompletionAsync( _gptRequest );
         }
 
         // After 2024-01-04, must use GPT-3.5 with ChatGPT35Models.Turbo
-        public IAsyncEnumerable<ChatGPTChatCompletionStreamResponse?> StreamChatCompletionAsync(
+        /// <summary>
+        /// Streams the chat completion asynchronous.
+        /// </summary>
+        /// <param name="prompt">The prompt.</param>
+        /// <returns></returns>
+        public IAsyncEnumerable<ChatGPTChatCompletionStreamResponse> StreamChatCompletionAsync(
             string prompt )
         {
-            var completionRequest = new ChatGPTChatCompletionRequest
+            var _completionRequest = new ChatGPTChatCompletionRequest
             {
                 Model = ChatGPT35Models.Turbo,
                 Messages = new List<ChatGPTChatCompletionMessage>( )
@@ -106,30 +132,46 @@ namespace Booger
                 MaxTokens = 500
             };
 
-            return _chatGPTClient.StreamChatCompletionAsync( completionRequest );
+            return _chatGptClient.StreamChatCompletionAsync( _completionRequest );
         }
 
-        public async Task<byte[ ]?> CreateImageAsync( string prompt )
+        /// <summary>
+        /// Creates the image asynchronous.
+        /// </summary>
+        /// <param name="prompt">The prompt.</param>
+        /// <returns></returns>
+        public async Task<byte[ ]> CreateImageAsync( string prompt )
         {
-            ChatGPTCreateImageRequest imageRequest = new ChatGPTCreateImageRequest
+            var _imageRequest = new ChatGPTCreateImageRequest
             {
                 Prompt = prompt,
                 Size = CreatedImageSize.Size1024,
                 ResponseFormat = CreatedImageFormat.Base64
             };
 
-            byte[ ]? imageBytes = null;
-            var imageResponse = await _chatGPTClient.CreateImageAsync( imageRequest );
-            if( imageResponse != null )
+            byte[ ] _imageBytes = null;
+            var _imageResponse = await _chatGptClient.CreateImageAsync( _imageRequest );
+            if( _imageResponse != null )
             {
-                var imageData = imageResponse.Data?[ 0 ];
-                if( imageData != null )
+                var _imageData = _imageResponse.Data?[ 0 ];
+                if( _imageData != null )
                 {
-                    imageBytes = await _chatGPTClient.DownloadImageAsync( imageData );
+                    _imageBytes = await _chatGptClient.DownloadImageAsync( _imageData );
                 }
             }
 
-            return imageBytes;
+            return _imageBytes;
+        }
+
+        /// <summary>
+        /// Fails the specified ex.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        private protected void Fail( Exception ex )
+        {
+            var _error = new ErrorWindow( ex );
+            _error?.SetText( );
+            _error?.ShowDialog( );
         }
     }
 }

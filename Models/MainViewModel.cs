@@ -42,31 +42,57 @@
 namespace Booger
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Reflection;
 
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
     public class MainViewModel
     {
-        public MainViewModel( IHistoryRepo historyRepo, WhetstoneChatGPTService chatGPTService )
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="MainViewModel" /> class.
+        /// </summary>
+        /// <param name="historyRepo">The history repo.</param>
+        /// <param name="chatGPTService">The chat GPT service.</param>
+        public MainViewModel( IHistoryRepo historyRepo, ChatGptService chatGPTService )
         {
             HistoryViewModel = new HistoryViewModel( historyRepo );
             LiveChatViewModel = new LiveChatViewModel( historyRepo, chatGPTService );
-
-            // <Version>1.3</Version> in .csproj
-            var appVer = Assembly.GetExecutingAssembly( ).GetName( ).Version!;
-            var dotnetVer = Environment.Version;
+            var _appVer = Assembly.GetExecutingAssembly( ).GetName( ).Version!;
+            var _dotnetVer = Environment.Version;
             AppTitle =
-                $"C# WPF ChatGPT v{appVer.Major}.{appVer.Minor} (.NET {dotnetVer.Major}.{dotnetVer.Minor}.{dotnetVer.Build} runtime) by Peter Sun";
+                $"C# WPF ChatGPT v{_appVer.Major}.{_appVer.Minor} (.NET {_dotnetVer.Major}.{_dotnetVer.Minor}.{_dotnetVer.Build} runtime) by Peter Sun";
 #if DEBUG
             AppTitle += " - DEBUG";
 #endif
         }
 
+        /// <summary>
+        /// Gets the application title.
+        /// </summary>
+        /// <value>
+        /// The application title.
+        /// </value>
         public string AppTitle { get; }
 
         // Bind to LiveChat tab item
+        /// <summary>
+        /// Gets the live chat view model.
+        /// </summary>
+        /// <value>
+        /// The live chat view model.
+        /// </value>
         public LiveChatViewModel LiveChatViewModel { get; }
 
         // Bind to History tab item
+        /// <summary>
+        /// Gets the history view model.
+        /// </summary>
+        /// <value>
+        /// The history view model.
+        /// </value>
         public HistoryViewModel HistoryViewModel { get; }
     }
 }

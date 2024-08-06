@@ -44,32 +44,58 @@ namespace Booger
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Microsoft.EntityFrameworkCore;
 
+    [ SuppressMessage( "ReSharper", "BadParensLineBreaks" ) ]
+    [ SuppressMessage( "ReSharper", "ClassNeverInstantiated.Global" ) ]
+    [ SuppressMessage( "ReSharper", "FieldCanBeMadeReadOnly.Local" ) ]
     public class SqlHistoryRepo : IHistoryRepo
     {
-        public const string SqlConnectionString =
-            "Data Source=localhost\\SQLDev2019;Initial Catalog=CSharpWpfChatGPTDB;Integrated Security=True;Encrypt=False;MultipleActiveResultSets=True";
+        /// <summary>
+        /// The SQL connection string
+        /// </summary>
+        public const string _sqlConnectionString =
+            "Data Source=localhost\\SQLDev2019;Initial Catalog=Booger;" 
+            + "Integrated Security=True;Encrypt=False;MultipleActiveResultSets=True";
 
+        /// <summary>
+        /// The SQL server context
+        /// </summary>
         private SqlServerContext _sqlServerContext;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SqlHistoryRepo"/> class.
+        /// </summary>
         public SqlHistoryRepo( )
         {
             _sqlServerContext = new SqlServerContext( );
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        /// Gets the database configuration information.
+        /// </summary>
+        /// <value>
+        /// The database configuration information.
+        /// </value>
         public string DBConfigInfo
         {
             get
             {
-                return @"SQL Server DB: localhost\SQLDev2019\CSharpWpfChatGPTDB";
+                return @"SQL Server DB: localhost\SQLDev2019\Booger";
             }
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        /// Loads the chat list.
+        /// </summary>
+        /// <returns></returns>
         public List<Chat> LoadChatList( )
         {
-            var list = _sqlServerContext
+            var _list = _sqlServerContext
                 .HistoryChat
                 .Include( x => x.MessageList )
                 .Select( x => new Chat( x.Name )
@@ -80,13 +106,18 @@ namespace Booger
                             x.MessageList.Select( y => new Message( y.Sender, y.Text ) ) )
                 } ).ToList( );
 
-            return list;
+            return _list;
         }
 
         // chat.Id will be updated to created PK
+        /// <inheritdoc />
+        /// <summary>
+        /// Adds the chat.
+        /// </summary>
+        /// <param name="chat">The chat.</param>
         public void AddChat( Chat chat )
         {
-            var historyChat = new HistoryChat
+            var _historyChat = new HistoryChat
             {
                 Name = chat.Name,
                 MessageList = chat.MessageList.Select( x =>
@@ -99,22 +130,38 @@ namespace Booger
             };
 
             // This Add will also add historyChat.MessageList to HistoryMessage table
-            _sqlServerContext.HistoryChat.Add( historyChat );
+            _sqlServerContext.HistoryChat.Add( _historyChat );
             _sqlServerContext.SaveChanges( );
 
             // Important to pass back Id (PK)
-            chat.Id = historyChat.Id;
+            chat.Id = _historyChat.Id;
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        /// Deletes the chat.
+        /// </summary>
+        /// <param name="chat">The chat.</param>
         public void DeleteChat( Chat chat )
         {
-            var historyChat = _sqlServerContext.HistoryChat.FirstOrDefault( x => x.Id == chat.Id );
-            if( historyChat != null )
+            var _historyChat = _sqlServerContext.HistoryChat.FirstOrDefault( x => x.Id == chat.Id );
+            if( _historyChat != null )
             {
                 // This Remove will also remove historyChat.MessageList from HistoryMessage table
-                _sqlServerContext.HistoryChat.Remove( historyChat );
+                _sqlServerContext.HistoryChat.Remove( _historyChat );
                 _sqlServerContext.SaveChanges( );
             }
+        }
+
+        /// <summary>
+        /// Fails the specified ex.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        private protected void Fail( Exception ex )
+        {
+            var _error = new ErrorWindow( ex );
+            _error?.SetText( );
+            _error?.ShowDialog( );
         }
     }
 }

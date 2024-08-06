@@ -6,7 +6,7 @@
 //     Last Modified By:        Terry D. Eppler
 //     Last Modified On:        08-06-2024
 // ******************************************************************************************
-// <copyright file="MetroComboBoxItem.cs" company="Terry D. Eppler">
+// <copyright file="MetroCheckList.cs" company="Terry D. Eppler">
 //    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
 //    based on NET6 and written in C-Sharp.
 // 
@@ -35,7 +35,7 @@
 //    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
-//   MetroComboBoxItem.cs
+//   MetroCheckList.cs
 // </summary>
 // ******************************************************************************************
 
@@ -49,101 +49,53 @@ namespace Booger
     /// <inheritdoc />
     /// <summary>
     /// </summary>
-    /// <seealso cref="T:Syncfusion.Windows.Tools.Controls.ComboBoxItemAdv" />
+    /// <seealso cref="T:Syncfusion.Windows.Tools.Controls.CheckListBox" />
     [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     [ SuppressMessage( "ReSharper", "InconsistentNaming" ) ]
-    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
-    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
     [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
-    public class MetroComboBoxItem : ComboBoxItemAdv
+    public class MetroCheckList : CheckListBox
     {
         /// <summary>
         /// The theme
         /// </summary>
         private protected readonly DarkMode _theme = new DarkMode( );
 
-        /// <summary>
-        /// Gets or sets an arbitrary object value that can be used
-        /// to store custom information about this element.
-        /// </summary>
-        public new object Tag { get; set; }
-
         /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="T:Booger.MetroComboBoxItem" /> class.
+        /// <see cref="T:Booger.MetroCheckList" /> class.
         /// </summary>
-        public MetroComboBoxItem( )
+        /// <remarks>
+        /// The <see cref="T:Syncfusion.Windows.Tools.Controls.CheckListBox" />
+        /// displays items with a checkbox to enable multiple selection of items.
+        /// </remarks>
+        public MetroCheckList( )
             : base( )
         {
             // Control Properties
-            SetResourceReference( MetroComboBoxItem.StyleProperty, typeof( ComboBoxItemAdv ) );
-            Height = 22;
-            Padding = new Thickness( 10, 1, 1, 1 );
+            SetResourceReference( MetroCheckList.StyleProperty, typeof( CheckListBox ) );
+            Width = 225.0;
+            Height = 200.0;
             Background = _theme.ControlColor;
-            BorderBrush = _theme.ControlColor;
             Foreground = _theme.ForeColor;
-
-            // Event Wiring
-            MouseEnter += OnItemMouseEnter;
-            MouseLeave += OnItemMouseLeave;
+            BorderBrush = _theme.BorderColor;
+            Padding = new Thickness( 10, 1, 1, 1 );
+            BorderThickness = new Thickness( 1 );
+            VerticalAlignment = VerticalAlignment.Stretch;
+            HorizontalAlignment = HorizontalAlignment.Center;
+            HorizontalContentAlignment = HorizontalAlignment.Left;
+            VerticalContentAlignment = VerticalAlignment.Bottom;
         }
 
         /// <summary>
-        /// Called when [item mouse enter].
+        /// Fails the specified _ex.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/>
-        /// instance containing the event data.</param>
-        private protected void OnItemMouseEnter( object sender, EventArgs e )
+        /// <param name="_ex">The _ex.</param>
+        private protected void Fail( Exception _ex )
         {
-            try
-            {
-                if( sender is MetroComboBoxItem _item )
-                {
-                    _item.Foreground = _theme.WhiteColor;
-                    _item.Background = _theme.SteelBlueColor;
-                    _item.BorderBrush = _theme.SteelBlueColor;
-                }
-            }
-            catch( Exception ex )
-            {
-                Fail( ex );
-            }
-        }
-
-        /// <summary>
-        /// Called when [item mouse leave].
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/>
-        /// instance containing the event data.</param>
-        private protected void OnItemMouseLeave( object sender, EventArgs e )
-        {
-            try
-            {
-                if( sender is MetroComboBoxItem _item )
-                {
-                    _item.Foreground = _theme.ForeColor;
-                    _item.Background = _theme.ControlColor;
-                    _item.BorderBrush = _theme.ControlColor;
-                }
-            }
-            catch( Exception ex )
-            {
-                Fail( ex );
-            }
-        }
-
-        /// <summary>
-        /// Fails the specified ex.
-        /// </summary>
-        /// <param name="ex">The ex.</param>
-        private protected void Fail( Exception ex )
-        {
-            var _error = new ErrorWindow( ex );
+            var _error = new ErrorWindow( _ex );
             _error?.SetText( );
             _error?.ShowDialog( );
         }

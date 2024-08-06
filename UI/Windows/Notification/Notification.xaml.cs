@@ -204,6 +204,7 @@ namespace Booger
         {
             InitializeComponent( );
             RegisterCallbacks( );
+            InitializeDelegates( );
 
             // Timer Settings
             _time = 0;

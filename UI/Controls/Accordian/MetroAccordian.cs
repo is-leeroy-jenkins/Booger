@@ -1,12 +1,12 @@
 ﻿// ******************************************************************************************
 //     Assembly:                Booger
 //     Author:                  Terry D. Eppler
-//     Created:                 08-05-2024
+//     Created:                 08-06-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        08-05-2024
+//     Last Modified On:        08-06-2024
 // ******************************************************************************************
-// <copyright file="IHistoryRepo.cs" company="Terry D. Eppler">
+// <copyright file="MetroAccordian.cs" company="Terry D. Eppler">
 //    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
 //    based on NET6 and written in C-Sharp.
 // 
@@ -35,43 +35,62 @@
 //    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
-//   IHistoryRepo.cs
+//   MetroAccordian.cs
 // </summary>
 // ******************************************************************************************
 
 namespace Booger
 {
-    using System.Collections.Generic;
+    using Syncfusion.Windows.Controls.Layout;
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Windows.Media;
 
+    /// <inheritdoc />
     /// <summary>
-    /// 
     /// </summary>
-    public interface IHistoryRepo
+    /// <seealso cref="T:Syncfusion.Windows.Controls.Layout.SfAccordion" />
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    [ SuppressMessage( "ReSharper", "InconsistentNaming" ) ]
+    [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
+    [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
+    public class MetroAccordian : SfAccordion
     {
         /// <summary>
-        /// Gets the database configuration information.
+        /// The theme
         /// </summary>
-        /// <value>
-        /// The database configuration information.
-        /// </value>
-        public string DBConfigInfo { get; }
+        private protected readonly DarkMode _theme = new DarkMode( );
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="T:Badger.MetroAccordian" /> class.
+        /// </summary>
+        public MetroAccordian( )
+            : base( )
+        {
+            // Control Properties
+            SetResourceReference( MetroAccordian.StyleProperty, typeof( SfAccordion ) );
+            FontSize = 12;
+            FontFamily = new FontFamily( "Segoe UI" );
+            Width = 250;
+            Height = 250;
+            AccentBrush = _theme.SteelBlueColor;
+            Background = _theme.BackColor;
+            BorderBrush = _theme.BorderColor;
+            Foreground = _theme.ForeColor;
+        }
 
         /// <summary>
-        /// Loads the chat list.
+        /// Fails the specified _ex.
         /// </summary>
-        /// <returns></returns>
-        public List<Chat> LoadChatList( );
-
-        /// <summary>
-        /// Adds the chat.
-        /// </summary>
-        /// <param name="chat">The chat.</param>
-        public void AddChat( Chat chat );
-
-        /// <summary>
-        /// Deletes the chat.
-        /// </summary>
-        /// <param name="chat">The chat.</param>
-        public void DeleteChat( Chat chat );
+        /// <param name="_ex">The _ex.</param>
+        private protected void Fail( Exception _ex )
+        {
+            var _error = new ErrorWindow( _ex );
+            _error?.SetText( );
+            _error?.ShowDialog( );
+        }
     }
 }

@@ -1,10 +1,10 @@
 ﻿// ******************************************************************************************
 //     Assembly:                Booger
 //     Author:                  Terry D. Eppler
-//     Created:                 08-04-2024
+//     Created:                 08-06-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        08-04-2024
+//     Last Modified On:        08-06-2024
 // ******************************************************************************************
 // <copyright file="MetroTextBox.cs" company="Terry D. Eppler">
 //    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
@@ -43,14 +43,11 @@ namespace Booger
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Media;
+    using Syncfusion.Windows.Controls.Input;
 
     /// <inheritdoc />
     /// <summary>
     /// </summary>
-    /// <seealso cref="T:System.Windows.Controls.TextBox" />
     [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
     [ SuppressMessage( "ReSharper", "FieldCanBeMadeReadOnly.Local" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
@@ -58,7 +55,7 @@ namespace Booger
     [ SuppressMessage( "ReSharper", "FieldCanBeMadeReadOnly.Global" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBeProtected.Global" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
-    public class MetroTextBox : TextBox
+    public class MetroTextBox : SfTextBoxExt
     {
         /// <summary>
         /// The dark
@@ -75,17 +72,9 @@ namespace Booger
         {
             Width = 200;
             Height = 24;
-            FontFamily = new FontFamily( "Segoe UI" );
-            FontSize = 12d;
-            HorizontalAlignment = HorizontalAlignment.Left;
-            VerticalAlignment = VerticalAlignment.Top;
-            HorizontalContentAlignment = HorizontalAlignment.Left;
-            VerticalContentAlignment = VerticalAlignment.Center;
-            Padding = new Thickness( 5, 1, 1, 1 );
-            Background = _theme.ControlColor;
+            Background = _theme.BackColor;
             Foreground = _theme.ForeColor;
             BorderBrush = _theme.BorderColor;
-            SelectionBrush = _theme.SteelBlueColor;
         }
 
         /// <summary>

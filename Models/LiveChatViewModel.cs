@@ -63,6 +63,8 @@ namespace Booger
     [ SuppressMessage( "ReSharper", "FieldCanBeMadeReadOnly.Local" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     public partial class LiveChatViewModel : ObservableObject
     {
         /// <summary>
@@ -216,7 +218,8 @@ namespace Booger
         /// </summary>
         [ ObservableProperty ]
         private string _statusMessage =
-            "Ctrl+Enter for input of multiple lines. Enter-Key to send. Ctrl+UpArrow | DownArrow to navigate previous input lines";
+            "Ctrl+Enter for input of multiple lines. Enter-Key to send." 
+            + " Ctrl+UpArrow | DownArrow to navigate previous input lines";
 
         // Also RelayCommand from AppBar
         /// <summary>
@@ -247,23 +250,23 @@ namespace Booger
         /// </summary>
         private void DevDebugInitialize( )
         {
-            var prompt = "TestPrompt1";
-            var promptDisplay = prompt;
-            var newMessage = new Message( "Me", promptDisplay );
-            SelectedChat.AddMessage( newMessage );
-            var result = "TestPrompt1 result";
-            SelectedChat.AddMessage( "Bot", result.Replace( "Bot: ", string.Empty ) );
-            PostProcessOnSend( prompt );
-            var newChat = _liveChatManager.AddNewChat( );
-            ChatList.Add( newChat );
-            SelectedChat = newChat;
-            prompt = "TestPrompt2";
-            promptDisplay = prompt;
-            newMessage = new Message( "Me", promptDisplay );
-            SelectedChat.AddMessage( newMessage );
-            result = "TestPrompt2 result";
-            SelectedChat.AddMessage( "Bot", result.Replace( "Bot: ", string.Empty ) );
-            PostProcessOnSend( prompt );
+            var _prompt = "TestPrompt1";
+            var _promptDisplay = _prompt;
+            var _newMessage = new Message( "Me", _promptDisplay );
+            SelectedChat.AddMessage( _newMessage );
+            var _result = "TestPrompt1 result";
+            SelectedChat.AddMessage( "Bot", _result.Replace( "Bot: ", string.Empty ) );
+            PostProcessOnSend( _prompt );
+            var _newChat = _liveChatManager.AddNewChat( );
+            ChatList.Add( _newChat );
+            SelectedChat = _newChat;
+            _prompt = "TestPrompt2";
+            _promptDisplay = _prompt;
+            _newMessage = new Message( "Me", _promptDisplay );
+            SelectedChat.AddMessage( _newMessage );
+            _result = "TestPrompt2 result";
+            SelectedChat.AddMessage( "Bot", _result.Replace( "Bot: ", string.Empty ) );
+            PostProcessOnSend( _prompt );
         }
 
         /// <summary>
@@ -278,9 +281,9 @@ namespace Booger
             }
 
             // Note: 'New Chat' will be renamed after it's used
-            var newChat = _liveChatManager.AddNewChat( );
-            ChatList.Add( newChat );
-            SelectedChat = newChat;
+            var _newChat = _liveChatManager.AddNewChat( );
+            ChatList.Add( _newChat );
+            SelectedChat = _newChat;
             return true;
         }
 
@@ -296,7 +299,7 @@ namespace Booger
                 if( ChatInput.IsBlank( ) )
                 {
                     // Pick the just used last one
-                    ChatInput = _chatInputList[ _chatInputList.Count - 1 ];
+                    ChatInput = _chatInputList[ ^1 ];
                     _chatInputListIndex = _chatInputList.Count - 1;
                 }
                 else
@@ -372,12 +375,13 @@ namespace Booger
         [ RelayCommand ]
         public void CopyMessage( Message message )
         {
-            var meIndex = SelectedChat.MessageList.IndexOf( message ) - 1;
-            if( meIndex >= 0 )
+            var _meIndex = SelectedChat.MessageList.IndexOf( message ) - 1;
+            if( _meIndex >= 0 )
             {
-                Clipboard.SetText(
-                    $"Me: {SelectedChat.MessageList[ meIndex ].Text}\n\n{message.Text}" );
-
+                var _text = $"{SelectedChat.MessageList[ _meIndex ].Text}\n\n{message.Text}";
+                var _prefix = "Me: ";
+                var _selection = _prefix + _text;
+                Clipboard.SetText( _selection );
                 StatusMessage = "Both Me and Bot messages copied to clipboard";
             }
             else
@@ -398,7 +402,7 @@ namespace Booger
                 return;
             }
 
-            if( !ValidateInput( ChatInput, out var prompt ) )
+            if( !ValidateInput( ChatInput, out var _prompt ) )
             {
                 return;
             }
@@ -406,17 +410,17 @@ namespace Booger
             try
             {
                 SetCommandBusy( true, true );
-                var previousPrompts = BuildPreviousPrompts( );
-                if( !string.IsNullOrEmpty( previousPrompts ) )
+                var _previousPrompts = BuildPreviousPrompts( );
+                if( !string.IsNullOrEmpty( _previousPrompts ) )
                 {
-                    await Send( $"{previousPrompts}\nMe: {prompt}", prompt );
+                    await Send( $"{_previousPrompts}\nMe: {_prompt}", _prompt );
                 }
                 else
                 {
-                    await Send( prompt, prompt );
+                    await Send( _prompt, _prompt );
                 }
 
-                PostProcessOnSend( prompt );
+                PostProcessOnSend( _prompt );
                 StatusMessage = "Ready";
             }
             catch( Exception ex )
@@ -462,7 +466,7 @@ namespace Booger
                 return;
             }
 
-            if( !ValidateInput( ChatInput, out var prompt ) )
+            if( !ValidateInput( ChatInput, out var _prompt ) )
             {
                 return;
             }
@@ -473,9 +477,9 @@ namespace Booger
 
                 // 'Explain' or 'Translate to' always uses a new chat
                 AddNewChatIfNotExists( );
-                prompt = $"{prefix} '{prompt}'";
-                await Send( prompt, prompt );
-                PostProcessOnSend( prompt );
+                _prompt = $"{prefix} '{_prompt}'";
+                await Send( _prompt, _prompt );
+                PostProcessOnSend( _prompt );
 
                 // Ensure this is marked for logic in BuildPreviousPrompts()
                 SelectedChat.IsSend = false;
@@ -506,18 +510,18 @@ namespace Booger
                 SetCommandBusy( true );
 
                 // Note: need to have voices installedL: Win-Key + I, Time & language -> Speech
-                var synthesizer = new SpeechSynthesizer( )
+                var _synthesizer = new SpeechSynthesizer( )
                 {
                     Volume = 100,// 0...100
                     Rate = -2    // -10...10                    
                 };
 
-                synthesizer.SelectVoiceByHints( IsFemaleVoice
+                _synthesizer.SelectVoiceByHints( IsFemaleVoice
                     ? VoiceGender.Female
                     : VoiceGender.Male, VoiceAge.Adult );
 
                 // Asynchronous / Synchronous
-                synthesizer.SpeakAsync( ChatInput );
+                _synthesizer.SpeakAsync( ChatInput );
 
                 //synthesizer.Speak(ChatInput);
                 StatusMessage = "Done";
@@ -558,7 +562,7 @@ namespace Booger
         /// <returns></returns>
         private string BuildPreviousPrompts( )
         {
-            var previousPrompts = string.Empty;
+            var _previousPrompts = string.Empty;
             if( !SelectedChat.IsSend )
             {
                 // We are on 'Explain' or 'Translate to', so auto-create a new chat
@@ -567,13 +571,13 @@ namespace Booger
             else if( SelectedChat.MessageList.IsNotEmpty( ) )
             {
                 // Continue with previous chat by sending previousPrompts
-                foreach( var message in SelectedChat.MessageList )
+                foreach( var _message in SelectedChat.MessageList )
                 {
-                    previousPrompts += $"{message.Sender}: {message.Text}";
+                    _previousPrompts += $"{_message.Sender}: {_message.Text}";
                 }
             }
 
-            return previousPrompts;
+            return _previousPrompts;
         }
 
         /// <summary>
@@ -583,8 +587,8 @@ namespace Booger
         /// <param name="promptDisplay">The prompt display.</param>
         private async Task Send( string prompt, string promptDisplay )
         {
-            var newMessage = new Message( "Me", promptDisplay );
-            SelectedChat.AddMessage( newMessage );
+            var _newMessage = new Message( "Me", promptDisplay );
+            SelectedChat.AddMessage( _newMessage );
             StatusMessage = "Talking to ChatGPT API...please wait";
             if( IsStreamingMode )
             {
@@ -592,8 +596,8 @@ namespace Booger
             }
             else
             {
-                var result = await DoSend( prompt );
-                SelectedChat.AddMessage( "Bot", result.Replace( "Bot: ", string.Empty ) );
+                var _result = await DoSend( prompt );
+                SelectedChat.AddMessage( "Bot", _result.Replace( "Bot: ", string.Empty ) );
             }
 
             // Clear the ChatInput field
@@ -608,9 +612,9 @@ namespace Booger
         private async Task<string> DoSend( string prompt )
         {
             // GPT-3.5
-            var completionResponse = await _chatGptService.CreateChatCompletionAsync( prompt );
-            var message = completionResponse?.GetMessage( );
-            return message?.Content ?? string.Empty;
+            var _completionResponse = await _chatGptService.CreateChatCompletionAsync( prompt );
+            var _message = _completionResponse?.GetMessage( );
+            return _message?.Content ?? string.Empty;
         }
 
         /// <summary>
@@ -620,16 +624,16 @@ namespace Booger
         private async Task SendStreamingMode( string prompt )
         {
             // Append with message.Text below
-            var message = SelectedChat.AddMessage( "Bot", string.Empty );
+            var _message = SelectedChat.AddMessage( "Bot", string.Empty );
 
             // GPT-3.5
-            await foreach( var response in
+            await foreach( var _response in
                 _chatGptService.StreamChatCompletionAsync( prompt ).ConfigureAwait( false ) )
             {
-                if( response is not null )
+                if( _response is not null )
                 {
-                    var responseText = response.GetCompletionText( );
-                    message.Text = message.Text + responseText;
+                    var _responseText = _response.GetCompletionText( );
+                    _message.Text += _responseText ?? string.Empty;
                 }
             }
         }
@@ -680,7 +684,7 @@ namespace Booger
         [ RelayCommand ]
         private async Task CreateImage( )
         {
-            if( !ValidateInput( ImageInput, out var prompt ) )
+            if( !ValidateInput( ImageInput, out var _prompt ) )
             {
                 return;
             }
@@ -691,8 +695,8 @@ namespace Booger
                 StatusMessage = "Creating an image...please wait";
 
                 // Will reject query of an image of a real person
-                ResultImage = await _chatGptService.CreateImageAsync( prompt );
-                StatusMessage = $"Processed image request for '{prompt}'";
+                ResultImage = await _chatGptService.CreateImageAsync( _prompt );
+                StatusMessage = $"Processed image request for '{_prompt}'";
             }
             catch( Exception ex )
             {

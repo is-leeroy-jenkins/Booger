@@ -53,6 +53,7 @@ namespace Booger
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
+    [ SuppressMessage( "ReSharper", "RedundantExtendsListEntry" ) ]
     public partial class MainWindow : Window
     {
         /// <summary>
@@ -69,13 +70,17 @@ namespace Booger
         public MainWindow( MainViewModel mainViewModel )
         {
             // Theme Properties
-            SfSkinManager.SetTheme( this, new Theme( "FluentDark" ) );
+            SfSkinManager.SetTheme( this, new Theme( "FluentDark", App.Controls ) );
             InitializeComponent( );
 
             // Window Properties
             Background = _theme.BackColor;
             Foreground = _theme.ForeColor;
             BorderBrush = _theme.BorderColor;
+            Width = 1435;
+            MinWidth = 500;
+            Height = 1000;
+            MinHeight = 400;
 
             // Data Wiring
             DataContext = mainViewModel;

@@ -2,20 +2,25 @@
     x:Class="Booger.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
-    xmlns:syncfusionskin="[syncfusionskin ]clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+    xmlns:syncfusionskin ="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+    xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Booger"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:ui="http://schemas.modernwpf.com/2019">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+
                 <ui:ThemeResources>
                     <ui:ThemeResources.ThemeDictionaries>
                         <ResourceDictionary
-                            x:Key="Light"
-                            ui:ThemeDictionary.Key="Light">
+                            x:Key="Dark"
+                            ui:ThemeDictionary.Key="Dark">
                             <SolidColorBrush
                                 x:Key="AppBackgroundBrush"
-                                Color="#FFF1F1F1" />
+                                Color="#FF141414" />
                             <SolidColorBrush
                                 x:Key="AppContentBackgroundBrush"
                                 Color="{StaticResource SystemAltHighColor}" />
@@ -26,19 +31,24 @@
                     </ui:ThemeResources.ThemeDictionaries>
                 </ui:ThemeResources>
                 <ui:XamlControlsResources />
+
                 <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
 
             <Style TargetType="ui:ListView">
                 <!--  Avoid 'narrow' vertical scrollbar.  -->
                 <Setter Property="ui:ScrollViewerHelper.AutoHideScrollBars" Value="False" />
             </Style>
+
+
+<!--  Note: FontFamily affect all under a tab. Got "Cascadia Mono Light" from comment section in https://www.youtube.com/watch?v=Hf9HQVPinqQ  -->
+
             <Style
                 BasedOn="{StaticResource DefaultTabItemStyle}"
                 TargetType="TabItem">
-                <!--  Note: FontFamily affect all under a tab. Got "Cascadia Mono Light" from comment section in https://www.youtube.com/watch?v=Hf9HQVPinqQ  -->
-                <Setter Property="FontFamily" Value="Consolas Light" />
-                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="Segoe UI" />
+                <Setter Property="FontSize" Value="12" />
                 <Style.Triggers>
                     <Trigger Property="IsSelected" Value="True">
                         <Setter Property="FontWeight" Value="SemiBold" />

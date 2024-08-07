@@ -88,12 +88,12 @@ namespace Booger
         /// <summary>
         /// The chat ListView scroll viewer
         /// </summary>
-        private ScrollViewer _chatListViewScrollViewer;
+        private ScrollViewer _chatScroller;
 
         /// <summary>
         /// The message ListView scroll viewer
         /// </summary>
-        private ScrollViewer _messageListViewScrollViewer;
+        private ScrollViewer _messageScroller;
 
         /// <summary>
         /// The message context menu
@@ -108,19 +108,23 @@ namespace Booger
         public LiveChatUserControl( )
         {
             // Theme Properties
-            SfSkinManager.SetTheme( this, new Theme( "FluentDark" ) );
-
-            // Window Properties
+            SfSkinManager.SetTheme( this, new Theme( "FluentDark", App.Controls ) );
             InitializeComponent( );
             Background = _theme.BackColor;
             Foreground = _theme.ForeColor;
             BorderBrush = _theme.BorderColor;
-            Loaded += OnLoaded;
+            Width = 1435;
+            MinWidth = 500;
+            Height = 1000;
+            MinHeight = 400;
             PreviewKeyDown += OnPreviewKeyDown;
             MessageListView.PreviewMouseRightButtonUp += OnPreviewMouseRightButtonUp;
             _messageContextMenu = new ContextMenu( );
             _messageContextMenu.AddHandler( MenuItem.ClickEvent,
                 new RoutedEventHandler( OnMessageMenuClick ) );
+
+            // Control Events
+            Loaded += OnLoaded;
         }
 
         /// <summary>
@@ -196,7 +200,7 @@ namespace Booger
                     SetupMessageListViewScrollViewer( );
                     break;
                 case UpdateUIEnum.MessageListViewScrollToBottom:
-                    _messageListViewScrollViewer?.ScrollToBottom( );
+                    _messageScroller?.ScrollToBottom( );
                     break;
             }
         }
@@ -206,17 +210,16 @@ namespace Booger
         /// </summary>
         private void SetupChatListViewScrollViewer( )
         {
-            // Get the ScrollViewer from the ListView. We'll need that in order to reliably
-            // implement "automatically scroll to the bottom when new items are added" functionality.            
-            _chatListViewScrollViewer = GetScrollViewer( ChatListView );
+            // Get the ScrollViewer from the ListView.             
+            _chatScroller = GetScrollViewer( ChatListView );
 
             // Based on: https://stackoverflow.com/a/1426312	
-            var _notifyCollectionChanged = ChatListView.ItemsSource as INotifyCollectionChanged;
-            if( _notifyCollectionChanged != null )
+            var _collectionChanged = ChatListView.ItemsSource as INotifyCollectionChanged;
+            if( _collectionChanged != null )
             {
-                _notifyCollectionChanged.CollectionChanged += ( sender, e ) =>
+                _collectionChanged.CollectionChanged += ( sender, e ) =>
                 {
-                    _chatListViewScrollViewer?.ScrollToBottom( );
+                    _chatScroller?.ScrollToBottom( );
                 };
             }
         }
@@ -228,12 +231,12 @@ namespace Booger
         /// </summary>
         private void SetupMessageListViewScrollViewer( )
         {
-            var _notifyCollectionChanged = MessageListView.ItemsSource as INotifyCollectionChanged;
-            if( _notifyCollectionChanged != null )
+            var _collectionChanged = MessageListView.ItemsSource as INotifyCollectionChanged;
+            if( _collectionChanged != null )
             {
-                _notifyCollectionChanged.CollectionChanged += ( sender, e ) =>
+                _collectionChanged.CollectionChanged += ( sender, e ) =>
                 {
-                    _messageListViewScrollViewer?.ScrollToBottom( );
+                    _messageScroller?.ScrollToBottom( );
                 };
             }
         }
@@ -254,15 +257,9 @@ namespace Booger
                     _i < VisualTreeHelper.GetChildrenCount( element ) && _viewer == null;
                     _i++ )
                 {
-                    if( VisualTreeHelper.GetChild( element, _i ) is ScrollViewer )
-                    {
-                        _viewer = (ScrollViewer)VisualTreeHelper.GetChild( element, _i );
-                    }
-                    else
-                    {
-                        _viewer =
-                            GetScrollViewer( VisualTreeHelper.GetChild( element, _i ) as UIElement );
-                    }
+                    _viewer = VisualTreeHelper.GetChild( element, _i ) is ScrollViewer
+                        ? (ScrollViewer)VisualTreeHelper.GetChild( element, _i )
+                        : GetScrollViewer( VisualTreeHelper.GetChild( element, _i ) as UIElement );
                 }
             }
 
@@ -283,7 +280,7 @@ namespace Booger
             {
                 Header = "Message",
                 IsHitTestVisible = false,
-                FontSize = 20,
+                FontSize = 12,
                 FontWeight = FontWeights.SemiBold
             } );
 
@@ -294,7 +291,7 @@ namespace Booger
             _messageContextMenu.Items.Add( new MenuItem
             {
                 Header = _copyMessage,
-                FontSize = 20,
+                FontSize = 12,
                 Icon = new FontIcon
                 {
                     Glyph = "\uE16F"
@@ -318,7 +315,7 @@ namespace Booger
                 LiveChatViewModel = (LiveChatViewModel)DataContext;
                 LiveChatViewModel.UpdateUIAction = UpdateUI;
                 SetupChatListViewScrollViewer( );
-                _messageListViewScrollViewer = GetScrollViewer( MessageListView );
+                _messageScroller = GetScrollViewer( MessageListView );
                 SetupMessageListViewScrollViewer( );
             }
         }
@@ -361,8 +358,7 @@ namespace Booger
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="MouseButtonEventArgs" />
         /// instance containing the event data.</param>
-        private void OnPreviewMouseRightButtonUp( object sender,
-            MouseButtonEventArgs e )
+        private void OnPreviewMouseRightButtonUp( object sender, MouseButtonEventArgs e )
         {
             // Note: target could be System.Windows.Controls.TextBoxView (in .NET 6)
             //          but it's internal (seen in debugger) and not accessible, so use string
@@ -390,13 +386,13 @@ namespace Booger
         /// instance containing the event data.</param>
         private void OnMessageMenuClick( object sender, RoutedEventArgs args )
         {
-            var _mi = args.Source as MenuItem;
+            var _menuItem = args.Source as MenuItem;
             var _message = _messageContextMenu.Tag as Message;
-            if( _mi != null
+            if( _menuItem != null
                 && _message != null
                 && LiveChatViewModel != null )
             {
-                switch( _mi.Header as string )
+                switch( _menuItem.Header as string )
                 {
                     case LiveChatUserControl._copyMessage:
                         LiveChatViewModel.CopyMessage( _message );

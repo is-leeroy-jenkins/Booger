@@ -145,7 +145,6 @@
     <TabControl Background="#FF282828">
         <TabItem
             x:Name="LiveChatTabItem"
-            BorderBrush="#FF0078D4"
             BorderThickness="1,1,1,0">
             <TabItem.Header>
                 <TextBlock
@@ -157,8 +156,7 @@
         </TabItem>
         <TabItem
             x:Name="HistoryTabItem"
-            BorderBrush="#FF0078D4"
-            BorderThickness="1,1,1,0">
+            BorderThickness="1,1,1,1">
             <TabItem.Header>
                 <TextBlock
                     Margin="6,2"

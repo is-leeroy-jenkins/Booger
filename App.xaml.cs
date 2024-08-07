@@ -27,7 +27,7 @@
         /// <summary>
         /// The controls
         /// </summary>
-        public static string[ ] _controls =
+        public static string[ ] Controls =
         {
             "ComboBoxAdv",
             "MetroComboBox",
@@ -96,16 +96,17 @@
                 else
                 {
                     // Put your key from above here instead of using a command line parameter in the 'if' block
-                    _openaiApiKey = "<Your Open AI API Key is something like \"sk-Ih...WPd\">";
+                    _openaiApiKey = "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";
                 }
 
                 // Programmatically switch between SqlHistoryRepo and EmptyHistoryRepo
                 // If you have configured SQL Server, try SqlHistoryRepo
-                //IHistoryRepo historyRepo = new SqlHistoryRepo();
+                //IHistoryRepo historyRepo = new SqlHistoryRepo();x
                 IHistoryRepo _historyRepo = new EmptyHistoryRepo( );
                 var _chatGptService = new ChatGptService( _openaiApiKey );
                 var _mainViewModel = new MainViewModel( _historyRepo, _chatGptService );
                 var _mainWindow = new MainWindow( _mainViewModel );
+                 
                 SetupRestoreWindowPlace( _mainWindow );
                 _mainWindow.Show( );
             }
@@ -116,6 +117,7 @@
             }
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Raises the <see cref="E:System.Windows.Application.Exit" /> event.
         /// </summary>
@@ -149,8 +151,9 @@
             // This logic works but I don't like the window being maximized
             //if (!File.Exists(windowPlaceConfigFilePath))
             //{
-            //    // For the first time, maximize the window, so it won't go off the screen on laptop
-            //    // WindowPlacement will take care of future runs
+            //    For the first time, maximize the window,
+            //    so it won't go off the screen on laptop
+            //    WindowPlacement will take care of future runs
             //    mainWindow.WindowState = WindowState.Maximized;
             //}
         }
@@ -176,6 +179,17 @@
 
             SfSkinManager.RegisterThemeSettings( "FluentDark", _theme );
             SfSkinManager.ApplyStylesOnApplication = true;
+        }
+
+        /// <summary>
+        /// Fails the specified ex.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        private protected void Fail( Exception ex )
+        {
+            var _error = new ErrorWindow( ex );
+            _error?.SetText( );
+            _error?.ShowDialog( );
         }
     }
 }

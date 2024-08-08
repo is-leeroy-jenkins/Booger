@@ -1,4 +1,43 @@
-﻿
+﻿// ******************************************************************************************
+//     Assembly:                Booger
+//     Author:                  Terry D. Eppler
+//     Created:                 08-08-2024
+// 
+//     Last Modified By:        Terry D. Eppler
+//     Last Modified On:        08-08-2024
+// ******************************************************************************************
+// <copyright file="MainPage.xaml.cs" company="Terry D. Eppler">
+//    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
+//    based on NET6 and written in C-Sharp.
+// 
+//    Copyright ©  2024  Terry D. Eppler
+// 
+//    Permission is hereby granted, free of charge, to any person obtaining a copy
+//    of this software and associated documentation files (the “Software”),
+//    to deal in the Software without restriction,
+//    including without limitation the rights to use,
+//    copy, modify, merge, publish, distribute, sublicense,
+//    and/or sell copies of the Software,
+//    and to permit persons to whom the Software is furnished to do so,
+//    subject to the following conditions:
+// 
+//    The above copyright notice and this permission notice shall be included in all
+//    copies or substantial portions of the Software.
+// 
+//    THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+//    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//    FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+//    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+//    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+//    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+//    DEALINGS IN THE SOFTWARE.
+// 
+//    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
+// </copyright>
+// <summary>
+//   MainPage.xaml.cs
+// </summary>
+// ******************************************************************************************
 
 namespace Booger
 {
@@ -9,8 +48,7 @@ namespace Booger
 
     public partial class MainPage : Page
     {
-        public MainPage(
-            AppWindow appWindow,
+        public MainPage( AppWindow appWindow,
             MainPageModel viewModel,
             AppGlobalData appGlobalData,
             PageService pageService,
@@ -19,7 +57,7 @@ namespace Booger
             ChatPageService chatPageService,
             ChatStorageService chatStorageService,
             ConfigurationService configurationService,
-            SmoothScrollingService smoothScrollingService)
+            SmoothScrollingService smoothScrollingService )
         {
             AppWindow = appWindow;
             ViewModel = viewModel;
@@ -31,175 +69,193 @@ namespace Booger
             ChatStorageService = chatStorageService;
             ConfigurationService = configurationService;
             DataContext = this;
+            foreach( var _session in ChatStorageService.GetAllSessions( ) )
+            {
+                AppGlobalData.Sessions.Add( new ChatSessionModel( _session ) );
+            }
 
-            foreach (var session in ChatStorageService.GetAllSessions())
-                AppGlobalData.Sessions.Add(new ChatSessionModel(session));
+            if( AppGlobalData.Sessions.Count == 0 )
+            {
+                NewSession( );
+            }
 
-            if (AppGlobalData.Sessions.Count == 0)
-                NewSession();
-
-            InitializeComponent();
-
-            SwitchPageToCurrentSession();
-
-            smoothScrollingService.Register(sessionsScrollViewer);
+            InitializeComponent( );
+            SwitchPageToCurrentSession( );
+            smoothScrollingService.Register( sessionsScrollViewer );
         }
 
         public AppWindow AppWindow { get; }
+
         public MainPageModel ViewModel { get; }
+
         public AppGlobalData AppGlobalData { get; }
+
         public PageService PageService { get; }
+
         public NoteService NoteService { get; }
+
         public ChatService ChatService { get; }
+
         public ChatPageService ChatPageService { get; }
+
         public ChatStorageService ChatStorageService { get; }
+
         public ConfigurationService ConfigurationService { get; }
 
-
-        [RelayCommand]
-        public void GoToConfigPage()
+        [ RelayCommand ]
+        public void GoToConfigPage( )
         {
-            AppWindow.Navigate<ConfigPage>();
+            AppWindow.Navigate<ConfigPage>( );
         }
 
-        [RelayCommand]
-        public async Task ResetChat()
+        [ RelayCommand ]
+        public async Task ResetChat( )
         {
-            if (AppGlobalData.SelectedSession != null)
+            if( AppGlobalData.SelectedSession != null )
             {
-                Guid sessionId = AppGlobalData.SelectedSession.Id;
-
-                ChatService.Cancel();
-                ChatStorageService.ClearMessage(sessionId);
-                ViewModel.CurrentChat?.ViewModel.Messages.Clear();
-
-                await NoteService.ShowAndWaitAsync("Chat has been reset.", 1500);
+                var _sessionId = AppGlobalData.SelectedSession.Id;
+                ChatService.Cancel( );
+                ChatStorageService.ClearMessage( _sessionId );
+                ViewModel.CurrentChat?.ViewModel.Messages.Clear( );
+                await NoteService.ShowAndWaitAsync( "Chat has been reset.", 1500 );
             }
             else
             {
-                await NoteService.ShowAndWaitAsync("You need to select a session.", 1500);
+                await NoteService.ShowAndWaitAsync( "You need to select a session.", 1500 );
             }
         }
 
-        [RelayCommand]
-        public void NewSession()
+        [ RelayCommand ]
+        public void NewSession( )
         {
-            ChatSession session = ChatSession.Create();
-            ChatSessionModel sessionModel = new ChatSessionModel(session);
-
-            ChatStorageService.SaveSession(session);
-            AppGlobalData.Sessions.Add(sessionModel);
-
-            AppGlobalData.SelectedSession = sessionModel;
+            var _session = ChatSession.Create( );
+            var _sessionModel = new ChatSessionModel( _session );
+            ChatStorageService.SaveSession( _session );
+            AppGlobalData.Sessions.Add( _sessionModel );
+            AppGlobalData.SelectedSession = _sessionModel;
         }
 
-        [RelayCommand]
-        public void DeleteSession(ChatSessionModel session)
+        [ RelayCommand ]
+        public void DeleteSession( ChatSessionModel session )
         {
-            if (AppGlobalData.Sessions.Count == 1)
+            if( AppGlobalData.Sessions.Count == 1 )
             {
-                NoteService.Show("You can't delete the last session.", 1500);
+                NoteService.Show( "You can't delete the last session.", 1500 );
                 return;
             }
 
-            int index = 
-                AppGlobalData.Sessions.IndexOf(session);
-            int newIndex =
-                Math.Max(0, index - 1);
+            var _index =
+                AppGlobalData.Sessions.IndexOf( session );
 
-            ChatPageService.RemovePage(session.Id);
-            ChatStorageService.DeleteSession(session.Id);
-            AppGlobalData.Sessions.Remove(session);
+            var _newIndex =
+                Math.Max( 0, _index - 1 );
 
-            AppGlobalData.SelectedSession = AppGlobalData.Sessions[newIndex];
+            ChatPageService.RemovePage( session.Id );
+            ChatStorageService.DeleteSession( session.Id );
+            AppGlobalData.Sessions.Remove( session );
+            AppGlobalData.SelectedSession = AppGlobalData.Sessions[ _newIndex ];
         }
 
-        [RelayCommand]
-        public void SwitchToNextSession()
+        [ RelayCommand ]
+        public void SwitchToNextSession( )
         {
-            int nextIndex;
-            int lastIndex = AppGlobalData.Sessions.Count - 1;
-
-            if (AppGlobalData.SelectedSession != null)
-                nextIndex = AppGlobalData.Sessions.IndexOf(AppGlobalData.SelectedSession) + 1;
+            int _nextIndex;
+            var _lastIndex = AppGlobalData.Sessions.Count - 1;
+            if( AppGlobalData.SelectedSession != null )
+            {
+                _nextIndex = AppGlobalData.Sessions.IndexOf( AppGlobalData.SelectedSession ) + 1;
+            }
             else
-                nextIndex = 0;
+            {
+                _nextIndex = 0;
+            }
 
-            nextIndex = Math.Clamp(nextIndex, 0, lastIndex);
-
-            AppGlobalData.SelectedSession = 
-                AppGlobalData.Sessions[nextIndex];
+            _nextIndex = Math.Clamp( _nextIndex, 0, _lastIndex );
+            AppGlobalData.SelectedSession =
+                AppGlobalData.Sessions[ _nextIndex ];
         }
 
-        [RelayCommand]
-        public void SwitchToPreviousSession()
+        [ RelayCommand ]
+        public void SwitchToPreviousSession( )
         {
-            int previousIndex;
-            int lastIndex = AppGlobalData.Sessions.Count - 1;
-
-            if (AppGlobalData.SelectedSession != null)
-                previousIndex = AppGlobalData.Sessions.IndexOf(AppGlobalData.SelectedSession) - 1;
+            int _previousIndex;
+            var _lastIndex = AppGlobalData.Sessions.Count - 1;
+            if( AppGlobalData.SelectedSession != null )
+            {
+                _previousIndex = AppGlobalData.Sessions.IndexOf( AppGlobalData.SelectedSession ) - 1;
+            }
             else
-                previousIndex = 0;
+            {
+                _previousIndex = 0;
+            }
 
-            previousIndex = Math.Clamp(previousIndex, 0, lastIndex);
+            _previousIndex = Math.Clamp( _previousIndex, 0, _lastIndex );
+            AppGlobalData.SelectedSession =
+                AppGlobalData.Sessions[ _previousIndex ];
+        }
+
+        [ RelayCommand ]
+        public void CycleSwitchToNextSession( )
+        {
+            int _nextIndex;
+            var _lastIndex = AppGlobalData.Sessions.Count - 1;
+            if( AppGlobalData.SelectedSession != null )
+            {
+                _nextIndex = AppGlobalData.Sessions.IndexOf( AppGlobalData.SelectedSession ) + 1;
+            }
+            else
+            {
+                _nextIndex = 0;
+            }
+
+            if( _nextIndex > _lastIndex )
+            {
+                _nextIndex = 0;
+            }
 
             AppGlobalData.SelectedSession =
-                AppGlobalData.Sessions[previousIndex];
+                AppGlobalData.Sessions[ _nextIndex ];
         }
 
-
-        [RelayCommand]
-        public void CycleSwitchToNextSession()
+        [ RelayCommand ]
+        public void CycleSwitchToPreviousSession( )
         {
-            int nextIndex;
-            int lastIndex = AppGlobalData.Sessions.Count - 1;
-
-            if (AppGlobalData.SelectedSession != null)
-                nextIndex = AppGlobalData.Sessions.IndexOf(AppGlobalData.SelectedSession) + 1;
+            int _previousIndex;
+            var _lastIndex = AppGlobalData.Sessions.Count - 1;
+            if( AppGlobalData.SelectedSession != null )
+            {
+                _previousIndex = AppGlobalData.Sessions.IndexOf( AppGlobalData.SelectedSession ) - 1;
+            }
             else
-                nextIndex = 0;
+            {
+                _previousIndex = 0;
+            }
 
-            if (nextIndex > lastIndex)
-                nextIndex = 0;
+            if( _previousIndex < 0 )
+            {
+                _previousIndex = _lastIndex;
+            }
 
             AppGlobalData.SelectedSession =
-                AppGlobalData.Sessions[nextIndex];
+                AppGlobalData.Sessions[ _previousIndex ];
         }
 
-        [RelayCommand]
-        public void CycleSwitchToPreviousSession()
+        [ RelayCommand ]
+        public void DeleteCurrentSession( )
         {
-            int previousIndex;
-            int lastIndex = AppGlobalData.Sessions.Count - 1;
-
-            if (AppGlobalData.SelectedSession != null)
-                previousIndex = AppGlobalData.Sessions.IndexOf(AppGlobalData.SelectedSession) - 1;
-            else
-                previousIndex = 0;
-
-            if (previousIndex < 0)
-                previousIndex = lastIndex;
-
-            AppGlobalData.SelectedSession =
-                AppGlobalData.Sessions[previousIndex];
+            if( AppGlobalData.SelectedSession != null )
+            {
+                DeleteSession( AppGlobalData.SelectedSession );
+            }
         }
 
-        [RelayCommand]
-        public void DeleteCurrentSession()
+        [ RelayCommand ]
+        public void SwitchPageToCurrentSession( )
         {
-            if (AppGlobalData.SelectedSession != null)
-                DeleteSession(AppGlobalData.SelectedSession);
-        }
-
-
-        [RelayCommand]
-        public void SwitchPageToCurrentSession()
-        {
-            if (AppGlobalData.SelectedSession != null)
+            if( AppGlobalData.SelectedSession != null )
             {
                 ViewModel.CurrentChat =
-                    ChatPageService.GetPage(AppGlobalData.SelectedSession.Id);
+                    ChatPageService.GetPage( AppGlobalData.SelectedSession.Id );
             }
         }
     }

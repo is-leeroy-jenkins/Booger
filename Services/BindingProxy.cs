@@ -12,13 +12,13 @@ namespace Booger
             return new BindingProxy();
         }
 
-        public object Data
+        public object _data
         {
-            get { return (object)GetValue(DataProperty); }
-            set { SetValue(DataProperty, value); }
+            get { return (object)GetValue(BindingProxy._dataProperty); }
+            set { SetValue(BindingProxy._dataProperty, value); }
         }
 
-        public static readonly DependencyProperty DataProperty =
-            DependencyProperty.Register("Data", typeof(object), typeof(BindingProxy), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty _dataProperty =
+            DependencyProperty.Register("_data", typeof(object), typeof(BindingProxy), new UIPropertyMetadata(null));
     }
 }

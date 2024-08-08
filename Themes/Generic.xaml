@@ -25,9 +25,9 @@
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="0 0 3 3"
-                        RenderTransform="{TemplateBinding ContentRenderTransform}">
+                        RenderTransform="{TemplateBinding _contentRenderTransform}">
                         <TextBlock
-                            Text="{TemplateBinding Text}"
+                            Text="{TemplateBinding _text}"
                             TextWrapping="Wrap" />
                     </Border>
                 </ControlTemplate>
@@ -44,36 +44,36 @@
                         Background="{TemplateBinding Background}">
                         <TextBox
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            Background="{TemplateBinding HeaderBackground}"
+                            Background="{TemplateBinding _headerBackground}"
                             BorderThickness="0"
                             FontSize="{DynamicResource SmallFontSize}"
-                            Foreground="{TemplateBinding HeaderForeground}"
+                            Foreground="{TemplateBinding _headerForeground}"
                             IsReadOnly="True"
-                            Text="{TemplateBinding Username}"
+                            Text="{TemplateBinding _username}"
                             TextWrapping="Wrap" />
                         <Border
                             x:Name="chatBubble"
                             Padding="5"
                             HorizontalAlignment="Stretch"
-                            Background="{TemplateBinding ContentBackground}"
+                            Background="{TemplateBinding _contentBackground}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="{TemplateBinding CornerRadius}">
+                            CornerRadius="{TemplateBinding _cornerRadius}">
                             <StackPanel HorizontalAlignment="Stretch">
-                                <local:ConditionalControl Condition="{TemplateBinding IsReadonly}">
-                                    <local:ConditionalControl.ElementWhileTrue>
-                                        <local:MarkdownViewer Content="{Binding Content, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                    </local:ConditionalControl.ElementWhileTrue>
-                                    <local:ConditionalControl.ElementWhileFalse>
+                                <local:ConditionalControl _condition="{TemplateBinding _isReadonly}">
+                                    <local:ConditionalControl._elementWhileTrue>
+                                        <local:MarkdownViewer _content="{Binding _content, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                    </local:ConditionalControl._elementWhileTrue>
+                                    <local:ConditionalControl._elementWhileFalse>
                                         <TextBox
                                             HorizontalAlignment="Stretch"
                                             AcceptsReturn="True"
                                             Background="Transparent"
                                             BorderThickness="0"
-                                            Foreground="{TemplateBinding ContentForeground}"
-                                            Text="{Binding Content, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                            Foreground="{TemplateBinding _contentForeground}"
+                                            Text="{Binding _content, RelativeSource={RelativeSource Mode=TemplatedParent}}"
                                             TextWrapping="Wrap" />
-                                    </local:ConditionalControl.ElementWhileFalse>
+                                    </local:ConditionalControl._elementWhileFalse>
                                 </local:ConditionalControl>
                             </StackPanel>
                         </Border>
@@ -95,17 +95,17 @@
                         <Grid>
                             <ContentPresenter
                                 x:Name="elementWhileTrue"
-                                Content="{TemplateBinding ElementWhileTrue}">
+                                Content="{TemplateBinding _elementWhileTrue}">
                                 <ContentPresenter.Style>
                                     <Style TargetType="ContentPresenter">
                                         <Style.Triggers>
                                             <DataTrigger
-                                                Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Condition}"
+                                                Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=_condition}"
                                                 Value="True">
                                                 <Setter Property="Visibility" Value="Visible" />
                                             </DataTrigger>
                                             <DataTrigger
-                                                Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Condition}"
+                                                Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=_condition}"
                                                 Value="False">
                                                 <Setter Property="Visibility" Value="Collapsed" />
                                             </DataTrigger>
@@ -116,17 +116,17 @@
 
                             <ContentPresenter
                                 x:Name="elementWhileFalse"
-                                Content="{TemplateBinding ElementWhileFalse}">
+                                Content="{TemplateBinding _elementWhileFalse}">
                                 <ContentPresenter.Style>
                                     <Style TargetType="ContentPresenter">
                                         <Style.Triggers>
                                             <DataTrigger
-                                                Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Condition}"
+                                                Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=_condition}"
                                                 Value="True">
                                                 <Setter Property="Visibility" Value="Collapsed" />
                                             </DataTrigger>
                                             <DataTrigger
-                                                Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Condition}"
+                                                Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=_condition}"
                                                 Value="False">
                                                 <Setter Property="Visibility" Value="Visible" />
                                             </DataTrigger>
@@ -145,7 +145,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:MarkdownViewer">
-                    <ContentControl Content="{TemplateBinding RenderedContent}" />
+                    <ContentControl Content="{TemplateBinding _renderedContent}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

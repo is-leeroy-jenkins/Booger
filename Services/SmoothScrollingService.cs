@@ -18,10 +18,10 @@ namespace Booger
 
         private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            ScrollViewer scrollViewer = (ScrollViewer)sender;
+            ScrollViewer _scrollViewer = (ScrollViewer)sender;
 
-            scrollViewer.ScrollToVerticalOffset(
-                scrollViewer.VerticalOffset - e.Delta);
+            _scrollViewer.ScrollToVerticalOffset(
+                _scrollViewer.VerticalOffset - e.Delta);
             e.Handled = true;
         }
     }

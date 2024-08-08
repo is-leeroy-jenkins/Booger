@@ -93,9 +93,9 @@ namespace Booger
                     }
                 }
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                Static.Fail( _ex );
+                Static.Fail( ex );
                 return default( string );
             }
         }
@@ -120,9 +120,9 @@ namespace Booger
                     ? _command
                     : default( IDbCommand );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                Static.Fail( _ex );
+                Static.Fail( ex );
                 return default( IDbCommand );
             }
         }
@@ -143,9 +143,9 @@ namespace Booger
                 using var _command = connection?.CreateCommand( sql );
                 return _command?.ExecuteNonQuery( ) ?? 0;
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                Static.Fail( _ex );
+                Static.Fail( ex );
                 return default( int );
             }
         }
@@ -235,9 +235,9 @@ namespace Booger
                     ? _builder.ToString( )
                     : string.Empty;
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                Static.Fail( _ex );
+                Static.Fail( ex );
                 return string.Empty;
             }
         }
@@ -267,9 +267,9 @@ namespace Booger
 
                 return _dictionary;
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                Static.Fail( _ex );
+                Static.Fail( ex );
                 return default( IDictionary<string, object> );
             }
         }

@@ -22,16 +22,16 @@ namespace Booger
             ConfigurationService = configurationService;
         }
 
-        private OpenAIClient client;
-        private string client_apikey;
-        private string client_organization;
-        private string client_apihost;
+        private OpenAIClient _client;
+        private string _clientApikey;
+        private string _clientOrganization;
+        private string _clientApihost;
 
         public ChatStorageService ChatStorageService { get; }
 
         public ConfigurationService ConfigurationService { get; }
 
-        private void NewOpenAIClient(
+        private void NewOpenAiClient(
             [NotNull] out OpenAIClient client, 
             [NotNull] out string client_apikey,
             [NotNull] out string client_apihost,
@@ -46,41 +46,41 @@ namespace Booger
                 new OpenAIClientSettings(client_apihost));
         }
 
-        private OpenAIClient GetOpenAIClient()
+        private OpenAIClient GetOpenAiClient()
         {
-            if (client == null ||
-                client_apikey != ConfigurationService.Configuration.ApiKey ||
-                client_apihost != ConfigurationService.Configuration.ApiHost ||
-                client_organization != ConfigurationService.Configuration.Organization)
-                NewOpenAIClient(out client, out client_apikey, out client_apihost, out client_organization);
+            if (_client == null ||
+                _clientApikey != ConfigurationService.Configuration.ApiKey ||
+                _clientApihost != ConfigurationService.Configuration.ApiHost ||
+                _clientOrganization != ConfigurationService.Configuration.Organization)
+                NewOpenAiClient(out _client, out _clientApikey, out _clientApihost, out _clientOrganization);
 
-            return client;
+            return _client;
         }
 
-        CancellationTokenSource cancellation;
+        CancellationTokenSource _cancellation;
 
         public ChatSession NewSession(string name)
         {
-            ChatSession session = ChatSession.Create(name);
-            ChatStorageService.SaveSession(session);
+            ChatSession _session = ChatSession.Create(name);
+            ChatStorageService.SaveSession(_session);
 
-            return session;
+            return _session;
         }
 
         public Task<ChatDialogue> ChatAsync(Guid sessionId, string message, Action<string> messageHandler)
         {
-            cancellation?.Cancel();
-            cancellation = new CancellationTokenSource();
+            _cancellation?.Cancel();
+            _cancellation = new CancellationTokenSource();
 
-            return ChatCoreAsync(sessionId, message, messageHandler, cancellation.Token);
+            return ChatCoreAsync(sessionId, message, messageHandler, _cancellation.Token);
         }
 
         public Task<ChatDialogue> ChatAsync(Guid sessionId, string message, Action<string> messageHandler, CancellationToken token)
         {
-            cancellation?.Cancel();
-            cancellation = CancellationTokenSource.CreateLinkedTokenSource(token);
+            _cancellation?.Cancel();
+            _cancellation = CancellationTokenSource.CreateLinkedTokenSource(token);
 
-            return ChatCoreAsync(sessionId, message, messageHandler, cancellation.Token);
+            return ChatCoreAsync(sessionId, message, messageHandler, _cancellation.Token);
         }
 
         public Task<string> GetTitleAsync(Guid sessionId, CancellationToken token)
@@ -90,79 +90,79 @@ namespace Booger
 
         public void Cancel()
         {
-            cancellation?.Cancel();
+            _cancellation?.Cancel();
         }
 
         private async Task<ChatDialogue> ChatCoreAsync(Guid sessionId, string message, Action<string> messageHandler, CancellationToken token)
         {
-            ChatSession session = 
+            ChatSession _session = 
                 ChatStorageService.GetSession(sessionId);
 
-            ChatMessage ask = ChatMessage.Create(sessionId, "user", message);
+            ChatMessage _ask = ChatMessage.Create(sessionId, "user", message);
 
-            OpenAIClient client = GetOpenAIClient();
+            OpenAIClient _client = GetOpenAiClient();
 
-            List<Message> messages = new List<Message>();
+            List<Message> _messages = new List<Message>();
 
-            foreach (var sysmsg in ConfigurationService.Configuration.SystemMessages)
-                messages.Add(new Message(Role.System, sysmsg));
+            foreach (var _sysmsg in ConfigurationService.Configuration.SystemMessages)
+                _messages.Add(new Message(Role.System, _sysmsg));
 
-            if (session != null)
-                foreach (var sysmsg in session.SystemMessages)
-                    messages.Add(new Message(Role.System, sysmsg));
+            if (_session != null)
+                foreach (var _sysmsg in _session.SystemMessages)
+                    _messages.Add(new Message(Role.System, _sysmsg));
 
-            if (session?.EnableChatContext ?? ConfigurationService.Configuration.EnableChatContext)
-                foreach (var chatmsg in ChatStorageService.GetAllMessages(sessionId))
-                    messages.Add(new Message(Enum.Parse<Role>(chatmsg.Role, true), chatmsg.Content));
+            if (_session?.EnableChatContext ?? ConfigurationService.Configuration.EnableChatContext)
+                foreach (var _chatmsg in ChatStorageService.GetAllMessages(sessionId))
+                    _messages.Add(new Message(Enum.Parse<Role>(_chatmsg.Role, true), _chatmsg.Content));
 
-            messages.Add(new Message(Role.User, message));
+            _messages.Add(new Message(Role.User, message));
 
-            string modelName =
+            string _modelName =
                 ConfigurationService.Configuration.Model;
-            double temperature =
+            double _temperature =
                 ConfigurationService.Configuration.Temerature;
 
-            DateTime lastTime = DateTime.Now;
+            DateTime _lastTime = DateTime.Now;
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder _sb = new StringBuilder();
 
-            CancellationTokenSource completionTaskCancellation =
+            CancellationTokenSource _completionTaskCancellation =
                 CancellationTokenSource.CreateLinkedTokenSource(token);
 
-            Task completionTask = client.ChatEndpoint.StreamCompletionAsync(
-                new ChatRequest(messages, modelName, temperature),
+            Task _completionTask = _client.ChatEndpoint.StreamCompletionAsync(
+                new ChatRequest(_messages, _modelName, _temperature),
                 response =>
                 {
-                    string content = response.Choices.FirstOrDefault()?.Delta?.Content;
-                    if (!string.IsNullOrEmpty(content))
+                    string _content = response.Choices.FirstOrDefault()?.Delta?.Content;
+                    if (!string.IsNullOrEmpty(_content))
                     {
-                        sb.Append(content);
+                        _sb.Append(_content);
 
-                        while (sb.Length > 0 && char.IsWhiteSpace(sb[0]))
-                            sb.Remove(0, 1);
+                        while (_sb.Length > 0 && char.IsWhiteSpace(_sb[0]))
+                            _sb.Remove(0, 1);
 
-                        messageHandler.Invoke(sb.ToString());
+                        messageHandler.Invoke(_sb.ToString());
 
                         // 有响应了, 更新时间
-                        lastTime = DateTime.Now;
+                        _lastTime = DateTime.Now;
                     }
-                }, completionTaskCancellation.Token);
+                }, _completionTaskCancellation.Token);
 
-            Task cancelTask = Task.Run(async () =>
+            Task _cancelTask = Task.Run(async () =>
             {
                 try
                 {
-                    TimeSpan timeout = 
+                    TimeSpan _timeout = 
                         TimeSpan.FromMilliseconds(ConfigurationService.Configuration.ApiTimeout);
 
-                    while (!completionTask.IsCompleted)
+                    while (!_completionTask.IsCompleted)
                     {
                         await Task.Delay(100);
 
                         // 如果当前时间与上次响应的时间相差超过配置的超时时间, 则扔异常
-                        if ((DateTime.Now - lastTime) > timeout)
+                        if ((DateTime.Now - _lastTime) > _timeout)
                         {
-                            completionTaskCancellation.Cancel();
+                            _completionTaskCancellation.Cancel();
                             throw new TimeoutException();
                         }
                     }
@@ -173,15 +173,15 @@ namespace Booger
                 }
             });
 
-            await Task.WhenAll(completionTask, cancelTask);
+            await Task.WhenAll(_completionTask, _cancelTask);
 
-            ChatMessage answer = ChatMessage.Create(sessionId, "assistant", sb.ToString());
-            ChatDialogue dialogue = new ChatDialogue(ask, answer);
+            ChatMessage _answer = ChatMessage.Create(sessionId, "assistant", _sb.ToString());
+            ChatDialogue _dialogue = new ChatDialogue(_ask, _answer);
 
-            ChatStorageService.SaveMessage(ask);
-            ChatStorageService.SaveMessage(answer);
+            ChatStorageService.SaveMessage(_ask);
+            ChatStorageService.SaveMessage(_answer);
 
-            return dialogue;
+            return _dialogue;
         }
     }
 }

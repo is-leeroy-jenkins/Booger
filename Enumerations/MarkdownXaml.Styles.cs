@@ -6,7 +6,7 @@
 //     Last Modified By:        Terry D. Eppler
 //     Last Modified On:        08-08-2024
 // ******************************************************************************************
-// <copyright file="MetroExpander.cs" company="Terry D. Eppler">
+// <copyright file="MarkdownXaml.Styles.cs" company="Terry D. Eppler">
 //    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
 //    based on NET6 and written in C-Sharp.
 // 
@@ -35,66 +35,105 @@
 //    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
-//   MetroExpander.cs
+//   MarkdownXaml.Styles.cs
 // </summary>
 // ******************************************************************************************
 
 namespace Booger
 {
-    using System;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Media;
-
-    /// <inheritdoc />
     /// <summary>
+    /// 
     /// </summary>
-    /// <seealso cref="T:System.Windows.Controls.Expander" />
-    [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
-    [ SuppressMessage( "ReSharper", "InconsistentNaming" ) ]
-    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
-    public class MetroExpander : Expander
+    public enum MarkdownResKey
     {
         /// <summary>
-        /// The theme
+        /// The main foreground
         /// </summary>
-        private protected readonly DarkMode _theme = new DarkMode( );
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Initializes a new instance of the
-        /// <see cref="T:Booger.MetroExpander" /> class.
-        /// </summary>
-        public MetroExpander( )
-            : base( )
-        {
-            // Basic Properties
-            FontFamily = new FontFamily( "Segoe UI" );
-            FontSize = 12;
-            Width = 250;
-            Height = 250;
-            HorizontalAlignment = HorizontalAlignment.Center;
-            VerticalAlignment = VerticalAlignment.Stretch;
-            HorizontalContentAlignment = HorizontalAlignment.Center;
-            VerticalContentAlignment = VerticalAlignment.Stretch;
-            Margin = new Thickness( 3 );
-            Padding = new Thickness( 1 );
-            BorderThickness = new Thickness( 1 );
-            Background = _theme.BackColor;
-            Foreground = _theme.ForeColor;
-            BorderBrush = _theme.BorderColor;
-        }
+        MainForeground,
 
         /// <summary>
-        /// Fails the specified _ex.
+        /// The main background
         /// </summary>
-        /// <param name="_ex">The _ex.</param>
-        private protected void Fail( Exception _ex )
-        {
-            var _error = new ErrorWindow( _ex );
-            _error?.SetText( );
-            _error?.ShowDialog( );
-        }
+        MainBackground,
+
+        /// <summary>
+        /// The main border
+        /// </summary>
+        MainBorder,
+
+        /// <summary>
+        /// The code block background
+        /// </summary>
+        CodeBlockBackground,
+
+        /// <summary>
+        /// The code block foreground
+        /// </summary>
+        CodeBlockForeground,
+
+        /// <summary>
+        /// The code block border
+        /// </summary>
+        CodeBlockBorder,
+
+        /// <summary>
+        /// The code inline foreground
+        /// </summary>
+        CodeInlineForeground,
+
+        /// <summary>
+        /// The code inline background
+        /// </summary>
+        CodeInlineBackground,
+
+        /// <summary>
+        /// The code inline border
+        /// </summary>
+        CodeInlineBorder,
+
+        /// <summary>
+        /// The quote block foreground
+        /// </summary>
+        QuoteBlockForeground,
+
+        /// <summary>
+        /// The quote block background
+        /// </summary>
+        QuoteBlockBackground,
+
+        /// <summary>
+        /// The quote block border
+        /// </summary>
+        QuoteBlockBorder,
+
+        /// <summary>
+        /// The table foreground
+        /// </summary>
+        TableForeground,
+
+        /// <summary>
+        /// The table background
+        /// </summary>
+        TableBackground,
+
+        /// <summary>
+        /// The table stripe
+        /// </summary>
+        TableStripe,
+
+        /// <summary>
+        /// The table border
+        /// </summary>
+        TableBorder,
+
+        /// <summary>
+        /// The thematic break
+        /// </summary>
+        ThematicBreak,
+
+        /// <summary>
+        /// The mark
+        /// </summary>
+        Mark
     }
 }

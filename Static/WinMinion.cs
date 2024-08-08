@@ -69,9 +69,9 @@ namespace Booger
 
                 Process.Start( _startInfo );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                WinMinion.Fail( _ex );
+                WinMinion.Fail( ex );
             }
         }
 
@@ -92,9 +92,9 @@ namespace Booger
 
                 Process.Start( _startInfo );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                WinMinion.Fail( _ex );
+                WinMinion.Fail( ex );
             }
         }
 
@@ -115,9 +115,9 @@ namespace Booger
 
                 Process.Start( _startInfo );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                WinMinion.Fail( _ex );
+                WinMinion.Fail( ex );
             }
         }
 
@@ -138,9 +138,9 @@ namespace Booger
 
                 Process.Start( _startInfo );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                WinMinion.Fail( _ex );
+                WinMinion.Fail( ex );
             }
         }
 
@@ -161,9 +161,9 @@ namespace Booger
 
                 Process.Start( _startInfo );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                WinMinion.Fail( _ex );
+                WinMinion.Fail( ex );
             }
         }
 
@@ -184,9 +184,9 @@ namespace Booger
 
                 Process.Start( _startInfo );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                WinMinion.Fail( _ex );
+                WinMinion.Fail( ex );
             }
         }
 
@@ -207,9 +207,9 @@ namespace Booger
 
                 Process.Start( _startInfo );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                WinMinion.Fail( _ex );
+                WinMinion.Fail( ex );
             }
         }
 
@@ -230,9 +230,9 @@ namespace Booger
 
                 Process.Start( _startInfo );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                WinMinion.Fail( _ex );
+                WinMinion.Fail( ex );
             }
         }
 
@@ -253,9 +253,9 @@ namespace Booger
 
                 Process.Start( _startInfo );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                WinMinion.Fail( _ex );
+                WinMinion.Fail( ex );
             }
         }
 

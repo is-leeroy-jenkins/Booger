@@ -1,202 +1,402 @@
-﻿
+﻿// ******************************************************************************************
+//     Assembly:                Booger
+//     Author:                  Terry D. Eppler
+//     Created:                 08-08-2024
+// 
+//     Last Modified By:        Terry D. Eppler
+//     Last Modified On:        08-08-2024
+// ******************************************************************************************
+// <copyright file="ColorModeService.cs" company="Terry D. Eppler">
+//    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
+//    based on NET6 and written in C-Sharp.
+// 
+//    Copyright ©  2024  Terry D. Eppler
+// 
+//    Permission is hereby granted, free of charge, to any person obtaining a copy
+//    of this software and associated documentation files (the “Software”),
+//    to deal in the Software without restriction,
+//    including without limitation the rights to use,
+//    copy, modify, merge, publish, distribute, sublicense,
+//    and/or sell copies of the Software,
+//    and to permit persons to whom the Software is furnished to do so,
+//    subject to the following conditions:
+// 
+//    The above copyright notice and this permission notice shall be included in all
+//    copies or substantial portions of the Software.
+// 
+//    THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+//    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//    FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+//    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+//    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+//    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+//    DEALINGS IN THE SOFTWARE.
+// 
+//    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
+// </copyright>
+// <summary>
+//   ColorModeService.cs
+// </summary>
+// ******************************************************************************************
 
 namespace Booger
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Windows;
     using System.Windows.Interop;
     using Microsoft.Win32;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
     public class ColorModeService
     {
-        private static string resourceUriPrefix = "pack://application:,,,";
+        /// <summary>
+        /// The resource URI prefix
+        /// </summary>
+        private static string _resourceUriPrefix = "pack://application:,,,";
 
-        private ResourceDictionary lightMode =
-            new ResourceDictionary() { Source = new Uri($"{resourceUriPrefix}/UI/ColorModes/LightMode.xaml") };
+        /// <summary>
+        /// The light mode
+        /// </summary>
+        private ResourceDictionary _light =
+            new ResourceDictionary( )
+            {
+                Source = new Uri( $"{_resourceUriPrefix}/UI/ColorModes/LightMode.xaml" )
+            };
 
-        private ResourceDictionary darkMode =
-            new ResourceDictionary() { Source = new Uri($"{resourceUriPrefix}/UI/ColorModes/DarkMode.xaml") };
+        /// <summary>
+        /// The dark mode
+        /// </summary>
+        private ResourceDictionary _dark =
+            new ResourceDictionary( )
+            {
+                Source = new Uri( $"{_resourceUriPrefix}/UI/ColorModes/DarkMode.xaml" )
+            };
 
-        public ColorModeService(
-            ConfigurationService configurationService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColorModeService"/> class.
+        /// </summary>
+        /// <param name="configurationService">The configuration service.</param>
+        public ColorModeService( ConfigurationService configurationService )
         {
             ConfigurationService = configurationService;
         }
 
+        /// <summary>
+        /// Gets the configuration service.
+        /// </summary>
+        /// <value>
+        /// The configuration service.
+        /// </value>
         private ConfigurationService ConfigurationService { get; }
 
-        private void InitMessageHook()
+        /// <summary>
+        /// Initializes the message hook.
+        /// </summary>
+        private void InitMessageHook( )
         {
-            SystemEvents.UserPreferenceChanged += 
+            SystemEvents.UserPreferenceChanged +=
                 SystemEvents_UserPreferenceChanged;
         }
 
-        private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        /// <summary>
+        /// Handles the UserPreferenceChanged event of the SystemEvents control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="UserPreferenceChangedEventArgs"/> instance containing the event data.</param>
+        private void SystemEvents_UserPreferenceChanged( object sender,
+            UserPreferenceChangedEventArgs e )
         {
-            if (e.Category == UserPreferenceCategory.General)
-                SwitchTo(CurrentMode);
+            if( e.Category == UserPreferenceCategory.General )
+            {
+                SwitchTo( CurrentMode );
+            }
         }
 
-        public void Init()
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        public void Init( )
         {
-            var configurationColorMode =
+            var _configurationColorMode =
                 ConfigurationService.Configuration.ColorMode;
 
-            SwitchTo(configurationColorMode);
-            InitMessageHook();
+            SwitchTo( _configurationColorMode );
+            InitMessageHook( );
         }
 
-        public IEnumerable<ColorMode> ColorModes =>
-            Enum.GetValues<ColorMode>();
+        /// <summary>
+        /// Gets the color modes.
+        /// </summary>
+        /// <value>
+        /// The color modes.
+        /// </value>
+        public IEnumerable<ColorMode> ColorModes
+        {
+            get
+            {
+                return Enum.GetValues<ColorMode>( );
+            }
+        }
 
-        private ColorMode currentMode = 
-            ColorMode.Auto;
-        private ColorMode currentActualMode =
-            SystemHelper.IsDarkTheme() ? ColorMode.Dark : ColorMode.Light;
+        /// <summary>
+        /// The current mode
+        /// </summary>
+        private ColorMode _currentMode = ColorMode.Auto;
 
+        /// <summary>
+        /// The current actual mode
+        /// </summary>
+        private ColorMode _currentActualMode =
+            SystemHelper.IsDarkTheme( )
+                ? ColorMode.Dark
+                : ColorMode.Light;
+
+        /// <summary>
+        /// Gets or sets the current mode.
+        /// </summary>
+        /// <value>
+        /// The current mode.
+        /// </value>
         public ColorMode CurrentMode
         {
-            get => currentMode;
+            get
+            {
+                return _currentMode;
+            }
             set
             {
-                SwitchTo(value);
+                SwitchTo( value );
             }
         }
-        public ColorMode CurrentActualMode => currentActualMode;
 
-        private void SwitchTo(ResourceDictionary colorModeResource)
+        /// <summary>
+        /// Gets the current actual mode.
+        /// </summary>
+        /// <value>
+        /// The current actual mode.
+        /// </value>
+        public ColorMode CurrentActualMode
         {
-            var oldColorModeResources =
-                Application.Current.Resources.MergedDictionaries
-                    .Where(dict => dict.Contains("IsColorModeResource"))
-                    .ToList();
-
-            foreach (var res in oldColorModeResources)
-                Application.Current.Resources.MergedDictionaries.Remove(res);
-
-            Application.Current.Resources.MergedDictionaries.Add(colorModeResource);
+            get
+            {
+                return _currentActualMode;
+            }
         }
 
-        public void SwitchTo(ColorMode mode)
+        /// <summary>
+        /// Switches to.
+        /// </summary>
+        /// <param name="colorModeResource">The color mode resource.</param>
+        private void SwitchTo( ResourceDictionary colorModeResource )
         {
-            switch (mode)
+            var _oldColorModeResources =
+                Application.Current.Resources.MergedDictionaries
+                    .Where( dict => dict.Contains( "IsColorModeResource" ) )
+                    .ToList( );
+
+            foreach( var _res in _oldColorModeResources )
+            {
+                Application.Current.Resources.MergedDictionaries.Remove( _res );
+            }
+
+            Application.Current.Resources.MergedDictionaries.Add( colorModeResource );
+        }
+
+        /// <summary>
+        /// Switches to.
+        /// </summary>
+        /// <param name="mode">The mode.</param>
+        /// <exception cref="System.ArgumentException">Must be bright or dark</exception>
+        public void SwitchTo( ColorMode mode )
+        {
+            switch( mode )
             {
                 case ColorMode.Light:
-                    SwitchToLightMode();
+                    SwitchToLightMode( );
                     break;
                 case ColorMode.Dark:
-                    SwitchToDarkMode();
+                    SwitchToDarkMode( );
                     break;
                 case ColorMode.Auto:
-                    SwitchToAuto();
+                    SwitchToAuto( );
                     break;
                 default:
-                    throw new ArgumentException("Must be bright or dark");
+                    throw new ArgumentException( "Must be bright or dark" );
             }
         }
 
-        public void ApplyThemeForWindow(Window window)
+        /// <summary>
+        /// Applies the theme for window.
+        /// </summary>
+        /// <param name="window">The window.</param>
+        public void ApplyThemeForWindow( Window window )
         {
-            IntPtr hwnd =
-                    new WindowInteropHelper(window).Handle;
+            var _hwnd =
+                new WindowInteropHelper( window ).Handle;
 
-            if (hwnd != IntPtr.Zero)
+            if( _hwnd != IntPtr.Zero )
             {
-                NativeMethods.EnableDarkModeForWindow(hwnd, CurrentActualMode == ColorMode.Dark);
+                NativeMethods.EnableDarkModeForWindow( _hwnd, CurrentActualMode == ColorMode.Dark );
             }
             else
             {
-                EventHandler handler = null;
-
-                handler = (s, args) =>
+                EventHandler _handler = null;
+                _handler = ( s, args ) =>
                 {
-                    if (s is Window _window)
-                        ApplyThemeForWindow(_window);
+                    if( s is Window _window )
+                    {
+                        ApplyThemeForWindow( _window );
+                    }
 
-                    window.SourceInitialized -= handler;
+                    window.SourceInitialized -= _handler;
                 };
 
-                window.SourceInitialized += handler;
+                window.SourceInitialized += _handler;
             }
         }
 
-        private void SwitchToLightModeCore(bool setField)
+        /// <summary>
+        /// Switches to light mode core.
+        /// </summary>
+        /// <param name="setField">if set to <c>true</c> [set field].</param>
+        private void SwitchToLightModeCore( bool setField )
         {
-            SwitchTo(lightMode);
-
-            if (setField)
-                ChangeColorModeAndNotify(ColorMode.Light, ColorMode.Light);
+            SwitchTo( _light );
+            if( setField )
+            {
+                ChangeColorModeAndNotify( ColorMode.Light, ColorMode.Light );
+            }
         }
 
-        private void SwitchToDarkModeCore(bool setField)
+        /// <summary>
+        /// Switches to dark mode core.
+        /// </summary>
+        /// <param name="setField">if set to <c>true</c> [set field].</param>
+        private void SwitchToDarkModeCore( bool setField )
         {
-            SwitchTo(darkMode);
-
-            if (setField)
-                ChangeColorModeAndNotify(ColorMode.Dark, ColorMode.Dark);
+            SwitchTo( _dark );
+            if( setField )
+            {
+                ChangeColorModeAndNotify( ColorMode.Dark, ColorMode.Dark );
+            }
         }
 
-        private void ChangeColorModeAndNotify(ColorMode colorMode, ColorMode actualColorMode)
+        /// <summary>
+        /// Changes the color mode and notify.
+        /// </summary>
+        /// <param name="colorMode">The color mode.</param>
+        /// <param name="actualColorMode">The actual color mode.</param>
+        /// <exception cref="System.ArgumentException">actualColorMode</exception>
+        private void ChangeColorModeAndNotify( ColorMode colorMode, ColorMode actualColorMode )
         {
-            if (actualColorMode == ColorMode.Auto)
-                throw new ArgumentException($"{nameof(actualColorMode)} cannot be 'Auto'", nameof(actualColorMode));
+            if( actualColorMode == ColorMode.Auto )
+            {
+                throw new ArgumentException( $"{nameof( actualColorMode )} cannot be 'Auto'",
+                    nameof( actualColorMode ) );
+            }
 
-            bool notify = colorMode != currentMode || actualColorMode != currentActualMode;
-
-            currentMode = colorMode;
-            currentActualMode = actualColorMode;
-
-            if (notify)
-                ColorModeChanged?.Invoke(this, new ColorModeChangedEventArgs(colorMode, actualColorMode));
+            var _notify = colorMode != _currentMode || actualColorMode != _currentActualMode;
+            _currentMode = colorMode;
+            _currentActualMode = actualColorMode;
+            if( _notify )
+            {
+                ColorModeChanged?.Invoke( this,
+                    new ColorModeChangedEventArgs( colorMode, actualColorMode ) );
+            }
         }
 
-
-        public void SwitchToAuto()
+        /// <summary>
+        /// Switches to automatic.
+        /// </summary>
+        public void SwitchToAuto( )
         {
-            bool isDarkMode =
-                SystemHelper.IsDarkTheme();
-
-            if (isDarkMode)
-                SwitchToDarkModeCore(false);
+            var _isDarkMode = (bool)SystemHelper.IsDarkTheme( );
+            if( _isDarkMode )
+            {
+                SwitchToDarkModeCore( false );
+            }
             else
-                SwitchToLightModeCore(false);
+            {
+                SwitchToLightModeCore( false );
+            }
 
-            ChangeColorModeAndNotify(ColorMode.Auto, isDarkMode ? ColorMode.Dark : ColorMode.Light);
+            ChangeColorModeAndNotify( ColorMode.Auto, _isDarkMode
+                ? ColorMode.Dark
+                : ColorMode.Light );
 
-            foreach (Window window in Application.Current.Windows)
-                ApplyThemeForWindow(window);
+            foreach( Window _window in Application.Current.Windows )
+            {
+                ApplyThemeForWindow( _window );
+            }
         }
 
-        public void SwitchToLightMode()
+        /// <summary>
+        /// Switches to light mode.
+        /// </summary>
+        public void SwitchToLightMode( )
         {
-            SwitchToLightModeCore(true);
-
-            foreach (Window window in Application.Current.Windows)
-                ApplyThemeForWindow(window);
+            SwitchToLightModeCore( true );
+            foreach( Window _window in Application.Current.Windows )
+            {
+                ApplyThemeForWindow( _window );
+            }
         }
 
-        public void SwitchToDarkMode()
+        /// <summary>
+        /// Switches to dark mode.
+        /// </summary>
+        public void SwitchToDarkMode( )
         {
-            SwitchToDarkModeCore(true);
-
-            foreach (Window window in Application.Current.Windows)
-                ApplyThemeForWindow(window);
+            SwitchToDarkModeCore( true );
+            foreach( Window _window in Application.Current.Windows )
+            {
+                ApplyThemeForWindow( _window );
+            }
         }
 
+        /// <summary>
+        /// Occurs when [color mode changed].
+        /// </summary>
         public event EventHandler<ColorModeChangedEventArgs> ColorModeChanged;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="System.EventArgs" />
     public class ColorModeChangedEventArgs : EventArgs
     {
-        public ColorModeChangedEventArgs(ColorMode colorMode, ColorMode actualColorMode)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColorModeChangedEventArgs"/> class.
+        /// </summary>
+        /// <param name="colorMode">The color mode.</param>
+        /// <param name="actualColorMode">The actual color mode.</param>
+        public ColorModeChangedEventArgs( ColorMode colorMode, ColorMode actualColorMode )
         {
             ColorMode = colorMode;
             ActualColorMode = actualColorMode;
         }
 
+        /// <summary>
+        /// Gets the color mode.
+        /// </summary>
+        /// <value>
+        /// The color mode.
+        /// </value>
         public ColorMode ColorMode { get; }
+
+        /// <summary>
+        /// Gets the actual color mode.
+        /// </summary>
+        /// <value>
+        /// The actual color mode.
+        /// </value>
         public ColorMode ActualColorMode { get; }
     }
 }

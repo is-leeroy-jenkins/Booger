@@ -18,21 +18,21 @@ namespace Booger
             LanguageService = languageService;
         }
 
-        HttpClient httpClient = new HttpClient();
+        HttpClient _httpClient = new HttpClient();
 
         public LanguageService LanguageService { get; }
 
         public async Task<string> GenerateAsync(string[] messages)
         {
-            string languageCode = LanguageService.CurrentLanguage.Name;
+            string _languageCode = LanguageService.CurrentLanguage.Name;
 
-            if (languageCode == "zh-Hans")
-                languageCode = "zh-CN";      // 伞兵 Edge API 只能识别 zh-CN, 不能识别 zh-Hans
+            if (_languageCode == "zh-Hans")
+                _languageCode = "zh-CN";      // 伞兵 Edge API 只能识别 zh-CN, 不能识别 zh-Hans
 
-            object payload = new
+            object _payload = new
             {
                 experimentId = string.Empty,
-                language = languageCode,
+                language = _languageCode,
                 targetGroup = messages
                     .Select(msg => new
                     {
@@ -42,20 +42,20 @@ namespace Booger
                     .ToArray()
             };
 
-            var response = await httpClient.PostAsJsonAsync(
-                "https://edge.microsoft.com/taggrouptitlegeneration/api/TitleGeneration/gen", payload);
+            var _response = await _httpClient.PostAsJsonAsync(
+                "https://edge.microsoft.com/taggrouptitlegeneration/api/TitleGeneration/gen", _payload);
 
-            if (!response.IsSuccessStatusCode)
+            if (!_response.IsSuccessStatusCode)
                 return null;
 
             try
             {
-                Dictionary<string, double> titles = await response.Content.ReadFromJsonAsync<Dictionary<string, double>>();
+                Dictionary<string, double> _titles = await _response.Content.ReadFromJsonAsync<Dictionary<string, double>>();
 
-                if (titles == null || titles.Count == 0)
+                if (_titles == null || _titles.Count == 0)
                     return null;
 
-                return titles.MaxBy(title => title.Value).Key;
+                return _titles.MaxBy(title => title.Value).Key;
             }
             catch
             {

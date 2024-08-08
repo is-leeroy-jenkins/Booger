@@ -9,7 +9,7 @@ namespace Booger
     {
         static SnakeCaseNamingPolicy()
         {
-            laziedInstance = new Lazy<SnakeCaseNamingPolicy>();
+            SnakeCaseNamingPolicy._laziedInstance = new Lazy<SnakeCaseNamingPolicy>();
         }
 
         private SnakeCaseNamingPolicy()
@@ -17,8 +17,8 @@ namespace Booger
 
         }
 
-        private static readonly Lazy<SnakeCaseNamingPolicy> laziedInstance;
-        public static SnakeCaseNamingPolicy SnakeCase => laziedInstance.Value;
+        private static readonly Lazy<SnakeCaseNamingPolicy> _laziedInstance;
+        public static SnakeCaseNamingPolicy SnakeCase => SnakeCaseNamingPolicy._laziedInstance.Value;
 
         public override string ConvertName(string name)
         {
@@ -27,23 +27,23 @@ namespace Booger
                 return name;
             }
 
-            var builder = new StringBuilder();
-            builder.Append(char.ToLowerInvariant(name[0]));
+            var _builder = new StringBuilder();
+            _builder.Append(char.ToLowerInvariant(name[0]));
 
-            for (var i = 1; i < name.Length; i++)
+            for (var _i = 1; _i < name.Length; _i++)
             {
-                if (char.IsUpper(name[i]))
+                if (char.IsUpper(name[_i]))
                 {
-                    builder.Append('_');
-                    builder.Append(char.ToLowerInvariant(name[i]));
+                    _builder.Append('_');
+                    _builder.Append(char.ToLowerInvariant(name[_i]));
                 }
                 else
                 {
-                    builder.Append(name[i]);
+                    _builder.Append(name[_i]);
                 }
             }
 
-            return builder.ToString();
+            return _builder.ToString();
         }
     }
 }

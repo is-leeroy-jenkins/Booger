@@ -8,7 +8,7 @@ namespace Booger
 
     public class ChatPageService
     {
-        private Dictionary<Guid, ChatPage> pages =
+        private Dictionary<Guid, ChatPage> _pages =
             new Dictionary<Guid, ChatPage>();
 
         public ChatPageService(
@@ -21,23 +21,23 @@ namespace Booger
 
         public ChatPage GetPage(Guid sessionId)
         {
-            if (!pages.TryGetValue(sessionId, out ChatPage chatPage))
+            if (!_pages.TryGetValue(sessionId, out ChatPage _chatPage))
             {
-                using (var scope = Services.CreateScope())
+                using (var _scope = Services.CreateScope())
                 {
-                    chatPage = scope.ServiceProvider.GetRequiredService<ChatPage>();
-                    chatPage.InitSession(sessionId);
+                    _chatPage = _scope.ServiceProvider.GetRequiredService<ChatPage>();
+                    _chatPage.InitSession(sessionId);
 
-                    pages[sessionId] = chatPage;
+                    _pages[sessionId] = _chatPage;
                 }
             }
 
-            return chatPage;
+            return _chatPage;
         }
 
         public bool RemovePage(Guid sessionId)
         {
-            return pages.Remove(sessionId);
+            return _pages.Remove(sessionId);
         }
     }
 }

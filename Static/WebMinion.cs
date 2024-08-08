@@ -74,9 +74,9 @@ namespace Booger
 
                 Process.Start( _startInfo );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                WebMinion.Fail( _ex );
+                WebMinion.Fail( ex );
             }
         }
 
@@ -104,9 +104,9 @@ namespace Booger
 
                 Process.Start( _startInfo );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                WebMinion.Fail( _ex );
+                WebMinion.Fail( ex );
             }
         }
 
@@ -131,9 +131,9 @@ namespace Booger
 
                 Process.Start( _startInfo );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                WebMinion.Fail( _ex );
+                WebMinion.Fail( ex );
             }
         }
 
@@ -159,9 +159,9 @@ namespace Booger
 
                 Process.Start( _startInfo );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                WebMinion.Fail( _ex );
+                WebMinion.Fail( ex );
             }
         }
 
@@ -189,9 +189,9 @@ namespace Booger
 
                 Process.Start( _startInfo );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                WebMinion.Fail( _ex );
+                WebMinion.Fail( ex );
             }
         }
 
@@ -217,9 +217,9 @@ namespace Booger
 
                 Process.Start( _startInfo );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                WebMinion.Fail( _ex );
+                WebMinion.Fail( ex );
             }
         }
 
@@ -247,9 +247,9 @@ namespace Booger
 
                 Process.Start( _startInfo );
             }
-            catch( Exception _ex )
+            catch( Exception ex )
             {
-                WebMinion.Fail( _ex );
+                WebMinion.Fail( ex );
             }
         }
 

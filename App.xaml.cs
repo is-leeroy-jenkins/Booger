@@ -16,16 +16,16 @@
 
     public partial class App : Application
     {
-        private static readonly IHost host = Host
+        private static readonly IHost _host = Host
             .CreateDefaultBuilder()
             .ConfigureAppConfiguration(config =>
             {
-                string path = Path.Combine(
+                string _path = Path.Combine(
                     FileSystemUtils.GetEntryPointFolder(),
                     GlobalValues.JsonConfigurationFilePath);
 
                 config
-                    .AddJsonFile(path, true, true)
+                    .AddJsonFile(_path, true, true)
                     .AddEnvironmentVariables();
             })
             .ConfigureServices((context, services) =>
@@ -68,7 +68,7 @@
         public static T GetService<T>()
             where T : class
         {
-            return (host.Services.GetService(typeof(T)) as T) ?? throw new Exception("Cannot find service of specified type");
+            return (App._host.Services.GetService(typeof(T)) as T) ?? throw new Exception("Cannot find service of specified type");
         }
 
         protected override async void OnStartup(StartupEventArgs e)
@@ -80,48 +80,48 @@
                 return;
             }
 
-            await host.StartAsync();
+            await App._host.StartAsync();
         }
 
         protected override async void OnExit(ExitEventArgs e)
         {
-            await host.StopAsync();
+            await App._host.StopAsync();
 
-            host.Dispose();
+            App._host.Dispose();
         }
 
         public static string AppName => nameof(Booger);
 
 
-        public static IRelayCommand ShowAppCommand =
+        public static IRelayCommand _showAppCommand =
             new RelayCommand(ShowApp);
-        public static IRelayCommand HideAppCommand =
+        public static IRelayCommand _hideAppCommand =
             new RelayCommand(HideApp);
-        public static IRelayCommand CloseAppCommand =
+        public static IRelayCommand _closeAppCommand =
             new RelayCommand(CloseApp);
 
         public static void ShowApp()
         {
-            Window mainWindow = Application.Current.MainWindow;
-            if (mainWindow == null)
+            Window _mainWindow = Application.Current.MainWindow;
+            if (_mainWindow == null)
                 return;
 
-            mainWindow.Show();
+            _mainWindow.Show();
 
-            if (mainWindow.WindowState == WindowState.Minimized)
-                mainWindow.WindowState = WindowState.Normal;
+            if (_mainWindow.WindowState == WindowState.Minimized)
+                _mainWindow.WindowState = WindowState.Normal;
 
-            if (!mainWindow.IsActive)
-                mainWindow.Activate( );
+            if (!_mainWindow.IsActive)
+                _mainWindow.Activate( );
         }
 
         public static void HideApp()
         {
-            Window mainWindow = Application.Current.MainWindow;
-            if (mainWindow == null)
+            Window _mainWindow = Application.Current.MainWindow;
+            if (_mainWindow == null)
                 return;
 
-            mainWindow.Hide( );
+            _mainWindow.Hide( );
         }
 
         public static void CloseApp()
@@ -132,15 +132,15 @@
 
         public bool EnsureAppSingletion( )
         {
-            EventWaitHandle singletonEvent = new EventWaitHandle(false, EventResetMode.AutoReset, "Booger", out bool createdNew);
+            EventWaitHandle _singletonEvent = new EventWaitHandle(false, EventResetMode.AutoReset, "Booger", out bool _createdNew);
 
-            if (createdNew)
+            if (_createdNew)
             {
                 Task.Run(() =>
                 {
                     while (true)
                     {
-                        singletonEvent.WaitOne();
+                        _singletonEvent.WaitOne();
 
                         Dispatcher.Invoke(() =>
                         {
@@ -153,7 +153,7 @@
             }
             else
             {
-                singletonEvent.Set();
+                _singletonEvent.Set();
                 return false;
             }
         }

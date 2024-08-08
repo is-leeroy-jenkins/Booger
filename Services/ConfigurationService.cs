@@ -19,8 +19,8 @@ namespace Booger
 
         public void Save()
         {
-            using FileStream fs = File.Create(GlobalValues.JsonConfigurationFilePath);
-            JsonSerializer.Serialize(fs, OptionalConfiguration.Value, JsonHelper.ConfigurationOptions);
+            using FileStream _fs = File.Create(GlobalValues.JsonConfigurationFilePath);
+            JsonSerializer.Serialize(_fs, OptionalConfiguration.Value, JsonHelper.ConfigurationOptions);
         }
     }
 }

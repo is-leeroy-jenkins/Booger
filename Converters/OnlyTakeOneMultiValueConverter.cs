@@ -12,14 +12,14 @@ namespace Booger
             if (values.Length == 0)
                 throw new ArgumentException("Not enough values");
 
-            object value = values[0];
-            if (value == null)
+            object _value = values[0];
+            if (_value == null)
                 throw new ArgumentNullException("value");
 
-            if (!targetType.IsAssignableFrom(value.GetType()))
+            if (!targetType.IsAssignableFrom(_value.GetType()))
                 throw new ArgumentException("Not assignable");
 
-            return value;
+            return _value;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
@@ -27,16 +27,16 @@ namespace Booger
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-            Type sourceType = value.GetType();
+            Type _sourceType = value.GetType();
 
-            foreach (var targetType in targetTypes)
-                if (!targetType.IsAssignableFrom(sourceType))
+            foreach (var _targetType in targetTypes)
+                if (!_targetType.IsAssignableFrom(_sourceType))
                     throw new ArgumentException("Not assignable");
 
-            object[] result = new object[targetTypes.Length];
-            Array.Fill(result, value);
+            object[] _result = new object[targetTypes.Length];
+            Array.Fill(_result, value);
 
-            return result;
+            return _result;
         }
     }
 }

@@ -1,4 +1,44 @@
-﻿
+﻿// ******************************************************************************************
+//     Assembly:                Booger
+//     Author:                  Terry D. Eppler
+//     Created:                 08-08-2024
+// 
+//     Last Modified By:        Terry D. Eppler
+//     Last Modified On:        08-08-2024
+// ******************************************************************************************
+// <copyright file="MarkdownWpfRenderer.cs" company="Terry D. Eppler">
+//    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
+//    based on NET6 and written in C-Sharp.
+// 
+//    Copyright ©  2024  Terry D. Eppler
+// 
+//    Permission is hereby granted, free of charge, to any person obtaining a copy
+//    of this software and associated documentation files (the “Software”),
+//    to deal in the Software without restriction,
+//    including without limitation the rights to use,
+//    copy, modify, merge, publish, distribute, sublicense,
+//    and/or sell copies of the Software,
+//    and to permit persons to whom the Software is furnished to do so,
+//    subject to the following conditions:
+// 
+//    The above copyright notice and this permission notice shall be included in all
+//    copies or substantial portions of the Software.
+// 
+//    THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+//    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//    FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+//    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+//    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+//    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+//    DEALINGS IN THE SOFTWARE.
+// 
+//    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
+// </copyright>
+// <summary>
+//   MarkdownWpfRenderer.cs
+// </summary>
+// ******************************************************************************************
+
 namespace Booger
 {
     using System;
@@ -20,812 +60,1105 @@ namespace Booger
     using Markdig.Syntax.Inlines;
     using WpfDocs = System.Windows.Documents;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class MarkdownWpfRenderer
     {
-        public double Heading1Size = 24;
-        public double Heading2Size = 18;
-        public double Heading3Size = 16;
-        public double Heading4Size = 14;
-        public double NormalSize = 12;
+        /// <summary>
+        /// The heading1 size
+        /// </summary>
+        public double _heading1Size = 24;
 
-        public ColorMode ColorMode { get; set; } = App.GetService<ColorModeService>().CurrentActualMode;
+        /// <summary>
+        /// The heading2 size
+        /// </summary>
+        public double _heading2Size = 18;
 
+        /// <summary>
+        /// The heading3 size
+        /// </summary>
+        public double _heading3Size = 16;
 
+        /// <summary>
+        /// The heading4 size
+        /// </summary>
+        public double _heading4Size = 14;
 
+        /// <summary>
+        /// The normal size
+        /// </summary>
+        public double _normalSize = 12;
 
+        /// <summary>
+        /// Gets or sets the color mode.
+        /// </summary>
+        /// <value>
+        /// The color mode.
+        /// </value>
+        public ColorMode ColorMode { get; set; } =
+            App.GetService<ColorModeService>( ).CurrentActualMode;
 
-
+        /// <summary>
+        /// Occurs when [link navigate].
+        /// </summary>
         public static event EventHandler<MarkdownLinkNavigateEventArgs> LinkNavigate;
 
-        public FrameworkElement RenderDocument(MarkdownDocument document, CancellationToken cancellationToken)
+        /// <summary>
+        /// Renders the document.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public FrameworkElement RenderDocument( MarkdownDocument document,
+            CancellationToken cancellationToken )
         {
-            if (cancellationToken.IsCancellationRequested)
-                return new FrameworkElement();
-
-            if (document == null)
-                return new FrameworkElement();
-
-            StackPanel documentElement = new StackPanel();
-
-            foreach (var renderedBlock in RenderBlocks(document, cancellationToken))
+            if( cancellationToken.IsCancellationRequested )
             {
-                if (cancellationToken.IsCancellationRequested)
-                    break;
-
-                documentElement.Children.Add(renderedBlock);
+                return new FrameworkElement( );
             }
 
-            return documentElement;
-        }
-
-        public void RenderDocumentTo(ContentControl target, MarkdownDocument document, CancellationToken cancellationToken)
-        {
-            if (cancellationToken.IsCancellationRequested)
-                return;
-
-            if (document == null)
-                return;
-
-            StackPanel documentElement = new StackPanel();
-            target.Content = documentElement;
-
-            foreach (var renderedBlock in RenderBlocks(document, cancellationToken))
+            if( document == null )
             {
-                if (cancellationToken.IsCancellationRequested)
-                    break;
-
-                documentElement.Children.Add(renderedBlock);
+                return new FrameworkElement( );
             }
 
-            return;
-        }
-
-        public List<FrameworkElement> RenderBlocks(IEnumerable<Block> blocks, CancellationToken cancellationToken)
-        {
-            if (cancellationToken.IsCancellationRequested)
-                return new List<FrameworkElement>();
-
-            List<FrameworkElement> elements = new List<FrameworkElement>();
-            FrameworkElement tailElement = null;
-
-            foreach (var block in blocks)
+            var _documentElement = new StackPanel( );
+            foreach( var _renderedBlock in RenderBlocks( document, cancellationToken ) )
             {
-                if (cancellationToken.IsCancellationRequested)
-                    break;
-
-                FrameworkElement renderedBlock = RenderBlock(block, cancellationToken);
-
-                if (renderedBlock != null)
+                if( cancellationToken.IsCancellationRequested )
                 {
-                    elements.Add(renderedBlock);
-                    tailElement = renderedBlock;
+                    break;
+                }
+
+                _documentElement.Children.Add( _renderedBlock );
+            }
+
+            return _documentElement;
+        }
+
+        /// <summary>
+        /// Renders the document to.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="document">The document.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        public void RenderDocumentTo( ContentControl target, MarkdownDocument document,
+            CancellationToken cancellationToken )
+        {
+            if( cancellationToken.IsCancellationRequested )
+            {
+                return;
+            }
+
+            if( document == null )
+            {
+                return;
+            }
+
+            var _documentElement = new StackPanel( );
+            target.Content = _documentElement;
+            foreach( var _renderedBlock in RenderBlocks( document, cancellationToken ) )
+            {
+                if( cancellationToken.IsCancellationRequested )
+                {
+                    break;
+                }
+
+                _documentElement.Children.Add( _renderedBlock );
+            }
+        }
+
+        /// <summary>
+        /// Renders the blocks.
+        /// </summary>
+        /// <param name="blocks">The blocks.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public List<FrameworkElement> RenderBlocks( IEnumerable<Block> blocks,
+            CancellationToken cancellationToken )
+        {
+            if( cancellationToken.IsCancellationRequested )
+            {
+                return new List<FrameworkElement>( );
+            }
+
+            var _elements = new List<FrameworkElement>( );
+            FrameworkElement _tailElement = null;
+            foreach( var _block in blocks )
+            {
+                if( cancellationToken.IsCancellationRequested )
+                {
+                    break;
+                }
+
+                var _renderedBlock = RenderBlock( _block, cancellationToken );
+                if( _renderedBlock != null )
+                {
+                    _elements.Add( _renderedBlock );
+                    _tailElement = _renderedBlock;
                 }
             }
 
-            if (tailElement != null)
-                tailElement.Margin = tailElement.Margin with
+            if( _tailElement != null )
+            {
+                _tailElement.Margin = _tailElement.Margin with
                 {
                     Bottom = 0
                 };
+            }
 
-            return elements;
+            return _elements;
         }
 
-        public FrameworkElement RenderBlock(Block block, CancellationToken cancellationToken)
+        /// <summary>
+        /// Renders the block.
+        /// </summary>
+        /// <param name="block">The block.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public FrameworkElement RenderBlock( Block block, CancellationToken cancellationToken )
         {
-            if (cancellationToken.IsCancellationRequested)
-                return new FrameworkElement();
+            if( cancellationToken.IsCancellationRequested )
+            {
+                return new FrameworkElement( );
+            }
 
-            if (block is ParagraphBlock paragraphBlock)
+            if( block is ParagraphBlock _paragraphBlock )
             {
-                return RenderParagraphBlock(paragraphBlock, cancellationToken);
+                return RenderParagraphBlock( _paragraphBlock, cancellationToken );
             }
-            else if (block is HeadingBlock headingBlock)
+            else if( block is HeadingBlock _headingBlock )
             {
-                return RenderHeadingBlock(headingBlock, cancellationToken);
+                return RenderHeadingBlock( _headingBlock, cancellationToken );
             }
-            else if (block is QuoteBlock quoteBlock)
+            else if( block is QuoteBlock _quoteBlock )
             {
-                return RenderQuoteBlock(quoteBlock, cancellationToken);
+                return RenderQuoteBlock( _quoteBlock, cancellationToken );
             }
-            else if (block is FencedCodeBlock fencedCodeBlock)
+            else if( block is FencedCodeBlock _fencedCodeBlock )
             {
-                return RenderFencedCodeBlock(fencedCodeBlock, cancellationToken);
+                return RenderFencedCodeBlock( _fencedCodeBlock, cancellationToken );
             }
-            else if (block is CodeBlock codeBlock)
+            else if( block is CodeBlock _codeBlock )
             {
-                return RenderCodeBlock(codeBlock, cancellationToken);
+                return RenderCodeBlock( _codeBlock, cancellationToken );
             }
-            else if (block is HtmlBlock htmlBlock)
+            else if( block is HtmlBlock _htmlBlock )
             {
-                return RenderHtmlBlock(htmlBlock, cancellationToken);
+                return RenderHtmlBlock( _htmlBlock, cancellationToken );
             }
-            else if (block is ThematicBreakBlock thematicBreakBlock)
+            else if( block is ThematicBreakBlock _thematicBreakBlock )
             {
-                return RenderThematicBreakBlock(thematicBreakBlock, cancellationToken);
+                return RenderThematicBreakBlock( _thematicBreakBlock, cancellationToken );
             }
-            else if (block is ListBlock listBlock)
+            else if( block is ListBlock _listBlock )
             {
-                return RenderListBlock(listBlock, cancellationToken);
+                return RenderListBlock( _listBlock, cancellationToken );
             }
-            else if (block is Table table)
+            else if( block is Table _table )
             {
-                return RenderTable(table, cancellationToken);
+                return RenderTable( _table, cancellationToken );
             }
-            else if (block is ContainerBlock containerBlock)
+            else if( block is ContainerBlock _containerBlock )
             {
-                return RenderContainerBlock(containerBlock, cancellationToken);
+                return RenderContainerBlock( _containerBlock, cancellationToken );
             }
             else
             {
-                return new TextBlock();
+                return new TextBlock( );
             }
         }
 
-        public FrameworkElement RenderContainerBlock(ContainerBlock containerBlock, CancellationToken cancellationToken)
+        /// <summary>
+        /// Renders the container block.
+        /// </summary>
+        /// <param name="containerBlock">The container block.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public FrameworkElement RenderContainerBlock( ContainerBlock containerBlock,
+            CancellationToken cancellationToken )
         {
-            if (cancellationToken.IsCancellationRequested)
-                return new FrameworkElement();
-
-            StackPanel documentElement = new StackPanel()
+            if( cancellationToken.IsCancellationRequested )
             {
-                Margin = new Thickness(0, 0, 0, NormalSize)
-            };
-
-            foreach (var renderedBlock in RenderBlocks(containerBlock, cancellationToken))
-            {
-                if (cancellationToken.IsCancellationRequested)
-                    return new FrameworkElement();
-
-                documentElement.Children.Add(renderedBlock);
+                return new FrameworkElement( );
             }
 
-            return documentElement;
+            var _documentElement = new StackPanel( )
+            {
+                Margin = new Thickness( 0, 0, 0, _normalSize )
+            };
+
+            foreach( var _renderedBlock in RenderBlocks( containerBlock, cancellationToken ) )
+            {
+                if( cancellationToken.IsCancellationRequested )
+                {
+                    return new FrameworkElement( );
+                }
+
+                _documentElement.Children.Add( _renderedBlock );
+            }
+
+            return _documentElement;
         }
 
-        public FrameworkElement RenderTable(Table table, CancellationToken cancellationToken)
+        /// <summary>
+        /// Renders the table.
+        /// </summary>
+        /// <param name="table">The table.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public FrameworkElement RenderTable( Table table, CancellationToken cancellationToken )
         {
-            if (cancellationToken.IsCancellationRequested)
-                return new FrameworkElement();
-
-            Border tableElement = new Border()
+            if( cancellationToken.IsCancellationRequested )
             {
-                BorderThickness = new Thickness(0, 0, 1, 1),
-                Margin = new Thickness(0, 0, 0, NormalSize)
-            };
-
-            Grid tableContentElement = new Grid();
-
-            tableElement.Child = tableContentElement;
-            tableElement
-                .BindTableBackground()
-                .BindTableBorder();
-
-            foreach (var col in table.ColumnDefinitions)
-            {
-                if (cancellationToken.IsCancellationRequested)
-                    return new FrameworkElement();
-
-                tableContentElement.ColumnDefinitions.Add(
-                    new ColumnDefinition()
-                    {
-                        Width = GridLength.Auto
-                    });
+                return new FrameworkElement( );
             }
 
-            int rowIndex = 0;
-            foreach (var block in table)
+            var _tableElement = new Border( )
             {
-                if (cancellationToken.IsCancellationRequested)
-                    return new FrameworkElement();
+                BorderThickness = new Thickness( 0, 0, 1, 1 ),
+                Margin = new Thickness( 0, 0, 0, _normalSize )
+            };
 
-                if (block is not TableRow row)
+            var _tableContentElement = new Grid( );
+            _tableElement.Child = _tableContentElement;
+            _tableElement
+                .BindTableBackground( )
+                .BindTableBorder( );
+
+            foreach( var _col in table.ColumnDefinitions )
+            {
+                if( cancellationToken.IsCancellationRequested )
+                {
+                    return new FrameworkElement( );
+                }
+
+                _tableContentElement.ColumnDefinitions.Add( new ColumnDefinition( )
+                {
+                    Width = GridLength.Auto
+                } );
+            }
+
+            var _rowIndex = 0;
+            foreach( var _block in table )
+            {
+                if( cancellationToken.IsCancellationRequested )
+                {
+                    return new FrameworkElement( );
+                }
+
+                if( _block is not TableRow _row )
+                {
                     continue;
-
-                tableContentElement.RowDefinitions.Add(
-                    new RowDefinition()
-                    {
-                        Height = GridLength.Auto
-                    });
-
-                int colIndex = 0;
-                foreach (var colBlock in row)
-                {
-                    if (colBlock is not TableCell cell)
-                        continue;
-
-                    Border cellElement = new Border()
-                    {
-                        BorderThickness = new Thickness(1, 1, 0, 0),
-                        Padding = new Thickness(NormalSize / 2, NormalSize / 4, NormalSize / 2, NormalSize / 4)
-                    };
-
-                    FrameworkElement cellContentElement =
-                        RenderBlock(cell, cancellationToken);
-
-                    cellElement.Child = cellContentElement;
-                    cellElement
-                        .BindTableBorder();
-
-                    cellContentElement.Margin = new Thickness(0);
-
-                    if (rowIndex % 2 == 1)
-                        cellElement.BindTableStripe();
-
-                    Grid.SetRow(cellElement, rowIndex);
-                    Grid.SetColumn(cellElement, colIndex);
-
-                    tableContentElement.Children.Add(cellElement);
-
-                    colIndex++;
                 }
 
-                rowIndex++;
+                _tableContentElement.RowDefinitions.Add( new RowDefinition( )
+                {
+                    Height = GridLength.Auto
+                } );
+
+                var _colIndex = 0;
+                foreach( var _colBlock in _row )
+                {
+                    if( _colBlock is not TableCell _cell )
+                    {
+                        continue;
+                    }
+
+                    var _cellElement = new Border( )
+                    {
+                        BorderThickness = new Thickness( 1, 1, 0, 0 ),
+                        Padding = new Thickness( _normalSize / 2, _normalSize / 4, _normalSize / 2,
+                            _normalSize / 4 )
+                    };
+
+                    var _cellContentElement =
+                        RenderBlock( _cell, cancellationToken );
+
+                    _cellElement.Child = _cellContentElement;
+                    _cellElement
+                        .BindTableBorder( );
+
+                    _cellContentElement.Margin = new Thickness( 0 );
+                    if( _rowIndex % 2 == 1 )
+                    {
+                        _cellElement.BindTableStripe( );
+                    }
+
+                    Grid.SetRow( _cellElement, _rowIndex );
+                    Grid.SetColumn( _cellElement, _colIndex );
+                    _tableContentElement.Children.Add( _cellElement );
+                    _colIndex++;
+                }
+
+                _rowIndex++;
             }
 
-            return tableElement;
+            return _tableElement;
         }
 
-        public FrameworkElement RenderListBlock(ListBlock listBlock, CancellationToken cancellationToken)
+        /// <summary>
+        /// Renders the list block.
+        /// </summary>
+        /// <param name="listBlock">The list block.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public FrameworkElement RenderListBlock( ListBlock listBlock,
+            CancellationToken cancellationToken )
         {
-            if (cancellationToken.IsCancellationRequested)
-                return new FrameworkElement();
-
-            int itemCount = listBlock.Count;
-
-            Func<int, string> markerTextGetter = listBlock.IsOrdered ?
-                index => $"{index+1}." :
-                index => "-";
-
-            Border listElement = new Border()
+            if( cancellationToken.IsCancellationRequested )
             {
-                Margin = new Thickness(NormalSize / 2, 0, 0, NormalSize)
-            };
-
-            Grid listContentElement = new Grid();
-
-            listElement.Child =
-                listContentElement;
-
-            listContentElement.ColumnDefinitions.Add(
-                new ColumnDefinition()
-                {
-                    Width = GridLength.Auto,
-                });
-
-            listContentElement.ColumnDefinitions.Add(
-                new ColumnDefinition());
-
-            for (int i = 0; i < itemCount; i++)
-            {
-                if (cancellationToken.IsCancellationRequested)
-                    return new FrameworkElement();
-
-                listContentElement.RowDefinitions.Add(
-                    new RowDefinition()
-                    {
-                        Height = GridLength.Auto
-                    });
+                return new FrameworkElement( );
             }
 
-            int index = 0;
-            FrameworkElement lastRenderedItemBlock = null;
-            foreach (var itemBlock in listBlock)
-            {
-                if (cancellationToken.IsCancellationRequested)
-                    return new FrameworkElement();
+            var _itemCount = listBlock.Count;
+            Func<int, string> _markerTextGetter = listBlock.IsOrdered
+                ? index => $"{index + 1}."
+                : index => "-";
 
-                if (RenderBlock(itemBlock, cancellationToken) is FrameworkElement renderedItemBlock)
+            var _listElement = new Border( )
+            {
+                Margin = new Thickness( _normalSize / 2, 0, 0, _normalSize )
+            };
+
+            var _listContentElement = new Grid( );
+            _listElement.Child =
+                _listContentElement;
+
+            _listContentElement.ColumnDefinitions.Add( new ColumnDefinition( )
+            {
+                Width = GridLength.Auto
+            } );
+
+            _listContentElement.ColumnDefinitions.Add( new ColumnDefinition( ) );
+            for( var _i = 0; _i < _itemCount; _i++ )
+            {
+                if( cancellationToken.IsCancellationRequested )
                 {
-                    lastRenderedItemBlock = renderedItemBlock;
-                    renderedItemBlock.Margin = renderedItemBlock.Margin with
+                    return new FrameworkElement( );
+                }
+
+                _listContentElement.RowDefinitions.Add( new RowDefinition( )
+                {
+                    Height = GridLength.Auto
+                } );
+            }
+
+            var _index = 0;
+            FrameworkElement _lastRenderedItemBlock = null;
+            foreach( var _itemBlock in listBlock )
+            {
+                if( cancellationToken.IsCancellationRequested )
+                {
+                    return new FrameworkElement( );
+                }
+
+                if( RenderBlock( _itemBlock, cancellationToken ) is FrameworkElement
+                    _renderedItemBlock )
+                {
+                    _lastRenderedItemBlock = _renderedItemBlock;
+                    _renderedItemBlock.Margin = _renderedItemBlock.Margin with
                     {
-                        Bottom = renderedItemBlock.Margin.Bottom / 4
+                        Bottom = _renderedItemBlock.Margin.Bottom / 4
                     };
 
-                    TextBlock marker = new TextBlock();
-                    Grid.SetRow(marker, index);
-                    Grid.SetColumn(marker, 0);
-                    marker.Text = markerTextGetter.Invoke(index);
-                    marker.Margin = new Thickness(0, 0, NormalSize / 2, 0);
-                    marker.TextAlignment = TextAlignment.Right;
-
-                    Grid.SetRow(renderedItemBlock, index);
-                    Grid.SetColumn(renderedItemBlock, 1);
-
-                    listContentElement.Children.Add(marker);
-                    listContentElement.Children.Add(renderedItemBlock);
-
-                    index++;
+                    var _marker = new TextBlock( );
+                    Grid.SetRow( _marker, _index );
+                    Grid.SetColumn( _marker, 0 );
+                    _marker.Text = _markerTextGetter.Invoke( _index );
+                    _marker.Margin = new Thickness( 0, 0, _normalSize / 2, 0 );
+                    _marker.TextAlignment = TextAlignment.Right;
+                    Grid.SetRow( _renderedItemBlock, _index );
+                    Grid.SetColumn( _renderedItemBlock, 1 );
+                    _listContentElement.Children.Add( _marker );
+                    _listContentElement.Children.Add( _renderedItemBlock );
+                    _index++;
                 }
             }
 
-            if (lastRenderedItemBlock != null)
-                lastRenderedItemBlock.Margin = lastRenderedItemBlock.Margin with
+            if( _lastRenderedItemBlock != null )
+            {
+                _lastRenderedItemBlock.Margin = _lastRenderedItemBlock.Margin with
                 {
                     Bottom = 0
                 };
+            }
 
-            return listElement;
+            return _listElement;
         }
 
-        public FrameworkElement RenderThematicBreakBlock(ThematicBreakBlock thematicBreakBlock, CancellationToken cancellationToken)
+        /// <summary>
+        /// Renders the thematic break block.
+        /// </summary>
+        /// <param name="thematicBreakBlock">The thematic break block.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public FrameworkElement RenderThematicBreakBlock( ThematicBreakBlock thematicBreakBlock,
+            CancellationToken cancellationToken )
         {
-            if (cancellationToken.IsCancellationRequested)
-                return new FrameworkElement();
+            if( cancellationToken.IsCancellationRequested )
+            {
+                return new FrameworkElement( );
+            }
 
-            Border thematicBreakElement = new Border()
+            var _thematicBreakElement = new Border( )
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Height = 1,
-                Margin = new Thickness(0, 0, 0, NormalSize)
+                Margin = new Thickness( 0, 0, 0, _normalSize )
             };
 
-            thematicBreakElement
-                .BindThematicBreak();
+            _thematicBreakElement
+                .BindThematicBreak( );
 
-            return thematicBreakElement;
+            return _thematicBreakElement;
         }
 
-        public FrameworkElement RenderHtmlBlock(HtmlBlock htmlBlock, CancellationToken cancellationToken)
+        /// <summary>
+        /// Renders the HTML block.
+        /// </summary>
+        /// <param name="htmlBlock">The HTML block.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public FrameworkElement RenderHtmlBlock( HtmlBlock htmlBlock,
+            CancellationToken cancellationToken )
         {
-            if (cancellationToken.IsCancellationRequested)
-                return new FrameworkElement();
-
-            return new TextBlock();
-        }
-
-        public FrameworkElement RenderFencedCodeBlock(FencedCodeBlock fencedCodeBlock, CancellationToken cancellationToken)
-        {
-            if (cancellationToken.IsCancellationRequested)
-                return new FrameworkElement();
-
-            if (string.IsNullOrWhiteSpace(fencedCodeBlock.Info))
-                return RenderCodeBlock(fencedCodeBlock, cancellationToken);
-
-            Border codeElement = new Border()
+            if( cancellationToken.IsCancellationRequested )
             {
-                CornerRadius = new CornerRadius(3),
-                Margin = new Thickness(0, 0, 0, NormalSize)
+                return new FrameworkElement( );
+            }
+
+            return new TextBlock( );
+        }
+
+        /// <summary>
+        /// Renders the fenced code block.
+        /// </summary>
+        /// <param name="fencedCodeBlock">The fenced code block.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public FrameworkElement RenderFencedCodeBlock( FencedCodeBlock fencedCodeBlock,
+            CancellationToken cancellationToken )
+        {
+            if( cancellationToken.IsCancellationRequested )
+            {
+                return new FrameworkElement( );
+            }
+
+            if( string.IsNullOrWhiteSpace( fencedCodeBlock.Info ) )
+            {
+                return RenderCodeBlock( fencedCodeBlock, cancellationToken );
+            }
+
+            var _codeElement = new Border( )
+            {
+                CornerRadius = new CornerRadius( 3 ),
+                Margin = new Thickness( 0, 0, 0, _normalSize )
             };
 
-            TextBlock codeContentElement = new TextBlock()
+            var _codeContentElement = new TextBlock( )
             {
                 TextWrapping = TextWrapping.Wrap,
-                Padding = new Thickness(NormalSize / 2),
-
-                FontSize = NormalSize,
-                FontFamily = GetCodeTextFontFamily(),
+                Padding = new Thickness( _normalSize / 2 ),
+                FontSize = _normalSize,
+                FontFamily = GetCodeTextFontFamily( )
             };
 
-            codeElement.Child =
-                codeContentElement;
-            codeElement
-                .BindCodeBlockBackground()
-                .BindCodeBlockBorder();
+            _codeElement.Child =
+                _codeContentElement;
 
-            codeContentElement
-                .BindCodeBlockForeground();
+            _codeElement
+                .BindCodeBlockBackground( )
+                .BindCodeBlockBorder( );
 
-            if (fencedCodeBlock.Inline != null)
-                codeContentElement.Inlines.AddRange(
-                    RenderInlines(fencedCodeBlock.Inline, cancellationToken));
+            _codeContentElement
+                .BindCodeBlockForeground( );
 
-            var language = ColorCode.Languages.FindById(fencedCodeBlock.Info);
+            if( fencedCodeBlock.Inline != null )
+            {
+                _codeContentElement.Inlines.AddRange( RenderInlines( fencedCodeBlock.Inline,
+                    cancellationToken ) );
+            }
 
-            StyleDictionary styleDict = ColorMode switch
+            var _language = Languages.FindById( fencedCodeBlock.Info );
+            var _styleDict = ColorMode switch
             {
                 ColorMode.Light => StyleDictionary.DefaultLight,
                 ColorMode.Dark => StyleDictionary.DefaultDark,
-
                 _ => StyleDictionary.DefaultDark
             };
 
-            WpfSyntaxHighLighting writer = new WpfSyntaxHighLighting(ColorCode.Styling.StyleDictionary.DefaultDark);
-            writer.FormatTextBlock(fencedCodeBlock.Lines.ToString(), language, codeContentElement);
+            var _writer = new WpfSyntaxHighLighting( StyleDictionary.DefaultDark );
+            _writer.FormatTextBlock( fencedCodeBlock.Lines.ToString( ), _language,
+                _codeContentElement );
 
-
-            return codeElement;
+            return _codeElement;
         }
 
-        public FrameworkElement RenderCodeBlock(CodeBlock codeBlock, CancellationToken cancellationToken)
+        /// <summary>
+        /// Renders the code block.
+        /// </summary>
+        /// <param name="codeBlock">The code block.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public FrameworkElement RenderCodeBlock( CodeBlock codeBlock,
+            CancellationToken cancellationToken )
         {
-            if (cancellationToken.IsCancellationRequested)
-                return new FrameworkElement();
-
-            Border codeElement = new Border()
+            if( cancellationToken.IsCancellationRequested )
             {
-                CornerRadius = new CornerRadius(3),
-                Margin = new Thickness(0, 0, 0, NormalSize)
+                return new FrameworkElement( );
+            }
+
+            var _codeElement = new Border( )
+            {
+                CornerRadius = new CornerRadius( 3 ),
+                Margin = new Thickness( 0, 0, 0, _normalSize )
             };
 
-            TextBlock codeContentElement = new TextBlock()
+            var _codeContentElement = new TextBlock( )
             {
                 TextWrapping = TextWrapping.Wrap,
-                Padding = new Thickness(NormalSize / 2),
-
-                FontSize = NormalSize,
-                FontFamily = GetCodeTextFontFamily(),
+                Padding = new Thickness( _normalSize / 2 ),
+                FontSize = _normalSize,
+                FontFamily = GetCodeTextFontFamily( )
             };
 
-            codeElement.Child =
-                codeContentElement;
-            codeElement
-                .BindCodeBlockBackground()
-                .BindCodeBlockBorder();
+            _codeElement.Child =
+                _codeContentElement;
 
-            codeContentElement
-                .BindCodeBlockForeground();
+            _codeElement
+                .BindCodeBlockBackground( )
+                .BindCodeBlockBorder( );
 
-            if (codeBlock.Inline != null)
-                codeContentElement.Inlines.AddRange(
-                    RenderInlines(codeBlock.Inline, cancellationToken));
+            _codeContentElement
+                .BindCodeBlockForeground( );
 
-            codeContentElement.Inlines.Add(
-                new WpfDocs.Run(codeBlock.Lines.ToString()));
+            if( codeBlock.Inline != null )
+            {
+                _codeContentElement.Inlines.AddRange( RenderInlines( codeBlock.Inline,
+                    cancellationToken ) );
+            }
 
-            return codeElement;
+            _codeContentElement.Inlines.Add( new WpfDocs.Run( codeBlock.Lines.ToString( ) ) );
+            return _codeElement;
         }
 
-        public FrameworkElement RenderQuoteBlock(QuoteBlock quoteBlock, CancellationToken cancellationToken)
+        /// <summary>
+        /// Renders the quote block.
+        /// </summary>
+        /// <param name="quoteBlock">The quote block.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public FrameworkElement RenderQuoteBlock( QuoteBlock quoteBlock,
+            CancellationToken cancellationToken )
         {
-            if (cancellationToken.IsCancellationRequested)
-                return new FrameworkElement();
-
-            Border quoteElement = new Border()
+            if( cancellationToken.IsCancellationRequested )
             {
-                BorderThickness = new Thickness(NormalSize / 3, 0, 0, 0),
-                CornerRadius = new CornerRadius(NormalSize / 4),
-                Padding = new Thickness(NormalSize / 2, 0, 0, 0),
-                Margin = new Thickness(0, 0, 0, NormalSize),
+                return new FrameworkElement( );
+            }
+
+            var _quoteElement = new Border( )
+            {
+                BorderThickness = new Thickness( _normalSize / 3, 0, 0, 0 ),
+                CornerRadius = new CornerRadius( _normalSize / 4 ),
+                Padding = new Thickness( _normalSize / 2, 0, 0, 0 ),
+                Margin = new Thickness( 0, 0, 0, _normalSize )
             };
 
-            StackPanel quoteContentPanel = new StackPanel();
+            var _quoteContentPanel = new StackPanel( );
+            _quoteElement.Child =
+                _quoteContentPanel;
 
-            quoteElement.Child =
-                quoteContentPanel;
-            quoteElement
-                .BindQuoteBlockBackground()
-                .BindQuoteBlockBorder();
+            _quoteElement
+                .BindQuoteBlockBackground( )
+                .BindQuoteBlockBorder( );
 
-            foreach (var renderedBlock in RenderBlocks(quoteBlock, cancellationToken))
-                quoteContentPanel.Children.Add(renderedBlock);
+            foreach( var _renderedBlock in RenderBlocks( quoteBlock, cancellationToken ) )
+            {
+                _quoteContentPanel.Children.Add( _renderedBlock );
+            }
 
-            return quoteElement;
+            return _quoteElement;
         }
 
-        public FrameworkElement RenderHeadingBlock(HeadingBlock headingBlock, CancellationToken cancellationToken)
+        /// <summary>
+        /// Renders the heading block.
+        /// </summary>
+        /// <param name="headingBlock">The heading block.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public FrameworkElement RenderHeadingBlock( HeadingBlock headingBlock,
+            CancellationToken cancellationToken )
         {
-            if (cancellationToken.IsCancellationRequested)
-                return new FrameworkElement();
-
-            double fontSize = headingBlock.Level switch
+            if( cancellationToken.IsCancellationRequested )
             {
-                1 => Heading1Size,
-                2 => Heading2Size,
-                3 => Heading3Size,
-                4 => Heading4Size,
-                _ => NormalSize
+                return new FrameworkElement( );
+            }
+
+            var _fontSize = headingBlock.Level switch
+            {
+                1 => _heading1Size,
+                2 => _heading2Size,
+                3 => _heading3Size,
+                4 => _heading4Size,
+                _ => _normalSize
             };
 
-            TextBlock headingElement = new TextBlock()
+            var _headingElement = new TextBlock( )
             {
-                FontSize = fontSize,
+                FontSize = _fontSize,
                 FontWeight = FontWeights.Medium,
-                Margin = new Thickness(0, 0, 0, NormalSize)
+                Margin = new Thickness( 0, 0, 0, _normalSize )
             };
 
-            headingElement
-                .BindMainForeground()
-                .BindMainBackground();
+            _headingElement
+                .BindMainForeground( )
+                .BindMainBackground( );
 
-            if (headingBlock.Inline != null)
-                headingElement.Inlines.AddRange(
-                    RenderInlines(headingBlock.Inline, cancellationToken));
+            if( headingBlock.Inline != null )
+            {
+                _headingElement.Inlines.AddRange( RenderInlines( headingBlock.Inline,
+                    cancellationToken ) );
+            }
 
-            return headingElement;
+            return _headingElement;
         }
 
-        public FrameworkElement RenderParagraphBlock(ParagraphBlock paragraphBlock, CancellationToken cancellationToken)
+        /// <summary>
+        /// Renders the paragraph block.
+        /// </summary>
+        /// <param name="paragraphBlock">The paragraph block.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public FrameworkElement RenderParagraphBlock( ParagraphBlock paragraphBlock,
+            CancellationToken cancellationToken )
         {
-            if (cancellationToken.IsCancellationRequested)
-                return new FrameworkElement();
+            if( cancellationToken.IsCancellationRequested )
+            {
+                return new FrameworkElement( );
+            }
 
-            TextBlock paragraphElement = new TextBlock()
+            var _paragraphElement = new TextBlock( )
             {
                 TextWrapping = TextWrapping.Wrap,
-                Margin = new Thickness(0, 0, 0, NormalSize),
-
-                FontSize = NormalSize,
+                Margin = new Thickness( 0, 0, 0, _normalSize ),
+                FontSize = _normalSize
             };
 
-            paragraphElement
-                .BindMainForeground()
-                .BindMainBackground();
+            _paragraphElement
+                .BindMainForeground( )
+                .BindMainBackground( );
 
-            if (paragraphBlock.Inline != null)
-                paragraphElement.Inlines.AddRange(
-                    RenderInlines(paragraphBlock.Inline, cancellationToken));
+            if( paragraphBlock.Inline != null )
+            {
+                _paragraphElement.Inlines.AddRange( RenderInlines( paragraphBlock.Inline,
+                    cancellationToken ) );
+            }
 
-            return paragraphElement;
+            return _paragraphElement;
         }
 
-
-
-
-
-
-        public List<WpfDocs.Inline> RenderInlines(IEnumerable<Inline> inlines, CancellationToken cancellationToken)
+        /// <summary>
+        /// Renders the inlines.
+        /// </summary>
+        /// <param name="inlines">The inlines.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public List<WpfDocs.Inline> RenderInlines( IEnumerable<Inline> inlines,
+            CancellationToken cancellationToken )
         {
-            if (cancellationToken.IsCancellationRequested)
-                return new List<WpfDocs.Inline>();
+            if( cancellationToken.IsCancellationRequested )
+            {
+                return new List<WpfDocs.Inline>( );
+            }
 
-            List<WpfDocs.Inline> inlineElements = new List<WpfDocs.Inline>();
-
-            foreach (var inline in inlines)
-                if (RenderInline(inline, cancellationToken) is WpfDocs.Inline wpfInline)
+            var _inlineElements = new List<WpfDocs.Inline>( );
+            foreach( var _inline in inlines )
+            {
+                if( RenderInline( _inline, cancellationToken ) is WpfDocs.Inline _wpfInline )
                 {
-                    if (cancellationToken.IsCancellationRequested)
+                    if( cancellationToken.IsCancellationRequested )
+                    {
                         break;
+                    }
 
-                    inlineElements.Add(wpfInline);
+                    _inlineElements.Add( _wpfInline );
                 }
+            }
 
-            return inlineElements;
+            return _inlineElements;
         }
 
-        public WpfDocs.Inline RenderInline(Inline inline, CancellationToken cancellationToken)
+        /// <summary>
+        /// Renders the inline.
+        /// </summary>
+        /// <param name="inline">The inline.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public WpfDocs.Inline RenderInline( Inline inline, CancellationToken cancellationToken )
         {
-            if (cancellationToken.IsCancellationRequested)
-                return new WpfDocs.Run();
+            if( cancellationToken.IsCancellationRequested )
+            {
+                return new WpfDocs.Run( );
+            }
 
-            if (inline is LiteralInline literalInline)
+            if( inline is LiteralInline _literalInline )
             {
-                return RenderLiteralInline(literalInline, cancellationToken);
+                return RenderLiteralInline( _literalInline, cancellationToken );
             }
-            else if (inline is LinkInline linkInline)
+            else if( inline is LinkInline _linkInline )
             {
-                return RenderLinkInline(linkInline, cancellationToken);
+                return RenderLinkInline( _linkInline, cancellationToken );
             }
-            else if (inline is LineBreakInline lineBreakInline)
+            else if( inline is LineBreakInline _lineBreakInline )
             {
-                return RenderLineBreakInline(lineBreakInline, cancellationToken);
+                return RenderLineBreakInline( _lineBreakInline, cancellationToken );
             }
-            else if (inline is HtmlInline htmlInline)
+            else if( inline is HtmlInline _htmlInline )
             {
-                return RenderHtmlInline(htmlInline, cancellationToken);
+                return RenderHtmlInline( _htmlInline, cancellationToken );
             }
-            else if (inline is HtmlEntityInline htmlEntityInline)
+            else if( inline is HtmlEntityInline _htmlEntityInline )
             {
-                return RenderHtmlEntityInline(htmlEntityInline, cancellationToken);
+                return RenderHtmlEntityInline( _htmlEntityInline, cancellationToken );
             }
-            else if (inline is EmphasisInline emphasisInline)
+            else if( inline is EmphasisInline _emphasisInline )
             {
-                return RenderEmphasisInline(emphasisInline, cancellationToken);
+                return RenderEmphasisInline( _emphasisInline, cancellationToken );
             }
-            else if (inline is CodeInline codeInline)
+            else if( inline is CodeInline _codeInline )
             {
-                return RenderCodeInline(codeInline, cancellationToken);
+                return RenderCodeInline( _codeInline, cancellationToken );
             }
-            else if (inline is AutolinkInline autolinkInline)
+            else if( inline is AutolinkInline _autolinkInline )
             {
-                return RenderAutolinkInline(autolinkInline, cancellationToken);
+                return RenderAutolinkInline( _autolinkInline, cancellationToken );
             }
-            else if (inline is DelimiterInline delimiterInline)
+            else if( inline is DelimiterInline _delimiterInline )
             {
-                return RenderDelimiterInline(delimiterInline, cancellationToken);
+                return RenderDelimiterInline( _delimiterInline, cancellationToken );
             }
-            else if (inline is ContainerInline containerInline)
+            else if( inline is ContainerInline _containerInline )
             {
-                return RenderContainerInline(containerInline, cancellationToken);
+                return RenderContainerInline( _containerInline, cancellationToken );
             }
-            else if (inline is TaskList taskListInline)
+            else if( inline is TaskList _taskListInline )
             {
-                return RenderTaskListInline(taskListInline, cancellationToken);
+                return RenderTaskListInline( _taskListInline, cancellationToken );
             }
             else
             {
-                return new WpfDocs.Run();
+                return new WpfDocs.Run( );
             }
         }
 
-        public WpfDocs.Inline RenderTaskListInline(TaskList taskListInline, CancellationToken cancellationToken)
+        /// <summary>
+        /// Renders the task list inline.
+        /// </summary>
+        /// <param name="taskListInline">The task list inline.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public WpfDocs.Inline RenderTaskListInline( TaskList taskListInline,
+            CancellationToken cancellationToken )
         {
-            if (cancellationToken.IsCancellationRequested)
-                return new WpfDocs.Run();
+            if( cancellationToken.IsCancellationRequested )
+            {
+                return new WpfDocs.Run( );
+            }
 
-            return new CheckBox()
+            return new CheckBox( )
             {
                 IsChecked = taskListInline.Checked,
-                IsEnabled = false,
-            }.WrapWithContainer();
+                IsEnabled = false
+            }.WrapWithContainer( );
         }
 
-        public WpfDocs.Inline RenderAutolinkInline(AutolinkInline autolinkInline, CancellationToken cancellationToken)
+        /// <summary>
+        /// Renders the autolink inline.
+        /// </summary>
+        /// <param name="autolinkInline">The autolink inline.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public WpfDocs.Inline RenderAutolinkInline( AutolinkInline autolinkInline,
+            CancellationToken cancellationToken )
         {
-            if (cancellationToken.IsCancellationRequested)
-                return new WpfDocs.Run();
-
-            return new WpfDocs.Run(autolinkInline.Url);
-        }
-
-        public WpfDocs.Inline RenderCodeInline(CodeInline codeInline, CancellationToken cancellationToken)
-        {
-            if (cancellationToken.IsCancellationRequested)
-                return new WpfDocs.Run();
-
-            Border border = new Border()
+            if( cancellationToken.IsCancellationRequested )
             {
-                CornerRadius = new CornerRadius(3),
-                Padding = new Thickness(NormalSize / 6, 0, NormalSize / 6, 0),
-                Margin = new Thickness(NormalSize / 6, 0, NormalSize / 6, 0)
+                return new WpfDocs.Run( );
+            }
+
+            return new WpfDocs.Run( autolinkInline.Url );
+        }
+
+        /// <summary>
+        /// Renders the code inline.
+        /// </summary>
+        /// <param name="codeInline">The code inline.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public WpfDocs.Inline RenderCodeInline( CodeInline codeInline,
+            CancellationToken cancellationToken )
+        {
+            if( cancellationToken.IsCancellationRequested )
+            {
+                return new WpfDocs.Run( );
+            }
+
+            var _border = new Border( )
+            {
+                CornerRadius = new CornerRadius( 3 ),
+                Padding = new Thickness( _normalSize / 6, 0, _normalSize / 6, 0 ),
+                Margin = new Thickness( _normalSize / 6, 0, _normalSize / 6, 0 )
             };
 
-            TextBlock textBlock = new TextBlock();
+            var _textBlock = new TextBlock( );
+            _border.Child = _textBlock;
+            _border
+                .BindCodeInlineBackground( )
+                .BindCodeInlineBorder( );
 
-            border.Child = textBlock;
-
-            border
-                .BindCodeInlineBackground()
-                .BindCodeInlineBorder();
-
-            textBlock.Text = codeInline.Content;
-
-            return border.WrapWithContainer();
+            _textBlock.Text = codeInline.Content;
+            return _border.WrapWithContainer( );
         }
 
-        public WpfDocs.Inline RenderContainerInline(ContainerInline containerInline, CancellationToken cancellationToken)
+        /// <summary>
+        /// Renders the container inline.
+        /// </summary>
+        /// <param name="containerInline">The container inline.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public WpfDocs.Inline RenderContainerInline( ContainerInline containerInline,
+            CancellationToken cancellationToken )
         {
-            if (cancellationToken.IsCancellationRequested)
-                return new WpfDocs.Run();
-
-            WpfDocs.Span span = new WpfDocs.Span();
-
-            span.Inlines.AddRange(
-                RenderInlines(containerInline, cancellationToken));
-
-            return span;
-        }
-
-        public WpfDocs.Inline RenderEmphasisInline(EmphasisInline emphasisInline, CancellationToken cancellationToken)
-        {
-            if (cancellationToken.IsCancellationRequested)
-                return new WpfDocs.Run();
-
-            WpfDocs.Span span = new WpfDocs.Span();
-
-            switch (emphasisInline.DelimiterChar)
+            if( cancellationToken.IsCancellationRequested )
             {
-                case '*' when emphasisInline.DelimiterCount == 2: // bold
-                case '_' when emphasisInline.DelimiterCount == 2: // bold
-                    span.FontWeight = FontWeights.Bold;
+                return new WpfDocs.Run( );
+            }
+
+            var _span = new WpfDocs.Span( );
+            _span.Inlines.AddRange( RenderInlines( containerInline, cancellationToken ) );
+            return _span;
+        }
+
+        /// <summary>
+        /// Renders the emphasis inline.
+        /// </summary>
+        /// <param name="emphasisInline">The emphasis inline.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public WpfDocs.Inline RenderEmphasisInline( EmphasisInline emphasisInline,
+            CancellationToken cancellationToken )
+        {
+            if( cancellationToken.IsCancellationRequested )
+            {
+                return new WpfDocs.Run( );
+            }
+
+            var _span = new WpfDocs.Span( );
+            switch( emphasisInline.DelimiterChar )
+            {
+                case '*' when emphasisInline.DelimiterCount == 2:// bold
+                case '_' when emphasisInline.DelimiterCount == 2:// bold
+                    _span.FontWeight = FontWeights.Bold;
                     break;
-                case '*': // italic
-                case '_': // italic
-                    span.FontStyle = FontStyles.Italic;
+                case '*':// italic
+                case '_':// italic
+                    _span.FontStyle = FontStyles.Italic;
                     break;
-                case '~': // 2x strike through, 1x subscript
-                    if (emphasisInline.DelimiterCount == 2)
-                        span.TextDecorations.Add(TextDecorations.Strikethrough);
+                case '~':// 2x strike through, 1x subscript
+                    if( emphasisInline.DelimiterCount == 2 )
+                    {
+                        _span.TextDecorations.Add( TextDecorations.Strikethrough );
+                    }
                     else
-                        WpfDocs.Typography.SetVariants(span, FontVariants.Subscript);
+                    {
+                        WpfDocs.Typography.SetVariants( _span, FontVariants.Subscript );
+                    }
+
                     break;
-                case '^': // 1x superscript
-                    WpfDocs.Typography.SetVariants(span, FontVariants.Subscript);
+                case '^':// 1x superscript
+                    WpfDocs.Typography.SetVariants( _span, FontVariants.Subscript );
                     break;
-                case '+': // 2x underline
-                    span.TextDecorations.Add(TextDecorations.Underline);
+                case '+':// 2x underline
+                    _span.TextDecorations.Add( TextDecorations.Underline );
                     break;
-                case '=': // 2x Marked
-                    span.SetResourceReference(WpfDocs.Span.BackgroundProperty, MarkdownResKey.Mark);
+                case '=':// 2x Marked
+                    _span.SetResourceReference( WpfDocs.TextElement.BackgroundProperty,
+                        MarkdownResKey.Mark );
+
                     break;
             }
 
-            span.Inlines.AddRange(
-                RenderInlines(emphasisInline, cancellationToken));
-
-            return span;
+            _span.Inlines.AddRange( RenderInlines( emphasisInline, cancellationToken ) );
+            return _span;
         }
 
-        public WpfDocs.Inline RenderHtmlEntityInline(HtmlEntityInline htmlEntityInline, CancellationToken cancellationToken)
+        /// <summary>
+        /// Renders the HTML entity inline.
+        /// </summary>
+        /// <param name="htmlEntityInline">The HTML entity inline.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public WpfDocs.Inline RenderHtmlEntityInline( HtmlEntityInline htmlEntityInline,
+            CancellationToken cancellationToken )
         {
-            if (cancellationToken.IsCancellationRequested)
-                return new WpfDocs.Run();
-
-            return new WpfDocs.Run(htmlEntityInline.Transcoded.ToString());
-        }
-
-        public WpfDocs.Inline RenderHtmlInline(HtmlInline htmlInline, CancellationToken cancellationToken)
-        {
-            if (cancellationToken.IsCancellationRequested)
-                return new WpfDocs.Run();
-
-            return new WpfDocs.Run();
-        }
-
-        public WpfDocs.Inline RenderLineBreakInline(LineBreakInline lineBreakInline, CancellationToken cancellationToken)
-        {
-            if (cancellationToken.IsCancellationRequested)
-                return new WpfDocs.Run();
-
-            return new WpfDocs.Run("\n");
-        }
-
-        public WpfDocs.Inline RenderDelimiterInline(DelimiterInline delimiterInline, CancellationToken cancellationToken)
-        {
-            if (cancellationToken.IsCancellationRequested)
-                return new WpfDocs.Run();
-
-            return new WpfDocs.Run(delimiterInline.ToLiteral());
-        }
-
-        public WpfDocs.Inline RenderLinkInline(LinkInline linkInline, CancellationToken cancellationToken)
-        {
-            if (cancellationToken.IsCancellationRequested)
-                return new WpfDocs.Run();
-
-            Uri uri = null;
-
-            if (linkInline.Url != null && Uri.TryCreate(linkInline.Url, UriKind.RelativeOrAbsolute, out Uri _uri))
-                uri = _uri;
-
-            if (linkInline.IsImage)
+            if( cancellationToken.IsCancellationRequested )
             {
-                Image img = new Image();
-                img.MaxWidth = 200;
+                return new WpfDocs.Run( );
+            }
 
-                if (uri != null)
-                    img.Source = new BitmapImage(uri);
+            return new WpfDocs.Run( htmlEntityInline.Transcoded.ToString( ) );
+        }
 
-                return img.WrapWithContainer();
+        /// <summary>
+        /// Renders the HTML inline.
+        /// </summary>
+        /// <param name="htmlInline">The HTML inline.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public WpfDocs.Inline RenderHtmlInline( HtmlInline htmlInline,
+            CancellationToken cancellationToken )
+        {
+            if( cancellationToken.IsCancellationRequested )
+            {
+                return new WpfDocs.Run( );
+            }
+
+            return new WpfDocs.Run( );
+        }
+
+        /// <summary>
+        /// Renders the line break inline.
+        /// </summary>
+        /// <param name="lineBreakInline">The line break inline.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public WpfDocs.Inline RenderLineBreakInline( LineBreakInline lineBreakInline,
+            CancellationToken cancellationToken )
+        {
+            if( cancellationToken.IsCancellationRequested )
+            {
+                return new WpfDocs.Run( );
+            }
+
+            return new WpfDocs.Run( "\n" );
+        }
+
+        /// <summary>
+        /// Renders the delimiter inline.
+        /// </summary>
+        /// <param name="delimiterInline">The delimiter inline.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public WpfDocs.Inline RenderDelimiterInline( DelimiterInline delimiterInline,
+            CancellationToken cancellationToken )
+        {
+            if( cancellationToken.IsCancellationRequested )
+            {
+                return new WpfDocs.Run( );
+            }
+
+            return new WpfDocs.Run( delimiterInline.ToLiteral( ) );
+        }
+
+        /// <summary>
+        /// Renders the link inline.
+        /// </summary>
+        /// <param name="linkInline">The link inline.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public WpfDocs.Inline RenderLinkInline( LinkInline linkInline,
+            CancellationToken cancellationToken )
+        {
+            if( cancellationToken.IsCancellationRequested )
+            {
+                return new WpfDocs.Run( );
+            }
+
+            Uri _uri = null;
+            if( linkInline.Url != null
+                && Uri.TryCreate( linkInline.Url, UriKind.RelativeOrAbsolute, out var uri ) )
+            {
+                _uri = uri;
+            }
+
+            if( linkInline.IsImage )
+            {
+                var _img = new Image( );
+                _img.MaxWidth = 200;
+                if( _uri != null )
+                {
+                    _img.Source = new BitmapImage( _uri );
+                }
+
+                return _img.WrapWithContainer( );
             }
             else
             {
-                WpfDocs.Hyperlink link = new WpfDocs.Hyperlink();
-
-                WpfDocs.Inline linkContent = null;
-
-                if (linkInline.Label != null)
-                    linkContent = new WpfDocs.Run(linkInline.Label);
-
-                if (linkContent != null)
-                    link.Inlines.Add(linkContent);
-                if (RenderContainerInline(linkInline, cancellationToken) is WpfDocs.Inline extraInline)
-                    link.Inlines.Add(extraInline);
-
-                link.Click += (s, e) =>
+                var _link = new WpfDocs.Hyperlink( );
+                WpfDocs.Inline _linkContent = null;
+                if( linkInline.Label != null )
                 {
-                    LinkNavigate?.Invoke(linkInline, new MarkdownLinkNavigateEventArgs(linkInline.Url));
+                    _linkContent = new WpfDocs.Run( linkInline.Label );
+                }
+
+                if( _linkContent != null )
+                {
+                    _link.Inlines.Add( _linkContent );
+                }
+
+                if( RenderContainerInline( linkInline, cancellationToken ) is WpfDocs.Inline
+                    _extraInline )
+                {
+                    _link.Inlines.Add( _extraInline );
+                }
+
+                _link.Click += ( s, e ) =>
+                {
+                    MarkdownWpfRenderer.LinkNavigate?.Invoke( linkInline,
+                        new MarkdownLinkNavigateEventArgs( linkInline.Url ) );
                 };
 
-                return link;
+                return _link;
             }
         }
 
-        public WpfDocs.Inline RenderLiteralInline(LiteralInline literalInline, CancellationToken cancellationToken)
+        /// <summary>
+        /// Renders the literal inline.
+        /// </summary>
+        /// <param name="literalInline">The literal inline.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        public WpfDocs.Inline RenderLiteralInline( LiteralInline literalInline,
+            CancellationToken cancellationToken )
         {
-            if (cancellationToken.IsCancellationRequested)
-                return new WpfDocs.Run();
+            if( cancellationToken.IsCancellationRequested )
+            {
+                return new WpfDocs.Run( );
+            }
 
-            return new WpfDocs.Run(literalInline.Content.ToString());
+            return new WpfDocs.Run( literalInline.Content.ToString( ) );
         }
 
-
-
-
-
-
-
-
-
-        public FontFamily GetNormalTextFontFamily()
+        /// <summary>
+        /// Gets the normal text font family.
+        /// </summary>
+        /// <returns></returns>
+        public FontFamily GetNormalTextFontFamily( )
         {
-            return new FontFamily("-apple-system,BlinkMacSystemFont,Segoe UI Adjusted,Segoe UI,Liberation Sans,sans-serif");
+            return new FontFamily(
+                "-apple-system,BlinkMacSystemFont,Segoe UI Adjusted,Segoe UI,Liberation Sans,sans-serif" );
         }
 
-        public FontFamily GetCodeTextFontFamily()
+        /// <summary>
+        /// Gets the code text font family.
+        /// </summary>
+        /// <returns></returns>
+        public FontFamily GetCodeTextFontFamily( )
         {
-            return new FontFamily("ui-monospace,Cascadia Code,Segoe UI Mono,Liberation Mono,Menlo,Monaco,Consolas,monospace");
+            return new FontFamily(
+                "ui-monospace,Cascadia Code,Segoe UI Mono,Liberation Mono,Menlo,Monaco,Consolas,monospace" );
         }
     }
 }

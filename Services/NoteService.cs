@@ -9,7 +9,7 @@ namespace Booger
     {
         public NoteDataModel Data { get; } = new NoteDataModel();
 
-        private CancellationTokenSource cancellation;
+        private CancellationTokenSource _cancellation;
 
         private async Task ShowCoreAsync(string msg, int timeout, CancellationToken token)
         {
@@ -33,18 +33,18 @@ namespace Booger
 
         public Task ShowAndWaitAsync(string msg, int timeout)
         {
-            cancellation?.Cancel();
-            cancellation = new CancellationTokenSource();
+            _cancellation?.Cancel();
+            _cancellation = new CancellationTokenSource();
 
-            return ShowCoreAsync(msg, timeout, cancellation.Token);
+            return ShowCoreAsync(msg, timeout, _cancellation.Token);
         }
 
         public void Show(string msg, int timeout)
         {
-            cancellation?.Cancel();
-            cancellation = new CancellationTokenSource();
+            _cancellation?.Cancel();
+            _cancellation = new CancellationTokenSource();
 
-            _ = ShowCoreAsync(msg, timeout, cancellation.Token);
+            _ = ShowCoreAsync(msg, timeout, _cancellation.Token);
         }
 
         public void Show(string msg)
@@ -55,7 +55,7 @@ namespace Booger
 
         public void Close()
         {
-            cancellation?.Cancel();
+            _cancellation?.Cancel();
 
             Data.Show = false;
         }

@@ -41,9 +41,9 @@ namespace Booger
 
         public ChatStorageService SaveNewSession(string name)
         {
-            ChatSession session = ChatSession.Create(name);
+            ChatSession _session = ChatSession.Create(name);
 
-            return SaveSession(session);
+            return SaveSession(_session);
         }
 
         public ChatStorageService SaveSession(ChatSession session)
@@ -128,9 +128,9 @@ namespace Booger
 
         public ChatStorageService SaveNewMessage(Guid sessionId, string role, string content)
         {
-            ChatMessage message = ChatMessage.Create(sessionId, role, content);
+            ChatMessage _message = ChatMessage.Create(sessionId, role, content);
 
-            return SaveMessage(message);
+            return SaveMessage(_message);
         }
 
         public ChatStorageService SaveMessage(ChatMessage message)
@@ -168,14 +168,14 @@ namespace Booger
         }
 
 
-        bool disposed = false;
+        bool _disposed = false;
         public void Dispose()
         {
-            if (disposed)
+            if (_disposed)
                 return;
 
             Database?.Dispose();
-            disposed = true;
+            _disposed = true;
         }
     }
 }

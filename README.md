@@ -24,12 +24,15 @@ If you don't have .NET 8 installed, remove net8.0-windows in Booger.csproj.
 ## Code
 
 - [Static](https://github.com/is-leeroy-jenkins/Booger/tree/main/Static) - other tools available.
+- [Converters](https://github.com/is-leeroy-jenkins/Booger/tree/main/Converters) - various conversions.
+- [Behaviors](https://github.com/is-leeroy-jenkins/Booger/tree/main/Behaviors) - behaviors for the styles.
 - [Enumerations](https://github.com/is-leeroy-jenkins/Booger/tree/main/Enumerations)  - enumerations used by Booger.
 - [Services](https://github.com/is-leeroy-jenkins/Booger/tree/main/Services) - chat gpt services.
 - [Extensions](https://github.com/is-leeroy-jenkins/Booger/tree/main/Extensions) - extension methods.
 - [Models](https://github.com/is-leeroy-jenkins/Booger/tree/main/Models) - classes for prompting and training.
-- [Controls](https://github.com/is-leeroy-jenkins/Booger/tree/main/UI/Controls) - controls for the user interface and related functionality.
-- [Windows](https://github.com/is-leeroy-jenkins/Booger/tree/main/UI/Windows) - windows for the user interface and related functionality.
+- [UI](https://github.com/is-leeroy-jenkins/Booger/tree/main/UI) - classes for the user interface and related functionality.
+- [ColorModes](https://github.com/is-leeroy-jenkins/Booger/tree/main/UI/ColorModes) - light and dark modes.
+- [Styles](https://github.com/is-leeroy-jenkins/Booger/tree/main/Resources/Styles) - other look and feel stuff.
 - [Resources](https://github.com/is-leeroy-jenkins/Booger/tree/main/Resources)- images, documents, files, etc
 
 

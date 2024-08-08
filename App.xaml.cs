@@ -185,6 +185,7 @@ namespace Booger
             if( !EnsureAppSingletion( ) )
             {
                 Current.Shutdown( );
+
                 return;
             }
 

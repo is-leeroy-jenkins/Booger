@@ -2,145 +2,96 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks>net6.0-windows</TargetFrameworks>
-    <Version>1.4</Version>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>disable</Nullable>
     <UseWPF>true</UseWPF>
-    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
-    <Platforms>AnyCPU;x86</Platforms>
-    <PackageId>Booger</PackageId>
-    <Authors>Booger</Authors>
+    <LangVersion>latest</LangVersion>
+    <ApplicationIcon>Resources\Assets\Images\openai.ico</ApplicationIcon>
+    <RepositoryUrl></RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>1.1.8.0</Version>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <StartupObject>Booger.EntryPoint</StartupObject>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
-    <DebugType>full</DebugType>
+    <Optimize>True</Optimize>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DebugType>none</DebugType>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
-    <DebugType>none</DebugType>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|AnyCPU'">
     <Optimize>True</Optimize>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|x86'">
-    <Optimize>True</Optimize>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|AnyCPU'">
-    <Optimize>False</Optimize>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|x86'">
-    <Optimize>False</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="CSharpWpfChatGPT.png" />
-    <None Remove="CSharpWpfChatGPT2.png" />
+    <Compile Remove="assets\**" />
+    <Compile Remove="Markdown\**" />
+    <EmbeddedResource Remove="assets\**" />
+    <EmbeddedResource Remove="Markdown\**" />
+    <None Remove="assets\**" />
+    <None Remove="Markdown\**" />
+    <Page Remove="assets\**" />
+    <Page Remove="Markdown\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Models\ChatMessage.cs~RF4a99add.TMP" />
+    <None Remove="Resources\Assets\Images\openai.ico" />
+    <None Remove="Resources\Assets\Images\openai.png" />
+  </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
-    <PackageReference Include="EPPlus" Version="7.2.2" />    
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.20">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.20" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.20">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="ColorCode.Core" Version="2.0.15" />
+    <PackageReference Include="EPPlus" Version="7.2.2" />
+    <PackageReference Include="LiteDB" Version="5.0.17" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="Markdig" Version="0.33.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+    <PackageReference Include="EleCho.GlobalHotkey.Windows.Wpf" Version="1.0.1.5" />
     <PackageReference Include="ModernWpfUI" Version="0.9.6" />
-    <PackageReference Include="RestoreWindowPlace" Version="2.1.0" />
+    <PackageReference Include="OpenAI-DotNet" Version="7.2.3" />
+    <PackageReference Include="Syncfusion.Edit.WPF" Version="24.1.41" />
     <PackageReference Include="Syncfusion.Licensing" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.SfAccordion.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.SfBarcode.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.SfChromelessWindow.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.SfColorPalette.WPF" Version="24.1.41" />
     <PackageReference Include="Syncfusion.SfHubTile.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.SfNavigationDrawer.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.SfProgressBar.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.SfRadialMenu.WPF" Version="24.1.41" />
     <PackageReference Include="Syncfusion.SfRichTextBoxAdv.WPF" Version="24.1.41" />
     <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfTextInputLayout.WPF" Version="24.1.41" />
     <PackageReference Include="Syncfusion.Shared.Base" Version="24.1.41" />
     <PackageReference Include="Syncfusion.Shared.WPF" Version="24.1.41" />
     <PackageReference Include="Syncfusion.Themes.FluentDark.WPF" Version="24.1.41" />
     <PackageReference Include="Syncfusion.Tools.WPF" Version="24.1.41" />
     <PackageReference Include="Syncfusion.UI.WPF.NET" Version="24.1.41" />
+    <PackageReference Include="System.Data.Common" Version="4.3.0" />
     <PackageReference Include="System.Data.OleDb" Version="8.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
-    <PackageReference Include="System.Speech" Version="8.0.0" />
     <PackageReference Include="ToastNotifications.Messages.Net6" Version="1.0.4" />
     <PackageReference Include="ToastNotifications.Net6" Version="1.0.4" />
-    <PackageReference Include="Whetstone.ChatGPT" Version="1.7.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Assets\Dialog\Cancel.png" />
-    <Resource Include="Resources\Assets\Dialog\FileBrowse.png" />
-    <Resource Include="Resources\Assets\Dialog\Main.png" />
-    <Resource Include="Resources\Assets\Dialog\SplashNotification.png" />
-    <Resource Include="Resources\Assets\EXT\ACCDB.png" />
-    <Resource Include="Resources\Assets\EXT\CSV.png" />
-    <Resource Include="Resources\Assets\EXT\DB.png" />
-    <Resource Include="Resources\Assets\EXT\DLL.png" />
-    <Resource Include="Resources\Assets\EXT\DOC.png" />
-    <Resource Include="Resources\Assets\EXT\DOCX.png" />
-    <Resource Include="Resources\Assets\EXT\EXE.png" />
-    <Resource Include="Resources\Assets\EXT\HTML.png" />
-    <Resource Include="Resources\Assets\EXT\MDB.png" />
-    <Resource Include="Resources\Assets\EXT\MDF.png" />
-    <Resource Include="Resources\Assets\EXT\PDF.png" />
-    <Resource Include="Resources\Assets\EXT\PNG.png" />
-    <Resource Include="Resources\Assets\EXT\PPTX.png" />
-    <Resource Include="Resources\Assets\EXT\PY.png" />
-    <Resource Include="Resources\Assets\EXT\SDF.png" />
-    <Resource Include="Resources\Assets\EXT\SQL.png" />
-    <Resource Include="Resources\Assets\EXT\TXT.png" />
-    <Resource Include="Resources\Assets\EXT\XLS.png" />
-    <Resource Include="Resources\Assets\EXT\XLSX.png" />
-    <Resource Include="Resources\Assets\EXT\XML.png" />
-    <Resource Include="Resources\Assets\Form\App.ico" />
-    <Resource Include="Resources\Assets\Form\Application.png" />
-    <Resource Include="Resources\Assets\Form\Booger.png" />
-    <Resource Include="Resources\Assets\Menu\App.ico" />
-    <Resource Include="Resources\Assets\Menu\CalculatorItem.png" />
-    <Resource Include="Resources\Assets\Menu\CalendarItem.png" />
-    <Resource Include="Resources\Assets\Menu\ChromeItem.png" />
-    <Resource Include="Resources\Assets\Menu\ClockItem.png" />
-    <Resource Include="Resources\Assets\Menu\CloseItem.png" />
-    <Resource Include="Resources\Assets\Menu\ControlPanelItem.png" />
-    <Resource Include="Resources\Assets\Menu\DocumentaionItem.png" />
-    <Resource Include="Resources\Assets\Menu\EdgeItem.png" />
-    <Resource Include="Resources\Assets\Menu\ExitItem.png" />
-    <Resource Include="Resources\Assets\Menu\FileItem.png" />
-    <Resource Include="Resources\Assets\Menu\FirefoxItem.png" />
-    <Resource Include="Resources\Assets\Menu\FolderItem.png" />
-    <Resource Include="Resources\Assets\Menu\MapItem.png" />
-    <Resource Include="Resources\Assets\Menu\MediaPlayerItem.png" />
-    <Resource Include="Resources\Assets\Menu\OneDriveItem.png" />
-    <Resource Include="Resources\Assets\Menu\RefreshItem.png" />
-    <Resource Include="Resources\Assets\Menu\SaveItem.png" />
-    <Resource Include="Resources\Assets\Menu\TaskManagerItem.png" />
+    <Resource Include="Resources\Assets\Images\openai.ico" />
+    <Resource Include="Resources\Assets\Images\openai.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="CefSharp.Wpf">
       <HintPath>..\Booger\Libraries\CefSharp.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Data.WPF">
-      <HintPath>..\Booger\Libraries\Syncfusion.Data.WPF.dll</HintPath>
-    </Reference>
     <Reference Include="System.Data.SqlServerCe">
       <HintPath>..\Booger\Libraries\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
-  </ItemGroup>  
+  </ItemGroup>
+
 </Project>

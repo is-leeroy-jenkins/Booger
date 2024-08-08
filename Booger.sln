@@ -1,9 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.5.33424.131
+VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booger", "Booger.csproj", "{326451B4-9A37-4847-834B-4D244489E5E8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ED3DC91F-6239-4D51-9229-FA2B49A7FA11}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		README_TR.md = README_TR.md
+		README_ZH-HANS.md = README_ZH-HANS.md
+		README_ZH-HANT.md = README_ZH-HANT.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booger", "Booger.csproj", "{32B2E0EE-A595-4E6C-93E0-392F0F24C614}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +19,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{326451B4-9A37-4847-834B-4D244489E5E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{326451B4-9A37-4847-834B-4D244489E5E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{326451B4-9A37-4847-834B-4D244489E5E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{326451B4-9A37-4847-834B-4D244489E5E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32B2E0EE-A595-4E6C-93E0-392F0F24C614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32B2E0EE-A595-4E6C-93E0-392F0F24C614}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32B2E0EE-A595-4E6C-93E0-392F0F24C614}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32B2E0EE-A595-4E6C-93E0-392F0F24C614}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {28AA203E-7ADF-4177-B209-701D70A42ECE}
+		SolutionGuid = {031AB569-072D-4227-808A-43857DE56092}
 	EndGlobalSection
 EndGlobal

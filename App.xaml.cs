@@ -1,194 +1,161 @@
 ﻿namespace Booger
 {
     using System;
-    using System.Configuration;
-    using System.Diagnostics.CodeAnalysis;
+    using System.Diagnostics;
     using System.IO;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows;
-    using System.Windows.Media;
-    using RestoreWindowPlace;
-    using Syncfusion.Licensing;
-    using Syncfusion.SfSkinManager;
-    using Syncfusion.Themes.FluentDark.WPF;
+    using System.Windows.Controls;
+    using System.Windows.Markup;
+    using CommunityToolkit.Mvvm.Input;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
 
-    /// <inheritdoc />
-    /// <summary>
-    /// </summary>
-    /// <seealso cref="T:System.Windows.Application" />
-    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
-    [ SuppressMessage( "ReSharper", "RedundantExtendsListEntry" ) ]
     public partial class App : Application
     {
-        /// <summary>
-        /// The window place
-        /// </summary>
-        private WindowPlace _windowPlace;
-
-        /// <summary>
-        /// The controls
-        /// </summary>
-        public static string[ ] Controls =
-        {
-            "ComboBoxAdv",
-            "MetroComboBox",
-            "MetroDatagrid",
-            "ToolBarAdv",
-            "ToolStrip",
-            "MetroCalendar",
-            "CalendarEdit",
-            "PivotGridControl",
-            "MetroPivotGrid",
-            "MetroMap",
-            "EditControl",
-            "CheckListBox",
-            "MetroEditor",
-            "DropDownButtonAdv",
-            "MetroDropDown",
-            "GridControl",
-            "MetroGridControl",
-            "TabControlExt",
-            "MetroTabControl",
-            "MetroTextInput",
-            "MenuItemAdv",
-            "ButtonAdv",
-            "Carousel",
-            "ColorEdit",
-            "SfChart",
-            "SfChart3D",
-            "SfHeatMap",
-            "SfMap",
-            "SfDataGrid",
-            "SfTextBoxExt",
-            "SfCircularProgressBar",
-            "SfLinearProgressBar",
-            "SfTextInputLayout",
-            "SfSpreadsheet",
-            "SfSpreadsheetRibbon",
-            "SfCalculator",
-            "SfMultiColumnDropDownControl"
-        };
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.Application.Startup" /> event.
-        /// </summary>
-        /// <param name="e">A
-        /// <see cref="T:System.Windows.StartupEventArgs" />
-        /// that contains the event data.</param>
-        protected override void OnStartup( StartupEventArgs e )
-        {
-            base.OnStartup( e );
-            try
+        private static readonly IHost host = Host
+            .CreateDefaultBuilder()
+            .ConfigureAppConfiguration(config =>
             {
-                var _key = ConfigurationManager.AppSettings[ "UI" ];
-                SyncfusionLicenseProvider.RegisterLicense( _key );
+                string path = Path.Combine(
+                    FileSystemUtils.GetEntryPointFolder(),
+                    GlobalValues.JsonConfigurationFilePath);
 
-                // TODO 1: See README.md and get your OpenAI API key: https://platform.openai.com/account/api-keys
-                // TODO 2: You can modify ChatViewModel to set default selected language: _selectedLang = LangList[..]
-                // TODO 3: Give my article 5 stars:) at https://www.codeproject.com/Tips/5377103/ChatGPT-API-in-Csharp-WPF-XAML-MVVM
-                string _openaiApiKey;
-                if( e.Args?.Length > 0
-                    && e.Args[ 0 ].StartsWith( '/' ) )
+                config
+                    .AddJsonFile(path, true, true)
+                    .AddEnvironmentVariables();
+            })
+            .ConfigureServices((context, services) =>
+            {
+                services.AddHostedService<ApplicationHostService>();
+
+                services.AddSingleton<AppGlobalData>();
+                services.AddSingleton<PageService>();
+                services.AddSingleton<NoteService>();
+                services.AddSingleton<ChatService>();
+                services.AddSingleton<ChatPageService>();
+                services.AddSingleton<ChatStorageService>();
+                services.AddSingleton<ConfigurationService>();
+                services.AddSingleton<SmoothScrollingService>();
+                services.AddSingleton<TitleGenerationService>();
+
+                services.AddSingleton<LanguageService>();
+                services.AddSingleton<ColorModeService>();
+
+                services.AddSingleton<AppWindow>();
+                services.AddSingleton<MainPage>();
+                services.AddSingleton<ConfigPage>();
+
+                services.AddSingleton<AppWindowModel>();
+                services.AddSingleton<MainPageModel>();
+                services.AddSingleton<ConfigPageModel>();
+
+                services.AddScoped<ChatPage>();
+                services.AddScoped<ChatPageModel>();
+
+                services.AddTransient<MarkdownWpfRenderer>();
+
+                services.Configure<AppConfig>(o =>
                 {
-                    // OpenAI API key from command line parameter such as "/sk-Ih...WPd" after removing '/'
-                    _openaiApiKey = e.Args[ 0 ].Remove( 0, 1 );
-                }
-                else
+                    context.Configuration.Bind(o);
+                });
+            })
+            .Build();
+
+        public static T GetService<T>()
+            where T : class
+        {
+            return (host.Services.GetService(typeof(T)) as T) ?? throw new Exception("Cannot find service of specified type");
+        }
+
+        protected override async void OnStartup(StartupEventArgs e)
+        {
+
+            if (!EnsureAppSingletion())
+            {
+                Application.Current.Shutdown();
+                return;
+            }
+
+            await host.StartAsync();
+        }
+
+        protected override async void OnExit(ExitEventArgs e)
+        {
+            await host.StopAsync();
+
+            host.Dispose();
+        }
+
+        public static string AppName => nameof(Booger);
+
+
+        public static IRelayCommand ShowAppCommand =
+            new RelayCommand(ShowApp);
+        public static IRelayCommand HideAppCommand =
+            new RelayCommand(HideApp);
+        public static IRelayCommand CloseAppCommand =
+            new RelayCommand(CloseApp);
+
+        public static void ShowApp()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            if (mainWindow == null)
+                return;
+
+            mainWindow.Show();
+
+            if (mainWindow.WindowState == WindowState.Minimized)
+                mainWindow.WindowState = WindowState.Normal;
+
+            if (!mainWindow.IsActive)
+                mainWindow.Activate( );
+        }
+
+        public static void HideApp()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            if (mainWindow == null)
+                return;
+
+            mainWindow.Hide( );
+        }
+
+        public static void CloseApp()
+        {
+            Application.Current.Shutdown( );
+        }
+
+
+        public bool EnsureAppSingletion( )
+        {
+            EventWaitHandle singletonEvent = new EventWaitHandle(false, EventResetMode.AutoReset, "Booger", out bool createdNew);
+
+            if (createdNew)
+            {
+                Task.Run(() =>
                 {
-                    // Put your key from above here instead of using a command line parameter in the 'if' block
-                    _openaiApiKey = _key;
-                }
+                    while (true)
+                    {
+                        singletonEvent.WaitOne();
 
-                // Programmatically switch between SqlHistoryRepo and EmptyHistoryRepo
-                // If you have configured SQL Server, try SqlHistoryRepo
-                //IHistoryRepo historyRepo = new SqlHistoryRepo();x
-                IHistoryRepo _historyRepo = new EmptyHistoryRepo( );
-                var _chatGptService = new ChatGptService( _openaiApiKey );
-                var _mainViewModel = new MainViewModel( _historyRepo, _chatGptService );
-                var _mainWindow = new MainWindow( _mainViewModel );
-                SetupRestoreWindowPlace( _mainWindow );
-                _mainWindow.Show( );
+                        Dispatcher.Invoke(() =>
+                        {
+                            ShowApp();
+                        });
+                    }
+                });
+
+                return true;
             }
-            catch( Exception ex )
+            else
             {
-                MessageBox.Show( ex.ToString( ), "Booger will exit on error" );
-                Current?.Shutdown( );
+                singletonEvent.Set();
+                return false;
             }
-        }
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.Application.Exit" /> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.Windows.ExitEventArgs" />
-        /// that contains the event data.</param>
-        protected override void OnExit( ExitEventArgs e )
-        {
-            base.OnExit( e );
-            try
-            {
-                _windowPlace?.Save( );
-            }
-            catch( Exception )
-            {
-                // Do nothing
-            }
-        }
-
-        /// <summary>
-        /// Setups the restore window place.
-        /// </summary>
-        /// <param name="mainWindow">The main window.</param>
-        private void SetupRestoreWindowPlace( MainWindow mainWindow )
-        {
-            var _windowPlaceConfigFilePath = Path.Combine( AppDomain.CurrentDomain.BaseDirectory,
-                "Booger.config" );
-
-            _windowPlace = new WindowPlace( _windowPlaceConfigFilePath );
-            _windowPlace.Register( mainWindow );
-
-            // This logic works but I don't like the window being maximized
-            //if (!File.Exists(windowPlaceConfigFilePath))
-            //{
-            //    For the first time, maximize the window,
-            //    so it won't go off the screen on laptop
-            //    WindowPlacement will take care of future runs
-            //    mainWindow.WindowState = WindowState.Maximized;
-            //}
-        }
-
-        /// <summary>
-        /// Registers the theme.
-        /// </summary>
-        private void RegisterTheme( )
-        {
-            var _theme = new FluentDarkThemeSettings
-            {
-                PrimaryBackground = new SolidColorBrush( Color.FromRgb( 20, 20, 20 ) ),
-                PrimaryColorForeground = new SolidColorBrush( Color.FromRgb( 0, 120, 212 ) ),
-                PrimaryForeground = new SolidColorBrush( Color.FromRgb( 222, 222, 222 ) ),
-                BodyFontSize = 12,
-                HeaderFontSize = 16,
-                SubHeaderFontSize = 14,
-                TitleFontSize = 14,
-                SubTitleFontSize = 126,
-                BodyAltFontSize = 10,
-                FontFamily = new FontFamily( "Segoe UI" )
-            };
-
-            SfSkinManager.RegisterThemeSettings( "FluentDark", _theme );
-            SfSkinManager.ApplyStylesOnApplication = true;
-        }
-
-        /// <summary>
-        /// Fails the specified ex.
-        /// </summary>
-        /// <param name="ex">The ex.</param>
-        private protected void Fail( Exception ex )
-        {
-            var _error = new ErrorWindow( ex );
-            _error?.SetText( );
-            _error?.ShowDialog( );
         }
     }
 }

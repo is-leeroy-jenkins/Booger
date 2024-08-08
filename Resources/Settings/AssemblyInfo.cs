@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Windows;
 
 [assembly: ThemeInfo(
@@ -8,3 +9,7 @@ using System.Windows;
                                               //(used if a resource is not found in the page,
                                               // app, or any theme specific resource dictionaries)
 )]
+
+[assembly: AssemblyMetadata("Repository", "https://github.com/SlimeNull/OpenChat")]
+[assembly: AssemblyCopyright("Copyright 2022 SlimeNull")]
+[assembly: AssemblyDescription("A simple chat app based on OpenAI Chat completion API.")]

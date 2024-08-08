@@ -96,7 +96,7 @@
                 else
                 {
                     // Put your key from above here instead of using a command line parameter in the 'if' block
-                    _openaiApiKey = "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";
+                    _openaiApiKey = _key;
                 }
 
                 // Programmatically switch between SqlHistoryRepo and EmptyHistoryRepo
@@ -106,7 +106,6 @@
                 var _chatGptService = new ChatGptService( _openaiApiKey );
                 var _mainViewModel = new MainViewModel( _historyRepo, _chatGptService );
                 var _mainWindow = new MainWindow( _mainViewModel );
-                 
                 SetupRestoreWindowPlace( _mainWindow );
                 _mainWindow.Show( );
             }

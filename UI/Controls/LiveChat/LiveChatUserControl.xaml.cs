@@ -88,12 +88,12 @@ namespace Booger
         /// <summary>
         /// The chat ListView scroll viewer
         /// </summary>
-        private ScrollViewer _chatScroller;
+        private ScrollViewer _chatScrollViewer;
 
         /// <summary>
         /// The message ListView scroll viewer
         /// </summary>
-        private ScrollViewer _messageScroller;
+        private ScrollViewer _messageScrollViewer;
 
         /// <summary>
         /// The message context menu
@@ -109,14 +109,16 @@ namespace Booger
         {
             // Theme Properties
             SfSkinManager.SetTheme( this, new Theme( "FluentDark", App.Controls ) );
+
+            // Control Properties
             InitializeComponent( );
             Background = _theme.BackColor;
             Foreground = _theme.ForeColor;
-            BorderBrush = _theme.BorderColor;
-            Width = 1435;
-            MinWidth = 500;
-            Height = 1000;
-            MinHeight = 400;
+            BorderBrush = _theme.BackColor;
+            Width = 1500;
+            MinWidth = 1500;
+            Height = 800;
+            MinHeight = 800;
             PreviewKeyDown += OnPreviewKeyDown;
             MessageListView.PreviewMouseRightButtonUp += OnPreviewMouseRightButtonUp;
             _messageContextMenu = new ContextMenu( );
@@ -194,14 +196,25 @@ namespace Booger
             switch( updateUIEnum )
             {
                 case UpdateUIEnum.SetFocusToChatInput:
+                {
                     ChatInputTextBox.Focus( );
                     break;
+                }
                 case UpdateUIEnum.SetupMessageListViewScrollViewer:
+                {
                     SetupMessageListViewScrollViewer( );
                     break;
+                }
                 case UpdateUIEnum.MessageListViewScrollToBottom:
-                    _messageScroller?.ScrollToBottom( );
+                {
+                    _messageScrollViewer?.ScrollToBottom( );
                     break;
+                }
+                default:
+                {
+                    ChatInputTextBox.Focus( );
+                    break;
+                }
             }
         }
 
@@ -211,7 +224,7 @@ namespace Booger
         private void SetupChatListViewScrollViewer( )
         {
             // Get the ScrollViewer from the ListView.             
-            _chatScroller = GetScrollViewer( ChatListView );
+            _chatScrollViewer = GetScrollViewer( ChatListView );
 
             // Based on: https://stackoverflow.com/a/1426312	
             var _collectionChanged = ChatListView.ItemsSource as INotifyCollectionChanged;
@@ -219,7 +232,7 @@ namespace Booger
             {
                 _collectionChanged.CollectionChanged += ( sender, e ) =>
                 {
-                    _chatScroller?.ScrollToBottom( );
+                    _chatScrollViewer?.ScrollToBottom( );
                 };
             }
         }
@@ -236,7 +249,7 @@ namespace Booger
             {
                 _collectionChanged.CollectionChanged += ( sender, e ) =>
                 {
-                    _messageScroller?.ScrollToBottom( );
+                    _messageScrollViewer?.ScrollToBottom( );
                 };
             }
         }
@@ -246,8 +259,10 @@ namespace Booger
         /// <summary>
         /// Gets the scroll viewer.
         /// </summary>
-        /// <param name="element">The element.</param>
-        /// <returns></returns>
+        /// <param name="element">The UIElement.</param>
+        /// <returns>
+        /// ScrollViewer
+        /// </returns>
         private ScrollViewer GetScrollViewer( UIElement element )
         {
             ScrollViewer _viewer = null;
@@ -284,7 +299,6 @@ namespace Booger
                 FontWeight = FontWeights.SemiBold
             } );
 
-            ;
             _messageContextMenu.Items.Add( new Separator( ) );
 
             // Copy to clipboard
@@ -315,7 +329,7 @@ namespace Booger
                 LiveChatViewModel = (LiveChatViewModel)DataContext;
                 LiveChatViewModel.UpdateUIAction = UpdateUI;
                 SetupChatListViewScrollViewer( );
-                _messageScroller = GetScrollViewer( MessageListView );
+                _messageScrollViewer = GetScrollViewer( MessageListView );
                 SetupMessageListViewScrollViewer( );
             }
         }

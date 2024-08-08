@@ -8,8 +8,8 @@
     xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
     xmlns:syncfusionskin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
     Title="{Binding AppTitle}"
-    Width="1600"
-    Height="1000"
+    Width="1435"
+    Height="800"
     MinWidth="500"
     MinHeight="400"
     syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentDark}"
@@ -145,10 +145,11 @@
     <TabControl Background="#FF282828">
         <TabItem
             x:Name="LiveChatTabItem"
-            BorderThickness="1,1,1,0">
+            BorderThickness="1,1,1,1">
             <TabItem.Header>
                 <TextBlock
                     Margin="6,2"
+                    Background="#FF141414"
                     Foreground="#FFA0BDFC"
                     Text="Live Chat" />
             </TabItem.Header>
@@ -160,6 +161,7 @@
             <TabItem.Header>
                 <TextBlock
                     Margin="6,2"
+                    Background="#FF141414"
                     Foreground="#FFA0BDFC"
                     Text="History" />
             </TabItem.Header>

@@ -77,10 +77,10 @@ namespace Booger
             Background = _theme.BackColor;
             Foreground = _theme.ForeColor;
             BorderBrush = _theme.BorderColor;
-            Width = 1435;
-            MinWidth = 500;
-            Height = 1000;
-            MinHeight = 400;
+            Width = 1500;
+            MinWidth = 1500;
+            Height = 800;
+            MinHeight = 800;
 
             // Data Wiring
             DataContext = mainViewModel;

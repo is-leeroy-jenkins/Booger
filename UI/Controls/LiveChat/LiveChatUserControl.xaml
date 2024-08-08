@@ -9,11 +9,13 @@
     xmlns:syncfusionskin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:ui="http://schemas.modernwpf.com/2019"
-    Width="1435"
-    Height="1000"
-    MinWidth="500"
-    MinHeight="500"
+    Width="1500"
+    Height="800"
+    Padding="1,1,1,1"
     syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentDark}"
+    Background="#FF141414"
+    BorderBrush="#FF0078D4"
+    BorderThickness="1,1,1,1"
     mc:Ignorable="d">
 
     <!--  ******************************************** Resources *********************************************  -->
@@ -140,7 +142,10 @@
 
     <!--  ******************************************** Header Section *********************************************  -->
 
-    <Grid FocusManager.FocusedElement="{Binding ElementName=ChatInputTextBox}">
+    <Grid
+        Width="1500"
+        MaxHeight="800"
+        FocusManager.FocusedElement="{Binding ElementName=ChatInputTextBox}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition Height="*" />
@@ -153,24 +158,29 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition
-                Width="240"
+                Width="388"
                 MinWidth="200"
                 MaxWidth="400" />
             <ColumnDefinition
-                Width="600"
+                Width="495"
                 MinWidth="200"
                 MaxWidth="800" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition
+                Width="Auto"
+                MinWidth="685" />
         </Grid.ColumnDefinitions>
 
         <!--  ******************************************** Top Bar Area *********************************************  -->
 
         <Border
             Grid.Row="0"
-            Grid.ColumnSpan="4"
+            Grid.ColumnSpan="2"
             BorderThickness="0"
             IsEnabled="{Binding IsCommandNotBusy}">
             <ui:SimpleStackPanel
+                MaxWidth="1500"
+                MaxHeight="900"
+                Margin="0,0,80,0"
                 Background="#FF141414"
                 Orientation="Horizontal">
                 <ui:CommandBar
@@ -258,7 +268,7 @@
             x:Name="ChatListView"
             Grid.Row="1"
             Grid.Column="0"
-            Margin="0,0,0,2"
+            Margin="0,0,10,2"
             Background="#FF141414"
             BorderBrush="#FF414141"
             BorderThickness="0,1"
@@ -383,67 +393,21 @@
 
         <Grid
             Grid.Row="1"
-            Grid.Column="2"
-            Margin="0,0,10,10"
-            RenderTransformOrigin="0.436,0.495"
+            Grid.Column="1"
+            Margin="0,0,3,10"
             Visibility="{Binding ImagePaneVisibility}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition
-                    Width="40*"
+                    Width="Auto"
                     MinWidth="200" />
-                <ColumnDefinition Width="14*" />
-                <ColumnDefinition
-                    Width="63*"
-                    MinWidth="307" />
             </Grid.ColumnDefinitions>
 
             <!--  ******************************************** MetroTile *********************************************  -->
 
-            <local:MetroTile
-                Grid.ColumnSpan="2"
-                Width="200"
-                Margin="0,10,0,0"
-                Padding="7,7,0,5"
-                HorizontalAlignment="Center"
-                ui:ControlHelper.PlaceholderText="A place name, etc."
-                Background="#FF141414"
-                BorderBrush="#FF0078D4"
-                FontSize="12"
-                Foreground="#FFA0BDFC"
-                Header="{Binding ImageInput, UpdateSourceTrigger=PropertyChanged}"
-                IsEnabled="{Binding IsCommandNotBusy}">
-                <local:MetroTile.InputBindings>
-                    <KeyBinding
-                        Key="Enter"
-                        Command="{Binding CreateImageCommand}" />
-                    <KeyBinding
-                        Key="Esc"
-                        Command="{Binding ClearImageInputCommand}" />
-                </local:MetroTile.InputBindings>
-            </local:MetroTile>
-
             <!--  ********************************************      MetroTile     ****************************************  -->
-
-            <local:MetroTile
-                x:Name="ImageButton"
-                Grid.Row="0"
-                Grid.Column="2"
-                Width="135"
-                Height="55"
-                Margin="72,10,0,0"
-                Padding="20,0,10,3"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Background="#FF141414"
-                BorderBrush="#FF0078D4"
-                Command="{Binding CreateImageCommand}"
-                FontSize="12"
-                Header="Image"
-                IsEnabled="{Binding IsCommandNotBusy}"
-                ToolTip="Create an image by a name" />
 
             <Image
                 Grid.ColumnSpan="3"
@@ -460,7 +424,7 @@
         <Button
             Grid.Row="1"
             Grid.Column="2"
-            Margin="265,330,245,429"
+            Margin="225,258,285,166"
             Background="{x:Null}"
             BorderBrush="LightGray"
             BorderThickness="1,1,1,1"
@@ -527,164 +491,178 @@
         <!--  ******************************** Vertical splitter between the 2 lists  **********************  -->
 
         <GridSplitter
-            Grid.Row="1"
-            Width="6"
-            Margin="0,0,0,2"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Stretch"
-            Background="#FF112757" />
+            Margin="372,2,10,0"
+            HorizontalAlignment="Stretch"
+            Background="#FF112757" Grid.Row="1" />
         <!--  Chat input and current result  -->
         <!--  StatusMessage  -->
         <Border
             Grid.Row="3"
             Grid.ColumnSpan="3"
-            Margin="0,5,0,0"
+            Margin="10,1,85,1"
             Background="#19000000"
             BorderBrush="#FF112757"
-            BorderThickness="0,1,0,0">
+            BorderThickness="1,1,1,1" Padding="1,1,1,1">
             <TextBlock
-                Margin="10,1,1,1"
+                Margin="1,1,1,1"
+                Padding="1,1,1,1"
                 FontSize="12"
                 FontWeight="SemiBold"
                 Text="{Binding StatusMessage}"
                 ToolTip="{Binding StatusMessage}" />
         </Border>
-
-        <Grid
+        <local:MetroTextBox
+            x:Name="ChatInputTextBox"
             Grid.Row="2"
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Height="50">
+            Grid.ColumnSpan="2"
+            Width="642"
+            Height="35"
+            MaxHeight="40"
+            Margin="1,0,0,0"
+            Padding="7,1,1,1"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Background="#FF282828"
+            BorderBrush="#FF0078D4"
+            FontSize="12"
+            IsEnabled="{Binding IsCommandNotBusy}"
+            Text="{Binding ChatInput, UpdateSourceTrigger=PropertyChanged}">
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="4*" />
-                <RowDefinition Height="5*" />
-            </Grid.RowDefinitions>
+            <!--  Now Enter to Send  -->
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition
-                    Width="Auto"
-                    MinWidth="711" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+            <local:MetroTextBox.InputBindings>
+                <KeyBinding
+                    Key="Enter"
+                    Command="{Binding SendCommand}" />
 
-<!--  ******************************  #08000000 ligher than #19000000  ********************************  -->
-<!--  ***************AcceptsReturn="True" needed for Paste from clipboard, MaxHeight for height limit  -->
+                <KeyBinding
+                    Key="Esc"
+                    Command="{Binding ClearChatInputCommand}" />
 
-            <local:MetroTextBox
-                x:Name="ChatInputTextBox"
-                Grid.RowSpan="2"
-                Width="709"
+            </local:MetroTextBox.InputBindings>
+
+        </local:MetroTextBox>
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Height="Auto"
+            Margin="290,1,62,1"
+            Orientation="Horizontal">
+
+            <StackPanel.Resources>
+                <!--  AccentButtonStyle is from modernwpf  -->
+                <Style TargetType="{x:Type local:MetroTile}">
+                    <Setter Property="Height" Value="35" />
+                    <Setter Property="FontSize" Value="12" />
+                    <Setter Property="Padding" Value="10,0,10,3" />
+                </Style>
+            </StackPanel.Resources>
+
+            <local:MetroTile
+                x:Name="SendButton"
+                Width="80"
                 Height="35"
-                MaxHeight="40"
-                Margin="0,5,0,0"
-                Padding="7,1,1,1"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                Background="#FF282828"
-                BorderBrush="#FF0078D4"
-                FontSize="12"
-                IsEnabled="{Binding IsCommandNotBusy}"
-                Text="{Binding ChatInput, UpdateSourceTrigger=PropertyChanged}">
+                Margin="3,0,0,0"
+                Command="{Binding SendCommand}"
+                Header="Send"
+                ToolTip="Enter is the same as Send" />
+            <Expander
+                Width="615"
+                Margin="5,0,0,1"
+                VerticalAlignment="Bottom"
+                ExpandDirection="Right"
+                IsExpanded="True">
 
-                <!--  Now Enter to Send  -->
-                
-                <local:MetroTextBox.InputBindings>
-                    <KeyBinding
-                        Key="Enter"
-                        Command="{Binding SendCommand}" />
+                <StackPanel
+                    Height="40"
+                    Margin="1,1,1,1"
+                    Orientation="Horizontal">
 
-                    <KeyBinding
-                        Key="Esc"
-                        Command="{Binding ClearChatInputCommand}" />
+                    <local:MetroTile
+                        x:Name="ExplainButton"
+                        Width="80"
+                        Height="35"
+                        Margin="5,1,1,1"
+                        Command="{Binding ExplainCommand}"
+                        Header="Explain"
+                        IsEnabled="{Binding IsCommandNotBusy}"
+                        ToolTip="Explain input (usually short like ML.NET)" />
 
-                </local:MetroTextBox.InputBindings>
+                    <local:MetroTile
+                        x:Name="TranslateButton"
+                        Width="80"
+                        Height="35"
+                        Margin="5,1,1,1"
+                        Command="{Binding TranslateToCommand}"
+                        Header="Translate to"
+                        IsEnabled="{Binding IsCommandNotBusy}"
+                        ToolTip="Translate input to selected language" />
 
-            </local:MetroTextBox>
+                    <local:MetroComboBox
+                        Width="100"
+                        Height="32"
+                        Margin="5,1,1,1"
+                        FontWeight="SemiBold"
+                        IsEnabled="{Binding IsCommandNotBusy}"
+                        ItemsSource="{Binding LangList}"
+                        SelectedItem="{Binding SelectedLang}" />
 
-            <StackPanel Grid.Row="0" 
-                        Grid.RowSpan="2"
-                        Grid.Column="1"
-                        Height="Auto"
-                        Margin="1,1,1,1"
-                        Orientation="Horizontal">
+                    <local:MetroTile
+                        x:Name="SpeakButton"
+                        Width="80"
+                        Height="35"
+                        Margin="5,1,1,1"
+                        Command="{Binding SpeakCommand}"
+                        Header="Speak"
+                        IsEnabled="{Binding IsCommandNotBusy}"
+                        ToolTip="Speak input (English only)" />
 
-                <StackPanel.Resources>
-                    <!--  AccentButtonStyle is from modernwpf  -->
-                    <Style TargetType="{x:Type local:MetroTile}">
-                        <Setter Property="Height" Value="35" />
-                        <Setter Property="FontSize" Value="12" />
-                        <Setter Property="Padding" Value="10,0,10,3" />
-                    </Style>
-                </StackPanel.Resources>
-
-                <local:MetroTile
-                    x:Name="SendButton"
-                    Width="80"
-                    Height="35"
-                    Margin="3,0,0,0"
-                    Command="{Binding SendCommand}"
-                    Header="Send"
-                    ToolTip="Enter is the same as Send" />
-                <Expander
-                    Width="615"
-                    Margin="5,0,0,1"
-                    VerticalAlignment="Bottom"
-                    ExpandDirection="Right"
-                    IsExpanded="True">
-
-                    <StackPanel
-                        Height="40"
-                        Margin="1,1,1,1"
-                        Orientation="Horizontal">
-
-                        <local:MetroTile
-                            x:Name="ExplainButton"
-                            Width="80"
-                            Height="35"
-                            Margin="5,1,1,1"
-                            Command="{Binding ExplainCommand}"
-                            Header="Explain"
-                            IsEnabled="{Binding IsCommandNotBusy}"
-                            ToolTip="Explain input (usually short like ML.NET)" />
-
-                        <local:MetroTile
-                            x:Name="TranslateButton"
-                            Width="80"
-                            Height="35"
-                            Margin="5,1,1,1"
-                            Command="{Binding TranslateToCommand}"
-                            Header="Translate to"
-                            IsEnabled="{Binding IsCommandNotBusy}"
-                            ToolTip="Translate input to selected language" />
-
-                        <local:MetroComboBox
-                            Width="100"
-                            Height="32"
-                            Margin="5,1,1,1"
-                            FontWeight="SemiBold"
-                            IsEnabled="{Binding IsCommandNotBusy}"
-                            ItemsSource="{Binding LangList}"
-                            SelectedItem="{Binding SelectedLang}" />
-
-                        <local:MetroTile
-                            x:Name="SpeakButton"
-                            Width="80"
-                            Height="35"
-                            Margin="5,1,1,1"
-                            Command="{Binding SpeakCommand}"
-                            Header="Speak"
-                            IsEnabled="{Binding IsCommandNotBusy}"
-                            ToolTip="Speak input (English only)" />
-
-                        <CheckBox
-                            Margin="10,0,0,0"
-                            Content="Female voice"
-                            FontWeight="SemiBold"
-                            IsChecked="{Binding IsFemaleVoice}" />
-                    </StackPanel>
-                </Expander>
-            </StackPanel>
-        </Grid>
+                    <CheckBox
+                        Margin="10,0,0,0"
+                        Content="Female voice"
+                        FontWeight="SemiBold"
+                        IsChecked="{Binding IsFemaleVoice}" />
+                </StackPanel>
+            </Expander>
+        </StackPanel>
+        <local:MetroTile
+            x:Name="ImageButton"
+            Grid.Row="1"
+            Grid.Column="2"
+            Height="55"
+            Margin="321,38,164,0"
+            Padding="20,0,10,3"
+            VerticalAlignment="Top"
+            Background="#FF141414"
+            BorderBrush="#FF0078D4"
+            Command="{Binding CreateImageCommand}"
+            FontSize="12"
+            Header="Image"
+            IsEnabled="{Binding IsCommandNotBusy}"
+            ToolTip="Create an image by a name" />
+        <local:MetroTile
+            Grid.Row="1"
+            Grid.Column="2"
+            Width="215"
+            Margin="10,0,0,391"
+            Padding="7,7,0,5"
+            HorizontalAlignment="Left"
+            ui:ControlHelper.PlaceholderText="A place name, etc."
+            Background="#FF141414"
+            BorderBrush="#FF0078D4"
+            FontSize="12"
+            Foreground="#FFA0BDFC"
+            Header="{Binding ImageInput, UpdateSourceTrigger=PropertyChanged}"
+            IsEnabled="{Binding IsCommandNotBusy}" Height="215" VerticalAlignment="Bottom">
+            <local:MetroTile.InputBindings>
+                <KeyBinding
+                    Key="Enter"
+                    Command="{Binding CreateImageCommand}" />
+                <KeyBinding
+                    Key="Esc"
+                    Command="{Binding ClearImageInputCommand}" />
+            </local:MetroTile.InputBindings>
+        </local:MetroTile>
     </Grid>
 </UserControl>

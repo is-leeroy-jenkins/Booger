@@ -41,133 +41,193 @@
 
 namespace Booger
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
 
-    /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:OpenGptChat.Controls"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:OpenGptChat.Controls;assembly=OpenGptChat.Controls"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:ChatBubble/>
-    ///
-    /// </summary>
+    /// <inheritdoc />
+    /// <![CDATA['MyNamespace' is an undeclared prefix. Line 28, position 7.]]>
+    [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
     public class ChatBubble : Control
     {
+        /// <inheritdoc />
+        /// <summary>
+        /// Initializes the <see cref="T:Booger.ChatBubble" /> class.
+        /// </summary>
         static ChatBubble( )
         {
-            ChatBubble.DefaultStyleKeyProperty.OverrideMetadata( typeof( ChatBubble ),
+            DefaultStyleKeyProperty.OverrideMetadata( typeof( ChatBubble ),
                 new FrameworkPropertyMetadata( typeof( ChatBubble ) ) );
         }
 
+        /// <summary>
+        /// Gets or sets the username.
+        /// </summary>
+        /// <value>
+        /// The username.
+        /// </value>
         public string _username
         {
-            get { return (string)GetValue( ChatBubble._usernameProperty ); }
-            set { SetValue( ChatBubble._usernameProperty, value ); }
+            get { return (string)GetValue( _usernameProperty ); }
+            set { SetValue( _usernameProperty, value ); }
         }
 
+        /// <summary>
+        /// Gets or sets the content.
+        /// </summary>
+        /// <value>
+        /// The content.
+        /// </value>
         public string _content
         {
-            get { return (string)GetValue( ChatBubble._contentProperty ); }
-            set { SetValue( ChatBubble._contentProperty, value ); }
+            get { return (string)GetValue( _contentProperty ); }
+            set { SetValue( _contentProperty, value ); }
         }
 
+        /// <summary>
+        /// Gets or sets the header foreground.
+        /// </summary>
+        /// <value>
+        /// The header foreground.
+        /// </value>
         public Brush _headerForeground
         {
-            get { return (Brush)GetValue( ChatBubble._headerForegroundProperty ); }
-            set { SetValue( ChatBubble._headerForegroundProperty, value ); }
+            get { return (Brush)GetValue( _headerForegroundProperty ); }
+            set { SetValue( _headerForegroundProperty, value ); }
         }
 
+        /// <summary>
+        /// Gets or sets the header background.
+        /// </summary>
+        /// <value>
+        /// The header background.
+        /// </value>
         public Brush _headerBackground
         {
-            get { return (Brush)GetValue( ChatBubble._headerBackgroundProperty ); }
-            set { SetValue( ChatBubble._headerBackgroundProperty, value ); }
+            get { return (Brush)GetValue( _headerBackgroundProperty ); }
+            set { SetValue( _headerBackgroundProperty, value ); }
         }
 
+        /// <summary>
+        /// Gets or sets the content foreground.
+        /// </summary>
+        /// <value>
+        /// The content foreground.
+        /// </value>
         public Brush _contentForeground
         {
-            get { return (Brush)GetValue( ChatBubble._contentForegroundProperty ); }
-            set { SetValue( ChatBubble._contentForegroundProperty, value ); }
+            get { return (Brush)GetValue( _contentForegroundProperty ); }
+            set { SetValue( _contentForegroundProperty, value ); }
         }
 
+        /// <summary>
+        /// Gets or sets the content background.
+        /// </summary>
+        /// <value>
+        /// The content background.
+        /// </value>
         public Brush _contentBackground
         {
-            get { return (Brush)GetValue( ChatBubble._contentBackgroundProperty ); }
-            set { SetValue( ChatBubble._contentBackgroundProperty, value ); }
+            get { return (Brush)GetValue( _contentBackgroundProperty ); }
+            set { SetValue( _contentBackgroundProperty, value ); }
         }
 
+        /// <summary>
+        /// Gets or sets the corner radius.
+        /// </summary>
+        /// <value>
+        /// The corner radius.
+        /// </value>
         public CornerRadius _cornerRadius
         {
-            get { return (CornerRadius)GetValue( ChatBubble._cornerRadiusProperty ); }
-            set { SetValue( ChatBubble._cornerRadiusProperty, value ); }
+            get { return (CornerRadius)GetValue( _cornerRadiusProperty ); }
+            set { SetValue( _cornerRadiusProperty, value ); }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is readonly.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is readonly; otherwise, <c>false</c>.
+        /// </value>
         public bool _isReadonly
         {
-            get { return (bool)GetValue( ChatBubble._isReadonlyProperty ); }
-            set { SetValue( ChatBubble._isReadonlyProperty, value ); }
+            get { return (bool)GetValue( _isReadonlyProperty ); }
+            set { SetValue( _isReadonlyProperty, value ); }
         }
 
-        // Using a DependencyProperty as the backing store for Username.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty as the backing store for Username.
+        // This enables animation, styling, binding, etc...
+        /// <summary>
+        /// The username property
+        /// </summary>
         public static readonly DependencyProperty _usernameProperty =
-            DependencyProperty.Register( nameof( ChatBubble._username ), typeof( string ),
+            DependencyProperty.Register( nameof( _username ), typeof( string ),
                 typeof( ChatBubble ), new PropertyMetadata( string.Empty ) );
 
-        // Using a DependencyProperty as the backing store for Content.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty as the backing store for Content.
+        // This enables animation, styling, binding, etc...
+        /// <summary>
+        /// The content property
+        /// </summary>
         public static readonly DependencyProperty _contentProperty =
-            DependencyProperty.Register( nameof( ChatBubble._content ), typeof( string ),
+            DependencyProperty.Register( nameof( _content ), typeof( string ),
                 typeof( ChatBubble ), new PropertyMetadata( string.Empty ) );
 
-        // Using a DependencyProperty as the backing store for HeaderForeground.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty as the backing store for HeaderForeground.
+        // This enables animation, styling, binding, etc...
+        /// <summary>
+        /// The header foreground property
+        /// </summary>
         public static readonly DependencyProperty _headerForegroundProperty =
-            DependencyProperty.Register( nameof( ChatBubble._headerForeground ), typeof( Brush ),
+            DependencyProperty.Register( nameof( _headerForeground ), typeof( Brush ),
                 typeof( ChatBubble ), new PropertyMetadata( Brushes.Gray ) );
 
-        // Using a DependencyProperty as the backing store for HeaderBackground.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty as the backing store for HeaderBackground.
+        // This enables animation, styling, binding, etc...
+        /// <summary>
+        /// The header background property
+        /// </summary>
         public static readonly DependencyProperty _headerBackgroundProperty =
-            DependencyProperty.Register( nameof( ChatBubble._headerBackground ), typeof( Brush ),
+            DependencyProperty.Register( nameof( _headerBackground ), typeof( Brush ),
                 typeof( ChatBubble ), new PropertyMetadata( Brushes.Transparent ) );
 
-        // Using a DependencyProperty as the backing store for ContentForeground.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty as the backing store for ContentForeground.  T
+        // his enables animation, styling, binding, etc...
+        /// <summary>
+        /// The content foreground property
+        /// </summary>
         public static readonly DependencyProperty _contentForegroundProperty =
-            DependencyProperty.Register( nameof( ChatBubble._contentForeground ), typeof( Brush ),
+            DependencyProperty.Register( nameof( _contentForeground ), typeof( Brush ),
                 typeof( ChatBubble ), new PropertyMetadata( Brushes.Black ) );
 
-        // Using a DependencyProperty as the backing store for ContentBackground.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty as the backing store for ContentBackground.
+        // This enables animation, styling, binding, etc...
+        /// <summary>
+        /// The content background property
+        /// </summary>
         public static readonly DependencyProperty _contentBackgroundProperty =
-            DependencyProperty.Register( nameof( ChatBubble._contentBackground ), typeof( Brush ),
+            DependencyProperty.Register( nameof( _contentBackground ), typeof( Brush ),
                 typeof( ChatBubble ), new PropertyMetadata( Brushes.White ) );
 
-        // Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty as the backing store for CornerRadius.
+        // This enables animation, styling, binding, etc...
+        /// <summary>
+        /// The corner radius property
+        /// </summary>
         public static readonly DependencyProperty _cornerRadiusProperty =
-            DependencyProperty.Register( nameof( ChatBubble._cornerRadius ), typeof( CornerRadius ),
+            DependencyProperty.Register( nameof( _cornerRadius ), typeof( CornerRadius ),
                 typeof( ChatBubble ), new PropertyMetadata( new CornerRadius( 0 ) ) );
 
-        // Using a DependencyProperty as the backing store for IsReadonly.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty as the backing store for IsReadonly.
+        // This enables animation, styling, binding, etc...
+        /// <summary>
+        /// The is readonly property
+        /// </summary>
         public static readonly DependencyProperty _isReadonlyProperty =
-            DependencyProperty.Register( nameof( ChatBubble._isReadonly ), typeof( bool ),
+            DependencyProperty.Register( nameof( _isReadonly ), typeof( bool ),
                 typeof( ChatBubble ), new PropertyMetadata( true ) );
     }
 }

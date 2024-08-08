@@ -200,7 +200,7 @@ namespace Booger
                 try
                 {
                     run.Foreground =
-                        WpfSyntaxHighLighting._brushConverter.ConvertFromString( _foreground ) as
+                        _brushConverter.ConvertFromString( _foreground ) as
                             Brush;
                 }
                 catch { }

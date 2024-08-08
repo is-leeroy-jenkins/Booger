@@ -9,7 +9,7 @@ namespace Booger
     {
         static SnakeCaseNamingPolicy()
         {
-            SnakeCaseNamingPolicy._laziedInstance = new Lazy<SnakeCaseNamingPolicy>();
+            _laziedInstance = new Lazy<SnakeCaseNamingPolicy>();
         }
 
         private SnakeCaseNamingPolicy()
@@ -18,7 +18,7 @@ namespace Booger
         }
 
         private static readonly Lazy<SnakeCaseNamingPolicy> _laziedInstance;
-        public static SnakeCaseNamingPolicy SnakeCase => SnakeCaseNamingPolicy._laziedInstance.Value;
+        public static SnakeCaseNamingPolicy SnakeCase => _laziedInstance.Value;
 
         public override string ConvertName(string name)
         {

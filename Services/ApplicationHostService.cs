@@ -52,9 +52,9 @@ namespace Booger
                 }
             };
 
-            if (!Application.Current.Windows.OfType<AppWindow>().Any())
+            if (!Application.Current.Windows.OfType<MainWindow>().Any())
             {
-                AppWindow _window = ServiceProvider.GetService<AppWindow>() ?? throw new InvalidOperationException("Cannot find MainWindow service");
+                MainWindow _window = ServiceProvider.GetService<MainWindow>() ?? throw new InvalidOperationException("Cannot find MainWindow service");
                 _window.Show();
 
                 _window.Navigate<MainPage>();

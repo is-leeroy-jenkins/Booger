@@ -93,7 +93,7 @@ namespace Booger
         /// The content
         /// </summary>
         [ObservableProperty ]
-        [ NotifyPropertyChangedFor( nameof( ChatMessageModel.SingleLineContent ) ) ]
+        [ NotifyPropertyChangedFor( nameof( SingleLineContent ) ) ]
         private string _content = string.Empty;
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace Booger
         /// The is editing
         /// </summary>
         [ObservableProperty ]
-        [ NotifyPropertyChangedFor( nameof( ChatMessageModel.IsReadOnly ) ) ]
+        [ NotifyPropertyChangedFor( nameof( IsReadOnly ) ) ]
         private bool _isEditing;
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace Booger
                     Content = Content
                 };
 
-                ChatMessageModel.ChatStorageService.SaveMessage( Storage );
+                ChatStorageService.SaveMessage( Storage );
             }
         }
 

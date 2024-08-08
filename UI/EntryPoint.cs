@@ -89,7 +89,7 @@ namespace Booger
         /// <param name="e">The <see cref="UnhandledExceptionEventArgs"/> instance containing the event data.</param>
         private static void OnUnhandledException( object sender, UnhandledExceptionEventArgs e )
         {
-            NativeMethods.MessageBox( EntryPoint.MainWindowHandle, $"{e.ExceptionObject}",
+            NativeMethods.MessageBox( MainWindowHandle, $"{e.ExceptionObject}",
                 "UnhandledException", MessageBoxFlags.Ok | MessageBoxFlags.IconError );
         }
 

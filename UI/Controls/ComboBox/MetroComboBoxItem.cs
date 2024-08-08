@@ -79,7 +79,7 @@ namespace Booger
             : base( )
         {
             // Control Properties
-            SetResourceReference( MetroComboBoxItem.StyleProperty, typeof( ComboBoxItemAdv ) );
+            SetResourceReference( StyleProperty, typeof( ComboBoxItemAdv ) );
             Height = 22;
             Padding = new Thickness( 10, 1, 1, 1 );
             Background = _theme.ControlColor;

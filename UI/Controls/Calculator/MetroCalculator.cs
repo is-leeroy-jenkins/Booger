@@ -70,7 +70,7 @@ namespace Booger
             : base( )
         {
             // Control Properties
-            SetResourceReference( MetroCalculator.StyleProperty, typeof( SfCalculator ) );
+            SetResourceReference( StyleProperty, typeof( SfCalculator ) );
             FontFamily = _theme.FontFamily;
             FontSize = _theme.FontSize;
             Background = _theme.BackColor;

@@ -69,7 +69,7 @@ namespace Booger
             : base( )
         {
             // Control Properties
-            SetResourceReference( MetroCircurlarProgress.StyleProperty,
+            SetResourceReference( StyleProperty,
                 typeof( SfCircularProgressBar ) );
 
             FontFamily = new FontFamily( "Segoe UI" );

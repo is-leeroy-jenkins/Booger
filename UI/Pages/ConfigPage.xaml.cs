@@ -53,7 +53,7 @@ namespace Booger
     /// </summary>
     public partial class ConfigPage : Page
     {
-        public ConfigPage( AppWindow appWindow,
+        public ConfigPage( MainWindow appWindow,
             ConfigPageModel viewModel,
             PageService pageService,
             NoteService noteService,
@@ -75,7 +75,7 @@ namespace Booger
             smoothScrollingService.Register( configurationScrollViewer );
         }
 
-        public AppWindow AppWindow { get; }
+        public MainWindow AppWindow { get; }
 
         public ConfigPageModel ViewModel { get; }
 

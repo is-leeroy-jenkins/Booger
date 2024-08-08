@@ -73,7 +73,7 @@ namespace Booger
             : base( )
         {
             // Control Properties
-            SetResourceReference( MetroButton.StyleProperty, typeof( ButtonAdv ) );
+            SetResourceReference( StyleProperty, typeof( ButtonAdv ) );
             FontFamily = _theme.FontFamily;
             FontSize = _theme.FontSize;
             Width = 140;

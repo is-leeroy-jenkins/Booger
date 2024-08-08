@@ -50,7 +50,7 @@ namespace Booger
         public static TextBlock BindMainForeground( this TextBlock element )
         {
             element.SetResourceReference( TextBlock.ForegroundProperty,
-                MarkdownResKey.MainForeground );
+                StyleKey.MainForeground );
 
             return element;
         }
@@ -58,7 +58,7 @@ namespace Booger
         public static TextBlock BindMainBackground( this TextBlock element )
         {
             element.SetResourceReference( TextBlock.BackgroundProperty,
-                MarkdownResKey.MainBackground );
+                StyleKey.MainBackground );
 
             return element;
         }
@@ -66,7 +66,7 @@ namespace Booger
         public static TextBlock BindCodeBlockForeground( this TextBlock element )
         {
             element.SetResourceReference( TextBlock.ForegroundProperty,
-                MarkdownResKey.CodeBlockForeground );
+                StyleKey.CodeBlockForeground );
 
             return element;
         }
@@ -74,7 +74,7 @@ namespace Booger
         public static Border BindMainBackground( this Border element )
         {
             element.SetResourceReference( Border.BackgroundProperty,
-                MarkdownResKey.MainBackground );
+                StyleKey.MainBackground );
 
             return element;
         }
@@ -82,7 +82,7 @@ namespace Booger
         public static Border BindQuoteBlockBackground( this Border element )
         {
             element.SetResourceReference( Border.BackgroundProperty,
-                MarkdownResKey.QuoteBlockBackground );
+                StyleKey.QuoteBlockBackground );
 
             return element;
         }
@@ -90,7 +90,7 @@ namespace Booger
         public static Border BindCodeBlockBackground( this Border element )
         {
             element.SetResourceReference( Border.BackgroundProperty,
-                MarkdownResKey.CodeBlockBackground );
+                StyleKey.CodeBlockBackground );
 
             return element;
         }
@@ -98,7 +98,7 @@ namespace Booger
         public static Border BindCodeBlockBorder( this Border element )
         {
             element.SetResourceReference( Border.BorderBrushProperty,
-                MarkdownResKey.CodeBlockBorder );
+                StyleKey.CodeBlockBorder );
 
             return element;
         }
@@ -106,7 +106,7 @@ namespace Booger
         public static Border BindCodeInlineBackground( this Border element )
         {
             element.SetResourceReference( Border.BackgroundProperty,
-                MarkdownResKey.CodeInlineBackground );
+                StyleKey.CodeInlineBackground );
 
             return element;
         }
@@ -114,21 +114,21 @@ namespace Booger
         public static Border BindCodeInlineBorder( this Border element )
         {
             element.SetResourceReference( Border.BorderBrushProperty,
-                MarkdownResKey.CodeInlineBorder );
+                StyleKey.CodeInlineBorder );
 
             return element;
         }
 
         public static Border BindMainBorder( this Border element )
         {
-            element.SetResourceReference( Border.BorderBrushProperty, MarkdownResKey.MainBorder );
+            element.SetResourceReference( Border.BorderBrushProperty, StyleKey.MainBorder );
             return element;
         }
 
         public static Border BindQuoteBlockBorder( this Border element )
         {
             element.SetResourceReference( Border.BorderBrushProperty,
-                MarkdownResKey.QuoteBlockBorder );
+                StyleKey.QuoteBlockBorder );
 
             return element;
         }
@@ -136,7 +136,7 @@ namespace Booger
         public static TextBlock BindTableForeground( this TextBlock element )
         {
             element.SetResourceReference( TextBlock.ForegroundProperty,
-                MarkdownResKey.TableForeground );
+                StyleKey.TableForeground );
 
             return element;
         }
@@ -144,7 +144,7 @@ namespace Booger
         public static TextBlock BindTableBackground( this TextBlock element )
         {
             element.SetResourceReference( TextBlock.BackgroundProperty,
-                MarkdownResKey.TableBackground );
+                StyleKey.TableBackground );
 
             return element;
         }
@@ -152,26 +152,26 @@ namespace Booger
         public static Border BindTableBackground( this Border element )
         {
             element.SetResourceReference( Border.BackgroundProperty,
-                MarkdownResKey.TableBackground );
+                StyleKey.TableBackground );
 
             return element;
         }
 
         public static Border BindTableStripe( this Border element )
         {
-            element.SetResourceReference( Border.BackgroundProperty, MarkdownResKey.TableStripe );
+            element.SetResourceReference( Border.BackgroundProperty, StyleKey.TableStripe );
             return element;
         }
 
         public static Border BindTableBorder( this Border element )
         {
-            element.SetResourceReference( Border.BorderBrushProperty, MarkdownResKey.TableBorder );
+            element.SetResourceReference( Border.BorderBrushProperty, StyleKey.TableBorder );
             return element;
         }
 
         public static Border BindThematicBreak( this Border element )
         {
-            element.SetResourceReference( Border.BackgroundProperty, MarkdownResKey.ThematicBreak );
+            element.SetResourceReference( Border.BackgroundProperty, StyleKey.ThematicBreak );
             return element;
         }
 

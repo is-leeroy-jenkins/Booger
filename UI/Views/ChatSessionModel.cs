@@ -129,7 +129,7 @@ namespace Booger
         /// The is editing
         /// </summary>
         [ ObservableProperty ]
-        [ NotifyPropertyChangedFor( nameof( ChatSessionModel.IsReadOnly ) ) ]
+        [ NotifyPropertyChangedFor( nameof( IsReadOnly ) ) ]
         private bool _isEditing;
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace Booger
         {
             get
             {
-                return ChatSessionModel.ChatPageService.GetPage( Id );
+                return ChatPageService.GetPage( Id );
             }
         }
 
@@ -260,7 +260,7 @@ namespace Booger
                     SystemMessages = SystemMessages.UnwrapToArray( )
                 };
 
-                ChatSessionModel.ChatStorageService.SaveSession( Storage );
+                ChatStorageService.SaveSession( Storage );
             }
         }
     }

@@ -59,7 +59,7 @@ namespace Booger
         [ AttachedPropertyBrowsableForType( typeof( FrameworkElement ) ) ]
         public static CornerRadius Get_cornerRadius( DependencyObject obj )
         {
-            return (CornerRadius)obj.GetValue( UiUtils._cornerRadiusProperty );
+            return (CornerRadius)obj.GetValue( _cornerRadiusProperty );
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Booger
         /// <param name="value">The value.</param>
         public static void Set_cornerRadius( DependencyObject obj, CornerRadius value )
         {
-            obj.SetValue( UiUtils._cornerRadiusProperty, value );
+            obj.SetValue( _cornerRadiusProperty, value );
         }
 
         /// <summary>

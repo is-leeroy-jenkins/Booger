@@ -44,7 +44,7 @@ namespace Booger
     /// <summary>
     /// 
     /// </summary>
-    public enum MarkdownResKey
+    public enum StyleKey
     {
         /// <summary>
         /// The main foreground

@@ -6,7 +6,7 @@
 //     Last Modified By:        Terry D. Eppler
 //     Last Modified On:        08-08-2024
 // ******************************************************************************************
-// <copyright file="MetroAccordian.cs" company="Terry D. Eppler">
+// <copyright file="StyleManagerBehavior.cs" company="Terry D. Eppler">
 //    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
 //    based on NET6 and written in C-Sharp.
 // 
@@ -35,60 +35,64 @@
 //    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
-//   MetroAccordian.cs
+//   StyleManagerBehavior.cs
 // </summary>
 // ******************************************************************************************
 
 namespace Booger
 {
-    using Syncfusion.Windows.Controls.Layout;
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using System.Windows.Media;
+    using System.Windows;
+    using Microsoft.Xaml.Behaviors;
 
     /// <inheritdoc />
     /// <summary>
     /// </summary>
-    /// <seealso cref="T:Syncfusion.Windows.Controls.Layout.SfAccordion" />
-    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
-    [ SuppressMessage( "ReSharper", "InconsistentNaming" ) ]
-    [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
+    /// <seealso cref="!:Microsoft.Xaml.Behaviors.Behavior&lt;System.Windows.Window&gt;" />
+    /// <seealso cref="!:Microsoft.Xaml.Behaviors.Behavior&lt;System.Windows.Window&gt;" />
     [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
-    public class MetroAccordian : SfAccordion
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    public class StyleManagerBehavior : Behavior<Window>
     {
         /// <summary>
-        /// The theme
+        /// Gets the color mode service.
         /// </summary>
-        private protected readonly DarkMode _theme = new DarkMode( );
+        /// <value>
+        /// The color mode service.
+        /// </value>
+        public ColorModeService ColorModeService { get; } =
+            App.GetService<ColorModeService>( );
 
         /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of the
-        /// <see cref="T:Badger.MetroAccordian" /> class.
+        /// Called after the behavior is attached to an AssociatedObject.
         /// </summary>
-        public MetroAccordian( )
-            : base( )
+        /// <remarks>
+        /// Override this to hook up functionality to the AssociatedObject.
+        /// </remarks>
+        protected override void OnAttached( )
         {
-            // Control Properties
-            SetResourceReference( StyleProperty, typeof( SfAccordion ) );
-            FontSize = 12;
-            FontFamily = new FontFamily( "Segoe UI" );
-            Width = 250;
-            Height = 250;
-            AccentBrush = _theme.SteelBlueColor;
-            Background = _theme.BackColor;
-            BorderBrush = _theme.BorderColor;
-            Foreground = _theme.ForeColor;
+            base.OnAttached( );
+            UpdateWindowStyle( );
         }
 
         /// <summary>
-        /// Fails the specified _ex.
+        /// Updates the window style.
         /// </summary>
-        /// <param name="_ex">The _ex.</param>
-        private protected void Fail( Exception _ex )
+        private void UpdateWindowStyle( )
         {
-            var _error = new ErrorWindow( _ex );
+            ColorModeService.ApplyThemeForWindow( AssociatedObject );
+        }
+
+        /// <summary>
+        /// Fails the specified ex.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        private protected void Fail( Exception ex )
+        {
+            var _error = new ErrorWindow( ex );
             _error?.SetText( );
             _error?.ShowDialog( );
         }

@@ -74,7 +74,7 @@ namespace Booger
             : base( )
         {
             // Control Properties
-            SetResourceReference( MetroTile.StyleProperty, typeof( SfHubTile ) );
+            SetResourceReference( StyleProperty, typeof( SfHubTile ) );
             Width = 200;
             Height = 100;
             FontFamily = _theme.FontFamily;

@@ -54,6 +54,7 @@
     <PackageReference Include="EleCho.GlobalHotkey.Windows.Wpf" Version="1.0.1.5" />
     <PackageReference Include="ModernWpfUI" Version="0.9.6" />
     <PackageReference Include="OpenAI-DotNet" Version="7.2.3" />
+    <PackageReference Include="RestoreWindowPlace" Version="2.1.0" />
     <PackageReference Include="Syncfusion.Edit.WPF" Version="24.1.41" />
     <PackageReference Include="Syncfusion.Licensing" Version="24.1.41" />
     <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="24.1.41" />

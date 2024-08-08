@@ -69,7 +69,7 @@ namespace Booger
             : base( )
         {
             // Control Properties
-            SetResourceReference( MetroStepProgress.StyleProperty, typeof( SfStepProgressBar ) );
+            SetResourceReference( StyleProperty, typeof( SfStepProgressBar ) );
             FontFamily = new FontFamily( "Segoe UI" );
             FontSize = 12;
             Background = _theme.BackColor;

@@ -48,7 +48,7 @@ namespace Booger
 
     public partial class MainPage : Page
     {
-        public MainPage( AppWindow appWindow,
+        public MainPage( MainWindow appWindow,
             MainPageModel viewModel,
             AppGlobalData appGlobalData,
             PageService pageService,
@@ -84,7 +84,7 @@ namespace Booger
             smoothScrollingService.Register( sessionsScrollViewer );
         }
 
-        public AppWindow AppWindow { get; }
+        public MainWindow AppWindow { get; }
 
         public MainPageModel ViewModel { get; }
 

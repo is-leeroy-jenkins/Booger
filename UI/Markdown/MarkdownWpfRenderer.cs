@@ -985,7 +985,7 @@ namespace Booger
                     break;
                 case '=':// 2x Marked
                     _span.SetResourceReference( WpfDocs.TextElement.BackgroundProperty,
-                        MarkdownResKey.Mark );
+                        StyleKey.Mark );
 
                     break;
             }
@@ -1116,7 +1116,7 @@ namespace Booger
 
                 _link.Click += ( s, e ) =>
                 {
-                    MarkdownWpfRenderer.LinkNavigate?.Invoke( linkInline,
+                    LinkNavigate?.Invoke( linkInline,
                         new MarkdownLinkNavigateEventArgs( linkInline.Url ) );
                 };
 

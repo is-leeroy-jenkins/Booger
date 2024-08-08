@@ -70,7 +70,7 @@ namespace Booger
             : base( )
         {
             // Control Properties
-            SetResourceReference( MetroColorPicker.StyleProperty, typeof( ColorEdit ) );
+            SetResourceReference( StyleProperty, typeof( ColorEdit ) );
             Width = 250;
             Height = 200;
             FontSize = 12;

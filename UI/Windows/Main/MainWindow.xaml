@@ -1,4 +1,4 @@
-﻿<Window x:Class="Booger.AppWindow"
+﻿<Window x:Class="Booger.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
@@ -6,7 +6,7 @@
         xmlns:hotkey="https://wpf.elecho.org/globalhotkey" xmlns:local="clr-namespace:Booger"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:tb="http://www.hardcodet.net/taskbar" Title="{Binding ViewModel.ApplicationTitle}"
-        Width="880" Height="600" d:DataContext="{d:DesignInstance Type=local:AppWindow}"
+        Width="880" Height="600" d:DataContext="{d:DesignInstance Type=local:MainWindow}"
         Background="{DynamicResource GeneralBackground}"
         FontSize="{DynamicResource NormalFontSize}" Foreground="{DynamicResource FontForeground}"
         Icon="/Resources/Assets/Images/openai.png"
@@ -18,7 +18,7 @@
             Command="{x:Static local:App._showAppCommand}" Modifiers="Ctrl+Shift" />
 </Window.InputBindings>
 <behaviors:Interaction.Behaviors>
-<local:WindowStyleManagerBehavior />
+<local:StyleManagerBehavior />
 </behaviors:Interaction.Behaviors>
 <Grid>
 <Frame Name="appFrame" NavigationUIVisibility="Hidden" />

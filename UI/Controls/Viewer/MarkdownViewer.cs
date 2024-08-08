@@ -74,7 +74,7 @@ namespace Booger
         /// </summary>
         static MarkdownViewer( )
         {
-            MarkdownViewer.DefaultStyleKeyProperty.OverrideMetadata( typeof( MarkdownViewer ),
+            DefaultStyleKeyProperty.OverrideMetadata( typeof( MarkdownViewer ),
                 new FrameworkPropertyMetadata( typeof( MarkdownViewer ) ) );
         }
 
@@ -86,8 +86,8 @@ namespace Booger
         /// </value>
         public string _content
         {
-            get { return (string)GetValue( MarkdownViewer._contentProperty ); }
-            set { SetValue( MarkdownViewer._contentProperty, value ); }
+            get { return (string)GetValue( _contentProperty ); }
+            set { SetValue( _contentProperty, value ); }
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace Booger
         public static readonly DependencyProperty _contentProperty =
             DependencyProperty.Register( nameof( _content ), typeof( string ),
                 typeof( MarkdownViewer ),
-                new PropertyMetadata( string.Empty, ContentChangedCallback ) );
+                new PropertyMetadata( string.Empty, MarkdownViewer.ContentChangedCallback ) );
 
         /// <summary>
         /// The rendered content property

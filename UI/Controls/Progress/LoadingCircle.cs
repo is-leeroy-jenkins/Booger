@@ -89,19 +89,19 @@ namespace Booger
     {
         static LoadingCircle( )
         {
-            LoadingCircle.DefaultStyleKeyProperty.OverrideMetadata( typeof( LoadingCircle ),
+            DefaultStyleKeyProperty.OverrideMetadata( typeof( LoadingCircle ),
                 new FrameworkPropertyMetadata( typeof( LoadingCircle ) ) );
         }
 
         public bool _isLoading
         {
-            get { return (bool)GetValue( LoadingCircle._isLoadingProperty ); }
-            set { SetValue( LoadingCircle._isLoadingProperty, value ); }
+            get { return (bool)GetValue( _isLoadingProperty ); }
+            set { SetValue( _isLoadingProperty, value ); }
         }
 
         // Using a DependencyProperty as the backing store for IsLoading.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty _isLoadingProperty =
-            DependencyProperty.Register( nameof( LoadingCircle._isLoading ), typeof( bool ),
+            DependencyProperty.Register( nameof( _isLoading ), typeof( bool ),
                 typeof( LoadingCircle ), new PropertyMetadata( true ) );
     }
 }

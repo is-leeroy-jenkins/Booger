@@ -75,7 +75,7 @@ namespace Booger
             : base( )
         {
             // Control Properties
-            SetResourceReference( MetroDropDown.StyleProperty, typeof( DropDownButtonAdv ) );
+            SetResourceReference( StyleProperty, typeof( DropDownButtonAdv ) );
             Width = 200;
             Height = 35;
             FontFamily = new FontFamily( "Segoe UI" );

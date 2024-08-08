@@ -61,7 +61,7 @@ namespace Booger
             _chatStorageService = chatStorageService;
             Messages.CollectionChanged += ( s, e ) =>
             {
-                OnPropertyChanged( nameof( ChatPageModel.LastMessage ) );
+                OnPropertyChanged( nameof( LastMessage ) );
             };
         }
 

@@ -10,7 +10,7 @@
         Title="ChatSessionConfigDialog" Height="550" Width="400"
         Background="{DynamicResource GeneralBackground}">
 <behaviors:Interaction.Behaviors>
-<local:WindowStyleManagerBehavior />
+<local:StyleManagerBehavior />
 </behaviors:Interaction.Behaviors>
 <Grid>
 <Grid>

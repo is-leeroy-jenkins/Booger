@@ -14,29 +14,29 @@
     {
         public static bool Get_isAutoLogicFocus(DependencyObject obj)
         {
-            return (bool)obj.GetValue(FocusUtils._isAutoLogicFocusProperty);
+            return (bool)obj.GetValue(_isAutoLogicFocusProperty);
         }
 
         public static void Set_isAutoLogicFocus(DependencyObject obj, bool value)
         {
-            obj.SetValue(FocusUtils._isAutoLogicFocusProperty, value);
+            obj.SetValue(_isAutoLogicFocusProperty, value);
         }
 
         public static bool Get_isAutoKeyboardFocus(DependencyObject obj)
         {
-            return (bool)obj.GetValue(FocusUtils._isAutoKeyboardFocusProperty);
+            return (bool)obj.GetValue(_isAutoKeyboardFocusProperty);
         }
 
         public static void Set_isAutoKeyboardFocus(DependencyObject obj, bool value)
         {
-            obj.SetValue(FocusUtils._isAutoKeyboardFocusProperty, value);
+            obj.SetValue(_isAutoKeyboardFocusProperty, value);
         }
 
         public static readonly DependencyProperty _isAutoLogicFocusProperty =
-            DependencyProperty.RegisterAttached("_isAutoLogicFocus", typeof(bool), typeof(FocusUtils), new PropertyMetadata(false, PropertyIsAutoLogicFocusChanged));
+            DependencyProperty.RegisterAttached("_isAutoLogicFocus", typeof(bool), typeof(FocusUtils), new PropertyMetadata(false, FocusUtils.PropertyIsAutoLogicFocusChanged));
 
         public static readonly DependencyProperty _isAutoKeyboardFocusProperty =
-            DependencyProperty.RegisterAttached("_isAutoKeyboardFocus", typeof(bool), typeof(FocusUtils), new PropertyMetadata(false, PropertyIsAutoKeyboardFocusChanged));
+            DependencyProperty.RegisterAttached("_isAutoKeyboardFocus", typeof(bool), typeof(FocusUtils), new PropertyMetadata(false, FocusUtils.PropertyIsAutoKeyboardFocusChanged));
 
 
         private static void PropertyIsAutoLogicFocusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

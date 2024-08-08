@@ -89,49 +89,49 @@ namespace Booger
     {
         static ConditionalControl( )
         {
-            ConditionalControl.DefaultStyleKeyProperty.OverrideMetadata(
+            DefaultStyleKeyProperty.OverrideMetadata(
                 typeof( ConditionalControl ),
                 new FrameworkPropertyMetadata( typeof( ConditionalControl ) ) );
         }
 
         public bool _condition
         {
-            get { return (bool)GetValue( ConditionalControl._conditionProperty ); }
-            set { SetValue( ConditionalControl._conditionProperty, value ); }
+            get { return (bool)GetValue( _conditionProperty ); }
+            set { SetValue( _conditionProperty, value ); }
         }
 
         public FrameworkElement _elementWhileTrue
         {
             get
             {
-                return (FrameworkElement)GetValue( ConditionalControl._elementWhileTrueProperty );
+                return (FrameworkElement)GetValue( _elementWhileTrueProperty );
             }
-            set { SetValue( ConditionalControl._elementWhileTrueProperty, value ); }
+            set { SetValue( _elementWhileTrueProperty, value ); }
         }
 
         public FrameworkElement _elementWhileFalse
         {
             get
             {
-                return (FrameworkElement)GetValue( ConditionalControl._elementWhileFalseProperty );
+                return (FrameworkElement)GetValue( _elementWhileFalseProperty );
             }
-            set { SetValue( ConditionalControl._elementWhileFalseProperty, value ); }
+            set { SetValue( _elementWhileFalseProperty, value ); }
         }
 
         // Using a DependencyProperty as the backing store for Condition.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty _conditionProperty =
-            DependencyProperty.Register( nameof( ConditionalControl._condition ), typeof( bool ),
+            DependencyProperty.Register( nameof( _condition ), typeof( bool ),
                 typeof( ConditionalControl ), new PropertyMetadata( true ) );
 
         // Using a DependencyProperty as the backing store for ElementWhileTrue.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty _elementWhileTrueProperty =
-            DependencyProperty.Register( nameof( ConditionalControl._elementWhileTrue ),
+            DependencyProperty.Register( nameof( _elementWhileTrue ),
                 typeof( FrameworkElement ), typeof( ConditionalControl ),
                 new PropertyMetadata( null ) );
 
         // Using a DependencyProperty as the backing store for ElementWhileFalse.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty _elementWhileFalseProperty =
-            DependencyProperty.Register( nameof( ConditionalControl._elementWhileFalse ),
+            DependencyProperty.Register( nameof( _elementWhileFalse ),
                 typeof( FrameworkElement ), typeof( ConditionalControl ),
                 new PropertyMetadata( null ) );
     }

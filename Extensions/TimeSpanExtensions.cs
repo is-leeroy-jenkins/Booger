@@ -72,7 +72,7 @@ namespace Booger
         {
             try
             {
-                return (int)( timeSpan.TotalDays / TimeSpanExtensions.AvgDaysInAYear );
+                return (int)( timeSpan.TotalDays / AvgDaysInAYear );
             }
             catch( Exception _ex )
             {
@@ -90,7 +90,7 @@ namespace Booger
         {
             try
             {
-                return timeSpan.TotalDays / TimeSpanExtensions.AvgDaysInAYear;
+                return timeSpan.TotalDays / AvgDaysInAYear;
             }
             catch( Exception _ex )
             {
@@ -108,8 +108,8 @@ namespace Booger
         {
             try
             {
-                return (int)( timeSpan.TotalDays % TimeSpanExtensions.AvgDaysInAYear
-                    / TimeSpanExtensions.AvgDaysInAMonth );
+                return (int)( timeSpan.TotalDays % AvgDaysInAYear
+                    / AvgDaysInAMonth );
             }
             catch( Exception _ex )
             {
@@ -127,7 +127,7 @@ namespace Booger
         {
             try
             {
-                return timeSpan.TotalDays / TimeSpanExtensions.AvgDaysInAMonth;
+                return timeSpan.TotalDays / AvgDaysInAMonth;
             }
             catch( Exception _ex )
             {
@@ -145,8 +145,8 @@ namespace Booger
         {
             try
             {
-                return (int)( timeSpan.TotalDays % TimeSpanExtensions.AvgDaysInAYear
-                    % TimeSpanExtensions.AvgDaysInAMonth / 7d );
+                return (int)( timeSpan.TotalDays % AvgDaysInAYear
+                    % AvgDaysInAMonth / 7d );
             }
             catch( Exception _ex )
             {

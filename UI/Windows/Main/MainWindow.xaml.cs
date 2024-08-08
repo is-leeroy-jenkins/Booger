@@ -6,7 +6,7 @@
 //     Last Modified By:        Terry D. Eppler
 //     Last Modified On:        08-08-2024
 // ******************************************************************************************
-// <copyright file="AppWindow.xaml.cs" company="Terry D. Eppler">
+// <copyright file="MainWindow.xaml.cs" company="Terry D. Eppler">
 //    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
 //    based on NET6 and written in C-Sharp.
 // 
@@ -35,21 +35,39 @@
 //    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
-//   AppWindow.xaml.cs
+//   MainWindow.xaml.cs
 // </summary>
 // ******************************************************************************************
 
 namespace Booger
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
-    using System.Windows.Input;
     using System.Windows.Interop;
-    using CommunityToolkit.Mvvm.Input;
 
-    public partial class AppWindow : Window
+    /// <inheritdoc />
+    /// <summary>
+    /// </summary>
+    /// <seealso cref="T:System.Windows.Window" />
+    /// <seealso cref="T:System.Windows.Markup.IComponentConnector" />
+    [ SuppressMessage( "ReSharper", "RedundantExtendsListEntry" ) ]
+    [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
+    public partial class MainWindow : Window
     {
-        public AppWindow( AppWindowModel viewModel,
+        /// <inheritdoc />
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Booger.MainWindow" /> class.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        /// <param name="pageService">The page service.</param>
+        /// <param name="noteService">The note service.</param>
+        /// <param name="languageService">The language service.</param>
+        /// <param name="colorModeService">The color mode service.</param>
+        public MainWindow( AppWindowModel viewModel,
             PageService pageService,
             NoteService noteService,
             LanguageService languageService,
@@ -64,21 +82,61 @@ namespace Booger
             InitializeComponent( );
         }
 
+        /// <summary>
+        /// Gets the view model.
+        /// </summary>
+        /// <value>
+        /// The view model.
+        /// </value>
         public AppWindowModel ViewModel { get; }
 
+        /// <summary>
+        /// Gets the page service.
+        /// </summary>
+        /// <value>
+        /// The page service.
+        /// </value>
         public PageService PageService { get; }
 
+        /// <summary>
+        /// Gets the note service.
+        /// </summary>
+        /// <value>
+        /// The note service.
+        /// </value>
         public NoteService NoteService { get; }
 
+        /// <summary>
+        /// Gets the language service.
+        /// </summary>
+        /// <value>
+        /// The language service.
+        /// </value>
         public LanguageService LanguageService { get; }
 
+        /// <summary>
+        /// Gets the color mode service.
+        /// </summary>
+        /// <value>
+        /// The color mode service.
+        /// </value>
         public ColorModeService ColorModeService { get; }
 
-        public void Navigate<TPage>( ) where TPage : class
+        /// <summary>
+        /// Navigates this instance.
+        /// </summary>
+        /// <typeparam name="TPage">The type of the page.</typeparam>
+        public void Navigate<TPage>( ) 
+            where TPage : class
         {
             appFrame.Navigate( PageService.GetPage<TPage>( ) );
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Window.SourceInitialized" /> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
         protected override void OnSourceInitialized( EventArgs e )
         {
             base.OnSourceInitialized( e );
@@ -87,6 +145,17 @@ namespace Booger
 
             LanguageService.Init( );
             ColorModeService.Init( );
+        }
+
+        /// <summary>
+        /// Fails the specified ex.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        private protected void Fail( Exception ex )
+        {
+            var _error = new ErrorWindow( ex );
+            _error?.SetText( );
+            _error?.ShowDialog( );
         }
     }
 }

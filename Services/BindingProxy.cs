@@ -14,8 +14,8 @@ namespace Booger
 
         public object _data
         {
-            get { return (object)GetValue(BindingProxy._dataProperty); }
-            set { SetValue(BindingProxy._dataProperty, value); }
+            get { return (object)GetValue(_dataProperty); }
+            set { SetValue(_dataProperty, value); }
         }
 
         public static readonly DependencyProperty _dataProperty =

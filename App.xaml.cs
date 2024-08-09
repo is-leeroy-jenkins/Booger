@@ -48,10 +48,13 @@ namespace Booger
     using System.Threading.Tasks;
     using System.Windows;
     using CommunityToolkit.Mvvm.Input;
+    using System.Configuration;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using RestoreWindowPlace;
+    using Syncfusion.Licensing;
+    using ConfigurationManager = System.Configuration.ConfigurationManager;
 
     /// <inheritdoc />
     /// <summary>
@@ -185,10 +188,11 @@ namespace Booger
             if( !EnsureAppSingletion( ) )
             {
                 Current.Shutdown( );
-
                 return;
             }
 
+            var _key = ConfigurationManager.AppSettings[ "UI" ];
+            SyncfusionLicenseProvider.RegisterLicense( _key );
             await _host.StartAsync( );
         }
 

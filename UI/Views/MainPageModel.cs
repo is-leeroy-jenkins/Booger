@@ -7,10 +7,10 @@
 //     Last Modified On:        08-08-2024
 // ******************************************************************************************
 // <copyright file="MainPageModel.cs" company="Terry D. Eppler">
-//    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
-//    based on NET6 and written in C-Sharp.
+//     Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
+//     based on NET6 and written in C-Sharp.
 // 
-//    Copyright ©  2024  Terry D. Eppler
+//     Copyright ©  2022 Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the “Software”),
@@ -32,7 +32,7 @@
 //    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //    DEALINGS IN THE SOFTWARE.
 // 
-//    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
+//    You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
 //   MainPageModel.cs
@@ -41,19 +41,20 @@
 
 namespace Booger
 {
-    using System.Collections.ObjectModel;
+    using System.Diagnostics.CodeAnalysis;
     using CommunityToolkit.Mvvm.ComponentModel;
 
+    /// <inheritdoc />
     /// <summary>
-    /// 
     /// </summary>
-    /// <seealso cref="CommunityToolkit.Mvvm.ComponentModel.ObservableObject" />
+    /// <seealso cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservableObject" />
+    [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
     public partial class MainPageModel : ObservableObject
     {
         /// <summary>
         /// The current chat
         /// </summary>
-        [ObservableProperty ]
+        [ ObservableProperty ]
         private ChatPage _currentChat;
     }
 }

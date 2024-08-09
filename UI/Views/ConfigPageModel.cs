@@ -41,13 +41,14 @@
 
 namespace Booger
 {
+    using System;
     using System.Collections.ObjectModel;
     using CommunityToolkit.Mvvm.ComponentModel;
 
+    /// <inheritdoc />
     /// <summary>
-    /// 
     /// </summary>
-    /// <seealso cref="CommunityToolkit.Mvvm.ComponentModel.ObservableObject" />
+    /// <seealso cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservableObject" />
     public partial class ConfigPageModel : ObservableObject
     {
         /// <summary>
@@ -56,5 +57,16 @@ namespace Booger
         [ObservableProperty ]
         private ObservableCollection<ValueWrapper<string>> _systemMessages =
             new ObservableCollection<ValueWrapper<string>>( );
+
+        /// <summary>
+        /// Fails the specified ex.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        private protected void Fail( Exception ex )
+        {
+            var _error = new ErrorWindow( ex );
+            _error?.SetText( );
+            _error?.ShowDialog( );
+        }
     }
 }

@@ -44,6 +44,7 @@ namespace Booger
     using System;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
@@ -52,6 +53,7 @@ namespace Booger
     /// 
     /// </summary>
     /// <seealso cref="CommunityToolkit.Mvvm.ComponentModel.ObservableObject" />
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     public partial class ChatSessionModel : ObservableObject
     {
         /// <summary>
@@ -262,6 +264,17 @@ namespace Booger
 
                 ChatStorageService.SaveSession( Storage );
             }
+        }
+
+        /// <summary>
+        /// Fails the specified ex.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        private protected void Fail( Exception ex )
+        {
+            var _error = new ErrorWindow( ex );
+            _error?.SetText( );
+            _error?.ShowDialog( );
         }
     }
 }

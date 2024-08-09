@@ -7,10 +7,10 @@
 //     Last Modified On:        08-08-2024
 // ******************************************************************************************
 // <copyright file="ChatMessageModel.cs" company="Terry D. Eppler">
-//    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
-//    based on NET6 and written in C-Sharp.
+//     Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
+//     based on NET6 and written in C-Sharp.
 // 
-//    Copyright ©  2024  Terry D. Eppler
+//     Copyright ©  2022 Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the “Software”),
@@ -32,7 +32,7 @@
 //    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //    DEALINGS IN THE SOFTWARE.
 // 
-//    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
+//    You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
 //   ChatMessageModel.cs
@@ -43,6 +43,7 @@ namespace Booger
 {
     using System;
     using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
@@ -51,6 +52,7 @@ namespace Booger
     /// 
     /// </summary>
     /// <seealso cref="CommunityToolkit.Mvvm.ComponentModel.ObservableObject" />
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     public partial class ChatMessageModel : ObservableObject
     {
         /// <summary>
@@ -86,13 +88,13 @@ namespace Booger
         /// <summary>
         /// The role
         /// </summary>
-        [ObservableProperty ]
+        [ ObservableProperty ]
         private string _role = "user";
 
         /// <summary>
         /// The content
         /// </summary>
-        [ObservableProperty ]
+        [ ObservableProperty ]
         [ NotifyPropertyChangedFor( nameof( SingleLineContent ) ) ]
         private string _content = string.Empty;
 
@@ -113,7 +115,7 @@ namespace Booger
         /// <summary>
         /// The is editing
         /// </summary>
-        [ObservableProperty ]
+        [ ObservableProperty ]
         [ NotifyPropertyChangedFor( nameof( IsReadOnly ) ) ]
         private bool _isEditing;
 
@@ -140,7 +142,6 @@ namespace Booger
         private static ChatStorageService ChatStorageService { get; } =
             App.GetService<ChatStorageService>( );
 
-        // 用于将数据同步到数据存储
         /// <summary>
         /// Raises the <see cref="E:CommunityToolkit.Mvvm.ComponentModel.ObservableObject.PropertyChanged" /> event.
         /// </summary>
@@ -148,8 +149,6 @@ namespace Booger
         protected override void OnPropertyChanged( PropertyChangedEventArgs e )
         {
             base.OnPropertyChanged( e );
-
-            // 如果有后备存储, 则使用存储服务保存
             if( Storage != null )
             {
                 Storage = Storage with
@@ -162,7 +161,6 @@ namespace Booger
             }
         }
 
-        #region 布局用的一些属性
         /// <summary>
         /// Gets the display name.
         /// </summary>
@@ -224,13 +222,11 @@ namespace Booger
                     : new CornerRadius( 0, 5, 5, 5 );
             }
         }
-        #endregion
 
-        #region 页面用的一些指令
         /// <summary>
         /// Copies this instance.
         /// </summary>
-        [RelayCommand ]
+        [ RelayCommand ]
         public void Copy( )
         {
             Clipboard.SetText( Content );
@@ -239,7 +235,7 @@ namespace Booger
         /// <summary>
         /// Starts the edit.
         /// </summary>
-        [RelayCommand ]
+        [ RelayCommand ]
         public void StartEdit( )
         {
             IsEditing = true;
@@ -248,11 +244,21 @@ namespace Booger
         /// <summary>
         /// Ends the edit.
         /// </summary>
-        [RelayCommand ]
+        [ RelayCommand ]
         public void EndEdit( )
         {
             IsEditing = false;
         }
-        #endregion
+
+        /// <summary>
+        /// Fails the specified ex.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        private protected void Fail( Exception ex )
+        {
+            var _error = new ErrorWindow( ex );
+            _error?.SetText( );
+            _error?.ShowDialog( );
+        }
     }
 }

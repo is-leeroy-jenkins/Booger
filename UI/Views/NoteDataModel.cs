@@ -41,12 +41,14 @@
 
 namespace Booger
 {
+    using System.Diagnostics.CodeAnalysis;
     using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <inheritdoc />
     /// <summary>
     /// </summary>
     /// <seealso cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservableObject" />
+    [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
     public partial class NoteDataModel : ObservableObject
     {
         /// <summary>

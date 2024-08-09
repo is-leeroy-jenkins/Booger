@@ -45,6 +45,10 @@ namespace Booger
     using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Interop;
+    using ToastNotifications;
+    using ToastNotifications.Lifetime;
+    using ToastNotifications.Messages;
+    using ToastNotifications.Position;
 
     /// <inheritdoc />
     /// <summary>
@@ -67,12 +71,13 @@ namespace Booger
         /// <param name="noteService">The note service.</param>
         /// <param name="languageService">The language service.</param>
         /// <param name="colorModeService">The color mode service.</param>
-        public MainWindow( AppWindowModel viewModel,
-            PageService pageService,
-            NoteService noteService,
-            LanguageService languageService,
+        public MainWindow( AppWindowModel viewModel, PageService pageService, 
+            NoteService noteService, LanguageService languageService, 
             ColorModeService colorModeService )
         {
+            Width = 1350;
+            Height = 800;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             ViewModel = viewModel;
             PageService = pageService;
             NoteService = noteService;
@@ -136,7 +141,8 @@ namespace Booger
         /// <summary>
         /// Raises the <see cref="E:System.Windows.Window.SourceInitialized" /> event.
         /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
+        /// <param name="e">An <see cref="T:System.EventArgs" />
+        /// that contains the event data.</param>
         protected override void OnSourceInitialized( EventArgs e )
         {
             base.OnSourceInitialized( e );
@@ -145,6 +151,236 @@ namespace Booger
 
             LanguageService.Init( );
             ColorModeService.Init( );
+        }
+
+        /// <summary>
+        /// Creates the notifier.
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        private Notifier CreateNotifier( )
+        {
+            try
+            {
+                var _position = new PrimaryScreenPositionProvider( Corner.BottomRight, 10, 10 );
+                var _lifeTime = new TimeAndCountBasedLifetimeSupervisor( TimeSpan.FromSeconds( 5 ),
+                    MaximumNotificationCount.UnlimitedNotifications( ) );
+
+                return new Notifier( _config =>
+                {
+                    _config.LifetimeSupervisor = _lifeTime;
+                    _config.PositionProvider = _position;
+                    _config.Dispatcher = Application.Current.Dispatcher;
+                } );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+                return default( Notifier );
+            }
+        }
+
+        /// <summary>
+        /// Sends the notification.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        private void SendNotification( string message )
+        {
+            try
+            {
+                ThrowIf.Null( message, nameof( message ) );
+                var _notification = CreateNotifier( );
+                _notification.ShowInformation( message );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary>
+        /// Called when [calculator menu option click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// instance containing the event data.</param>
+        private void OnCalculatorMenuOptionClick( object sender, RoutedEventArgs e )
+        {
+            try
+            {
+                var _calculator = new CalculatorWindow
+                {
+                    WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                    Owner = this,
+                    Topmost = true
+                };
+
+                _calculator.Show( );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary>
+        /// Called when [file menu option click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// instance containing the event data.</param>
+        private void OnFileMenuOptionClick( object sender, RoutedEventArgs e )
+        {
+            try
+            {
+                var _fileBrowser = new FileBrowser
+                {
+                    WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                    Owner = this,
+                    Topmost = true
+                };
+
+                _fileBrowser.Show( );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary>
+        /// Called when [folder menu option click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// instance containing the event data.</param>
+        private void OnFolderMenuOptionClick( object sender, RoutedEventArgs e )
+        {
+            try
+            {
+                var _fileBrowser = new FileBrowser
+                {
+                    WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                    Owner = this,
+                    Topmost = true
+                };
+
+                _fileBrowser.Show( );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary>
+        /// Called when [control panel option click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// instance containing the event data.</param>
+        private void OnControlPanelOptionClick( object sender, RoutedEventArgs e )
+        {
+            try
+            {
+                WinMinion.LaunchControlPanel( );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary>
+        /// Called when [task manager option click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// instance containing the event data.</param>
+        private void OnTaskManagerOptionClick( object sender, RoutedEventArgs e )
+        {
+            try
+            {
+                WinMinion.LaunchTaskManager( );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary>
+        /// Called when [close option click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// instance containing the event data.</param>
+        private void OnCloseOptionClick( object sender, RoutedEventArgs e )
+        {
+            try
+            {
+                Application.Current.Shutdown( );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary>
+        /// Called when [chrome option click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// containing the event data.</param>
+        private void OnChromeOptionClick( object sender, RoutedEventArgs e )
+        {
+            try
+            {
+                WebMinion.RunChrome( );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary>
+        /// Called when [edge option click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// instance containing the event data.</param>
+        private void OnEdgeOptionClick( object sender, RoutedEventArgs e )
+        {
+            try
+            {
+                WebMinion.RunEdge( );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
+        }
+
+        /// <summary>
+        /// Called when [firefox option click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// containing the event data.</param>
+        private void OnFirefoxOptionClick( object sender, RoutedEventArgs e )
+        {
+            try
+            {
+                WebMinion.RunFirefox( );
+            }
+            catch( Exception ex )
+            {
+                Fail( ex );
+            }
         }
 
         /// <summary>

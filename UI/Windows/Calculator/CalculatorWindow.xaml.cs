@@ -50,6 +50,7 @@ namespace Booger
 
     /// <inheritdoc />
     /// <summary>
+    /// 
     /// Interaction logic for CalculatorWindow.xaml
     /// </summary>
     [ SuppressMessage( "ReSharper", "RedundantExtendsListEntry" ) ]
@@ -75,7 +76,7 @@ namespace Booger
             : base( )
         {
             // Theme Properties
-            //SfSkinManager.SetTheme( this, new Theme( "FluentDark" ) );
+            SfSkinManager.SetTheme( this, new Theme( "FluentDark" ) );
 
             // Window Plumbing
             InitializeComponent( );
@@ -97,6 +98,7 @@ namespace Booger
 
             // Window Event Wiring
             Loaded += OnLoaded;
+            MouseRightButtonDown += OnImageRightClick;
         }
 
         /// <summary>
@@ -107,7 +109,7 @@ namespace Booger
             try
             {
                 CloseButton.MouseLeftButtonDown += OnCloseButtonClick;
-                PictureBox.MouseLeftButtonDown += OnRightClick;
+                WindowsCalculatorButton.MouseLeftButtonDown += OnImageRightClick;
             }
             catch( Exception ex )
             {
@@ -173,8 +175,7 @@ namespace Booger
         {
             try
             {
-                Opacity = 0;
-                FadeInAsync( this );
+                RegisterCallbacks( );
             }
             catch( Exception ex )
             {
@@ -188,7 +189,7 @@ namespace Booger
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/>
         /// instance containing the event data.</param>
-        private void OnRightClick( object sender, MouseButtonEventArgs e )
+        private void OnImageRightClick( object sender, MouseButtonEventArgs e )
         {
             try
             {
@@ -211,8 +212,6 @@ namespace Booger
         {
             try
             {
-                Opacity = 1.0;
-                FadeOutAsync( this );
                 Close( );
             }
             catch( Exception ex )

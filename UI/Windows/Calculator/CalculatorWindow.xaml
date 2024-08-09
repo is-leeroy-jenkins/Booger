@@ -1,25 +1,85 @@
-﻿<Window x:Class="Booger.CalculatorWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:Booger"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:syncfusionskin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
-        x:Name="CalculatorView" Title="Booger Calculator" Width="410" Height="460"
-        Padding="1,1,1,1"
-        syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentDark}"
-        Background="Black" BorderBrush="#FF0078D4" BorderThickness="1,1,1,1" FontSize="9"
-        Foreground="#FFC5D1DA" ResizeMode="NoResize" Topmost="True"
-        WindowStartupLocation="CenterScreen" WindowStyle="None" mc:Ignorable="d">
-<!--  ********************************    Calculator   ********************************************  -->
-<Canvas>
-<local:MetroCalculator x:Name="Device" Canvas.Left="10" Canvas.Top="45" Width="380" Height="393"
-                       HorizontalAlignment="Center" VerticalAlignment="Top" Background="Black"
-                       BorderBrush="Black" Foreground="#FF3399E8" />
-<Image x:Name="PictureBox" Canvas.Left="11" Canvas.Top="7" Width="98" Height="28"
-       HorizontalAlignment="Left" VerticalAlignment="Top"
-       Source="/Resources/Assets/Dialog/Main.png" ToolTip="Click for more" />
-<Image x:Name="CloseButton" Canvas.Left="365" Canvas.Top="12" Width="22" Height="24"
-       Source="/Resources/Assets/Dialog/Cancel.png" ToolTip="Click to close" />
-</Canvas>
+﻿<Window
+    x:Class="Booger.CalculatorWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Booger"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+    xmlns:syncfusionskin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+    x:Name="CalculatorView"
+    Title="Booger Calculator"
+    Width="410"
+    Height="460"
+    Padding="1,1,1,1"
+    syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManager ThemeName=FluentDark}"
+    Background="Black"
+    BorderBrush="#FF0078D4"
+    BorderThickness="1,1,1,1"
+    FontSize="9"
+    Foreground="#FFC5D1DA"
+    ResizeMode="NoResize"
+    Topmost="True"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+
+    <!--  ******************************************** Resources *********************************************  -->
+
+    <Window.Resources>
+        <Style TargetType="{x:Type ToolTip}">
+            <Setter Property="BorderThickness" Value="1,1,1,1" />
+            <Setter Property="BorderBrush" Value="#0078D4" />
+            <Setter Property="Background" Value="#FF000000" />
+            <Setter Property="Foreground" Value="#FFA0BDFC" />
+        </Style>
+    </Window.Resources>
+
+
+    <!--  ********************************    Calculator   ********************************************  -->
+    <Canvas>
+        <local:MetroCalculator
+            x:Name="Device"
+            Canvas.Left="10"
+            Canvas.Top="45"
+            Width="380"
+            Height="393"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Background="Black"
+            BorderBrush="Black"
+            Foreground="#FF3399E8" />
+        <syncfusion:SfHubTile
+            x:Name="WindowsCalculatorButton"
+            Title=""
+            Canvas.Left="1"
+            Canvas.Top="1"
+            Width="70"
+            Height="22"
+            Padding="1,1,1,1"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            HorizontalContentAlignment="Stretch"
+            Background="{x:Null}"
+            BorderBrush="{x:Null}"
+            Header=""
+            ImageSource="/Resources/Assets/Dialog/Main.png"
+            ToolTip="Left-Click, Windows Calculator" />
+        <syncfusion:SfHubTile
+            x:Name="CloseButton"
+            Title="X"
+            Canvas.Left="362"
+            Canvas.Top="3"
+            Width="36"
+            Height="22"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Background="{x:Null}"
+            BorderBrush="{x:Null}"
+            Content="X"
+            FontSize="12"
+            Foreground="#FFFB0606"
+            Header=""
+            ToolTip="Close Calculator" />
+    </Canvas>
 </Window>

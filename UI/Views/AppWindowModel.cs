@@ -41,12 +41,15 @@
 
 namespace Booger
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
     using CommunityToolkit.Mvvm.ComponentModel;
 
+    /// <inheritdoc />
     /// <summary>
-    /// 
     /// </summary>
-    /// <seealso cref="CommunityToolkit.Mvvm.ComponentModel.ObservableObject" />
+    /// <seealso cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservableObject" />
+    [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
     public class AppWindowModel : ObservableObject
     {
         /// <summary>
@@ -92,6 +95,17 @@ namespace Booger
             {
                 return ConfigurationService.Configuration;
             }
+        }
+
+        /// <summary>
+        /// Fails the specified ex.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        private protected void Fail( Exception ex )
+        {
+            var _error = new ErrorWindow( ex );
+            _error?.SetText( );
+            _error?.ShowDialog( );
         }
     }
 }

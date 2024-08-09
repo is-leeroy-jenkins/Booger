@@ -6,15 +6,23 @@
     <Nullable>disable</Nullable>
     <UseWPF>true</UseWPF>
     <LangVersion>latest</LangVersion>
-    <ApplicationIcon>Resources\Assets\Images\openai.ico</ApplicationIcon>
-    <RepositoryUrl></RepositoryUrl>
+    <ApplicationIcon>Resources\Assets\Form\Application.ico</ApplicationIcon>
+    <RepositoryUrl>https://github.com/is-leeroy-jenkins/Booger.git</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>1.1.8.0</Version>
+    <Version>1.0.0.0</Version>
     <ImplicitUsings>disable</ImplicitUsings>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <StartupObject>Booger.EntryPoint</StartupObject>
+    <Authors>Terry Eppler</Authors>
+    <PackageProjectUrl>https://github.com/is-leeroy-jenkins/Booger</PackageProjectUrl>
+    <Description>A quick &amp; dirty application for interacting with Chat GPT.</Description>
+    <PackageIcon>Application.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageTags>WPF;ChatGPT;openai</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -38,8 +46,35 @@
 
   <ItemGroup>
     <None Remove="Models\ChatMessage.cs~RF4a99add.TMP" />
+    <None Remove="Resources\Assets\Dialog\Cancel.png" />
+    <None Remove="Resources\Assets\Dialog\Main.png" />
+    <None Remove="Resources\Assets\Dialog\SplashNotification.png" />
+    <None Remove="Resources\Assets\Form\Application.ico" />
+    <None Remove="Resources\Assets\Form\ProjectTemplate.png" />
     <None Remove="Resources\Assets\Images\openai.ico" />
     <None Remove="Resources\Assets\Images\openai.png" />
+    <None Remove="Resources\Assets\Menu\CalculatorItem.png" />
+    <None Remove="Resources\Assets\Menu\CalendarItem.png" />
+    <None Remove="Resources\Assets\Menu\ChromeItem.png" />
+    <None Remove="Resources\Assets\Menu\ClockItem.png" />
+    <None Remove="Resources\Assets\Menu\CloseItem.png" />
+    <None Remove="Resources\Assets\Menu\ControlPanelItem.png" />
+    <None Remove="Resources\Assets\Menu\DocumentaionItem.png" />
+    <None Remove="Resources\Assets\Menu\EdgeItem.png" />
+    <None Remove="Resources\Assets\Menu\ExitItem.png" />
+    <None Remove="Resources\Assets\Menu\FileItem.png" />
+    <None Remove="Resources\Assets\Menu\FirefoxItem.png" />
+    <None Remove="Resources\Assets\Menu\FolderItem.png" />
+    <None Remove="Resources\Assets\Menu\MapItem.png" />
+    <None Remove="Resources\Assets\Menu\MediaPlayerItem.png" />
+    <None Remove="Resources\Assets\Menu\OneDriveItem.png" />
+    <None Remove="Resources\Assets\Menu\RefreshItem.png" />
+    <None Remove="Resources\Assets\Menu\SaveItem.png" />
+    <None Remove="Resources\Assets\Menu\TaskManagerItem.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Assets\Form\Application.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -82,8 +117,31 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Assets\Dialog\Cancel.png" />
+    <Resource Include="Resources\Assets\Dialog\Main.png" />
+    <Resource Include="Resources\Assets\Dialog\SplashNotification.png" />
+    <Resource Include="Resources\Assets\Form\Application.ico" />
+    <Resource Include="Resources\Assets\Form\Application.png" />
     <Resource Include="Resources\Assets\Images\openai.ico" />
     <Resource Include="Resources\Assets\Images\openai.png" />
+    <Resource Include="Resources\Assets\Menu\CalculatorItem.png" />
+    <Resource Include="Resources\Assets\Menu\CalendarItem.png" />
+    <Resource Include="Resources\Assets\Menu\ChromeItem.png" />
+    <Resource Include="Resources\Assets\Menu\ClockItem.png" />
+    <Resource Include="Resources\Assets\Menu\CloseItem.png" />
+    <Resource Include="Resources\Assets\Menu\ControlPanelItem.png" />
+    <Resource Include="Resources\Assets\Menu\DocumentaionItem.png" />
+    <Resource Include="Resources\Assets\Menu\EdgeItem.png" />
+    <Resource Include="Resources\Assets\Menu\ExitItem.png" />
+    <Resource Include="Resources\Assets\Menu\FileItem.png" />
+    <Resource Include="Resources\Assets\Menu\FirefoxItem.png" />
+    <Resource Include="Resources\Assets\Menu\FolderItem.png" />
+    <Resource Include="Resources\Assets\Menu\MapItem.png" />
+    <Resource Include="Resources\Assets\Menu\MediaPlayerItem.png" />
+    <Resource Include="Resources\Assets\Menu\OneDriveItem.png" />
+    <Resource Include="Resources\Assets\Menu\RefreshItem.png" />
+    <Resource Include="Resources\Assets\Menu\SaveItem.png" />
+    <Resource Include="Resources\Assets\Menu\TaskManagerItem.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -93,6 +151,21 @@
     <Reference Include="System.Data.SqlServerCe">
       <HintPath>..\Booger\Libraries\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Resources\Assets\Form\Application.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

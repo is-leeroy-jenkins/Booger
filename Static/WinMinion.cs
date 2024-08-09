@@ -62,6 +62,7 @@ namespace Booger
                 var _startInfo = new ProcessStartInfo
                 {
                     FileName = "CALC.EXE",
+                    Arguments = "-programmer",
                     UseShellExecute = true,
                     LoadUserProfile = true,
                     WindowStyle = ProcessWindowStyle.Normal

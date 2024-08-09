@@ -5,14 +5,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Booger"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
-    xmlns:syncfusionskin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+    xmlns:sync="http://schemas.syncfusion.com/wpf"
+    xmlns:skin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
     x:Name="CalculatorView"
     Title="Booger Calculator"
     Width="410"
     Height="460"
     Padding="1,1,1,1"
-    syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManager ThemeName=FluentDark}"
+    skin:SfSkinManager.Theme="{skin:SkinManager ThemeName=FluentDark}"
     Background="Black"
     BorderBrush="#FF0078D4"
     BorderThickness="1,1,1,1"
@@ -42,14 +42,14 @@
             x:Name="Device"
             Canvas.Left="10"
             Canvas.Top="45"
-            Width="380"
+            Width="390"
             Height="393"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
             Background="Black"
             BorderBrush="Black"
             Foreground="#FF3399E8" />
-        <syncfusion:SfHubTile
+        <sync:SfHubTile
             x:Name="WindowsCalculatorButton"
             Title=""
             Canvas.Left="1"
@@ -65,7 +65,7 @@
             Header=""
             ImageSource="/Resources/Assets/Dialog/Main.png"
             ToolTip="Left-Click, Windows Calculator" />
-        <syncfusion:SfHubTile
+        <sync:SfHubTile
             x:Name="CloseButton"
             Title="X"
             Canvas.Left="362"

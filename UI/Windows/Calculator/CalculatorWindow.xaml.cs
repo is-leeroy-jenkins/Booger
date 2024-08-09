@@ -98,7 +98,8 @@ namespace Booger
 
             // Window Event Wiring
             Loaded += OnLoaded;
-            MouseRightButtonDown += OnImageRightClick;
+            MouseEnter += OnMouseEnterClick;
+            LostFocus += OnMouseLeaveClick;
         }
 
         /// <summary>
@@ -109,11 +110,11 @@ namespace Booger
             try
             {
                 CloseButton.MouseLeftButtonDown += OnCloseButtonClick;
-                WindowsCalculatorButton.MouseLeftButtonDown += OnImageRightClick;
+                WindowsCalculatorButton.MouseLeftButtonDown += OnLeftClick;
             }
-            catch( Exception ex )
+            catch( Exception _ex )
             {
-                Fail( ex );
+                Fail( _ex );
             }
         }
 
@@ -135,9 +136,9 @@ namespace Booger
 
                 form.Opacity = 1.0;
             }
-            catch( Exception ex )
+            catch( Exception _ex )
             {
-                Fail( ex );
+                Fail( _ex );
             }
         }
 
@@ -158,10 +159,11 @@ namespace Booger
                 }
 
                 form.Opacity = 0.0;
+                Close( );
             }
-            catch( Exception ex )
+            catch( Exception _ex )
             {
-                Fail( ex );
+                Fail( _ex );
             }
         }
 
@@ -175,11 +177,12 @@ namespace Booger
         {
             try
             {
-                RegisterCallbacks( );
+                Opacity = 0;
+                FadeInAsync( this );
             }
-            catch( Exception ex )
+            catch( Exception _ex )
             {
-                Fail( ex );
+                Fail( _ex );
             }
         }
 
@@ -189,16 +192,34 @@ namespace Booger
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/>
         /// instance containing the event data.</param>
-        private void OnImageRightClick( object sender, MouseButtonEventArgs e )
+        private void OnLeftClick( object sender, MouseButtonEventArgs e )
         {
             try
             {
                 WinMinion.LaunchCalculator( );
                 Close( );
             }
-            catch( Exception ex )
+            catch( Exception _ex )
             {
-                Fail( ex );
+                Fail( _ex );
+            }
+        }
+
+        /// <summary>
+        /// Called when [mouse enter click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// instance containing the event data.</param>
+        private void OnMouseEnterClick( object sender, EventArgs e )
+        {
+            try
+            {
+                FadeInAsync( this );
+            }
+            catch( Exception _ex )
+            {
+                Fail( _ex );
             }
         }
 
@@ -208,15 +229,35 @@ namespace Booger
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/>
         /// instance containing the event data.</param>
+        private void OnMouseLeaveClick( object sender, EventArgs e )
+        {
+            try
+            {
+                Opacity = 1.0;
+                FadeOutAsync( this );
+            }
+            catch( Exception _ex )
+            {
+                Fail( _ex );
+            }
+        }
+
+        /// <summary>
+        /// Called when [close button click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/>
+        /// instance containing the event data.</param>
         private void OnCloseButtonClick( object sender, EventArgs e )
         {
             try
             {
-                Close( );
+                Opacity = 1.0;
+                FadeOutAsync( this );
             }
-            catch( Exception ex )
+            catch( Exception _ex )
             {
-                Fail( ex );
+                Fail( _ex );
             }
         }
 

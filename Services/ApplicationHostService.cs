@@ -52,12 +52,11 @@ namespace Booger
                 }
             };
 
-            if (!Application.Current.Windows.OfType<MainWindow>().Any())
+            if (!Application.Current.Windows.OfType<MainWindow>( ).Any( ) )
             {
-                MainWindow _window = ServiceProvider.GetService<MainWindow>() ?? throw new InvalidOperationException("Cannot find MainWindow service");
-                _window.Show();
-
-                _window.Navigate<MainPage>();
+                var _window = (MainWindow)ServiceProvider.GetService( typeof( MainWindow ) );
+                _window?.Show( );
+                _window?.Navigate<MainPage>( );
             }
 
             return Task.CompletedTask;

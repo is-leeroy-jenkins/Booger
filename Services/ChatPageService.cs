@@ -11,8 +11,7 @@ namespace Booger
         private Dictionary<Guid, ChatPage> _pages =
             new Dictionary<Guid, ChatPage>();
 
-        public ChatPageService(
-            IServiceProvider services)
+        public ChatPageService( IServiceProvider services)
         {
             Services = services;
         }
@@ -25,9 +24,8 @@ namespace Booger
             {
                 using (var _scope = Services.CreateScope())
                 {
-                    _chatPage = _scope.ServiceProvider.GetRequiredService<ChatPage>();
+                    _chatPage = (ChatPage)_scope.ServiceProvider.GetRequiredService( typeof( ChatPage ) );
                     _chatPage.InitSession(sessionId);
-
                     _pages[sessionId] = _chatPage;
                 }
             }

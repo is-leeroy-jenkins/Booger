@@ -7,24 +7,16 @@ namespace Booger
 
     public class PageService
     {
-        public PageService(
-            IServiceProvider serviceProvider)
+        public PageService( IServiceProvider serviceProvider)
         {
             ServiceProvider = serviceProvider;
         }
 
         public IServiceProvider ServiceProvider { get; }
 
-        
-        public T GetPage<T>()
-            where T : class
+        public FrameworkElement GetPage( Type type )
         {
-            return ServiceProvider.GetService<T>() ?? throw new InvalidOperationException("Cannot find specified Page service");
-        }
-
-        public FrameworkElement GetPage(Type type)
-        {
-            return ServiceProvider.GetService(type) as FrameworkElement;
+            return ServiceProvider.GetService( type ) as FrameworkElement;
         }
     }
 }

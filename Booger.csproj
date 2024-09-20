@@ -1,15 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>disable</Nullable>
     <UseWPF>true</UseWPF>
     <LangVersion>latest</LangVersion>
     <ApplicationIcon>Resources\Assets\Form\Application.ico</ApplicationIcon>
     <RepositoryUrl>https://github.com/is-leeroy-jenkins/Booger.git</RepositoryUrl>
   </PropertyGroup>
-
   <PropertyGroup>
     <Version>1.0.0.0</Version>
     <ImplicitUsings>disable</ImplicitUsings>
@@ -24,15 +22,12 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageTags>WPF;ChatGPT;openai</PackageTags>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>True</Optimize>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <Optimize>True</Optimize>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="assets\**" />
     <Compile Remove="Markdown\**" />
@@ -43,7 +38,6 @@
     <Page Remove="assets\**" />
     <Page Remove="Markdown\**" />
   </ItemGroup>
-
   <ItemGroup>
     <None Remove="Models\ChatMessage.cs~RF4a99add.TMP" />
     <None Remove="Resources\Assets\Dialog\Cancel.png" />
@@ -72,50 +66,45 @@
     <None Remove="Resources\Assets\Menu\SaveItem.png" />
     <None Remove="Resources\Assets\Menu\TaskManagerItem.png" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="Resources\Assets\Form\Application.ico" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="ColorCode.Core" Version="2.0.15" />
-    <PackageReference Include="EPPlus" Version="7.2.2" />
-    <PackageReference Include="LiteDB" Version="5.0.17" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-    <PackageReference Include="Markdig" Version="0.33.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+    <PackageReference Include="EPPlus" Version="7.3.2" />
+    <PackageReference Include="LiteDB" Version="5.0.21" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <PackageReference Include="Markdig" Version="0.37.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
-    <PackageReference Include="EleCho.GlobalHotkey.Windows.Wpf" Version="1.0.1.5" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="ModernWpfUI" Version="0.9.6" />
-    <PackageReference Include="OpenAI-DotNet" Version="7.2.3" />
+    <PackageReference Include="OpenAI-DotNet" Version="8.2.5" />
     <PackageReference Include="RestoreWindowPlace" Version="2.1.0" />
-    <PackageReference Include="Syncfusion.Edit.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.Licensing" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfAccordion.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfBarcode.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfChromelessWindow.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfColorPalette.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfHubTile.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfNavigationDrawer.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfProgressBar.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfRadialMenu.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfRichTextBoxAdv.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.Shared.Base" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.Shared.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.Themes.FluentDark.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.Tools.WPF" Version="24.1.41" />
-    <PackageReference Include="Syncfusion.UI.WPF.NET" Version="24.1.41" />
-    <PackageReference Include="System.Data.Common" Version="4.3.0" />
+    <PackageReference Include="Syncfusion.Edit.WPF" Version="27.1.48" />
+    <PackageReference Include="Syncfusion.Licensing" Version="27.1.48" />
+    <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="27.1.48" />
+    <PackageReference Include="Syncfusion.SfAccordion.WPF" Version="27.1.48" />
+    <PackageReference Include="Syncfusion.SfBarcode.WPF" Version="27.1.48" />
+    <PackageReference Include="Syncfusion.SfChromelessWindow.WPF" Version="27.1.48" />
+    <PackageReference Include="Syncfusion.SfColorPalette.WPF" Version="27.1.48" />
+    <PackageReference Include="Syncfusion.SfHubTile.WPF" Version="27.1.48" />
+    <PackageReference Include="Syncfusion.SfNavigationDrawer.WPF" Version="27.1.48" />
+    <PackageReference Include="Syncfusion.SfProgressBar.WPF" Version="27.1.48" />
+    <PackageReference Include="Syncfusion.SfRadialMenu.WPF" Version="27.1.48" />
+    <PackageReference Include="Syncfusion.SfRichTextBoxAdv.WPF" Version="27.1.48" />
+    <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="27.1.48" />
+    <PackageReference Include="Syncfusion.Shared.Base" Version="27.1.48" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="27.1.48" />
+    <PackageReference Include="Syncfusion.Themes.FluentDark.WPF" Version="27.1.48" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="27.1.48" />
+    <PackageReference Include="Syncfusion.UI.WPF.NET" Version="27.1.48" />
     <PackageReference Include="System.Data.OleDb" Version="8.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
     <PackageReference Include="ToastNotifications.Messages.Net6" Version="1.0.4" />
     <PackageReference Include="ToastNotifications.Net6" Version="1.0.4" />
   </ItemGroup>
-
   <ItemGroup>
     <Resource Include="Resources\Assets\Dialog\Cancel.png" />
     <Resource Include="Resources\Assets\Dialog\Main.png" />
@@ -143,16 +132,14 @@
     <Resource Include="Resources\Assets\Menu\SaveItem.png" />
     <Resource Include="Resources\Assets\Menu\TaskManagerItem.png" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="CefSharp.Wpf">
       <HintPath>..\Booger\Libraries\CefSharp.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SqlServerCe">
-      <HintPath>..\Booger\Libraries\System.Data.SqlServerCe.dll</HintPath>
+      <HintPath>Libraries\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
   </ItemGroup>
-
   <ItemGroup>
     <None Update="LICENSE">
       <Pack>True</Pack>
@@ -167,5 +154,4 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-
 </Project>

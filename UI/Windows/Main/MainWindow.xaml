@@ -6,7 +6,7 @@
     xmlns:skin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
     xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:hotkey="https://wpf.elecho.org/globalhotkey"
+    xmlns:hky="https://wpf.elecho.org/globalhotkey"
     xmlns:local="clr-namespace:Booger"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:tb="http://www.hardcodet.net/taskbar"
@@ -150,7 +150,6 @@
             Modifiers="Ctrl" />
         <KeyBinding
             Key="H"
-            hotkey:GlobalHotkey.IsRegistered="True"
             Command="{x:Static local:App._showAppCommand}"
             Modifiers="Ctrl+Shift" />
     </Window.InputBindings>

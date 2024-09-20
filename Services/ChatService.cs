@@ -126,29 +126,13 @@ namespace Booger
 
             StringBuilder _sb = new StringBuilder();
 
-            CancellationTokenSource _completionTaskCancellation =
+            var _completionTaskCancellation =
                 CancellationTokenSource.CreateLinkedTokenSource(token);
 
-            Task _completionTask = _client.ChatEndpoint.StreamCompletionAsync(
-                new ChatRequest(_messages, _modelName, _temperature),
-                response =>
-                {
-                    string _content = response.Choices.FirstOrDefault()?.Delta?.Content;
-                    if (!string.IsNullOrEmpty(_content))
-                    {
-                        _sb.Append(_content);
+            var _request = new ChatRequest( _messages, _modelName, _temperature );
 
-                        while (_sb.Length > 0 && char.IsWhiteSpace(_sb[0]))
-                            _sb.Remove(0, 1);
-
-                        messageHandler.Invoke(_sb.ToString());
-
-                        // 有响应了, 更新时间
-                        _lastTime = DateTime.Now;
-                    }
-                }, _completionTaskCancellation.Token);
-
-            Task _cancelTask = Task.Run(async () =>
+            Task _completionTask = _client.ChatEndpoint.GetCompletionAsync( _request, token );
+            Task _cancelTask = Task.Run( async ( ) =>
             {
                 try
                 {
@@ -158,8 +142,6 @@ namespace Booger
                     while (!_completionTask.IsCompleted)
                     {
                         await Task.Delay(100);
-
-                        // 如果当前时间与上次响应的时间相差超过配置的超时时间, 则扔异常
                         if ((DateTime.Now - _lastTime) > _timeout)
                         {
                             _completionTaskCancellation.Cancel();

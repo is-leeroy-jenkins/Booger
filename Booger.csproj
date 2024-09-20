@@ -15,7 +15,7 @@
     <StartupObject>Booger.EntryPoint</StartupObject>
     <Authors>Terry Eppler</Authors>
     <PackageProjectUrl>https://github.com/is-leeroy-jenkins/Booger</PackageProjectUrl>
-    <Description>A quick &amp; dirty application for interacting with Chat GPT.</Description>
+    <Description>A small WPF application for interacting with Chat GPT.</Description>
     <PackageIcon>Application.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>

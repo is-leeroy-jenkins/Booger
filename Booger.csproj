@@ -65,6 +65,11 @@
     <None Remove="Resources\Assets\Menu\RefreshItem.png" />
     <None Remove="Resources\Assets\Menu\SaveItem.png" />
     <None Remove="Resources\Assets\Menu\TaskManagerItem.png" />
+    <None Remove="Resources\Fonts\Anonymous Pro.ttf" />
+    <None Remove="Resources\Fonts\Hack-Regular.ttf" />
+    <None Remove="Resources\Fonts\JetBrainsMono-Regular.ttf" />
+    <None Remove="Resources\Fonts\Monaco.ttf" />
+    <None Remove="Resources\Fonts\Roboto-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Assets\Form\Application.ico" />
@@ -131,6 +136,21 @@
     <Resource Include="Resources\Assets\Menu\RefreshItem.png" />
     <Resource Include="Resources\Assets\Menu\SaveItem.png" />
     <Resource Include="Resources\Assets\Menu\TaskManagerItem.png" />
+    <Resource Include="Resources\Fonts\Anonymous Pro.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Fonts\Hack-Regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Fonts\JetBrainsMono-Regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Fonts\Monaco.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Fonts\Roboto-Regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CefSharp.Wpf">

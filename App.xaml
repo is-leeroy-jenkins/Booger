@@ -9,8 +9,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Themes/Generic.xaml" />
-                <ResourceDictionary Source="/Resources/Styles/AnimationStyles.xaml" />
-                <ResourceDictionary Source="/Resources/Styles/All.xaml" />
+                <ResourceDictionary Source="/Themes/Styles/AnimationStyles.xaml" />
+                <ResourceDictionary Source="/Themes/Styles/All.xaml" />
                 <ResourceDictionary Source="/Converters/SingletonConverters.xaml" />
                 <ResourceDictionary Source="/UI/ColorModes/LightMode.xaml" />
                 <ResourceDictionary Source="/Resources/Languages/en.xaml" />

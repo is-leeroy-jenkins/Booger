@@ -4,13 +4,29 @@
     xmlns:b="clr-namespace:Booger"
     xmlns:sys="clr-namespace:System;assembly=System.Runtime">
 
+
+    <!--*********************************************** RESOURCES *****************************************************-->
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/UI/Themes/Styles/Common/Colors.xaml" />
+        <ResourceDictionary Source="/UI/Themes/Styles/Common/Fonts.xaml" />
+        <ResourceDictionary Source="/UI/Themes/Styles/Common/Sizes.xaml" />
+        <ResourceDictionary Source="/UI/Themes/Styles/ListBox/ListBox.xaml" />
+        <ResourceDictionary Source="/UI/Themes/Styles/ListView/ListView.xaml" />
+        <ResourceDictionary Source="/UI/Themes/Styles/Text/TextBox.xaml" />
+        <ResourceDictionary Source="/UI/Themes/Styles/ComboBox/ComboBox.xaml" />
+        <ResourceDictionary Source="/UI/Themes/Styles/Button/Button.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+
     <sys:Double x:Key="NormalFontSize">14</sys:Double>
     <sys:Double x:Key="SmallFontSize">12</sys:Double>
     <sys:Double x:Key="LargeFontSize">16</sys:Double>
     <sys:Double x:Key="ExtremLargeFontSize">18</sys:Double>
 
+
     <CircleEase
-        x:Key="ease"
+        x:Key="Ease"
         EasingMode="EaseOut" />
 
     <!--  NOTE CONTROL  -->
@@ -165,52 +181,52 @@
                             Columns="5">
                             <UniformGrid.Resources>
                                 <Style
-                                    x:Key="rec"
+                                    x:Key="Rec"
                                     TargetType="Rectangle">
                                     <Setter Property="Width" Value="10" />
                                     <Setter Property="Height" Value="30" />
                                     <Setter Property="Margin" Value="2.5,0" />
                                 </Style>
                                 <PowerEase
-                                    x:Key="powerEase"
+                                    x:Key="PowerEase"
                                     EasingMode="EaseInOut"
                                     Power="3" />
                                 <Storyboard
-                                    x:Key="animation"
+                                    x:Key="Animation"
                                     RepeatBehavior="Forever"
                                     Storyboard.TargetProperty="Height">
                                     <DoubleAnimation
                                         AutoReverse="True"
                                         BeginTime="0:0:0.0"
-                                        EasingFunction="{StaticResource powerEase}"
+                                        EasingFunction="{StaticResource PowerEase}"
                                         Storyboard.TargetName="rec1"
                                         To="50"
                                         Duration="0:0:0.3" />
                                     <DoubleAnimation
                                         AutoReverse="True"
                                         BeginTime="0:0:0.12"
-                                        EasingFunction="{StaticResource powerEase}"
+                                        EasingFunction="{StaticResource PowerEase}"
                                         Storyboard.TargetName="rec2"
                                         To="50"
                                         Duration="0:0:0.3" />
                                     <DoubleAnimation
                                         AutoReverse="True"
                                         BeginTime="0:0:0.24"
-                                        EasingFunction="{StaticResource powerEase}"
+                                        EasingFunction="{StaticResource PowerEase}"
                                         Storyboard.TargetName="rec3"
                                         To="50"
                                         Duration="0:0:0.3" />
                                     <DoubleAnimation
                                         AutoReverse="True"
                                         BeginTime="0:0:0.36"
-                                        EasingFunction="{StaticResource powerEase}"
+                                        EasingFunction="{StaticResource PowerEase}"
                                         Storyboard.TargetName="rec4"
                                         To="50"
                                         Duration="0:0:0.3" />
                                     <DoubleAnimation
                                         AutoReverse="True"
                                         BeginTime="0:0:0.48"
-                                        EasingFunction="{StaticResource powerEase}"
+                                        EasingFunction="{StaticResource PowerEase}"
                                         Storyboard.TargetName="rec5"
                                         To="50"
                                         Duration="0:0:0.3" />
@@ -220,7 +236,7 @@
                                 <EventTrigger RoutedEvent="Loaded">
                                     <BeginStoryboard
                                         Name="animation"
-                                        Storyboard="{StaticResource animation}" />
+                                        Storyboard="{StaticResource Animation}" />
                                 </EventTrigger>
                                 <EventTrigger RoutedEvent="Unloaded">
                                     <StopStoryboard BeginStoryboardName="animation" />
@@ -231,45 +247,31 @@
                                 Name="rec1"
                                 Grid.Column="0"
                                 Fill="{TemplateBinding Foreground}"
-                                Style="{StaticResource rec}" />
+                                Style="{StaticResource Rec}" />
                             <Rectangle
                                 Name="rec2"
                                 Grid.Column="1"
                                 Fill="{TemplateBinding Foreground}"
-                                Style="{StaticResource rec}" />
+                                Style="{StaticResource Rec}" />
                             <Rectangle
                                 Name="rec3"
                                 Grid.Column="2"
                                 Fill="{TemplateBinding Foreground}"
-                                Style="{StaticResource rec}" />
+                                Style="{StaticResource Rec}" />
                             <Rectangle
                                 Name="rec4"
                                 Grid.Column="3"
                                 Fill="{TemplateBinding Foreground}"
-                                Style="{StaticResource rec}" />
+                                Style="{StaticResource Rec}" />
                             <Rectangle
                                 Name="rec5"
                                 Grid.Column="4"
                                 Fill="{TemplateBinding Foreground}"
-                                Style="{StaticResource rec}" />
+                                Style="{StaticResource Rec}" />
                         </UniformGrid>
                     </Viewbox>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Themes/Common/Colors.xaml" />
-        <ResourceDictionary Source="/Themes/Common/Fonts.xaml" />
-        <ResourceDictionary Source="/Themes/Common/Sizes.xaml" />
-        <ResourceDictionary Source="/Themes/Styles/ListBox.xaml" />
-        <ResourceDictionary Source="/Themes/Styles/ListView.xaml" />
-        <ResourceDictionary Source="/Themes/Styles/TextBox.xaml" />
-        <ResourceDictionary Source="/Themes/Styles/ComboBox.xaml" />
-        <ResourceDictionary Source="/Themes/Styles/Button.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-
-
 </ResourceDictionary>

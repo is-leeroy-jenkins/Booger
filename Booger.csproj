@@ -174,4 +174,8 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UI\Views\ChatPage\" />
+    <Folder Include="UI\Views\SessionDialog\" />
+  </ItemGroup>
 </Project>

@@ -10,7 +10,7 @@
         Background="#FF141414" BorderBrush="#FF0078D4" BorderThickness="1,1,1,1"
         Foreground="#FFA0BDFC" Icon="/Resources/Assets/Dialog/FileBrowse.png"
         WindowStartupLocation="CenterScreen" mc:Ignorable="d">
-<!--  ******************************************** Context Menu ******************************************  -->
+<!--******************************************** Context Menu ******************************************-->
 <Grid x:Name="BrowserGrid">
 <Grid.RowDefinitions>
 <RowDefinition Height="39*" />
@@ -22,18 +22,18 @@
 <ColumnDefinition Width="265*" />
 <ColumnDefinition Width="64*" />
 </Grid.ColumnDefinitions>
-<!--  ******************************************** ListBox ******************************************  -->
+<!--******************************************** ListBox ******************************************-->
 <local:MetroListBox x:Name="ListBox" Grid.Row="1" Grid.Column="1" Width="190" Margin="10,40,0,40"
                     HorizontalAlignment="Left" d:ItemsSource="{d:SampleData ItemCount=5}" />
-<!--  ******************************************** Tiles ******************************************  -->
+<!--******************************************** Tiles ******************************************-->
 <local:MetroTile x:Name="SelectButton" Title="Select" Grid.Row="2" Grid.Column="1" Width="90"
                  Height="35" Margin="400,70,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
                  Header="" />
-<!--  ********************************* Tile  *************************************  -->
+<!--********************************* Tile  *************************************-->
 <local:MetroTile x:Name="BrowseButton" Title="Browse" Grid.Row="2" Grid.Column="1" Width="90"
                  Height="33" Margin="25,72,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
                  Header="" />
-<!--  ********************************* Tile  *************************************  -->
+<!--********************************* Tile  *************************************-->
 <local:MetroTile x:Name="ClearButton" Title="Clear" Grid.Row="2" Grid.Column="1" Width="90"
                  Height="35" Margin="210,70,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
                  Header="" />
@@ -45,7 +45,7 @@
                   VerticalContentAlignment="Bottom" Content="Directory:" FontSize="10" />
 <local:MetroLabel x:Name="TimeLabel" Grid.Row="2" Width="130" Margin="0,100,0,3"
                   HorizontalAlignment="Center" Content="Time" FontSize="10" />
-<!--  ********************************* Tile  *************************************  -->
+<!--********************************* Tile  *************************************-->
 <local:MetroListBox x:Name="ListBox_Copy" Grid.Row="1" Grid.Column="1" Width="260" Height="185"
                     Margin="240,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
                     d:ItemsSource="{d:SampleData ItemCount=5}" />

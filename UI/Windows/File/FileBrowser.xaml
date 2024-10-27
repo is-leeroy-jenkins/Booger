@@ -10,7 +10,7 @@
         Background="#FF141414" BorderBrush="#FF078D4" BorderThickness="1,1,1,1"
         Foreground="#FFA0BDFC" Icon="/Resources/Assets/Dialog/FileBrowse.png"
         WindowStartupLocation="CenterScreen" mc:Ignorable="d">
-<!--  ******************************************** Context Menu ******************************************  -->
+<!--******************************************** Context Menu ******************************************-->
 <Grid x:Name="BrowserGrid">
 <Grid.RowDefinitions>
 <RowDefinition Height="17*" />

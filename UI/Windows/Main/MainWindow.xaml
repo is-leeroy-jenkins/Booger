@@ -22,7 +22,7 @@
     Topmost="{Binding ViewModel.Configuration.WindowAlwaysOnTop}"
     mc:Ignorable="d">
 
-<!--  ******************************************** Resources *********************************************  -->
+<!--******************************************** Resources *********************************************-->
 
     <Window.Resources>
         <Style TargetType="ToolTip">
@@ -33,7 +33,7 @@
         </Style>
     </Window.Resources>
 
-<!--  ******************************************** Context Menu ******************************************  -->
+<!--******************************************** Context Menu ******************************************-->
 
     <Window.ContextMenu>
         <ContextMenu Name="MainWindowContextMenu">
@@ -158,10 +158,10 @@
     </behaviors:Interaction.Behaviors>
     <Grid>
         <Frame
-            Name="appFrame"
+            Name="AppFrame"
             NavigationUIVisibility="Hidden" />
         <local:NoteControl
-            x:Name="appNote"
+            x:Name="AppNote"
             Margin="50,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"

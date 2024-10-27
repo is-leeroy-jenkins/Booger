@@ -134,7 +134,7 @@ namespace Booger
         public void Navigate<TPage>( ) 
             where TPage : class
         {
-            appFrame.Navigate( PageService.GetPage( typeof( TPage ) ) );
+            AppFrame.Navigate( PageService.GetPage( typeof( TPage ) ) );
         }
 
         /// <inheritdoc />

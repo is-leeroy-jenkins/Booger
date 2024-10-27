@@ -15,7 +15,7 @@
     <Brush x:Key="BoxBorder">#FF0179D4</Brush>
     <Brush x:Key="BoxHoverBorder">#FFA0BDFC</Brush>
     <Brush x:Key="BoxPressBorder">#FF4682B4</Brush>
-    <Brush x:Key="BoxFocusedBorder">#FF013D11</Brush>
+    <Brush x:Key="BoxFocusedBorder">#FFA0BDFC</Brush>
     <Brush x:Key="BoxDisabledBorder">#424242</Brush>
     <Brush x:Key="TextBoxBackground">#FF3D3D3D</Brush>
     <Brush x:Key="TextBoxHoverBackground">#FF0E3C5E</Brush>
@@ -25,7 +25,7 @@
     <Brush x:Key="TextBoxBorder">#FF0179D4</Brush>
     <Brush x:Key="TextBoxHoverBorder">#FFA0BDFC</Brush>
     <Brush x:Key="TextBoxPressBorder">#FF4682B4</Brush>
-    <Brush x:Key="TextBoxFocusedBorder">#FF013D11</Brush>
+    <Brush x:Key="TextBoxFocusedBorder">#FFA0BDFC</Brush>
     <Brush x:Key="TextBoxDisabledBorder">#424242</Brush>
     <Brush x:Key="ControlBackground">#FF3D3D3D</Brush>
     <Brush x:Key="ControlHoverBackground">#FF0E3C5E</Brush>

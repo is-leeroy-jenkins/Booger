@@ -57,6 +57,7 @@ namespace Booger
     using System.Windows.Shapes;
     using CommunityToolkit.Mvvm.Input;
 
+    /// <inheritdoc />
     /// <summary>
     /// Interaction logic for ChatSessionConfigDialog.xaml
     /// </summary>
@@ -72,15 +73,15 @@ namespace Booger
             InitializeComponent( );
             if( !session.EnableChatContext.HasValue )
             {
-                enableChatContextComboBox.SelectedIndex = 0;
+                //EnableChatContextComboBox.SelectedIndex = 0;
             }
             else if( session.EnableChatContext.Value )
             {
-                enableChatContextComboBox.SelectedIndex = 1;
+                //EnableChatContextComboBox.SelectedIndex = 1;
             }
             else
             {
-                enableChatContextComboBox.SelectedIndex = 2;
+                //EnableChatContextComboBox.SelectedIndex = 2;
             }
         }
 
@@ -118,14 +119,15 @@ namespace Booger
             Close( );
         }
 
-        private void ComboBox_SelectionChanged( object sender, SelectionChangedEventArgs e )
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if( enableChatContextComboBox.SelectedItem is not ComboBoxItem _item )
+            var _combo = sender as MetroComboBox;
+            if(_combo.SelectedItem is not ComboBoxItem _item)
             {
                 return;
             }
 
-            if( _item.Tag is bool _value )
+            if(_item.Tag is bool _value)
             {
                 Session.EnableChatContext = _value;
             }

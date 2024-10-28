@@ -78,9 +78,9 @@ namespace Booger
             FontFamily = _theme.FontFamily;
             FontSize = _theme.FontSize;
             BorderThickness = _theme.BorderThickness;
-            Background = _theme.LightBlueColor;
-            Foreground = _theme.LightBlueColor;
-            BorderBrush = _theme.BackColor;
+            Background = _theme.LightBlueBrush;
+            Foreground = _theme.LightBlueBrush;
+            BorderBrush = _theme.Background;
 
             // Wire Events
             MouseLeftButtonDown += OnMouseClick;
@@ -99,7 +99,7 @@ namespace Booger
                 if( sender is MetroRadioButton _button
                     && _button.IsChecked == true )
                 {
-                    Foreground = _theme.WhiteColor;
+                    Foreground = _theme.WhiteForeground;
                     Background = new SolidColorBrush( Colors.Lime );
                 }
             }

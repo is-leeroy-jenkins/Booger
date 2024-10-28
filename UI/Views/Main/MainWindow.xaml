@@ -7,39 +7,40 @@
     xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hky="https://wpf.elecho.org/globalhotkey"
-    xmlns:local="clr-namespace:Booger"
+    xmlns:b="clr-namespace:Booger"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:tb="http://www.hardcodet.net/taskbar"
     Title="{Binding ViewModel.ApplicationTitle}"
     Width="1350"
     Height="800"
-    d:DataContext="{d:DesignInstance Type=local:MainWindow}"
-    Background="{DynamicResource GeneralBackground}"
-    FontSize="{DynamicResource NormalFontSize}"
-    Foreground="{DynamicResource FontForeground}"
+    d:DataContext="{d:DesignInstance Type=b:MainWindow}"
+    Background="{DynamicResource FormBackground}"
+    FontSize="12"
+    Foreground="{DynamicResource FormForeground}"
     sync:SfSkinManager.Theme="{skin:SkinManagerExtension ThemeName=FluentDark}"
     Icon="/Resources/Assets/Form/Application.png"
     Topmost="{Binding ViewModel.Configuration.WindowAlwaysOnTop}"
     mc:Ignorable="d">
 
-<!--******************************************** Resources *********************************************-->
+    <!--******************************************** RESOURCE *********************************************-->
 
     <Window.Resources>
         <Style TargetType="ToolTip">
-            <Setter Property="BorderThickness" Value="1,1,1,1" />
-            <Setter Property="BorderBrush" Value="#0078D4" />
-            <Setter Property="Background" Value="#FF000000" />
-            <Setter Property="Foreground" Value="#FFA0BDFC"/>
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="BorderBrush" Value="{StaticResource BlueBorderBrush}" />
+            <Setter Property="Background" Value="{StaticResource BlackBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource LightBlueBrush}" />
         </Style>
     </Window.Resources>
 
-<!--******************************************** Context Menu ******************************************-->
+    <!--******************************************** CONTEXT MENU ******************************************-->
 
     <Window.ContextMenu>
         <ContextMenu Name="MainWindowContextMenu">
             <sync:MenuItemAdv
-                Background="#FF282828"
-                Foreground="#FFA0BDFC"
+                Background="{StaticResource ControlBackground}"
+                Foreground="{StaticResource LightBlueBrush}"
                 Header="File"
                 ToolTip="Browse File System">
                 <sync:MenuItemAdv.Icon>
@@ -48,9 +49,9 @@
             </sync:MenuItemAdv>
 
             <sync:MenuItemAdv
-                Background="#FF282828"
+                Background="{StaticResource ControlBackground}"
                 Click="OnFolderMenuOptionClick"
-                Foreground="#FFA0BDFC"
+                Foreground="{StaticResource LightBlueBrush}"
                 Header="Folder"
                 ToolTip="Browse Directories">
                 <sync:MenuItemAdv.Icon>
@@ -61,9 +62,9 @@
             <Separator />
 
             <sync:MenuItemAdv
-                Background="#FF282828"
+                Background="{StaticResource ControlBackground}"
                 Click="OnChromeOptionClick"
-                Foreground="#FFA0BDFC"
+                Foreground="{StaticResource LightBlueBrush}"
                 Header="Chrome"
                 ToolTip="Launch Chrome Browser">
                 <sync:MenuItemAdv.Icon>
@@ -72,9 +73,9 @@
             </sync:MenuItemAdv>
 
             <sync:MenuItemAdv
-                Background="#FF282828"
+                Background="{StaticResource ControlBackground}"
                 Click="OnEdgeOptionClick"
-                Foreground="#FFA0BDFC"
+                Foreground="{StaticResource LightBlueBrush}"
                 Header="Edge"
                 ToolTip="Launch Edge Browser">
                 <sync:MenuItemAdv.Icon>
@@ -83,9 +84,9 @@
             </sync:MenuItemAdv>
 
             <sync:MenuItemAdv
-                Background="#FF282828"
+                Background="{StaticResource ControlBackground}"
                 Click="OnFirefoxOptionClick"
-                Foreground="#FFA0BDFC"
+                Foreground="{StaticResource LightBlueBrush}"
                 Header="FireFox"
                 ToolTip="Launch Firefox Browser">
                 <sync:MenuItemAdv.Icon>
@@ -96,9 +97,9 @@
             <Separator />
 
             <sync:MenuItemAdv
-                Background="#FF282828"
+                Background="{StaticResource ControlBackground}"
                 Click="OnCalculatorMenuOptionClick"
-                Foreground="#FFA0BDFC"
+                Foreground="{StaticResource LightBlueBrush}"
                 Header="Calculator"
                 ToolTip="Open Calculator">
                 <sync:MenuItemAdv.Icon>
@@ -107,9 +108,9 @@
             </sync:MenuItemAdv>
 
             <sync:MenuItemAdv
-                Background="#FF282828"
+                Background="{StaticResource ControlBackground}"
                 Click="OnControlPanelOptionClick"
-                Foreground="#FFA0BDFC"
+                Foreground="{StaticResource LightBlueBrush}"
                 Header="Control Panel"
                 ToolTip="Windows Control Panel">
                 <sync:MenuItemAdv.Icon>
@@ -118,9 +119,9 @@
             </sync:MenuItemAdv>
 
             <sync:MenuItemAdv
-                Background="#FF282828"
+                Background="{StaticResource ControlBackground}"
                 Click="OnTaskManagerOptionClick"
-                Foreground="#FFA0BDFC"
+                Foreground="{StaticResource LightBlueBrush}"
                 Header="Task Manager"
                 ToolTip="Windows Task Manager">
                 <sync:MenuItemAdv.Icon>
@@ -131,9 +132,9 @@
             <Separator />
 
             <sync:MenuItemAdv
-                Background="#FF282828"
+                Background="{StaticResource ControlBackground}"
                 Click="OnCloseOptionClick"
-                Foreground="#FFA0BDFC"
+                Foreground="{StaticResource LightBlueBrush}"
                 Header="Exit"
                 ToolTip="Exit Application">
                 <sync:MenuItemAdv.Icon>
@@ -146,26 +147,28 @@
     <Window.InputBindings>
         <KeyBinding
             Key="H"
-            Command="{x:Static local:App._hideAppCommand}"
+            Command="{x:Static b:App._hideAppCommand}"
             Modifiers="Ctrl" />
         <KeyBinding
             Key="H"
-            Command="{x:Static local:App._showAppCommand}"
+            Command="{x:Static b:App._showAppCommand}"
             Modifiers="Ctrl+Shift" />
     </Window.InputBindings>
+
     <behaviors:Interaction.Behaviors>
-        <local:StyleManagerBehavior />
+        <b:StyleManagerBehavior />
     </behaviors:Interaction.Behaviors>
+
     <Grid>
         <Frame
             Name="AppFrame"
             NavigationUIVisibility="Hidden" />
-        <local:NoteControl
+        <b:NoteControl
             x:Name="AppNote"
             Margin="50,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
-            Background="{DynamicResource BoxBackground}"
+            Background="{DynamicResource ControlInteriorBrush}"
             BorderThickness="1,0,1,1"
             Visibility="Hidden"
             _show="{Binding NoteService.Data.Show}"
@@ -177,34 +180,35 @@
                         TargetObject="{Binding NoteService}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
-            <local:NoteControl.Style>
-                <Style TargetType="local:NoteControl">
-                    <Setter Property="BorderBrush" Value="{DynamicResource BoxBorder}" />
+            <b:NoteControl.Style>
+                <Style TargetType="b:NoteControl">
+                    <Setter Property="BorderBrush" Value="{DynamicResource BlueBorderBrush}" />
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="BorderBrush" Value="IndianRed" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>
-            </local:NoteControl.Style>
-        </local:NoteControl>
+            </b:NoteControl.Style>
+        </b:NoteControl>
+
         <tb:TaskbarIcon
             Name="AppIcon"
             DataContext="{Binding}"
-            DoubleClickCommand="{x:Static local:App._showAppCommand}"
+            DoubleClickCommand="{x:Static b:App._showAppCommand}"
             IconSource="/Resources/Assets/Images/openai.ico"
-            LeftClickCommand="{x:Static local:App._showAppCommand}"
+            LeftClickCommand="{x:Static b:App._showAppCommand}"
             ToolTipText="{x:Null}">
             <tb:TaskbarIcon.ContextMenu>
-                <ContextMenu local:UiUtils._cornerRadius="3">
+                <ContextMenu b:UiUtils._cornerRadius="3">
                     <MenuItem
-                        Command="{x:Static local:App._showAppCommand}"
+                        Command="{x:Static b:App._showAppCommand}"
                         Header="Show" />
                     <MenuItem
-                        Command="{x:Static local:App._hideAppCommand}"
+                        Command="{x:Static b:App._hideAppCommand}"
                         Header="Hide" />
                     <MenuItem
-                        Command="{x:Static local:App._closeAppCommand}"
+                        Command="{x:Static b:App._closeAppCommand}"
                         Header="Close" />
                 </ContextMenu>
             </tb:TaskbarIcon.ContextMenu>

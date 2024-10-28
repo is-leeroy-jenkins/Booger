@@ -78,9 +78,9 @@ namespace Booger
             SetResourceReference( StyleProperty, typeof( CheckListBoxItem ) );
             Width = 225;
             Height = 24;
-            Background = _theme.ControlColor;
-            Foreground = _theme.ForeColor;
-            BorderBrush = _theme.ControlColor;
+            Background = _theme.ControlInterior;
+            Foreground = _theme.Foreground;
+            BorderBrush = _theme.ControlInterior;
             Padding = new Thickness( 10, 1, 1, 1 );
             BorderThickness = new Thickness( 1 );
             VerticalAlignment = VerticalAlignment.Stretch;
@@ -105,9 +105,9 @@ namespace Booger
             {
                 if( sender is MetroCheckListItem _item )
                 {
-                    _item.Foreground = _theme.ForeColor;
-                    _item.Background = _theme.ControlColor;
-                    _item.BorderBrush = _theme.ControlColor;
+                    _item.Foreground = _theme.Foreground;
+                    _item.Background = _theme.ControlInterior;
+                    _item.BorderBrush = _theme.ControlInterior;
                 }
             }
             catch( Exception ex )
@@ -128,9 +128,9 @@ namespace Booger
             {
                 if( sender is MetroCheckListItem _item )
                 {
-                    _item.Foreground = _theme.WhiteColor;
-                    _item.Background = _theme.SteelBlueColor;
-                    _item.BorderBrush = _theme.SteelBlueColor;
+                    _item.Foreground = _theme.WhiteForeground;
+                    _item.Background = _theme.SteelBlueBrush;
+                    _item.BorderBrush = _theme.SteelBlueBrush;
                 }
             }
             catch( Exception ex )

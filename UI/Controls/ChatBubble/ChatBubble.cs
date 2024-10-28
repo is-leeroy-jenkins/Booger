@@ -47,7 +47,6 @@ namespace Booger
     using System.Windows.Media;
 
     /// <inheritdoc />
-    /// <![CDATA['MyNamespace' is an undeclared prefix. Line 28, position 7.]]>
     [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
     public class ChatBubble : Control

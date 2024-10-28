@@ -70,7 +70,7 @@ namespace Booger
             : base( )
         {
             // Basic Properties
-            FontFamily = new FontFamily( "Segoe UI" );
+            FontFamily = new FontFamily( "Roboto" );
             FontSize = 12;
             Width = 250;
             Height = 250;
@@ -81,9 +81,9 @@ namespace Booger
             Margin = new Thickness( 3 );
             Padding = new Thickness( 1 );
             BorderThickness = new Thickness( 1 );
-            Background = _theme.BackColor;
-            Foreground = _theme.ForeColor;
-            BorderBrush = _theme.BorderColor;
+            Background = _theme.Background;
+            Foreground = _theme.Foreground;
+            BorderBrush = _theme.BorderBrush;
         }
 
         /// <summary>

@@ -70,11 +70,11 @@ namespace Booger
         {
             // Control Properties
             SetResourceReference( StyleProperty, typeof( SfStepProgressBar ) );
-            FontFamily = new FontFamily( "Segoe UI" );
+            FontFamily = new FontFamily( "Roboto" );
             FontSize = 12;
-            Background = _theme.BackColor;
-            Foreground = _theme.BorderColor;
-            BorderBrush = _theme.BorderColor;
+            Background = _theme.Background;
+            Foreground = _theme.BorderBrush;
+            BorderBrush = _theme.BorderBrush;
         }
 
         /// <summary>

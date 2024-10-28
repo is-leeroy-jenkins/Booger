@@ -73,9 +73,9 @@ namespace Booger
             SetResourceReference( StyleProperty, typeof( SfCalculator ) );
             FontFamily = _theme.FontFamily;
             FontSize = _theme.FontSize;
-            Background = _theme.BackColor;
-            BorderBrush = _theme.BorderColor;
-            Foreground = _theme.ForeColor;
+            Background = _theme.Background;
+            BorderBrush = _theme.BorderBrush;
+            Foreground = _theme.Foreground;
         }
 
         /// <summary>

@@ -82,9 +82,9 @@ namespace Booger
             SetResourceReference( StyleProperty, typeof( ComboBoxItemAdv ) );
             Height = 22;
             Padding = new Thickness( 10, 1, 1, 1 );
-            Background = _theme.ControlColor;
-            BorderBrush = _theme.ControlColor;
-            Foreground = _theme.ForeColor;
+            Background = _theme.ControlInterior;
+            BorderBrush = _theme.ControlInterior;
+            Foreground = _theme.Foreground;
 
             // Event Wiring
             MouseEnter += OnItemMouseEnter;
@@ -103,9 +103,9 @@ namespace Booger
             {
                 if( sender is MetroComboBoxItem _item )
                 {
-                    _item.Foreground = _theme.WhiteColor;
-                    _item.Background = _theme.SteelBlueColor;
-                    _item.BorderBrush = _theme.SteelBlueColor;
+                    _item.Foreground = _theme.WhiteForeground;
+                    _item.Background = _theme.SteelBlueBrush;
+                    _item.BorderBrush = _theme.SteelBlueBrush;
                 }
             }
             catch( Exception ex )
@@ -126,9 +126,9 @@ namespace Booger
             {
                 if( sender is MetroComboBoxItem _item )
                 {
-                    _item.Foreground = _theme.ForeColor;
-                    _item.Background = _theme.ControlColor;
-                    _item.BorderBrush = _theme.ControlColor;
+                    _item.Foreground = _theme.Foreground;
+                    _item.Background = _theme.ControlInterior;
+                    _item.BorderBrush = _theme.ControlInterior;
                 }
             }
             catch( Exception ex )

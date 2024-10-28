@@ -70,11 +70,11 @@ namespace Booger
             // Basic Settings
             Height = 110;
             Width = 22;
-            FontFamily = new FontFamily( "Segoe UI" );
+            FontFamily = new FontFamily( "Roboto" );
             FontSize = 12;
-            Background = _theme.Transparent;
-            Foreground = _theme.BorderColor;
-            BorderBrush = _theme.Transparent;
+            Background = _theme.TransparentBrush;
+            Foreground = _theme.BorderBrush;
+            BorderBrush = _theme.TransparentBrush;
         }
 
         /// <summary>

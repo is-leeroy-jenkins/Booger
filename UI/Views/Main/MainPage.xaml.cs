@@ -59,6 +59,36 @@ namespace Booger
     public partial class MainPage : Page
     {
         /// <summary>
+        /// The application window
+        /// </summary>
+        private protected MainWindow _appWindow;
+
+        /// <summary>
+        /// The view model
+        /// </summary>
+        private protected MainPageModel _viewModel;
+
+        /// <summary>
+        /// The application global data
+        /// </summary>
+        private protected AppGlobalData _appGlobalData;
+
+        /// <summary>
+        /// The page service
+        /// </summary>
+        private protected PageService _pageService;
+
+        /// <summary>
+        /// The note service
+        /// </summary>
+        private protected NoteService _noteService;
+
+        /// <summary>
+        /// The chat service
+        /// </summary>
+        private protected ChatService _chatService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MainPage"/> class.
         /// </summary>
         /// <param name="appWindow">The application window.</param>
@@ -99,7 +129,7 @@ namespace Booger
 
             InitializeComponent( );
             SwitchPageToCurrentSession( );
-            smoothScrollingService.Register( sessionsScrollViewer );
+            smoothScrollingService.Register( SessionsScrollViewer );
         }
 
         /// <summary>

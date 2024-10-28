@@ -92,9 +92,9 @@ namespace Booger
             WindowStyle = WindowStyle.None;
             Title = "Calculator";
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            Background = _theme.BlackColor;
-            Foreground = _theme.LightBlueColor;
-            BorderBrush = _theme.BorderColor;
+            Background = _theme.BlackBrush;
+            Foreground = _theme.LightBlueBrush;
+            BorderBrush = _theme.BorderBrush;
 
             // Window Event Wiring
             Loaded += OnLoaded;

@@ -1,16 +1,16 @@
 ﻿// ******************************************************************************************
-//     Assembly:                Booger
+//     Assembly:                Badger
 //     Author:                  Terry D. Eppler
-//     Created:                 08-08-2024
+//     Created:                 08-01-2022
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        08-08-2024
+//     Last Modified On:        08-01-2022
 // ******************************************************************************************
 // <copyright file="MetroListBox.cs" company="Terry D. Eppler">
-//    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
-//    based on NET6 and written in C-Sharp.
+//    Badger is data analysis and reporting tool for EPA Analysts
+//    based on WPF, NET6.0, and written in C-Sharp.
 // 
-//    Copyright ©  2024  Terry D. Eppler
+//    Copyright ©  2022  Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the “Software”),
@@ -45,7 +45,6 @@ namespace Booger
     using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Media;
 
     /// <inheritdoc />
     /// <summary>
@@ -70,18 +69,14 @@ namespace Booger
         public MetroListBox( )
             : base( )
         {
-            // Basic Properties
-            Width = 400;
-            Height = 220;
-            FontFamily = new FontFamily( "Segoe UI" );
-            FontSize = 12d;
-            BorderThickness = new Thickness( 1 );
-            Padding = new Thickness( 1 );
-            HorizontalAlignment = HorizontalAlignment.Stretch;
-            VerticalAlignment = VerticalAlignment.Stretch;
-            Background = _theme.ControlColor;
-            BorderBrush = _theme.BorderColor;
-            Foreground = _theme.ForeColor;
+            // Control Properties
+            Background = _theme.ControlInterior;
+            Foreground = _theme.LightBlueBrush;
+            BorderBrush = _theme.BorderBrush;
+            Margin = _theme.Margin;
+            Padding = _theme.Padding;
+            BorderThickness = _theme.BorderThickness;
+            HorizontalContentAlignment = HorizontalAlignment.Left;
         }
 
         /// <summary>

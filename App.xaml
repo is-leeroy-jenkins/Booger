@@ -1,24 +1,23 @@
 ﻿<Application
-    x:Class="Booger.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:b="clr-namespace:Booger"
-    xmlns:sync="http://schemas.syncfusion.com/wpf"
-    xmlns:skin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF">
+        x:Class="Booger.App"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:b="clr-namespace:Booger"
+        xmlns:skin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+        xmlns:sync="http://schemas.syncfusion.com/wpf"
+        StartupUri="/UI/Views/Main/MainWindow.xaml">
 
-    <!--**************************************  RESOURCES ***********************************************-->
+        <!--  **************************************  RESOURCES ***********************************************  -->
 
-    <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/UI/Themes/Generic.xaml" />
-                <ResourceDictionary Source="/UI/Themes/Styles/Common/AnimationStyles.xaml" />
-                <ResourceDictionary Source="/UI/Themes/Styles/Common/All.xaml" />
-                <ResourceDictionary Source="/Converters/SingletonConverters.xaml" />
-                <ResourceDictionary Source="/UI/Themes/ColorModes/DarkMode.xaml" />
-                <ResourceDictionary Source="/Resources/Languages/en.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Application.Resources>
+        <Application.Resources>
+                <ResourceDictionary>
+                        <ResourceDictionary.MergedDictionaries>
+                                <ResourceDictionary Source="/UI/Themes/Styles/Common/Colors.xaml" />
+                                <ResourceDictionary Source="/UI/Themes/Styles/Common/AnimationStyles.xaml" />
+                                <ResourceDictionary Source="/Converters/SingletonConverters.xaml" />
+                                <ResourceDictionary Source="/Resources/Languages/en.xaml" />
+                                <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
+                        </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+        </Application.Resources>
 </Application>

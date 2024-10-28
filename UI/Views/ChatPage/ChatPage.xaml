@@ -1,0 +1,213 @@
+﻿<Page
+        x:Class="Booger.ChatPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:b="clr-namespace:Booger"
+        xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:skin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+        xmlns:sync="http://schemas.syncfusion.com/wpf"
+        Title="Booger Chat"
+        d:Background="{StaticResource FormBackground}"
+        d:DataContext="{d:DesignInstance Type=b:ChatPage}"
+        d:DesignHeight="600"
+        d:DesignWidth="730"
+        FocusVisualStyle="{x:Null}"
+        mc:Ignorable="d">
+
+        <!--  **************************************  RESOURCES ***********************************************  -->
+
+        <Page.Resources>
+
+                <b:BindingProxy
+                        x:Key="PageProxy"
+                        _data="{Binding}" />
+
+                <Style TargetType="ToolTip">
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="Padding" Value="10" />
+                        <Setter Property="BorderBrush" Value="{StaticResource BlueBorderBrush}" />
+                        <Setter Property="Background" Value="{StaticResource BlackBackground}" />
+                        <Setter Property="Foreground" Value="{StaticResource LightBlueBrush}" />
+                </Style>
+
+        </Page.Resources>
+
+        <!--  ***************************************** LAYOUT ***********************************************  -->
+
+        <Grid>
+                <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="130" />
+                </Grid.RowDefinitions>
+                <ScrollViewer
+                        Name="MessagesScrollViewer"
+                        HorizontalScrollBarVisibility="Disabled"
+                        VirtualizingPanel.CacheLengthUnit="Pixel"
+                        VirtualizingPanel.ScrollUnit="Pixel">
+                        <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="Loaded">
+                                        <behaviors:CallMethodAction MethodName="ScrollToEnd" />
+                                </behaviors:EventTrigger>
+                                <behaviors:EventTrigger EventName="ScrollChanged">
+                                        <behaviors:InvokeCommandAction Command="{Binding ScrollToEndWhileReceivingCommand}" />
+                                </behaviors:EventTrigger>
+                        </behaviors:Interaction.Triggers>
+                        <ItemsControl
+                                Name="Messages"
+                                Padding="10,10,10,20"
+                                d:ItemsSource="{d:SampleData ItemCount=5}"
+                                ItemsSource="{Binding ViewModel.Messages}">
+                                <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel />
+                                        </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                                <b:ChatBubble
+                                                        HorizontalAlignment="{Binding SelfAlignment}"
+                                                        HorizontalContentAlignment="{Binding SelfAlignment}"
+                                                        BorderThickness="1"
+                                                        _content="{Binding Content, Mode=TwoWay}"
+                                                        _contentBackground="{DynamicResource ChatBubbleBackground}"
+                                                        _contentForeground="{DynamicResource FormForeground}"
+                                                        _cornerRadius="{Binding SelfCornorRadius}"
+                                                        _isReadonly="{Binding IsReadOnly}"
+                                                        _username="{Binding DisplayName}">
+                                                        <b:ChatBubble.Style>
+                                                                <Style
+                                                                        BasedOn="{StaticResource AnimatedChatBubble}"
+                                                                        TargetType="b:ChatBubble">
+                                                                        <Setter Property="_headerForeground" Value="Gray" />
+                                                                        <Setter Property="BorderBrush" Value="{DynamicResource ChatBubbleBorder}" />
+                                                                        <Style.Triggers>
+                                                                                <Trigger Property="_isReadonly" Value="False">
+                                                                                        <Setter Property="_headerForeground" Value="#569de5" />
+                                                                                        <Setter Property="BorderBrush" Value="#569de5" />
+                                                                                </Trigger>
+                                                                        </Style.Triggers>
+                                                                </Style>
+                                                        </b:ChatBubble.Style>
+                                                        <behaviors:Interaction.Triggers>
+                                                                <behaviors:EventTrigger EventName="MouseDoubleClick">
+                                                                        <behaviors:InvokeCommandAction Command="{Binding StartEditCommand}" />
+                                                                </behaviors:EventTrigger>
+                                                                <behaviors:EventTrigger EventName="LostFocus">
+                                                                        <behaviors:InvokeCommandAction Command="{Binding EndEditCommand}" />
+                                                                </behaviors:EventTrigger>
+                                                        </behaviors:Interaction.Triggers>
+                                                        <b:ChatBubble.ContextMenu>
+                                                                <ContextMenu>
+                                                                        <MenuItem
+                                                                                Command="{Binding CopyCommand}"
+                                                                                Header="{DynamicResource StrCopy}" />
+                                                                        <MenuItem
+                                                                                Command="{Binding StartEditCommand}"
+                                                                                Header="{DynamicResource StrEdit}" />
+                                                                        <MenuItem Header="{DynamicResource StrDelete}">
+                                                                                <MenuItem
+                                                                                        Command="{Binding Source={StaticResource PageProxy}, Path=_data.ViewModel.DeleteMessageCommand}"
+                                                                                        CommandParameter="{Binding}"
+                                                                                        Header="{DynamicResource StrThis}" />
+                                                                                <MenuItem
+                                                                                        Command="{Binding Source={StaticResource PageProxy}, Path=_data.ViewModel.DeleteMessagesAboveCommand}"
+                                                                                        CommandParameter="{Binding}"
+                                                                                        Header="{DynamicResource StrAllAbove}" />
+                                                                                <MenuItem
+                                                                                        Command="{Binding Source={StaticResource PageProxy}, Path=_data.ViewModel.DeleteMessagesBelowCommand}"
+                                                                                        CommandParameter="{Binding}"
+                                                                                        Header="{DynamicResource StrAllBelow}" />
+                                                                        </MenuItem>
+                                                                </ContextMenu>
+                                                        </b:ChatBubble.ContextMenu>
+                                                </b:ChatBubble>
+                                        </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                </ScrollViewer>
+                <Grid Grid.Row="1">
+                        <TextBox
+                                Name="InputBox"
+                                Padding="5"
+                                b:FocusUtils._isAutoLogicFocus="True"
+                                AcceptsReturn="True"
+                                BorderThickness="0,1,0,0"
+                                FontSize="14"
+                                Text="{Binding ViewModel.InputBoxText, UpdateSourceTrigger=PropertyChanged}"
+                                TextWrapping="Wrap">
+                                <TextBox.InputBindings>
+                                        <KeyBinding
+                                                Key="Return"
+                                                Command="{Binding ChatCommand}"
+                                                Modifiers="Ctrl" />
+                                        <KeyBinding
+                                                Key="Return"
+                                                Command="{Binding CancelCommand}"
+                                                Modifiers="Ctrl+Shift" />
+                                </TextBox.InputBindings>
+                        </TextBox>
+                        <b:ConditionalControl
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                _condition="{Binding ChatCommand.IsRunning}">
+                                <b:ConditionalControl._elementWhileFalse>
+                                        <Button
+                                                Margin="10"
+                                                Padding="10,5"
+                                                Command="{Binding ChatCommand}"
+                                                Content="{DynamicResource StrSend}">
+                                                <Button.ToolTip>
+                                                        <TextBlock>
+                                                                <Run Text="{DynamicResource StrSendMessage}" />
+                                                                <Run Text="(Ctrl+Enter)" />
+                                                        </TextBlock>
+                                                </Button.ToolTip>
+                                                <Button.Resources>
+                                                        <Style TargetType="Border">
+                                                                <Setter Property="CornerRadius" Value="3" />
+                                                        </Style>
+                                                </Button.Resources>
+                                        </Button>
+                                </b:ConditionalControl._elementWhileFalse>
+                                <b:ConditionalControl._elementWhileTrue>
+                                        <Button
+                                                Margin="10"
+                                                Padding="10,5"
+                                                b:UiUtils._cornerRadius="3"
+                                                Command="{Binding CancelCommand}"
+                                                Content="{DynamicResource StrCancel}"
+                                                Style="{StaticResource SecondaryButton}">
+                                                <Button.ToolTip>
+                                                        <TextBlock>
+                                                                <Run Text="{DynamicResource StrCancelSendingMessage}" />
+                                                                <Run Text="(Ctrl+Shift+Enter)" />
+                                                        </TextBlock>
+                                                </Button.ToolTip>
+                                        </Button>
+                                </b:ConditionalControl._elementWhileTrue>
+                        </b:ConditionalControl>
+                </Grid>
+                <GridSplitter
+                        Grid.Row="1"
+                        Height="3"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Top"
+                        Background="Transparent" />
+                <b:ConditionalControl _condition="{Binding ConfigurationService.Configuration.DisableChatAnimation}">
+                        <b:ConditionalControl._elementWhileFalse>
+                                <b:ConditionalControl _condition="{Binding ChatCommand.IsRunning}">
+                                        <b:ConditionalControl._elementWhileTrue>
+                                                <b:LoadingCircle
+                                                        Width="30"
+                                                        Margin="10"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Top"
+                                                        Foreground="{StaticResource FormForeground}" />
+                                        </b:ConditionalControl._elementWhileTrue>
+                                </b:ConditionalControl>
+                        </b:ConditionalControl._elementWhileFalse>
+                </b:ConditionalControl>
+        </Grid>
+</Page>

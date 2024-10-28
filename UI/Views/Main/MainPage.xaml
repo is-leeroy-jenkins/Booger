@@ -4,14 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Booger"
+    xmlns:sync="http://schemas.syncfusion.com/wpf"
+    xmlns:skin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+    xmlns:b="clr-namespace:Booger"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="clr-namespace:System;assembly=mscorlib"
-    xmlns:skin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
-    xmlns:sync="http://schemas.syncfusion.com/wpf"
-    Title="MainPage"
-    d:Background="White"
-    d:DataContext="{d:DesignInstance Type=local:MainPage}"
+    Title="Booger GPT"
+    d:Background="{StaticResource FormBackground}"
+    d:DataContext="{d:DesignInstance Type=b:MainPage}"
     d:DesignHeight="600"
     d:DesignWidth="880"
     sync:SfSkinManager.Theme="{skin:SkinManagerExtension ThemeName=FluentDark}"
@@ -19,20 +19,25 @@
     Style="{DynamicResource AnimatedPageStyle}"
     mc:Ignorable="d">
 
-    <!--******************************************** Resources *********************************************-->
+    <!--  ******************************************** RESOURCES *********************************************  -->
 
     <Page.Resources>
-        <local:BindingProxy
+        <b:BindingProxy
             x:Key="PageSelf"
             _data="{Binding}" />
 
         <Style TargetType="ToolTip">
-            <Setter Property="BorderThickness" Value="1,1,1,1" />
-            <Setter Property="BorderBrush" Value="#0078D4" />
-            <Setter Property="Background" Value="#FF000000" />
-            <Setter Property="Foreground" Value="#FF9CD3FD" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="BorderBrush" Value="{StaticResource BlueBorderBrush}" />
+            <Setter Property="Background" Value="{StaticResource FormBackground}" />
+            <Setter Property="Foreground" Value="{StaticResource LightBlueBrush}" />
         </Style>
+
     </Page.Resources>
+
+    <!--  ******************************************** LAYOUT *********************************************  -->
+
     <Page.InputBindings>
         <KeyBinding
             Key="R"
@@ -68,7 +73,7 @@
             Modifiers="Ctrl" />
     </Page.InputBindings>
 
-<!--******************************************** Resources *********************************************-->
+    <!--  ******************************************** Resources *********************************************  -->
 
     <Grid>
         <Grid.RowDefinitions>
@@ -78,12 +83,12 @@
         <Grid>
             <Border
                 Padding="5"
-                BorderBrush="{DynamicResource GeneralBorder}"
+                BorderBrush="{StaticResource BlueBorderBrush}"
                 BorderThickness="0,0,0,1">
                 <Grid>
                     <TextBlock
                         FontSize="{DynamicResource ExtremLargeFontSize}"
-                        Foreground="{DynamicResource FontForeground}"
+                        Foreground="{DynamicResource FormForeground}"
                         Text="{DynamicResource StrChat}" />
                     <StackPanel
                         HorizontalAlignment="Right"
@@ -97,26 +102,28 @@
                         <Button
                             Margin="0,0,3,0"
                             Padding="3"
-                            Background="{DynamicResource ControlBackground}"
+                            Background="{DynamicResource ControlInteriorBrush}"
                             BorderThickness="0"
                             Command="{Binding ResetChatCommand}"
                             Content="♻"
-                            Foreground="{DynamicResource FontForeground}">
+                            Foreground="{DynamicResource FormForeground}">
+
                             <Button.ToolTip>
                                 <TextBlock>
                                     <Run Text="{DynamicResource StrResetChat}" />
                                     <Run Text="(Ctrl+R)" />
                                 </TextBlock>
                             </Button.ToolTip>
+
                         </Button>
 
                         <Button
                             Padding="3"
-                            Background="{DynamicResource ControlBackground}"
+                            Background="{DynamicResource ControlInteriorBrush}"
                             BorderThickness="0"
                             Command="{Binding GoToConfigPageCommand}"
                             Content="⚙︎"
-                            Foreground="{DynamicResource FontForeground}"
+                            Foreground="{DynamicResource FormForeground}"
                             ToolTip="{DynamicResource StrGoToConfigurationPage}" />
 
                     </StackPanel>
@@ -138,10 +145,10 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-<!--******************************************** ScrollViewer *********************************************-->
+                <!--  ******************************************** SCROLLVIEWER *********************************************  -->
 
                 <ScrollViewer
-                    Name="sessionsScrollViewer"
+                    Name="SessionsScrollViewer"
                     HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto">
                     <ListBox
@@ -149,7 +156,7 @@
                         Padding="0"
                         HorizontalAlignment="Stretch"
                         d:ItemsSource="{d:SampleData ItemCount=5}"
-                        Background="{DynamicResource GeneralBackground}"
+                        Background="{StaticResource FormBackground}"
                         BorderThickness="0"
                         ItemsSource="{Binding AppGlobalData.Sessions}"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -175,10 +182,10 @@
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="{DynamicResource SessionHoverBackground}" />
+                                                    <Setter Property="Background" Value="{DynamicResource ControlHoverBrush}" />
                                                 </Trigger>
                                                 <Trigger Property="IsSelected" Value="True">
-                                                    <Setter Property="Background" Value="{DynamicResource SessionSelectedBackgroun}" />
+                                                    <Setter Property="Background" Value="{DynamicResource SteelBlueBackground}" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
@@ -216,7 +223,7 @@
                                         Background="Transparent"
                                         BorderThickness="1"
                                         FontSize="{DynamicResource NormalFontSize}"
-                                        Foreground="{DynamicResource FontForeground}"
+                                        Foreground="{DynamicResource FormForeground}"
                                         IsHitTestVisible="{Binding IsEditing}"
                                         IsReadOnly="{Binding IsReadOnly}"
                                         Text="{Binding Name, TargetNullValue='New Session'}">
@@ -246,7 +253,7 @@
                                         HorizontalAlignment="Stretch"
                                         Background="Transparent"
                                         FontSize="{DynamicResource SmallFontSize}"
-                                        Foreground="{DynamicResource FontForegroundLight}"
+                                        Foreground="{DynamicResource FormForeground}"
                                         TextTrimming="CharacterEllipsis"
                                         TextWrapping="NoWrap">
                                         <TextBlock.Resources>
@@ -267,7 +274,7 @@
                     BorderThickness="0"
                     Command="{Binding NewSessionCommand}"
                     Content="{DynamicResource StrNewSession}"
-                    Foreground="{DynamicResource FontForeground}">
+                    Foreground="{DynamicResource FormForeground}">
                     <Button.ToolTip>
                         <TextBlock>
                             <Run Text="{DynamicResource StrNewSession}" />
@@ -280,7 +287,7 @@
                 Grid.Column="1"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                Background="{DynamicResource GeneralBorder}" />
+                Background="{StaticResource BlueBorderBrush}" />
             <Frame
                 Grid.Column="2"
                 Content="{Binding ViewModel.CurrentChat}"

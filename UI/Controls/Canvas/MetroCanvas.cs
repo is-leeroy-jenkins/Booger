@@ -76,7 +76,7 @@ namespace Booger
             HorizontalAlignment = HorizontalAlignment.Center;
             VerticalAlignment = VerticalAlignment.Stretch;
             Margin = new Thickness( 3 );
-            Background = _theme.BorderColor;
+            Background = _theme.BorderBrush;
         }
 
         /// <summary>

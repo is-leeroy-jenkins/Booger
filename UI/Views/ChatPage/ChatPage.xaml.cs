@@ -76,9 +76,9 @@ namespace Booger
             TitleGenerationService = titleGenerationService;
             DataContext = this;
             InitializeComponent( );
-            messagesScrollViewer.PreviewMouseWheel += CloseAutoScrollWhileMouseWheel;
-            messagesScrollViewer.ScrollChanged += MessageScrolled;
-            smoothScrollingService.Register( messagesScrollViewer );
+            MessagesScrollViewer.PreviewMouseWheel += CloseAutoScrollWhileMouseWheel;
+            MessagesScrollViewer.ScrollChanged += MessageScrolled;
+            smoothScrollingService.Register( MessagesScrollViewer );
         }
 
         private ChatSessionModel _currentSessionModel;
@@ -136,7 +136,7 @@ namespace Booger
             }
 
             // 发个消息, 将自动滚动打开, 如果已经在底部, 则将自动滚动打开
-            if( messagesScrollViewer.IsAtEnd( ) )
+            if( MessagesScrollViewer.IsAtEnd( ) )
             {
                 _autoScrollToEnd = true;
             }
@@ -238,20 +238,20 @@ namespace Booger
 
         private void MessageScrolled( object sender, ScrollChangedEventArgs e )
         {
-            if( e.OriginalSource != messagesScrollViewer )
+            if( e.OriginalSource != MessagesScrollViewer )
             {
                 return;
             }
 
-            if( messagesScrollViewer.IsAtEnd( ) )
+            if( MessagesScrollViewer.IsAtEnd( ) )
             {
                 _autoScrollToEnd = true;
             }
 
             if( e.VerticalChange != 0
-                && messages.IsLoaded
+                && Messages.IsLoaded
                 && IsLoaded
-                && messagesScrollViewer.IsAtTop( 10 )
+                && MessagesScrollViewer.IsAtTop( 10 )
                 && ViewModel.Messages.FirstOrDefault( )?.Storage?.Timestamp is DateTime _timestamp )
             {
                 foreach( var _msg in ChatStorageService.GetLastMessagesBefore( SessionId, 10,
@@ -260,8 +260,8 @@ namespace Booger
                     ViewModel.Messages.Insert( 0, new ChatMessageModel( _msg ) );
                 }
 
-                var _distanceFromEnd = messagesScrollViewer.ScrollableHeight
-                    - messagesScrollViewer.VerticalOffset;
+                var _distanceFromEnd = MessagesScrollViewer.ScrollableHeight
+                    - MessagesScrollViewer.VerticalOffset;
 
                 Dispatcher.BeginInvoke( DispatcherPriority.Loaded,
                     new Action<ScrollChangedEventArgs>( e =>
@@ -279,7 +279,7 @@ namespace Booger
         {
             if( ChatCommand.IsRunning && _autoScrollToEnd )
             {
-                messagesScrollViewer.ScrollToEnd( );
+                MessagesScrollViewer.ScrollToEnd( );
             }
         }
     }

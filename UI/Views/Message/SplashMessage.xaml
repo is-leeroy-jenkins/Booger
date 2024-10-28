@@ -12,7 +12,7 @@
        VerticalAlignment="Center" Source="/Resources/Assets/DialogImages/SplashNotification.png" />
 <Label x:Name="TitleLabel" Canvas.Left="36" Canvas.Top="1" Width="454" Margin="3,3,3,3"
        Padding="5,1,5,5" VerticalAlignment="Top" Content="Message" FontSize="16"
-       Foreground="#FFA0BDFC" OpacityMask="Black" SnapsToDevicePixels="True" />
+       Foreground="{StaticResource LightBlueBrush}" OpacityMask="Black" SnapsToDevicePixels="True" />
 <Label x:Name="MessageLabel" Canvas.Left="155" Canvas.Top="105" Width="525" Height="225"
        VerticalAlignment="Top" Content="Label" FontSize="14" Foreground="#FFFCFEFF" />
 <local:MetroLabel x:Name="StatusLabel" Canvas.Left="675" Canvas.Top="5" Width="145" Height="20"

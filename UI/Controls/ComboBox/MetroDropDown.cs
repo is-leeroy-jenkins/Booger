@@ -78,7 +78,7 @@ namespace Booger
             SetResourceReference( StyleProperty, typeof( DropDownButtonAdv ) );
             Width = 200;
             Height = 35;
-            FontFamily = new FontFamily( "Segoe UI" );
+            FontFamily = new FontFamily( "Roboto" );
             FontSize = 12;
             Padding = new Thickness( 1 );
             BorderThickness = new Thickness( 0 );
@@ -87,9 +87,9 @@ namespace Booger
             HorizontalContentAlignment = HorizontalAlignment.Left;
             VerticalContentAlignment = VerticalAlignment.Center;
             DropDirection = DropDirection.BottomLeft;
-            Background = _theme.BackColor;
-            Foreground = _theme.ForeColor;
-            BorderBrush = _theme.BorderColor;
+            Background = _theme.Background;
+            Foreground = _theme.Foreground;
+            BorderBrush = _theme.BorderBrush;
         }
 
         /// <summary>

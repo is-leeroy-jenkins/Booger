@@ -8,7 +8,7 @@
         Title="Search File System" Width="700" Height="480" Padding="1,1,1,1"
         syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentDark}"
         Background="#FF141414" BorderBrush="#FF078D4" BorderThickness="1,1,1,1"
-        Foreground="#FFA0BDFC" Icon="/Resources/Assets/Dialog/FileBrowse.png"
+        Foreground="{StaticResource LightBlueBrush}" Icon="/Resources/Assets/Dialog/FileBrowse.png"
         WindowStartupLocation="CenterScreen" mc:Ignorable="d">
 <!--******************************************** Context Menu ******************************************-->
 <Grid x:Name="BrowserGrid">
@@ -45,7 +45,7 @@
                         Height="20" Margin="17,36,0,0" Padding="1,1,1,1" HorizontalAlignment="Left"
                         VerticalAlignment="Top" BorderThickness="1,1,1,1" Content="  MS Access "
                         Tag="ACCDB" ToolTip="*.accdb " />
-<local:MetroRadioButton x:Name="SQLiteRadioButton" Grid.Row="1" Grid.Column="2" Width="100"
+<local:MetroRadioButton x:Name="SqLiteRadioButton" Grid.Row="1" Grid.Column="2" Width="100"
                         Height="20" Margin="17,65,0,0" Padding="1,1,1,1" HorizontalAlignment="Left"
                         VerticalAlignment="Top" BorderThickness="1,1,1,1" Content="  SQLite "
                         Tag="DB" ToolTip="*.db files" />

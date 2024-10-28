@@ -78,9 +78,9 @@ namespace Booger
             SetResourceReference( StyleProperty, typeof( CheckListBox ) );
             Width = 225.0;
             Height = 200.0;
-            Background = _theme.ControlColor;
-            Foreground = _theme.ForeColor;
-            BorderBrush = _theme.BorderColor;
+            Background = _theme.ControlInterior;
+            Foreground = _theme.Foreground;
+            BorderBrush = _theme.BorderBrush;
             Padding = new Thickness( 10, 1, 1, 1 );
             BorderThickness = new Thickness( 1 );
             VerticalAlignment = VerticalAlignment.Stretch;

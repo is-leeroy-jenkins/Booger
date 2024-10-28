@@ -82,9 +82,9 @@ namespace Booger
             Padding = _theme.Padding;
             Margin = _theme.Margin;
             BorderThickness = _theme.BorderThickness;
-            Background = _theme.ControlColor;
-            Foreground = _theme.LightBlueColor;
-            BorderBrush = _theme.ControlColor;
+            Background = _theme.ControlInterior;
+            Foreground = _theme.LightBlueBrush;
+            BorderBrush = _theme.ControlInterior;
 
             // Wire Events
             MouseEnter += OnMouseEnter;
@@ -102,9 +102,9 @@ namespace Booger
         {
             try
             {
-                Background = _theme.DarkBlueColor;
-                Foreground = _theme.WhiteColor;
-                BorderBrush = _theme.LightBlueColor;
+                Background = _theme.DarkBlueBrush;
+                Foreground = _theme.WhiteForeground;
+                BorderBrush = _theme.LightBlueBrush;
             }
             catch( Exception ex )
             {
@@ -123,9 +123,9 @@ namespace Booger
         {
             try
             {
-                Background = _theme.ControlColor;
-                Foreground = _theme.LightBlueColor;
-                BorderBrush = _theme.ControlColor;
+                Background = _theme.ControlInterior;
+                Foreground = _theme.LightBlueBrush;
+                BorderBrush = _theme.ControlInterior;
             }
             catch( Exception ex )
             {

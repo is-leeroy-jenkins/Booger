@@ -44,10 +44,22 @@ namespace Booger
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-    using System.Text;
+    using System.IO;
+    using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Media;
+    using System.Windows.Threading;
+    using CommunityToolkit.Mvvm.Input;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using OfficeOpenXml;
+    using RestoreWindowPlace;
+    using Syncfusion.Licensing;
+    using Syncfusion.SfSkinManager;
+    using Syncfusion.Themes.FluentDark.WPF;
+    using ConfigurationManager = System.Configuration.ConfigurationManager;
 
     /// <summary>
     /// 
@@ -68,7 +80,7 @@ namespace Booger
         /// </summary>
         static EntryPoint( )
         {
-            AppDomain.CurrentDomain.UnhandledException += EntryPoint.OnUnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
         }
 
         /// <summary>
@@ -86,11 +98,14 @@ namespace Booger
         /// Handles the UnhandledException event of the CurrentDomain control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="UnhandledExceptionEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="UnhandledExceptionEventArgs"/>
+        /// instance containing the event data.</param>
         private static void OnUnhandledException( object sender, UnhandledExceptionEventArgs e )
         {
-            NativeMethods.MessageBox( MainWindowHandle, $"{e.ExceptionObject}",
-                "UnhandledException", MessageBoxFlags.Ok | MessageBoxFlags.IconError );
+            var _msg = "Unhandled Exception!";
+            var _ex = e.ExceptionObject as Exception;
+            Fail( _ex );
+            Environment.Exit( 1 );
         }
 
         /// <summary>

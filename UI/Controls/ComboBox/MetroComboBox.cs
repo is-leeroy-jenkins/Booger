@@ -87,9 +87,9 @@ namespace Booger
             AllowMultiSelect = false;
             IsTextSearchEnabled = false;
             AllowSelectAll = false;
-            Background = _theme.ControlColor;
-            Foreground = _theme.ForeColor;
-            BorderBrush = _theme.BorderColor;
+            Background = _theme.ControlBackground;
+            Foreground = _theme.Foreground;
+            BorderBrush = _theme.BorderBrush;
         }
 
         /// <summary>
@@ -102,9 +102,9 @@ namespace Booger
             {
                 var _item = new MetroComboBoxItem
                 {
-                    Background = _theme.ControlColor,
-                    Foreground = _theme.ForeColor,
-                    BorderBrush = _theme.ControlColor,
+                    Background = _theme.ControlInterior,
+                    Foreground = _theme.Foreground,
+                    BorderBrush = _theme.BorderBrush,
                     Content = name,
                     Tag = name,
                     Height = 22

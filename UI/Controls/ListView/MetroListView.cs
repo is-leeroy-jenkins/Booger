@@ -1,14 +1,14 @@
 ﻿// ******************************************************************************************
-//     Assembly:                Booger
+//     Assembly:                Badger
 //     Author:                  Terry D. Eppler
-//     Created:                 08-08-2024
+//     Created:                 08-01-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        08-08-2024
+//     Last Modified On:        08-01-2024
 // ******************************************************************************************
 // <copyright file="MetroListView.cs" company="Terry D. Eppler">
-//    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
-//    based on NET6 and written in C-Sharp.
+//    Badger is data analysis and reporting tool for EPA Analysts
+//    based on WPF, NET6.0, and written in C-Sharp.
 // 
 //    Copyright ©  2024  Terry D. Eppler
 // 
@@ -44,7 +44,6 @@ namespace Booger
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Windows.Controls;
-    using System.Windows.Media;
 
     /// <inheritdoc />
     /// <summary>
@@ -53,51 +52,13 @@ namespace Booger
     [ SuppressMessage( "ReSharper", "InconsistentNaming" ) ]
     [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    [ SuppressMessage( "ReSharper", "ClassNeverInstantiated.Global" ) ]
     public class MetroListView : ListView
     {
         /// <summary>
-        /// The border color
+        /// The theme
         /// </summary>
-        private readonly Color _borderColor = new Color( )
-        {
-            A = 255,
-            R = 0,
-            G = 120,
-            B = 212
-        };
-
-        /// <summary>
-        /// The back color
-        /// </summary>
-        private protected Color _backColor = new Color( )
-        {
-            A = 255,
-            R = 45,
-            G = 45,
-            B = 45
-        };
-
-        /// <summary>
-        /// The back hover color
-        /// </summary>
-        private protected Color _backHover = new Color( )
-        {
-            A = 255,
-            R = 17,
-            G = 53,
-            B = 84
-        };
-
-        /// <summary>
-        /// The fore color
-        /// </summary>
-        private protected Color _foreColor = new Color( )
-        {
-            A = 255,
-            R = 222,
-            G = 222,
-            B = 222
-        };
+        private protected readonly DarkMode _theme = new DarkMode( );
 
         /// <inheritdoc />
         /// <summary>
@@ -108,17 +69,12 @@ namespace Booger
             : base( )
         {
             // Control Properties
-            Width = 300;
-            MinWidth = 200;
-            MaxWidth = 900;
-            Height = 270;
-            MinHeight = 170;
-            MaxHeight = 900;
-            FontSize = 12;
-            FontFamily = new FontFamily( "Segoe UI" );
-            Background = new SolidColorBrush( _backColor );
-            BorderBrush = new SolidColorBrush( _borderColor );
-            Foreground = new SolidColorBrush( _foreColor );
+            Foreground = _theme.Foreground;
+            Background = _theme.ControlBackground;
+            BorderBrush = _theme.ControlBackground;
+            Margin = _theme.Margin;
+            Padding = _theme.Padding;
+            BorderThickness = _theme.BorderThickness;
         }
 
         /// <summary>

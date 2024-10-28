@@ -12,7 +12,7 @@
     <Version>1.0.0.0</Version>
     <ImplicitUsings>disable</ImplicitUsings>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <StartupObject>Booger.EntryPoint</StartupObject>
+    <StartupObject>Booger.App</StartupObject>
     <Authors>Terry Eppler</Authors>
     <PackageProjectUrl>https://github.com/is-leeroy-jenkins/Booger</PackageProjectUrl>
     <Description>A small WPF application for interacting with Chat GPT.</Description>
@@ -70,11 +70,14 @@
     <None Remove="Resources\Fonts\JetBrainsMono-Regular.ttf" />
     <None Remove="Resources\Fonts\Monaco.ttf" />
     <None Remove="Resources\Fonts\Roboto-Regular.ttf" />
+    <None Remove="SplashScreen.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Assets\Form\Application.ico" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="CefSharp.Common.NETCore" Version="129.0.110" />
+    <PackageReference Include="CefSharp.Wpf.NETCore" Version="129.0.110" />
     <PackageReference Include="ColorCode.Core" Version="2.0.15" />
     <PackageReference Include="EPPlus" Version="7.3.2" />
     <PackageReference Include="LiteDB" Version="5.0.21" />
@@ -86,24 +89,12 @@
     <PackageReference Include="ModernWpfUI" Version="0.9.6" />
     <PackageReference Include="OpenAI-DotNet" Version="8.2.5" />
     <PackageReference Include="RestoreWindowPlace" Version="2.1.0" />
-    <PackageReference Include="Syncfusion.Edit.WPF" Version="27.1.48" />
-    <PackageReference Include="Syncfusion.Licensing" Version="27.1.48" />
-    <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="27.1.48" />
-    <PackageReference Include="Syncfusion.SfAccordion.WPF" Version="27.1.48" />
-    <PackageReference Include="Syncfusion.SfBarcode.WPF" Version="27.1.48" />
-    <PackageReference Include="Syncfusion.SfChromelessWindow.WPF" Version="27.1.48" />
-    <PackageReference Include="Syncfusion.SfColorPalette.WPF" Version="27.1.48" />
-    <PackageReference Include="Syncfusion.SfHubTile.WPF" Version="27.1.48" />
-    <PackageReference Include="Syncfusion.SfNavigationDrawer.WPF" Version="27.1.48" />
-    <PackageReference Include="Syncfusion.SfProgressBar.WPF" Version="27.1.48" />
-    <PackageReference Include="Syncfusion.SfRadialMenu.WPF" Version="27.1.48" />
-    <PackageReference Include="Syncfusion.SfRichTextBoxAdv.WPF" Version="27.1.48" />
-    <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="27.1.48" />
-    <PackageReference Include="Syncfusion.Shared.Base" Version="27.1.48" />
-    <PackageReference Include="Syncfusion.Shared.WPF" Version="27.1.48" />
-    <PackageReference Include="Syncfusion.Themes.FluentDark.WPF" Version="27.1.48" />
-    <PackageReference Include="Syncfusion.Tools.WPF" Version="27.1.48" />
-    <PackageReference Include="Syncfusion.UI.WPF.NET" Version="27.1.48" />
+    <PackageReference Include="Syncfusion.Licensing" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.Shared.Base" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.Themes.FluentDark.WPF" Version="24.1.41" />
+    <PackageReference Include="Syncfusion.UI.WPF.NET" Version="24.1.41" />
     <PackageReference Include="System.Data.OleDb" Version="8.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
@@ -175,7 +166,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UI\Views\ChatPage\" />
-    <Folder Include="UI\Views\SessionDialog\" />
+    <Folder Include="UI\Views\Configuration\" />
+  </ItemGroup>
+  <ItemGroup>
+    <SplashScreen Include="SplashScreen.png" />
   </ItemGroup>
 </Project>

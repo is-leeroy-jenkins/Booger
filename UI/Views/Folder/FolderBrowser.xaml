@@ -8,7 +8,7 @@
         Title="Search File System" Width="800" Height="450" Padding="1,1,1,1"
         syncfusion:SfSkinManager.Theme="{syncfusion:SkinManagerExtension ThemeName=FluentDark}"
         Background="#FF141414" BorderBrush="#FF0078D4" BorderThickness="1,1,1,1"
-        Foreground="#FFA0BDFC" Icon="/Resources/Assets/Dialog/FileBrowse.png"
+        Foreground="{StaticResource LightBlueBrush}" Icon="/Resources/Assets/Dialog/FileBrowse.png"
         WindowStartupLocation="CenterScreen" mc:Ignorable="d">
 <!--******************************************** Context Menu ******************************************-->
 <Grid x:Name="BrowserGrid">
@@ -46,7 +46,7 @@
 <local:MetroLabel x:Name="TimeLabel" Grid.Row="2" Width="130" Margin="0,100,0,3"
                   HorizontalAlignment="Center" Content="Time" FontSize="10" />
 <!--********************************* Tile  *************************************-->
-<local:MetroListBox x:Name="ListBox_Copy" Grid.Row="1" Grid.Column="1" Width="260" Height="185"
+<local:MetroListBox x:Name="ListBoxCopy" Grid.Row="1" Grid.Column="1" Width="260" Height="185"
                     Margin="240,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
                     d:ItemsSource="{d:SampleData ItemCount=5}" />
 <local:MetroLabel x:Name="SelectedLabel" Grid.Row="1" Grid.Column="1" Width="260" Height="25"

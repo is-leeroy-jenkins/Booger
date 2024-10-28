@@ -1,16 +1,17 @@
 ﻿// ******************************************************************************************
 //     Assembly:                Booger
 //     Author:                  Terry D. Eppler
-//     Created:                 08-08-2024
+//     Created:                 09-25-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        08-08-2024
+//     Last Modified On:        09-25-2024
 // ******************************************************************************************
 // <copyright file="DarkMode.cs" company="Terry D. Eppler">
-//    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
-//    based on NET6 and written in C-Sharp.
 // 
-//    Copyright ©  2024  Terry D. Eppler
+//    Ninja is a network toolkit, support iperf, tcp, udp, websocket, mqtt,
+//    sniffer, pcap, port scan, listen, ip scan .etc.
+// 
+//    Copyright ©  2019-2024 Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the “Software”),
@@ -32,7 +33,7 @@
 //    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //    DEALINGS IN THE SOFTWARE.
 // 
-//    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
+//    You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
 //   DarkMode.cs
@@ -50,60 +51,15 @@ namespace Booger
     /// <inheritdoc />
     /// <summary>
     /// </summary>
-    /// <seealso cref="T:Booger.Palette" />
+    /// <seealso cref="T:Bobo.Palette" />
     [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
     [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     [ SuppressMessage( "ReSharper", "InconsistentNaming" ) ]
     [ SuppressMessage( "ReSharper", "AutoPropertyCanBeMadeGetOnly.Global" ) ]
-    public class DarkMode
-        : Palette
+    public class DarkMode : Palette
     {
-        /// <summary>
-        /// Gets the color of the dark blue.
-        /// </summary>
-        /// <value>
-        /// The color of the dark blue.
-        /// </value>
-        public SolidColorBrush DarkBlueColor { get; private protected init; }
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Initializes a new instance of the
-        /// <see cref="T:Booger.DarkTheme" /> class.
-        /// </summary>
-        public DarkMode( )
-            : base( )
-        {
-            ForeColor = new SolidColorBrush( _foreColor );
-            BackColor = new SolidColorBrush( _backColor );
-            BorderColor = new SolidColorBrush( _borderColor );
-            WallColor = new SolidColorBrush( _wallColor );
-            ControlColor = new SolidColorBrush( _controlColor );
-            SteelBlueColor = new SolidColorBrush( _steelBlueColor );
-            GrayColor = new SolidColorBrush( Colors.DarkGray );
-            YellowColor = new SolidColorBrush( _yellowColor );
-            RedColor = new SolidColorBrush( _redColor );
-            KhakiColor = new SolidColorBrush( _khakiColor );
-            GreenColor = new SolidColorBrush( _greenColor );
-            LightBlueColor = new SolidColorBrush( _lightBlue );
-            BlackColor = new SolidColorBrush( _blackColor );
-            WhiteColor = new SolidColorBrush( _whiteColor );
-            DarkBlueColor = new SolidColorBrush( _darkBlueColor );
-            FontFamily = new FontFamily( "Segoe UI" );
-            FontSize = 12;
-            Padding = new Thickness( 1 );
-            Margin = new Thickness( 3 );
-            BorderThickness = new Thickness( 1 );
-            WindowStyle = WindowStyle.SingleBorderWindow;
-            SizeMode = ResizeMode.CanResize;
-            StartLocation = WindowStartupLocation.CenterScreen;
-            _color = CreateColors( );
-            _colorModel = CreateColorModel( );
-            _colorMap = CreateColorMap( );
-        }
-
         /// <inheritdoc />
         /// <summary>
         /// Creates the colors.
@@ -115,13 +71,14 @@ namespace Booger
             {
                 var _array = new[ ]
                 {
-                    SteelBlueColor,
-                    GrayColor,
-                    YellowColor,
-                    RedColor,
-                    KhakiColor,
-                    GreenColor,
-                    LightBlueColor
+                    SteelBlueBrush,
+                    GrayBrush,
+                    YellowBrush,
+                    RedBrush,
+                    DarkBlueBrush,
+                    KhakiBrush,
+                    GreenBrush,
+                    LightBlueBrush
                 };
 
                 return _array?.Length > 0
@@ -148,13 +105,14 @@ namespace Booger
             {
                 var _list = new List<Brush>
                 {
-                    SteelBlueColor,
-                    GrayColor,
-                    YellowColor,
-                    RedColor,
-                    KhakiColor,
-                    GreenColor,
-                    LightBlueColor
+                    SteelBlueBrush,
+                    GrayBrush,
+                    YellowBrush,
+                    RedBrush,
+                    DarkBlueBrush,
+                    KhakiBrush,
+                    GreenBrush,
+                    LightBlueBrush
                 };
 
                 return _list?.Count > 0
@@ -180,13 +138,14 @@ namespace Booger
             try
             {
                 var _map = new Dictionary<string, Brush>( );
-                _map.Add( "ItemHoverColor", SteelBlueColor );
-                _map.Add( "GrayColor", GrayColor );
-                _map.Add( "YellowColor", YellowColor );
-                _map.Add( "RedColor", RedColor );
-                _map.Add( "KhakiColor", KhakiColor );
-                _map.Add( "GreenColor", GreenColor );
-                _map.Add( "LightBlue", LightBlueColor );
+                _map.Add( "ItemHoverColor", SteelBlueBrush );
+                _map.Add( "GrayColor", GrayBrush );
+                _map.Add( "YellowColor", YellowBrush );
+                _map.Add( "RedColor", RedBrush );
+                _map.Add( "DarkBlueColor", DarkBlueBrush );
+                _map.Add( "KhakiColor", KhakiBrush );
+                _map.Add( "GreenColor", GreenBrush );
+                _map.Add( "LightBlue", LightBlueBrush );
                 return _map?.Count > 0
                     ? _map
                     : default( IDictionary<string, Brush> );
@@ -197,5 +156,86 @@ namespace Booger
                 return default( IDictionary<string, Brush> );
             }
         }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="T:Badger.DarkTheme" /> class.
+        /// </summary>
+        public DarkMode( )
+            : base( )
+        {
+            Foreground = new SolidColorBrush( _foreColor );
+            Background = new SolidColorBrush( _backColor );
+            BorderBrush = new SolidColorBrush( _borderColor );
+            WallBrush = new SolidColorBrush( _wallColor );
+            ControlBackground = new SolidColorBrush( _controlBackColor );
+            ControlInterior = new SolidColorBrush( _controlInteriorColor );
+            MutedBorderBrush = new SolidColorBrush( _mutedBorderColor );
+            SteelBlueBrush = new SolidColorBrush( _steelBlueColor );
+            GrayBrush = new SolidColorBrush( Colors.DarkGray );
+            YellowBrush = new SolidColorBrush( _yellowColor );
+            RedBrush = new SolidColorBrush( _redColor );
+            DarkBlueBrush = new SolidColorBrush( _darkBlueColor );
+            DarkRedBrush = new SolidColorBrush( _darkRedColor );
+            DarkGreenBrush = new SolidColorBrush( _darkGreenColor );
+            DarkYellowBrush = new SolidColorBrush( _darkGreenColor );
+            KhakiBrush = new SolidColorBrush( _khakiColor );
+            GreenBrush = new SolidColorBrush( _greenColor );
+            LightBlueBrush = new SolidColorBrush( _lightBlue );
+            BlackBrush = new SolidColorBrush( _blackColor );
+            WhiteForeground = new SolidColorBrush( _whiteColor );
+            FontFamily = new FontFamily( "Roboto Regular" );
+            FontSize = 11;
+            Padding = new Thickness( 1 );
+            Margin = new Thickness( 1 );
+            BorderThickness = new Thickness( 1 );
+            WindowStyle = WindowStyle.SingleBorderWindow;
+            SizeMode = ResizeMode.CanResize;
+            StartLocation = WindowStartupLocation.CenterScreen;
+            _color = CreateColors( );
+            _colorModel = CreateColorModel( );
+            _colorMap = CreateColorMap( );
+        }
+
+        /// <summary>
+        /// Gets the color of the dark blue.
+        /// </summary>
+        /// <value>
+        /// The color of the dark blue.
+        /// </value>
+        public SolidColorBrush DarkBlueBrush { get; private protected init; }
+
+        /// <summary>
+        /// Gets the color of the muted border.
+        /// </summary>
+        /// <value>
+        /// The color of the muted border.
+        /// </value>
+        public SolidColorBrush MutedBorderBrush { get; private protected init; }
+
+        /// <summary>
+        /// Gets the dark red brush.
+        /// </summary>
+        /// <value>
+        /// The dark red brush.
+        /// </value>
+        public SolidColorBrush DarkRedBrush { get; private protected init; }
+
+        /// <summary>
+        /// Gets the dark green brush.
+        /// </summary>
+        /// <value>
+        /// The dark green brush.
+        /// </value>
+        public SolidColorBrush DarkGreenBrush { get; private protected init; }
+
+        /// <summary>
+        /// Gets the dark yellow brush.
+        /// </summary>
+        /// <value>
+        /// The dark yellow brush.
+        /// </value>
+        public SolidColorBrush DarkYellowBrush { get; private protected init; }
     }
 }

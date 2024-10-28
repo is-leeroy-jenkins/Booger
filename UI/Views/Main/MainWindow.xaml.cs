@@ -62,6 +62,45 @@ namespace Booger
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// The application window
+        /// </summary>
+        private protected AppWindowModel _appWindowViewModel;
+
+        /// <summary>
+        /// The view model
+        /// </summary>
+        private protected LanguageService _languageService;
+
+        /// <summary>
+        /// The application global data
+        /// </summary>
+        private protected ColorModeService _colorModeService;
+
+        /// <summary>
+        /// The page service
+        /// </summary>
+        private protected PageService _pageService;
+
+        /// <summary>
+        /// The note service
+        /// </summary>
+        private protected NoteService _noteService;
+
+        /// <summary>
+        /// The chat service
+        /// </summary>
+        private protected ChatService _chatService;
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="T:Booger.MainWindow" /> class.
+        /// </summary>
+        public MainWindow( )
+        {
+        }
+
         /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Booger.MainWindow" /> class.
@@ -75,8 +114,8 @@ namespace Booger
             NoteService noteService, LanguageService languageService, 
             ColorModeService colorModeService )
         {
-            Width = 1350;
-            Height = 800;
+            MinWidth = 1350;
+            MinHeight = 800;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             ViewModel = viewModel;
             PageService = pageService;
@@ -137,22 +176,6 @@ namespace Booger
             AppFrame.Navigate( PageService.GetPage( typeof( TPage ) ) );
         }
 
-        /// <inheritdoc />
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.Window.SourceInitialized" /> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" />
-        /// that contains the event data.</param>
-        protected override void OnSourceInitialized( EventArgs e )
-        {
-            base.OnSourceInitialized( e );
-            EntryPoint.MainWindowHandle =
-                new WindowInteropHelper( this ).Handle;
-
-            LanguageService.Init( );
-            ColorModeService.Init( );
-        }
-
         /// <summary>
         /// Creates the notifier.
         /// </summary>
@@ -198,6 +221,22 @@ namespace Booger
             {
                 Fail( ex );
             }
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Window.SourceInitialized" /> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs" />
+        /// that contains the event data.</param>
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+            EntryPoint.MainWindowHandle =
+                new WindowInteropHelper(this).Handle;
+
+            LanguageService.Init();
+            ColorModeService.Init();
         }
 
         /// <summary>

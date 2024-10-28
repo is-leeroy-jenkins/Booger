@@ -183,15 +183,15 @@ namespace Booger
             // Basic Properties
             Width = 560;
             Height = 250;
-            FontFamily = new FontFamily( "Segoe UI" );
+            FontFamily = new FontFamily( "Roboto" );
             FontSize = 12d;
             WindowStyle = _theme.WindowStyle;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
             HorizontalAlignment = HorizontalAlignment.Stretch;
             VerticalAlignment = VerticalAlignment.Stretch;
-            Background = _theme.BackColor;
-            Foreground = _theme.ForeColor;
-            BorderBrush = _theme.RedColor;
+            Background = _theme.DarkRedBrush;
+            Foreground = _theme.Foreground;
+            BorderBrush = _theme.RedBrush;
             Topmost = true;
             ToolTip = "click to clear";
 

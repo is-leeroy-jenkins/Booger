@@ -1,16 +1,16 @@
 ﻿// ******************************************************************************************
-//     Assembly:                Booger
+//     Assembly:                Badger
 //     Author:                  Terry D. Eppler
-//     Created:                 08-08-2024
+//     Created:                 09-07-2020
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        08-08-2024
+//     Last Modified On:        09-07-2024
 // ******************************************************************************************
 // <copyright file="MetroListBoxItem.cs" company="Terry D. Eppler">
-//    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
-//    based on NET6 and written in C-Sharp.
+//    Badger is data analysis and reporting tool for EPA Analysts
+//    that is based on WPF, NET6.0, and written in C-Sharp.
 // 
-//    Copyright ©  2024  Terry D. Eppler
+//     Copyright ©  2020, 2022, 2204 Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the “Software”),
@@ -32,7 +32,7 @@
 //    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //    DEALINGS IN THE SOFTWARE.
 // 
-//    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
+//    You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
 //   MetroListBoxItem.cs
@@ -43,7 +43,9 @@ namespace Booger
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Input;
 
     /// <inheritdoc />
     /// <summary>
@@ -74,14 +76,20 @@ namespace Booger
         public MetroListBoxItem( )
             : base( )
         {
-            Height = 40;
-            Background = _theme.ControlColor;
-            Foreground = _theme.ForeColor;
-            BorderBrush = _theme.ControlColor;
+            // Control Properties
+            Height = 35;
+            Background = _theme.ControlInterior;
+            Foreground = _theme.LightBlueBrush;
+            BorderBrush = _theme.ControlInterior;
+            Margin = _theme.Margin;
+            Padding = new Thickness( 30, 10, 1, 1 );
+            BorderThickness = new Thickness( 0 );
+            HorizontalContentAlignment = HorizontalAlignment.Stretch;
+            VerticalContentAlignment = VerticalAlignment.Stretch;
 
             // Event Wiring
-            MouseEnter += OnItemMouseEnter;
-            MouseLeave += OnItemMouseLeave;
+            MouseEnter += OnMouseEnter;
+            MouseLeave += OnMouseLeave;
         }
 
         /// <summary>
@@ -90,15 +98,16 @@ namespace Booger
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/>
         /// instance containing the event data.</param>
-        private protected void OnItemMouseEnter( object sender, EventArgs e )
+        private protected void OnMouseEnter( object sender, MouseEventArgs e )
         {
             try
             {
                 if( sender is MetroListBoxItem _item )
                 {
-                    _item.Foreground = _theme.WhiteColor;
-                    _item.Background = _theme.SteelBlueColor;
-                    _item.BorderBrush = _theme.SteelBlueColor;
+                    _item.Foreground = _theme.WhiteForeground;
+                    _item.Background = _theme.SteelBlueBrush;
+                    _item.BorderBrush = _theme.SteelBlueBrush;
+                    _item.FontWeight = FontWeights.Bold;
                 }
             }
             catch( Exception ex )
@@ -113,15 +122,16 @@ namespace Booger
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/>
         /// instance containing the event data.</param>
-        private protected void OnItemMouseLeave( object sender, EventArgs e )
+        private protected void OnMouseLeave( object sender, MouseEventArgs e )
         {
             try
             {
                 if( sender is MetroListBoxItem _item )
                 {
-                    _item.Foreground = _theme.ForeColor;
-                    _item.Background = _theme.ControlColor;
-                    _item.BorderBrush = _theme.ControlColor;
+                    _item.Foreground = _theme.Foreground;
+                    _item.Background = _theme.ControlInterior;
+                    _item.BorderBrush = _theme.ControlInterior;
+                    _item.FontWeight = FontWeights.Normal;
                 }
             }
             catch( Exception ex )

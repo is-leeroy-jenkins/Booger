@@ -1,16 +1,17 @@
 ﻿// ******************************************************************************************
-//     Assembly:                Booger
+//     Assembly:                Ninja
 //     Author:                  Terry D. Eppler
-//     Created:                 08-08-2024
+//     Created:                 09-25-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        08-08-2024
+//     Last Modified On:        09-25-2024
 // ******************************************************************************************
 // <copyright file="Palette.cs" company="Terry D. Eppler">
-//    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
-//    based on NET6 and written in C-Sharp.
 // 
-//    Copyright ©  2024  Terry D. Eppler
+//    Ninja is a network toolkit, support iperf, tcp, udp, websocket, mqtt,
+//    sniffer, pcap, port scan, listen, ip scan .etc.
+// 
+//    Copyright ©  2019-2024 Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the “Software”),
@@ -32,7 +33,7 @@
 //    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //    DEALINGS IN THE SOFTWARE.
 // 
-//    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
+//    You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
 //   Palette.cs
@@ -51,7 +52,7 @@ namespace Booger
     /// <inheritdoc />
     /// <summary>
     /// </summary>
-    /// <seealso cref="T:Booger.Dimensions" />
+    /// <seealso cref="Dimensions" />
     [ SuppressMessage( "ReSharper", "MemberCanBeProtected.Global" ) ]
     [ SuppressMessage( "ReSharper", "InconsistentNaming" ) ]
     [ SuppressMessage( "ReSharper", "UseObjectOrCollectionInitializer" ) ]
@@ -112,12 +113,23 @@ namespace Booger
         /// <summary>
         /// The control color
         /// </summary>
-        private protected Color _controlColor = new Color( )
+        private protected Color _controlBackColor = new Color( )
         {
             A = 255,
-            R = 45,
-            G = 45,
-            B = 45
+            R = 40,
+            G = 40,
+            B = 40
+        };
+
+        /// <summary>
+        /// The control color
+        /// </summary>
+        private protected Color _controlInteriorColor = new Color( )
+        {
+            A = 255,
+            R = 61,
+            G = 61,
+            B = 61
         };
 
         /// <summary>
@@ -126,9 +138,9 @@ namespace Booger
         private protected Color _darkBlueColor = new Color( )
         {
             A = 255,
-            R = 1,
-            G = 35,
-            B = 54
+            R = 14,
+            G = 60,
+            B = 94
         };
 
         /// <summary>
@@ -221,10 +233,54 @@ namespace Booger
         /// </summary>
         private protected Color _yellowColor = Colors.Yellow;
 
+        /// <summary>
+        /// The muted border color
+        /// </summary>
+        private protected Color _mutedBorderColor = new Color( )
+        {
+            A = 255,
+            R = 90,
+            G = 90,
+            B = 90
+        };
+
+        /// <summary>
+        /// The dark green color
+        /// </summary>
+        private protected Color _darkGreenColor = new Color( )
+        {
+            A = 255,
+            R = 1,
+            G = 61,
+            B = 17
+        };
+
+        /// <summary>
+        /// The dark red color
+        /// </summary>
+        private protected Color _darkRedColor = new Color( )
+        {
+            A = 255,
+            R = 40,
+            G = 0,
+            B = 0
+        };
+
+        /// <summary>
+        /// The dark yellow color
+        /// </summary>
+        private protected Color _darkYellowColor = new Color( )
+        {
+            A = 255,
+            R = 48,
+            G = 59,
+            B = 1
+        };
+
         /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="T:Booger.Palette" /> class.
+        /// <see cref="Palette" /> class.
         /// </summary>
         protected Palette( )
             : base( )
@@ -237,7 +293,7 @@ namespace Booger
         /// <value>
         /// The color of the white.
         /// </value>
-        public SolidColorBrush WhiteColor { get; private protected init; }
+        public SolidColorBrush WhiteForeground { get; private protected init; }
 
         /// <summary>
         /// Gets or sets the colors.
@@ -302,7 +358,7 @@ namespace Booger
         /// <value>
         /// The color of the fore.
         /// </value>
-        public SolidColorBrush Transparent { get; private protected init; }
+        public SolidColorBrush TransparentBrush { get; private protected init; }
 
         /// <inheritdoc />
         /// <summary>
@@ -311,7 +367,7 @@ namespace Booger
         /// <value>
         /// The color of the black.
         /// </value>
-        public SolidColorBrush BlackColor { get; private protected init; }
+        public SolidColorBrush BlackBrush { get; private protected init; }
 
         /// <inheritdoc />
         /// <summary>
@@ -320,7 +376,7 @@ namespace Booger
         /// <value>
         /// The color of the fore.
         /// </value>
-        public SolidColorBrush ForeColor { get; private protected init; }
+        public SolidColorBrush Foreground { get; private protected init; }
 
         /// <inheritdoc />
         /// <summary>
@@ -329,7 +385,7 @@ namespace Booger
         /// <value>
         /// The color of the back.
         /// </value>
-        public SolidColorBrush BackColor { get; private protected init; }
+        public SolidColorBrush Background { get; private protected init; }
 
         /// <inheritdoc />
         /// <summary>
@@ -338,7 +394,7 @@ namespace Booger
         /// <value>
         /// The color of the border.
         /// </value>
-        public SolidColorBrush BorderColor { get; private protected init; }
+        public SolidColorBrush BorderBrush { get; private protected init; }
 
         /// <inheritdoc />
         /// <summary>
@@ -347,7 +403,15 @@ namespace Booger
         /// <value>
         /// The color of the control.
         /// </value>
-        public SolidColorBrush ControlColor { get; private protected init; }
+        public SolidColorBrush ControlBackground { get; private protected init; }
+
+        /// <summary>
+        /// Gets the color of the interior.
+        /// </summary>
+        /// <value>
+        /// The color of the interior.
+        /// </value>
+        public SolidColorBrush ControlInterior { get; private protected init; }
 
         /// <inheritdoc />
         /// <summary>
@@ -356,7 +420,7 @@ namespace Booger
         /// <value>
         /// The color of the wall.
         /// </value>
-        public SolidColorBrush WallColor { get; private protected init; }
+        public SolidColorBrush WallBrush { get; private protected init; }
 
         /// <inheritdoc />
         /// <summary>
@@ -365,7 +429,7 @@ namespace Booger
         /// <value>
         /// The color of the hover.
         /// </value>
-        public SolidColorBrush SteelBlueColor { get; private protected init; }
+        public SolidColorBrush SteelBlueBrush { get; private protected init; }
 
         /// <inheritdoc />
         /// <summary>
@@ -374,7 +438,7 @@ namespace Booger
         /// <value>
         /// The color of the red.
         /// </value>
-        public SolidColorBrush RedColor { get; private protected init; }
+        public SolidColorBrush RedBrush { get; private protected init; }
 
         /// <inheritdoc />
         /// <summary>
@@ -383,7 +447,7 @@ namespace Booger
         /// <value>
         /// The color of the khaki.
         /// </value>
-        public SolidColorBrush KhakiColor { get; private protected init; }
+        public SolidColorBrush KhakiBrush { get; private protected init; }
 
         /// <inheritdoc />
         /// <summary>
@@ -392,7 +456,7 @@ namespace Booger
         /// <value>
         /// The color of the green.
         /// </value>
-        public SolidColorBrush GreenColor { get; private protected init; }
+        public SolidColorBrush GreenBrush { get; private protected init; }
 
         /// <inheritdoc />
         /// <summary>
@@ -401,7 +465,7 @@ namespace Booger
         /// <value>
         /// The light blue.
         /// </value>
-        public SolidColorBrush LightBlueColor { get; private protected init; }
+        public SolidColorBrush LightBlueBrush { get; private protected init; }
 
         /// <inheritdoc />
         /// <summary>
@@ -410,7 +474,7 @@ namespace Booger
         /// <value>
         /// The color of the yellow.
         /// </value>
-        public SolidColorBrush YellowColor { get; private protected init; }
+        public SolidColorBrush YellowBrush { get; private protected init; }
 
         /// <inheritdoc />
         /// <summary>
@@ -419,7 +483,7 @@ namespace Booger
         /// <value>
         /// The color of the gray.
         /// </value>
-        public SolidColorBrush GrayColor { get; private protected init; }
+        public SolidColorBrush GrayBrush { get; private protected init; }
 
         /// <summary>
         /// Creates the colors.
@@ -431,13 +495,13 @@ namespace Booger
             {
                 var _array = new SolidColorBrush[ ]
                 {
-                    SteelBlueColor,
-                    GrayColor,
-                    YellowColor,
-                    RedColor,
-                    KhakiColor,
-                    GreenColor,
-                    LightBlueColor
+                    SteelBlueBrush,
+                    GrayBrush,
+                    YellowBrush,
+                    RedBrush,
+                    KhakiBrush,
+                    GreenBrush,
+                    LightBlueBrush
                 };
 
                 return _array?.Length > 0
@@ -462,13 +526,13 @@ namespace Booger
             {
                 var _list = new List<Brush>
                 {
-                    SteelBlueColor,
-                    GrayColor,
-                    YellowColor,
-                    RedColor,
-                    KhakiColor,
-                    GreenColor,
-                    LightBlueColor
+                    SteelBlueBrush,
+                    GrayBrush,
+                    YellowBrush,
+                    RedBrush,
+                    KhakiBrush,
+                    GreenBrush,
+                    LightBlueBrush
                 };
 
                 return _list?.Count > 0
@@ -492,13 +556,13 @@ namespace Booger
             try
             {
                 var _map = new Dictionary<string, Brush>( );
-                _map.Add( "HoverColor", SteelBlueColor );
-                _map.Add( "GrayColor", GrayColor );
-                _map.Add( "YellowColor", YellowColor );
-                _map.Add( "RedColor", RedColor );
-                _map.Add( "KhakiColor", KhakiColor );
-                _map.Add( "GreenColor", GreenColor );
-                _map.Add( "LightBlue", LightBlueColor );
+                _map.Add( "HoverColor", SteelBlueBrush );
+                _map.Add( "GrayColor", GrayBrush );
+                _map.Add( "YellowColor", YellowBrush );
+                _map.Add( "RedColor", RedBrush );
+                _map.Add( "KhakiColor", KhakiBrush );
+                _map.Add( "GreenColor", GreenBrush );
+                _map.Add( "LightBlue", LightBlueBrush );
                 return _map?.Count > 0
                     ? _map
                     : default( IDictionary<string, Brush> );

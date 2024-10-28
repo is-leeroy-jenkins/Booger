@@ -84,9 +84,9 @@ namespace Booger
             HorizontalContentAlignment = HorizontalAlignment.Center;
             VerticalContentAlignment = VerticalAlignment.Center;
             BorderThickness = _theme.BorderThickness;
-            Background = _theme.ControlColor;
-            Foreground = _theme.ForeColor;
-            BorderBrush = _theme.BorderColor;
+            Background = _theme.ControlInterior;
+            Foreground = _theme.Foreground;
+            BorderBrush = _theme.BorderBrush;
 
             // Event Wiring
             MouseEnter += OnMouseEnter;
@@ -106,9 +106,9 @@ namespace Booger
             {
                 if( sender is MetroButton _button )
                 {
-                    _button.Foreground = _theme.WhiteColor;
-                    _button.Background = _theme.DarkBlueColor;
-                    _button.BorderBrush = _theme.LightBlueColor;
+                    _button.Foreground = _theme.WhiteForeground;
+                    _button.Background = _theme.DarkBlueBrush;
+                    _button.BorderBrush = _theme.LightBlueBrush;
                 }
             }
             catch( Exception ex )
@@ -130,9 +130,9 @@ namespace Booger
             {
                 if( sender is MetroButton _button )
                 {
-                    _button.Foreground = _theme.LightBlueColor;
-                    _button.Background = _theme.ControlColor;
-                    _button.BorderBrush = _theme.ControlColor;
+                    _button.Foreground = _theme.LightBlueBrush;
+                    _button.Background = _theme.ControlInterior;
+                    _button.BorderBrush = _theme.ControlInterior;
                 }
             }
             catch( Exception ex )

@@ -1,8 +1,9 @@
 ﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Style TargetType="Page">
-        <Setter Property="Background" Value="{DynamicResource GeneralBackground}" />
-        <Setter Property="Foreground" Value="{DynamicResource FontForeground}" />
-    </Style>
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:b="clr-namespace:Booger">
+        <Style TargetType="Page">
+                <Setter Property="Background" Value="{StaticResource FormBackground}" />
+                <Setter Property="Foreground" Value="{DynamicResource FormForeground}" />
+        </Style>
 </ResourceDictionary>

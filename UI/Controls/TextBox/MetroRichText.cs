@@ -76,10 +76,10 @@ namespace Booger
             Height = 150;
             BorderThickness = _theme.BorderThickness;
             Padding = _theme.Padding;
-            Background = _theme.ControlColor;
-            Foreground = _theme.ForeColor;
-            BorderBrush = _theme.ControlColor;
-            SelectionBrush = _theme.SteelBlueColor;
+            Background = _theme.ControlInterior;
+            Foreground = _theme.Foreground;
+            BorderBrush = _theme.ControlInterior;
+            SelectionBrush = _theme.SteelBlueBrush;
         }
 
         /// <summary>

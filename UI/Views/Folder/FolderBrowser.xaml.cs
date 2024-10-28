@@ -168,9 +168,9 @@ namespace Booger
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
             HorizontalAlignment = HorizontalAlignment.Stretch;
             VerticalAlignment = VerticalAlignment.Stretch;
-            Background = _theme.ControlColor;
-            Foreground = _theme.LightBlueColor;
-            BorderBrush = _theme.BorderColor;
+            Background = _theme.ControlInterior;
+            Foreground = _theme.LightBlueBrush;
+            BorderBrush = _theme.BorderBrush;
 
             // Browser Properties
             _dirPaths = new List<string>( );

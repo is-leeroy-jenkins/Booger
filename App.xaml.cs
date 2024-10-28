@@ -323,7 +323,6 @@ namespace Booger
             AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
             TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
             Startup += OnStartup;
-            Exit += OnExit;
         }
 
         /// <summary>
@@ -379,7 +378,7 @@ namespace Booger
         /// <param name="e">The
         /// <see cref="UnhandledExceptionEventArgs"/>
         /// instance containing the event data.</param>
-        private static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        public static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             var _ex = e.ExceptionObject as Exception;
             Fail( _ex );
@@ -393,12 +392,13 @@ namespace Booger
         /// <param name = "sender" > </param>
         /// <param name="e">An <see cref="T:System.Windows.ExitEventArgs" />
         /// that contains the event data.</param>
-        private protected void OnExit(object sender, ExitEventArgs e)
+        protected override async void OnExit(ExitEventArgs e)
         {
             try
             {
-                _windowPlace?.Save();
-                Environment.Exit(0);
+                await _host.StopAsync( );
+                _windowPlace?.Save( );
+                _host.Dispose( );
             }
             catch(Exception)
             {
@@ -423,7 +423,7 @@ namespace Booger
 
             var _key = ConfigurationManager.AppSettings[ "UI" ];
             SyncfusionLicenseProvider.RegisterLicense( _key );
-            await _host.StartAsync();
+            await _host.StartAsync( );
         }
 
         /// <summary>

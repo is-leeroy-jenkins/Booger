@@ -12,7 +12,7 @@
     <Version>1.0.0.0</Version>
     <ImplicitUsings>disable</ImplicitUsings>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <StartupObject>Booger.App</StartupObject>
+    <StartupObject>Booger.EntryPoint</StartupObject>
     <Authors>Terry Eppler</Authors>
     <PackageProjectUrl>https://github.com/is-leeroy-jenkins/Booger</PackageProjectUrl>
     <Description>A small WPF application for interacting with Chat GPT.</Description>

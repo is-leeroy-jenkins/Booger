@@ -66,7 +66,7 @@ namespace Booger
         private ResourceDictionary _light =
             new ResourceDictionary( )
             {
-                Source = new Uri( $"{_resourceUriPrefix}/UI/ColorModes/LightMode.xaml" )
+                Source = new Uri( $"{_resourceUriPrefix}/UI/Themes/ColorModes/LightMode.xaml" )
             };
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Booger
         private ResourceDictionary _dark =
             new ResourceDictionary( )
             {
-                Source = new Uri( $"{_resourceUriPrefix}/UI/ColorModes/DarkMode.xaml" )
+                Source = new Uri( $"{_resourceUriPrefix}/UI/Themes/ColorModes/DarkMode.xaml" )
             };
 
         /// <summary>

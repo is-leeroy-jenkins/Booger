@@ -12,7 +12,6 @@
                                 <BeginStoryboard>
                                         <Storyboard>
                                                 <ThicknessAnimation
-                                                        EasingFunction="{StaticResource Ease}"
                                                         Storyboard.TargetProperty="Margin"
                                                         From="0 5 0 0"
                                                         To="0"
@@ -37,7 +36,6 @@
                                 <BeginStoryboard>
                                         <Storyboard>
                                                 <DoubleAnimation
-                                                        EasingFunction="{StaticResource Ease}"
                                                         Storyboard.TargetProperty="RenderTransform.Y"
                                                         From="5"
                                                         To="0"
@@ -62,13 +60,11 @@
                                 <BeginStoryboard>
                                         <Storyboard>
                                                 <DoubleAnimation
-                                                        EasingFunction="{StaticResource Ease}"
                                                         Storyboard.TargetProperty="Opacity"
                                                         From="0"
                                                         To="1"
                                                         Duration="0:0:0.200" />
                                                 <DoubleAnimation
-                                                        EasingFunction="{StaticResource Ease}"
                                                         Storyboard.TargetProperty="RenderTransform.Y"
                                                         From="5"
                                                         To="0"

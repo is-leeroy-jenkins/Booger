@@ -78,7 +78,7 @@
         <!--  *********************************************** SECONDARY BUTTON *****************************************************  -->
 
         <Style
-                x:Key="SecondaryButtonStyle"
+                x:Key="SecondaryButton"
                 BasedOn="{StaticResource {x:Type Button}}"
                 TargetType="Button">
                 <Setter Property="Background" Value="{StaticResource ControlBackground}" />

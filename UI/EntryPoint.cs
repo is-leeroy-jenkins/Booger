@@ -39,32 +39,21 @@
 // </summary>
 // ******************************************************************************************
 
+
 namespace Booger
 {
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using System.IO;
-    using System.Threading;
+    using System.Linq;
+    using System.Text;
     using System.Threading.Tasks;
     using System.Windows;
-    using System.Windows.Media;
-    using System.Windows.Threading;
-    using CommunityToolkit.Mvvm.Input;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-    using OfficeOpenXml;
-    using RestoreWindowPlace;
-    using Syncfusion.Licensing;
-    using Syncfusion.SfSkinManager;
-    using Syncfusion.Themes.FluentDark.WPF;
-    using ConfigurationManager = System.Configuration.ConfigurationManager;
 
     /// <summary>
     /// 
     /// </summary>
-    [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
+    [SuppressMessage("ReSharper", "MemberCanBeInternal")]
     public static class EntryPoint
     {
         /// <summary>
@@ -78,9 +67,9 @@ namespace Booger
         /// <summary>
         /// Initializes the <see cref="EntryPoint"/> class.
         /// </summary>
-        static EntryPoint( )
+        static EntryPoint()
         {
-            AppDomain.CurrentDomain.UnhandledException += App.OnUnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
         }
 
         /// <summary>
@@ -89,7 +78,7 @@ namespace Booger
         [ STAThread ]
         private static void Main( )
         {
-            var _app = new App( );
+            var _app = new App();
             _app.InitializeComponent( );
             _app.Run( );
         }
@@ -98,25 +87,22 @@ namespace Booger
         /// Handles the UnhandledException event of the CurrentDomain control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="UnhandledExceptionEventArgs"/>
-        /// instance containing the event data.</param>
-        private static void OnUnhandledException( object sender, UnhandledExceptionEventArgs e )
+        /// <param name="e">The <see cref="UnhandledExceptionEventArgs"/> instance containing the event data.</param>
+        private static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            var _msg = "Unhandled Exception!";
-            var _ex = e.ExceptionObject as Exception;
-            Fail( _ex );
-            Environment.Exit( 1 );
+            NativeMethods.MessageBox(MainWindowHandle, $"{e.ExceptionObject}",
+                "UnhandledException", MessageBoxFlags.Ok | MessageBoxFlags.IconError);
         }
 
         /// <summary>
         /// Fails the specified _ex.
         /// </summary>
-        /// <param name="ex">The _ex.</param>
-        private static void Fail( Exception ex )
+        /// <param name="_ex">The _ex.</param>
+        private static void Fail( Exception _ex )
         {
-            var _error = new ErrorWindow( ex );
-            _error?.SetText( );
-            _error?.ShowDialog( );
+            var _error = new ErrorWindow(_ex);
+            _error?.SetText();
+            _error?.ShowDialog();
         }
     }
 }

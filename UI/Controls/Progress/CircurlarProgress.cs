@@ -6,7 +6,7 @@
 //     Last Modified By:        Terry D. Eppler
 //     Last Modified On:        08-08-2024
 // ******************************************************************************************
-// <copyright file="MetroStepProgress.cs" company="Terry D. Eppler">
+// <copyright file="MetroCircurlarProgress.cs" company="Terry D. Eppler">
 //    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
 //    based on NET6 and written in C-Sharp.
 // 
@@ -35,7 +35,7 @@
 //    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
-//   MetroStepProgress.cs
+//   MetroCircurlarProgress.cs
 // </summary>
 // ******************************************************************************************
 
@@ -53,7 +53,7 @@ namespace Booger
     [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
     [ SuppressMessage( "ReSharper", "InconsistentNaming" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
-    public class MetroStepProgress : SfStepProgressBar
+    public class CircurlarProgress : SfStepProgressBar
     {
         /// <summary>
         /// The theme
@@ -63,17 +63,17 @@ namespace Booger
         /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="T:Booger.MetroStepProgress" /> class.
+        /// <see cref="T:Booger.CircurlarProgress" /> class.
         /// </summary>
-        public MetroStepProgress( )
+        public CircurlarProgress( )
             : base( )
         {
             // Control Properties
-            SetResourceReference( StyleProperty, typeof( SfStepProgressBar ) );
+            SetResourceReference( StyleProperty, typeof( SfCircularProgressBar ) );
             FontFamily = new FontFamily( "Roboto" );
             FontSize = 12;
             Background = _theme.Background;
-            Foreground = _theme.BorderBrush;
+            Foreground = _theme.Foreground;
             BorderBrush = _theme.BorderBrush;
         }
 

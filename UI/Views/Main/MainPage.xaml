@@ -73,7 +73,7 @@
             Modifiers="Ctrl" />
     </Page.InputBindings>
 
-    <!--  ******************************************** Resources *********************************************  -->
+    <!--  ******************************************** BUTTONS *********************************************  -->
 
     <Grid>
         <Grid.RowDefinitions>
@@ -83,12 +83,12 @@
         <Grid>
             <Border
                 Padding="5"
-                BorderBrush="{StaticResource BlueBorderBrush}"
-                BorderThickness="0,0,0,1">
+                BorderBrush="{DynamicResource BlueBorderBrush}"
+                BorderThickness="1">
                 <Grid>
                     <TextBlock
                         FontSize="{DynamicResource ExtremLargeFontSize}"
-                        Foreground="{DynamicResource FormForeground}"
+                        Foreground="{DynamicResource LightBlueBrush}"
                         Text="{DynamicResource StrChat}" />
                     <StackPanel
                         HorizontalAlignment="Right"
@@ -102,11 +102,11 @@
                         <Button
                             Margin="0,0,3,0"
                             Padding="3"
-                            Background="{DynamicResource ControlInteriorBrush}"
-                            BorderThickness="0"
+                            Background="{StaticResource ControlBackground}"
+                            BorderThickness="1"
                             Command="{Binding ResetChatCommand}"
                             Content="♻"
-                            Foreground="{DynamicResource FormForeground}">
+                            Foreground="{DynamicResource LightBlueBrush}">
 
                             <Button.ToolTip>
                                 <TextBlock>
@@ -119,11 +119,11 @@
 
                         <Button
                             Padding="3"
-                            Background="{DynamicResource ControlInteriorBrush}"
-                            BorderThickness="0"
+                            Background="{StaticResource ControlBackground}"
+                            BorderThickness="1"
                             Command="{Binding GoToConfigPageCommand}"
                             Content="⚙︎"
-                            Foreground="{DynamicResource FormForeground}"
+                            Foreground="{DynamicResource LightBlueBrush}"
                             ToolTip="{DynamicResource StrGoToConfigurationPage}" />
 
                     </StackPanel>
@@ -145,33 +145,32 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <!--  ******************************************** SCROLLVIEWER *********************************************  -->
+                <!--  ******************************************** SCROLL VIEWER *********************************************  -->
 
-                <ScrollViewer
-                    Name="SessionsScrollViewer"
+                <ScrollViewer x:Name="SessionsScrollViewer"
                     HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto">
+
                     <ListBox
                         Margin="0"
                         Padding="0"
                         HorizontalAlignment="Stretch"
                         d:ItemsSource="{d:SampleData ItemCount=5}"
-                        Background="{StaticResource FormBackground}"
-                        BorderThickness="0"
                         ItemsSource="{Binding AppGlobalData.Sessions}"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         SelectedIndex="0"
                         SelectedItem="{Binding AppGlobalData.SelectedSession}">
+
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="SelectionChanged">
                                 <behaviors:InvokeCommandAction Command="{Binding SwitchPageToCurrentSessionCommand}" />
                             </behaviors:EventTrigger>
                         </behaviors:Interaction.Triggers>
+
                         <ListBox.ItemContainerStyle>
                             <Style
                                 BasedOn="{StaticResource AnimatedListItemStyle}"
                                 TargetType="ListBoxItem">
-                                <Setter Property="Background" Value="Transparent" />
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="ListBoxItem">
@@ -182,10 +181,12 @@
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="{DynamicResource ControlHoverBrush}" />
+                                                    <Setter Property="Background" Value="{DynamicResource SteelBlueBackground}" />
+                                                    <Setter Property="FontWeight" Value="Bold" />
                                                 </Trigger>
                                                 <Trigger Property="IsSelected" Value="True">
-                                                    <Setter Property="Background" Value="{DynamicResource SteelBlueBackground}" />
+                                                    <Setter Property="Background" Value="{DynamicResource GreenBackground}" />
+                                                    <Setter Property="FontWeight" Value="Bold" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
@@ -193,6 +194,7 @@
                                 </Setter>
                             </Style>
                         </ListBox.ItemContainerStyle>
+
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <DataTemplate.Resources>
@@ -209,51 +211,56 @@
                                             Header="{DynamicResource StrDelete}" />
                                     </ContextMenu>
                                 </DataTemplate.Resources>
+
                                 <StackPanel
-                                    Background="Transparent"
+                                    Background="{StaticResource ControlBackground}"
                                     ContextMenu="{StaticResource SessionContextMenu}">
+
                                     <StackPanel.InputBindings>
                                         <MouseBinding
                                             Command="{Binding _data.DeleteSessionCommand, Source={StaticResource PageSelf}}"
                                             CommandParameter="{Binding}"
                                             MouseAction="MiddleClick" />
                                     </StackPanel.InputBindings>
-                                    <TextBox
+
+                                    <b:MetroTextBox
+                                        Width="Auto"
                                         Padding="0"
-                                        Background="Transparent"
                                         BorderThickness="1"
-                                        FontSize="{DynamicResource NormalFontSize}"
-                                        Foreground="{DynamicResource FormForeground}"
+                                        FontSize="{StaticResource NormalFontSize}"
+                                        Foreground="{StaticResource LightBlueBrush}"
                                         IsHitTestVisible="{Binding IsEditing}"
                                         IsReadOnly="{Binding IsReadOnly}"
                                         Text="{Binding Name, TargetNullValue='New Session'}">
+
                                         <behaviors:Interaction.Triggers>
                                             <behaviors:EventTrigger EventName="LostFocus">
                                                 <behaviors:InvokeCommandAction Command="{Binding EndEditCommand}" />
                                             </behaviors:EventTrigger>
                                         </behaviors:Interaction.Triggers>
-                                        <TextBox.InputBindings>
+
+                                        <b:MetroTextBox.InputBindings>
                                             <KeyBinding
                                                 Key="Return"
                                                 Command="{Binding EndEditCommand}" />
-                                        </TextBox.InputBindings>
-                                        <TextBox.Style>
+                                        </b:MetroTextBox.InputBindings>
+                                        <b:MetroTextBox.Style>
                                             <Style TargetType="TextBox">
-                                                <Setter Property="BorderBrush" Value="Transparent" />
+                                                <Setter Property="BorderBrush" Value="{StaticResource BlueBorderBrush}" />
                                                 <Style.Triggers>
                                                     <Trigger Property="IsReadOnly" Value="False">
-                                                        <Setter Property="BorderBrush" Value="#569de5" />
+                                                        <Setter Property="BorderBrush" Value="{StaticResource BlueBorderBrush}" />
                                                     </Trigger>
                                                 </Style.Triggers>
                                             </Style>
-                                        </TextBox.Style>
-                                    </TextBox>
+                                        </b:MetroTextBox.Style>
+                                    </b:MetroTextBox>
                                     <TextBlock
                                         Padding="3,0"
                                         HorizontalAlignment="Stretch"
                                         Background="Transparent"
                                         FontSize="{DynamicResource SmallFontSize}"
-                                        Foreground="{DynamicResource FormForeground}"
+                                        Foreground="{DynamicResource LightBlueBrush}"
                                         TextTrimming="CharacterEllipsis"
                                         TextWrapping="NoWrap">
                                         <TextBlock.Resources>
@@ -269,12 +276,13 @@
                 </ScrollViewer>
                 <Button
                     Grid.Row="1"
-                    Padding="0,3"
+                    Margin="3"
+                    Padding="5"
                     Background="{DynamicResource ControlBackground}"
-                    BorderThickness="0"
+                    BorderThickness="1"
                     Command="{Binding NewSessionCommand}"
                     Content="{DynamicResource StrNewSession}"
-                    Foreground="{DynamicResource FormForeground}">
+                    Foreground="{DynamicResource LightBlueBrush}">
                     <Button.ToolTip>
                         <TextBlock>
                             <Run Text="{DynamicResource StrNewSession}" />
@@ -290,7 +298,7 @@
                 Background="{StaticResource BlueBorderBrush}" />
             <Frame
                 Grid.Column="2"
-                Content="{Binding ViewModel.CurrentChat}"
+                Content="{Binding MainPageModel.CurrentChat}"
                 NavigationUIVisibility="Hidden" />
         </Grid>
     </Grid>

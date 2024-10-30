@@ -26,6 +26,8 @@
                 </Setter>
         </Style>
 
+        <!--  *********************************************** BUTTON *****************************************************  -->
+
         <Style TargetType="{x:Type Button}">
                 <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
                 <Setter Property="Background" Value="{DynamicResource ControlBackground}" />
@@ -103,7 +105,7 @@
                                                         <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource BlueBorderBrush}" />
                                                 </Trigger>
                                                 <Trigger Property="IsMouseOver" Value="true">
-                                                        <Setter TargetName="border" Property="Background" Value="{StaticResource SteelBlueBackground}" />
+                                                        <Setter TargetName="border" Property="Background" Value="{StaticResource ControlHoverBackground}" />
                                                         <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource LightBlueBrush}" />
                                                 </Trigger>
                                                 <Trigger Property="IsPressed" Value="true">
@@ -113,7 +115,7 @@
                                                 <Trigger Property="IsEnabled" Value="false">
                                                         <Setter TargetName="border" Property="Background" Value="{StaticResource ControlBackground}" />
                                                         <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource BlueBorderBrush}" />
-                                                        <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="{StaticResource FormForeground}" />
+                                                        <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="{StaticResource LightBlueBrush}" />
                                                 </Trigger>
                                         </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -144,12 +146,14 @@
                                 <Setter Property="Background" Value="{DynamicResource ControlHoverBrush}" />
                                 <Setter Property="BorderBrush" Value="{DynamicResource LightBlueBrush}" />
                                 <Setter Property="Foreground" Value="{DynamicResource WhiteForeground}" />
+                                <Setter Property="FontWeight" Value="Bold" />
                         </Trigger>
 
                         <Trigger Property="IsMouseOver" Value="False">
                                 <Setter Property="Background" Value="{DynamicResource ControlBackground}" />
                                 <Setter Property="BorderBrush" Value="{DynamicResource BlueBorderBrush}" />
                                 <Setter Property="Foreground" Value="{DynamicResource LightBlueBrush}" />
+                                <Setter Property="FontWeight" Value="Normal" />
                         </Trigger>
 
 

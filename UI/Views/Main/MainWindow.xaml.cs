@@ -94,15 +94,6 @@ namespace Booger
 
         /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of the
-        /// <see cref="T:Booger.MainWindow" /> class.
-        /// </summary>
-        public MainWindow( )
-        {
-        }
-
-        /// <inheritdoc />
-        /// <summary>
         /// Initializes a new instance of the <see cref="T:Booger.MainWindow" /> class.
         /// </summary>
         /// <param name="viewModel">The view model.</param>
@@ -117,11 +108,11 @@ namespace Booger
             MinWidth = 1350;
             MinHeight = 800;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            ViewModel = viewModel;
-            PageService = pageService;
-            NoteService = noteService;
-            LanguageService = languageService;
-            ColorModeService = colorModeService;
+            _appWindowViewModel = viewModel;
+            _pageService = pageService;
+            _noteService = noteService;
+            _languageService = languageService;
+            _colorModeService = colorModeService;
             DataContext = this;
             InitializeComponent( );
         }
@@ -132,7 +123,17 @@ namespace Booger
         /// <value>
         /// The view model.
         /// </value>
-        public AppWindowModel ViewModel { get; }
+        public AppWindowModel AppWindowViewModel
+        {
+            get
+            {
+                return _appWindowViewModel;
+            }
+            set
+            {
+                _appWindowViewModel = value;
+            }
+        }
 
         /// <summary>
         /// Gets the page service.
@@ -140,7 +141,17 @@ namespace Booger
         /// <value>
         /// The page service.
         /// </value>
-        public PageService PageService { get; }
+        public PageService PageService
+        {
+            get
+            {
+                return _pageService;
+            }
+            set
+            {
+                _pageService = value;
+            }
+        }
 
         /// <summary>
         /// Gets the note service.
@@ -148,7 +159,17 @@ namespace Booger
         /// <value>
         /// The note service.
         /// </value>
-        public NoteService NoteService { get; }
+        public NoteService NoteService
+        {
+            get
+            {
+                return _noteService;
+            }
+            set
+            {
+                _noteService = value;
+            }
+        }
 
         /// <summary>
         /// Gets the language service.
@@ -156,7 +177,17 @@ namespace Booger
         /// <value>
         /// The language service.
         /// </value>
-        public LanguageService LanguageService { get; }
+        public LanguageService LanguageService
+        {
+            get
+            {
+                return _languageService;
+            }
+            set
+            {
+                _languageService = value;
+            }
+        }
 
         /// <summary>
         /// Gets the color mode service.
@@ -164,7 +195,17 @@ namespace Booger
         /// <value>
         /// The color mode service.
         /// </value>
-        public ColorModeService ColorModeService { get; }
+        public ColorModeService ColorModeService
+        {
+            get
+            {
+                return _colorModeService;
+            }
+            set
+            {
+                _colorModeService = value;
+            }
+        }
 
         /// <summary>
         /// Navigates this instance.

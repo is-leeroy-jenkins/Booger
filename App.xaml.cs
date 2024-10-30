@@ -42,22 +42,18 @@
 namespace Booger
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
-    using System.Windows.Media;
     using CommunityToolkit.Mvvm.Input;
+    using System.Configuration;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using OfficeOpenXml;
     using RestoreWindowPlace;
     using Syncfusion.Licensing;
-    using Syncfusion.SfSkinManager;
-    using Syncfusion.Themes.FluentDark.WPF;
     using ConfigurationManager = System.Configuration.ConfigurationManager;
 
     /// <inheritdoc />
@@ -78,50 +74,6 @@ namespace Booger
         /// The window place
         /// </summary>
         private static WindowPlace _windowPlace;
-
-        /// <summary>
-        /// The host
-        /// </summary>
-        private static readonly IHost _host = Host
-            .CreateDefaultBuilder()
-            .ConfigureAppConfiguration(config =>
-            {
-                var _path = Path.Combine(FileSystemUtils.GetEntryPointFolder(),
-                    GlobalValues.JsonConfigurationFilePath);
-
-                config
-                    .AddJsonFile(_path, true, true)
-                    .AddEnvironmentVariables();
-            })
-            .ConfigureServices((context, services) =>
-            {
-                services.AddHostedService<ApplicationHostService>();
-                services.AddSingleton<AppGlobalData>();
-                services.AddSingleton<PageService>();
-                services.AddSingleton<NoteService>();
-                services.AddSingleton<ChatService>();
-                services.AddSingleton<ChatPageService>();
-                services.AddSingleton<ChatStorageService>();
-                services.AddSingleton<ConfigurationService>();
-                services.AddSingleton<SmoothScrollingService>();
-                services.AddSingleton<TitleGenerationService>();
-                services.AddSingleton<LanguageService>();
-                services.AddSingleton<ColorModeService>();
-                services.AddSingleton<MainWindow>();
-                services.AddSingleton<MainPage>();
-                services.AddSingleton<ConfigPage>();
-                services.AddSingleton<AppWindowModel>();
-                services.AddSingleton<MainPageModel>();
-                services.AddSingleton<ConfigPageModel>();
-                services.AddScoped<ChatPage>();
-                services.AddScoped<ChatPageModel>();
-                services.AddTransient<MarkdownWpfRenderer>();
-                services.Configure<AppConfig>(o =>
-                {
-                    context.Configuration.Bind(o);
-                });
-            })
-            .Build();
 
         /// <summary>
         /// The controls
@@ -168,6 +120,96 @@ namespace Booger
         };
 
         /// <summary>
+        /// The host
+        /// </summary>
+        private static readonly IHost _host = Host
+            .CreateDefaultBuilder( )
+            .ConfigureAppConfiguration( config =>
+            {
+                var _path = Path.Combine( FileSystemUtils.GetEntryPointFolder( ),
+                    GlobalValues.JsonConfigurationFilePath );
+
+                config
+                    .AddJsonFile( _path, true, true )
+                    .AddEnvironmentVariables( );
+            } )
+            .ConfigureServices( ( context, services ) =>
+            {
+                services.AddHostedService<ApplicationHostService>( );
+                services.AddSingleton<AppGlobalData>( );
+                services.AddSingleton<PageService>( );
+                services.AddSingleton<NoteService>( );
+                services.AddSingleton<ChatService>( );
+                services.AddSingleton<ChatPageService>( );
+                services.AddSingleton<ChatStorageService>( );
+                services.AddSingleton<ConfigurationService>( );
+                services.AddSingleton<SmoothScrollingService>( );
+                services.AddSingleton<TitleGenerationService>( );
+                services.AddSingleton<LanguageService>( );
+                services.AddSingleton<ColorModeService>( );
+                services.AddSingleton<MainWindow>( );
+                services.AddSingleton<MainPage>( );
+                services.AddSingleton<ConfigurationPage>( );
+                services.AddSingleton<AppWindowModel>( );
+                services.AddSingleton<MainPageModel>( );
+                services.AddSingleton<ConfigPageModel>( );
+                services.AddScoped<ChatPage>( );
+                services.AddScoped<ChatPageModel>( );
+                services.AddTransient<MarkdownWpfRenderer>( );
+                services.Configure<AppConfig>( o =>
+                {
+                    context.Configuration.Bind( o );
+                } );
+            } )
+            .Build( );
+
+        /// <summary>
+        /// Gets the service.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="System.Exception">
+        /// Cannot find service of specified type</exception>
+        public static T GetService<T>( )
+            where T : class
+        {
+            return _host.Services.GetService( typeof( T ) ) as T
+                ?? throw new Exception( "Cannot find service of specified type" );
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Application.Startup" /> event.
+        /// </summary>
+        /// <param name="e">A <see cref="T:System.Windows.StartupEventArgs" />
+        /// that contains the event data.</param>
+        protected override async void OnStartup( StartupEventArgs e )
+        {
+            if( !EnsureAppSingletion( ) )
+            {
+                Current.Shutdown( );
+                return;
+            }
+
+            var _key = ConfigurationManager.AppSettings[ "UI" ];
+            SyncfusionLicenseProvider.RegisterLicense( _key );
+            await _host.StartAsync( );
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Application.Exit" /> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.Windows.ExitEventArgs" />
+        /// that contains the event data.</param>
+        protected override async void OnExit( ExitEventArgs e )
+        {
+            await _host.StopAsync( );
+            _windowPlace?.Save( );
+            _host.Dispose( );
+        }
+
+        /// <summary>
         /// Gets the name of the application.
         /// </summary>
         /// <value>
@@ -198,20 +240,6 @@ namespace Booger
         /// </summary>
         public static IRelayCommand _closeAppCommand =
             new RelayCommand( App.CloseApp );
-
-        /// <summary>
-        /// Gets the service.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        /// <exception cref="System.Exception">
-        /// Cannot find service of specified type</exception>
-        public static T GetService<T>()
-            where T : class
-        {
-            return _host.Services.GetService(typeof(T)) as T
-                ?? throw new Exception("Cannot find service of specified type");
-        }
 
         /// <summary>
         /// Setups the restore window place.
@@ -294,7 +322,7 @@ namespace Booger
                         _singletonEvent.WaitOne( );
                         Dispatcher.Invoke( ( ) =>
                         {
-                            ShowApp( );
+                            App.ShowApp( );
                         } );
                     }
                 } );
@@ -308,183 +336,15 @@ namespace Booger
             }
         }
 
-        /// <inheritdoc />
-        /// <summary>
-        /// Initializes a new instance of the
-        /// <see cref="T:Badger.App" /> class.
-        /// </summary>
-        public App( )
-        {
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            RegisterTheme( );
-            InitializeComponent( );
-
-            // Event Wiring
-            AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
-            TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
-            Startup += OnStartup;
-        }
-
-        /// <summary>
-        /// Registers the theme.
-        /// </summary>
-        private void RegisterTheme( )
-        {
-            var _theme = new FluentDarkThemeSettings
-            {
-                PrimaryBackground = new SolidColorBrush(Color.FromRgb(20, 20, 20)),
-                PrimaryColorForeground = new SolidColorBrush(Color.FromRgb(0, 120, 212)),
-                PrimaryForeground = new SolidColorBrush(Color.FromRgb(222, 222, 222)),
-                BodyFontSize = 12,
-                HeaderFontSize = 16,
-                SubHeaderFontSize = 14,
-                TitleFontSize = 14,
-                SubTitleFontSize = 16,
-                BodyAltFontSize = 10,
-                FontFamily = new FontFamily( "Roboto" )
-            };
-
-            SfSkinManager.RegisterThemeSettings("FluentDark", _theme);
-            SfSkinManager.ApplyStylesOnApplication = true;
-        }
-
-        /// <summary>
-        /// Setups the restore window place.
-        /// </summary>
-        /// <param name="mainWindow">
-        /// The main window.
-        /// </param>
-        private void SetupRestoreWindowPlace( MainWindow mainWindow )
-        {
-            var _config = Path.Combine( AppDomain.CurrentDomain.BaseDirectory, "Badger.config" );
-            _windowPlace = new WindowPlace( _config );
-            _windowPlace.Register( mainWindow );
-
-            // This logic works but I don't like the window being maximized
-            //if (!File.Exists(windowPlaceConfigFilePath))
-            //{
-            //    // For the first time, maximize the window, so it won't go off the screen on laptop
-            //    // WindowPlacement will take care of future runs
-            //    mainWindow.WindowState = WindowState.Maximized;
-            //}
-        }
-
-        /// <summary>
-        /// Handles the UnhandledException event of the CurrentDomain control.
-        /// </summary>
-        /// <param name="sender">
-        /// The source of the event.
-        /// </param>
-        /// <param name="e">The
-        /// <see cref="UnhandledExceptionEventArgs"/>
-        /// instance containing the event data.</param>
-        public static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            var _ex = e.ExceptionObject as Exception;
-            Fail( _ex );
-            Environment.Exit( 1);
-        }
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.Application.Exit" /> event.
-        /// </summary>
-        /// <param name = "sender" > </param>
-        /// <param name="e">An <see cref="T:System.Windows.ExitEventArgs" />
-        /// that contains the event data.</param>
-        protected override async void OnExit(ExitEventArgs e)
-        {
-            try
-            {
-                await _host.StopAsync( );
-                _windowPlace?.Save( );
-                _host.Dispose( );
-            }
-            catch(Exception)
-            {
-                // Do Nothing
-            }
-        }
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.Application.Startup" /> event.
-        /// </summary>
-        /// <param name = "sender" > </param>
-        /// <param name="e">A <see cref="T:System.Windows.StartupEventArgs" />
-        /// that contains the event data.</param>
-        protected virtual async void OnStartup( object sender, StartupEventArgs e )
-        {
-            if( !EnsureAppSingletion( ) )
-            {
-                Current.Shutdown( );
-                return;
-            }
-
-            var _key = ConfigurationManager.AppSettings[ "UI" ];
-            SyncfusionLicenseProvider.RegisterLicense( _key );
-            await _host.StartAsync( );
-        }
-
-        /// <summary>
-        /// Called when [un handled exception].
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="UnobservedTaskExceptionEventArgs"/>
-        /// instance containing the event data.</param>
-        private void OnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
-        {
-            if(e == null)
-            {
-            }
-            else
-            {
-                var _ex = new Exception();
-                Fail(_ex);
-                Environment.Exit(1);
-            }
-        }
-
-        /// <summary>
-        /// Handles the exception.
-        /// </summary>
-        /// <param name="e">The e.</param>
-        private void HandleException( Exception e )
-        {
-            if(e == null)
-            {
-            }
-            else
-            {
-                Fail(e);
-                Environment.Exit(1);
-            }
-        }
-
         /// <summary>
         /// Fails the specified ex.
         /// </summary>
         /// <param name="ex">The ex.</param>
-        private protected void Fail( UnobservedTaskExceptionEventArgs ex )
+        private protected void Fail( Exception ex )
         {
-            if( ex != null )
-            {
-                var _un = new Exception( "Unobserversed Task Exception" );
-                var _error = new ErrorWindow( _un );
-                _error?.SetText( );
-                _error?.ShowDialog( );
-            }
-        }
-
-        /// <summary>
-        /// Fails the specified ex.
-        /// </summary>
-        /// <param name="ex">The ex.</param>
-        private protected static void Fail(Exception ex)
-        {
-            var _error = new ErrorWindow(ex);
-            _error?.SetText();
-            _error?.ShowDialog();
+            var _error = new ErrorWindow( ex );
+            _error?.SetText( );
+            _error?.ShowDialog( );
         }
     }
 }

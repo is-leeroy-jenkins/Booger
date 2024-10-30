@@ -258,7 +258,7 @@
                                                 <Trigger Property="IsPressed" Value="True">
                                                         <Setter TargetName="border" Property="Background" Value="{StaticResource PrimaryBackground}" />
                                                         <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource PrimaryBackground}" />
-                                                        <Setter Property="Foreground" Value="{StaticResource PrimaryForeground}" />
+                                                        <Setter Property="Foreground" Value="{StaticResource LightBlueBrush}" />
                                                 </Trigger>
                                                 <Trigger Property="IsEnabled" Value="false">
                                                         <Setter TargetName="border" Property="Background" Value="Transparent" />
@@ -1652,7 +1652,7 @@
                 <Setter Property="Background" Value="{StaticResource ControlBackground}" />
                 <Setter Property="BorderBrush" Value="{StaticResource BorderAlt}" />
                 <Setter Property="Foreground" Value="{StaticResource ContentForeground}" />
-                <Setter Property="FontFamily" Value="{StaticResource FluentDark.ThemeFontFamily}" />
+                <Setter Property="FontFamily" Value="Roboto" />
                 <Setter Property="FontSize" Value="{StaticResource FluentDark.BodyTextStyle}" />
                 <Setter Property="FontWeight" Value="{StaticResource FluentDark.FontWeightNormal}" />
                 <Setter Property="BorderThickness" Value="1" />

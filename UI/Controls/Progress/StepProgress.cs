@@ -6,7 +6,7 @@
 //     Last Modified By:        Terry D. Eppler
 //     Last Modified On:        08-08-2024
 // ******************************************************************************************
-// <copyright file="MetroHyperlink.cs" company="Terry D. Eppler">
+// <copyright file="MetroStepProgress.cs" company="Terry D. Eppler">
 //    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
 //    based on NET6 and written in C-Sharp.
 // 
@@ -35,59 +35,46 @@
 //    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
-//   MetroHyperlink.cs
+//   MetroStepProgress.cs
 // </summary>
 // ******************************************************************************************
 
-// ReSharper disable All
-
 namespace Booger
 {
-    using ModernWpf.Controls;
+    using Syncfusion.UI.Xaml.ProgressBar;
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Windows.Media;
 
-    /// <inheritdoc />
     /// <summary>
+    /// 
     /// </summary>
-    /// <seealso cref="T:Wpf.Ui.Controls.HyperlinkButton" />
+    /// <seealso cref="Syncfusion.UI.Xaml.ProgressBar.SfStepProgressBar" />
     [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
-    public class MetroHyperlink : HyperlinkButton
+    [ SuppressMessage( "ReSharper", "InconsistentNaming" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    public class StepProgress : SfStepProgressBar
     {
         /// <summary>
         /// The theme
         /// </summary>
         private protected readonly DarkMode _theme = new DarkMode( );
 
+        /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="MetroHyperlink"/> class.
+        /// <see cref="T:Booger.MetroStepProgress" /> class.
         /// </summary>
-        public MetroHyperlink( )
+        public StepProgress( )
             : base( )
         {
-            // Basic Settings
-            Height = 110;
-            Width = 22;
+            // Control Properties
+            SetResourceReference( StyleProperty, typeof( SfStepProgressBar ) );
             FontFamily = new FontFamily( "Roboto" );
             FontSize = 12;
-            Background = _theme.TransparentBrush;
+            Background = _theme.Background;
             Foreground = _theme.BorderBrush;
-            BorderBrush = _theme.TransparentBrush;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the
-        /// <see cref="MetroHyperlink"/> class.
-        /// </summary>
-        /// <param name = "text" > </param>
-        /// <param name="uri">The URI.</param>
-        public MetroHyperlink( string text, string uri )
-            : this( )
-        {
-            Content = text;
-            NavigateUri = new Uri( uri );
+            BorderBrush = _theme.BorderBrush;
         }
 
         /// <summary>

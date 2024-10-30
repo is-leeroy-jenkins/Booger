@@ -90,12 +90,14 @@
                                 <Setter Property="Background" Value="{DynamicResource SteelBlueBackground}" />
                                 <Setter Property="BorderBrush" Value="{DynamicResource SteelBlueBackground}" />
                                 <Setter Property="Foreground" Value="{DynamicResource WhiteForeground}" />
+                                <Setter Property="FontWeight" Value="Bold" />
                         </Trigger>
 
                         <Trigger Property="IsMouseOver" Value="False">
                                 <Setter Property="Background" Value="{DynamicResource ControlInteriorBrush}" />
                                 <Setter Property="Background" Value="{DynamicResource ControlInteriorBrush}" />
                                 <Setter Property="Foreground" Value="{DynamicResource LightBlueBrush}" />
+                                <Setter Property="FontWeight" Value="Normal" />
                         </Trigger>
 
 

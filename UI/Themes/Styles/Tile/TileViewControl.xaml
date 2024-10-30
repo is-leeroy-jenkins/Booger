@@ -438,7 +438,7 @@
                 <Setter Property="BorderBrush" Value="{StaticResource BorderAlt}" />
                 <Setter Property="Foreground" Value="{StaticResource ContentForeground}" />
                 <Setter Property="FontSize" Value="12" />
-                <Setter Property="FontFamily" Value="{StaticResource FluentDark.ThemeFontFamily}" />
+                <Setter Property="FontFamily" Value="Roboto" />
                 <Setter Property="FontWeight" Value="Normal" />
         </Style>
 

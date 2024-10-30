@@ -353,3 +353,4 @@ MigrationBackup/
 /App.config
 /App.config
 /Database/SQLite/Data.db
+*.db

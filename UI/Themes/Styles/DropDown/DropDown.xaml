@@ -8,10 +8,10 @@
         xmlns:theme="clr-namespace:Syncfusion.Themes.FluentDark.WPF"
         xmlns:wpf="clr-namespace:Syncfusion.Themes.FluentDark.WPF;assembly=Syncfusion.Themes.FluentDark.WPF">
 
-        <!--  *********************************************** MetroDropDown *****************************************************  -->
+        <!--  *********************************************** METRO DROP DOWN *****************************************************  -->
 
         <Style
-                x:Key="DropDownStyle"
+                x:Key="MetroDropDownStyle"
                 TargetType="{x:Type b:MetroDropDown}">
                 <Setter Property="BorderBrush" Value="{DynamicResource ControlInteriorBrush}" />
                 <Setter Property="Foreground" Value="{DynamicResource LightBlueBrush}" />
@@ -19,7 +19,7 @@
                 <Setter Property="HorizontalContentAlignment" Value="Left" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Setter Property="FontFamily" Value="Roboto" />
-                <Setter Property="FontSize" Value="11" />
+                <Setter Property="FontSize" Value="12" />
 
                 <Style.Triggers>
 
@@ -27,12 +27,14 @@
                                 <Setter Property="Background" Value="{DynamicResource SteelBlueBackground}" />
                                 <Setter Property="BorderBrush" Value="{DynamicResource SteelBlueBackground}" />
                                 <Setter Property="Foreground" Value="{DynamicResource WhiteForeground}" />
+                                <Setter Property="FontWeight" Value="Bold" />
                         </Trigger>
 
                         <Trigger Property="IsMouseOver" Value="False">
                                 <Setter Property="Background" Value="{DynamicResource ControlInteriorBrush}" />
                                 <Setter Property="BorderBrush" Value="{DynamicResource ControlInteriorBrush}" />
                                 <Setter Property="Foreground" Value="{DynamicResource LightBlueBrush}" />
+                                <Setter Property="FontWeight" Value="Normal" />
                         </Trigger>
 
 
@@ -45,7 +47,7 @@
         <!--  *********************************************** MetroDropDown *****************************************************  -->
 
         <Style
-                x:Key="DropDownItemStyle"
+                x:Key="MetroDropDownItemStyle"
                 TargetType="{x:Type b:MetroDropDownItem}">
                 <Setter Property="Background" Value="{DynamicResource ControlInteriorBrush}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource ControlInteriorBrush}" />

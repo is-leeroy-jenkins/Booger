@@ -39,17 +39,19 @@
 // </summary>
 // ******************************************************************************************
 
-using System;
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-
 namespace Booger
 {
-    /// <inheritdoc />
-    /// <![CDATA['MyNamespace' is an undeclared prefix. Line 28, position 7.]]>
+    using System;
+    using System.ComponentModel;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Media;
+    using System.Windows.Media.Animation;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="System.Windows.Controls.Control" />
     public class NoteControl : Control
     {
         static NoteControl( )

@@ -14,27 +14,27 @@
     Width="1350"
     Height="800"
     d:DataContext="{d:DesignInstance Type=b:MainWindow}"
+    sync:SfSkinManager.Theme="{skin:SkinManagerExtension ThemeName=FluentDark}"
     Background="{DynamicResource FormBackground}"
     FontSize="12"
     Foreground="{DynamicResource FormForeground}"
-    sync:SfSkinManager.Theme="{skin:SkinManagerExtension ThemeName=FluentDark}"
     Icon="/Resources/Assets/Form/Application.png"
     Topmost="{Binding ViewModel.Configuration.WindowAlwaysOnTop}"
     mc:Ignorable="d">
 
-    <!--******************************************** RESOURCE *********************************************-->
+    <!--  ******************************************** RESOURCE *********************************************  -->
 
     <Window.Resources>
         <Style TargetType="ToolTip">
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Padding" Value="10" />
             <Setter Property="BorderBrush" Value="{StaticResource BlueBorderBrush}" />
-            <Setter Property="Background" Value="{StaticResource BlackBackground}"/>
+            <Setter Property="Background" Value="{StaticResource BlackBackground}" />
             <Setter Property="Foreground" Value="{StaticResource LightBlueBrush}" />
         </Style>
     </Window.Resources>
 
-    <!--******************************************** CONTEXT MENU ******************************************-->
+    <!--  ******************************************** CONTEXT MENU ******************************************  -->
 
     <Window.ContextMenu>
         <ContextMenu Name="MainWindowContextMenu">
@@ -59,7 +59,7 @@
                 </sync:MenuItemAdv.Icon>
             </sync:MenuItemAdv>
 
-            <Separator />
+            <Separator Foreground="{StaticResource BlueBorderBrush}" />
 
             <sync:MenuItemAdv
                 Background="{StaticResource ControlBackground}"
@@ -94,7 +94,7 @@
                 </sync:MenuItemAdv.Icon>
             </sync:MenuItemAdv>
 
-            <Separator />
+            <Separator Foreground="{StaticResource BlueBorderBrush}" />
 
             <sync:MenuItemAdv
                 Background="{StaticResource ControlBackground}"
@@ -129,7 +129,7 @@
                 </sync:MenuItemAdv.Icon>
             </sync:MenuItemAdv>
 
-            <Separator />
+            <Separator Foreground="{StaticResource BlueBorderBrush}" />
 
             <sync:MenuItemAdv
                 Background="{StaticResource ControlBackground}"
@@ -163,8 +163,7 @@
         <Frame
             Name="AppFrame"
             NavigationUIVisibility="Hidden" />
-        <b:NoteControl
-            x:Name="AppNote"
+        <b:NoteControl x:Name="AppNote"
             Margin="50,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
@@ -185,7 +184,7 @@
                     <Setter Property="BorderBrush" Value="{DynamicResource BlueBorderBrush}" />
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" Value="IndianRed" />
+                            <Setter Property="BorderBrush" Value="{StaticResource RedForeground}" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>

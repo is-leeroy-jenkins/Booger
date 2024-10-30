@@ -6,6 +6,8 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:themelocal="clr-namespace:Syncfusion.Themes.FluentDark.WPF">
 
+        <!--  ***************************************** RESORCES ***********************************************  -->
+
         <ResourceDictionary.MergedDictionaries>
                 <sfskin:ResourceDictionaryProvider
                         DictionaryName="Common"
@@ -14,6 +16,8 @@
                         DictionaryName="Brushes"
                         ThemeName="FluentDark" />
         </ResourceDictionary.MergedDictionaries>
+
+        <!--  ***************************************** DATA TEMPLATE ***********************************************  -->
 
         <DataTemplate x:Key="ImageTileContentTemplate">
                 <Grid>
@@ -31,19 +35,21 @@
                 </Grid>
         </DataTemplate>
 
+        <!--  ***************************************** PULSING TILE ***********************************************  -->
+
         <Style
                 x:Key="PulsingTileHeaderStyle"
                 TargetType="ContentPresenter">
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="VerticalAlignment" Value="Bottom" />
-                <Setter Property="TextElement.Foreground" Value="{StaticResource PrimaryForeground}" />
+                <Setter Property="TextElement.Foreground" Value="{StaticResource LightBlueBrush}" />
                 <Setter Property="Margin" Value="10,5" />
-                <Setter Property="TextElement.FontSize" Value="{StaticResource FluentDark.SubHeaderTextStyle}" />
+                <Setter Property="TextElement.FontSize" Value="14" />
                 <Setter Property="TextElement.FontWeight" Value="Normal" />
-                <Setter Property="TextElement.FontFamily" Value="{StaticResource FluentDark.ThemeFontFamily}" />
+                <Setter Property="TextElement.FontFamily" Value="Roboto" />
                 <Style.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="TextElement.Foreground" Value="{StaticResource PrimaryForegroundDisabled}" />
+                                <Setter Property="TextElement.Foreground" Value="{StaticResource MutedForeground}" />
                         </Trigger>
                 </Style.Triggers>
         </Style>
@@ -53,14 +59,14 @@
                 TargetType="ContentPresenter">
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="VerticalAlignment" Value="Top" />
-                <Setter Property="TextElement.Foreground" Value="{StaticResource PrimaryForeground}" />
+                <Setter Property="TextElement.Foreground" Value="{StaticResource LightBlueBrush}" />
                 <Setter Property="Margin" Value="5" />
                 <Setter Property="TextElement.FontSize" Value="12" />
                 <Setter Property="TextElement.FontWeight" Value="Normal" />
-                <Setter Property="TextElement.FontFamily" Value="{StaticResource FluentDark.ThemeFontFamily}" />
+                <Setter Property="TextElement.FontFamily" Value="Roboto" />
                 <Style.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="TextElement.Foreground" Value="{StaticResource PrimaryForeground}" />
+                                <Setter Property="TextElement.Foreground" Value="{StaticResource LightBlueBrush}" />
                         </Trigger>
                 </Style.Triggers>
         </Style>
@@ -71,8 +77,8 @@
                 <Setter Property="Padding" Value="2" />
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 <Setter Property="VerticalContentAlignment" Value="Stretch" />
-                <Setter Property="Background" Value="{StaticResource PrimaryBackground}" />
-                <Setter Property="BorderBrush" Value="{StaticResource PrimaryBackground}" />
+                <Setter Property="Background" Value="{StaticResource ControlBackground}" />
+                <Setter Property="BorderBrush" Value="{StaticResource ControlBackground}" />
                 <Setter Property="HeaderStyle" Value="{StaticResource PulsingTileHeaderStyle}" />
                 <Setter Property="TitleStyle" Value="{StaticResource PulsingTileTitleStyle}" />
                 <Setter Property="Width" Value="150" />
@@ -91,7 +97,7 @@
                                                         Background="{TemplateBinding Background}"
                                                         BorderBrush="{TemplateBinding BorderBrush}"
                                                         BorderThickness="{TemplateBinding BorderThickness}"
-                                                        CornerRadius="{StaticResource FluentDark.ThemeCornerRadiusVariant1}">
+                                                        CornerRadius="1">
                                                         <Grid Margin="{TemplateBinding Padding}">
                                                                 <Grid ClipToBounds="false">
                                                                         <Border x:Name="MaskBorder"
@@ -148,11 +154,11 @@
                                                         <Setter TargetName="ImageGrid" Property="Visibility" Value="Visible" />
                                                 </Trigger>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter TargetName="PointerOveRect" Property="Fill" Value="{StaticResource PrimaryColorDark1}" />
+                                                        <Setter TargetName="PointerOveRect" Property="Fill" Value="{StaticResource BlueBorderBrush}" />
                                                 </Trigger>
                                                 <Trigger Property="IsEnabled" Value="False">
-                                                        <Setter TargetName="PART_Border" Property="BorderBrush" Value="{StaticResource PrimaryBackground}" />
-                                                        <Setter TargetName="PART_Border" Property="Background" Value="{StaticResource PrimaryBackground}" />
+                                                        <Setter TargetName="PART_Border" Property="BorderBrush" Value="{StaticResource ControlBackground}" />
+                                                        <Setter TargetName="PART_Border" Property="Background" Value="{StaticResource ControlBackground}" />
                                                 </Trigger>
                                         </ControlTemplate.Triggers>
                                 </ControlTemplate>

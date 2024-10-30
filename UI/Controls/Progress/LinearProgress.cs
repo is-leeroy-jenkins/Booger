@@ -6,7 +6,7 @@
 //     Last Modified By:        Terry D. Eppler
 //     Last Modified On:        08-08-2024
 // ******************************************************************************************
-// <copyright file="MetroCircurlarProgress.cs" company="Terry D. Eppler">
+// <copyright file="MetroLinearProgress.cs" company="Terry D. Eppler">
 //    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
 //    based on NET6 and written in C-Sharp.
 // 
@@ -35,7 +35,7 @@
 //    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
-//   MetroCircurlarProgress.cs
+//   MetroLinearProgress.cs
 // </summary>
 // ******************************************************************************************
 
@@ -46,14 +46,14 @@ namespace Booger
     using System.Diagnostics.CodeAnalysis;
     using System.Windows.Media;
 
+    /// <inheritdoc />
     /// <summary>
-    /// 
     /// </summary>
-    /// <seealso cref="Syncfusion.UI.Xaml.ProgressBar.SfStepProgressBar" />
+    /// <seealso cref="T:Syncfusion.UI.Xaml.ProgressBar.SfLinearProgressBar" />
     [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
     [ SuppressMessage( "ReSharper", "InconsistentNaming" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
-    public class MetroCircurlarProgress : SfStepProgressBar
+    public class LinearProgress : SfLinearProgressBar
     {
         /// <summary>
         /// The theme
@@ -63,19 +63,19 @@ namespace Booger
         /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="T:Booger.MetroCircurlarProgress" /> class.
+        /// <see cref="T:Booger.MetroLinearProgress" /> class.
         /// </summary>
-        public MetroCircurlarProgress( )
+        public LinearProgress( )
             : base( )
         {
             // Control Properties
             SetResourceReference( StyleProperty,
-                typeof( SfCircularProgressBar ) );
+                typeof( SfLinearProgressBar ) );
 
             FontFamily = new FontFamily( "Roboto" );
             FontSize = 12;
             Background = _theme.Background;
-            Foreground = _theme.Foreground;
+            Foreground = _theme.BorderBrush;
             BorderBrush = _theme.BorderBrush;
         }
 

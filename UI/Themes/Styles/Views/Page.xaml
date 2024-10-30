@@ -1,9 +1,16 @@
 ﻿<ResourceDictionary
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:b="clr-namespace:Booger">
-        <Style TargetType="Page">
-                <Setter Property="Background" Value="{StaticResource FormBackground}" />
-                <Setter Property="Foreground" Value="{DynamicResource FormForeground}" />
-        </Style>
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="clr-namespace:Booger"
+    xmlns:sync="http://schemas.syncfusion.com/wpf"
+    xmlns:skin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+    sync:SfSkinManager.Theme="{skin:SkinManagerExtension ThemeName=FluentDark}">
+
+    <!--******************************************** RESOURCES *********************************************-->
+
+    <Style TargetType="Page">
+        <Setter Property="Background" Value="{StaticResource FormBackground}" />
+        <Setter Property="Foreground" Value="{DynamicResource FormForeground}" />
+    </Style>
+
 </ResourceDictionary>

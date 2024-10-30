@@ -8,7 +8,8 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:theme="clr-namespace:Syncfusion.Themes.FluentDark.WPF"
         xmlns:wpf="clr-namespace:Syncfusion.Themes.FluentDark.WPF;assembly=Syncfusion.Themes.FluentDark.WPF">
-        <!--  *********************************************** TextBox*****************************************************  -->
+
+        <!--  *********************************************** METRO RICHTEXTBOX *****************************************************  -->
 
         <Style
                 x:Key="MetroRichTextBoxStyle"
@@ -22,7 +23,7 @@
                 <Setter Property="HorizontalContentAlignment" Value="Left" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
-                <Setter Property="Padding" Value="10,1,1,1" />
+                <Setter Property="Padding" Value="10,5,1,1" />
                 <Setter Property="Margin" Value="1" />
                 <Setter Property="FontFamily" Value="Roboto" />
                 <Setter Property="FontSize" Value="12" />

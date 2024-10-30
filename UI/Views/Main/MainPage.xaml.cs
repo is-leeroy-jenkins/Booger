@@ -61,12 +61,12 @@ namespace Booger
         /// <summary>
         /// The application window
         /// </summary>
-        private protected MainWindow _appWindow;
+        private protected MainWindow _mainWindow;
 
         /// <summary>
         /// The view model
         /// </summary>
-        private protected MainPageModel _viewModel;
+        private protected MainPageModel _mainPageModel;
 
         /// <summary>
         /// The application global data
@@ -89,10 +89,25 @@ namespace Booger
         private protected ChatService _chatService;
 
         /// <summary>
+        /// The chat service
+        /// </summary>
+        private protected ChatPageService _chatPageService;
+
+        /// <summary>
+        /// The chat storage service
+        /// </summary>
+        private protected ChatStorageService _chatStorageService;
+
+        /// <summary>
+        /// The configuration service
+        /// </summary>
+        private protected ConfigurationService _configurationService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MainPage"/> class.
         /// </summary>
-        /// <param name="appWindow">The application window.</param>
-        /// <param name="viewModel">The view model.</param>
+        /// <param name="mainWindow">The application window.</param>
+        /// <param name="mainPageModel">The view model.</param>
         /// <param name="appGlobalData">The application global data.</param>
         /// <param name="pageService">The page service.</param>
         /// <param name="noteService">The note service.</param>
@@ -101,14 +116,14 @@ namespace Booger
         /// <param name="chatStorageService">The chat storage service.</param>
         /// <param name="configurationService">The configuration service.</param>
         /// <param name="smoothScrollingService">The smooth scrolling service.</param>
-        public MainPage( MainWindow appWindow, MainPageModel viewModel, AppGlobalData appGlobalData,
+        public MainPage( MainWindow mainWindow, MainPageModel mainPageModel, AppGlobalData appGlobalData,
             PageService pageService, NoteService noteService, ChatService chatService,
             ChatPageService chatPageService, ChatStorageService chatStorageService,
             ConfigurationService configurationService,
             SmoothScrollingService smoothScrollingService )
         {
-            AppWindow = appWindow;
-            ViewModel = viewModel;
+            _mainWindow = mainWindow;
+            _mainPageModel = mainPageModel;
             AppGlobalData = appGlobalData;
             PageService = pageService;
             NoteService = noteService;
@@ -138,7 +153,17 @@ namespace Booger
         /// <value>
         /// The application window.
         /// </value>
-        public MainWindow AppWindow { get; }
+        public MainWindow MainWindow
+        {
+            get
+            {
+                return _mainWindow;
+            }
+            set
+            {
+                _mainWindow = value;
+            }
+        }
 
         /// <summary>
         /// Gets the view model.
@@ -146,7 +171,17 @@ namespace Booger
         /// <value>
         /// The view model.
         /// </value>
-        public MainPageModel ViewModel { get; }
+        public MainPageModel MainPageModel
+        {
+            get
+            {
+                return _mainPageModel;
+            }
+            set
+            {
+                _mainPageModel = value;
+            }
+        }
 
         /// <summary>
         /// Gets the application global data.
@@ -154,7 +189,17 @@ namespace Booger
         /// <value>
         /// The application global data.
         /// </value>
-        public AppGlobalData AppGlobalData { get; }
+        public AppGlobalData AppGlobalData
+        {
+            get
+            {
+                return _appGlobalData;
+            }
+            set
+            {
+                _appGlobalData = value;
+            }
+        }
 
         /// <summary>
         /// Gets the page service.
@@ -162,7 +207,17 @@ namespace Booger
         /// <value>
         /// The page service.
         /// </value>
-        public PageService PageService { get; }
+        public PageService PageService
+        {
+            get
+            {
+                return _pageService;
+            }
+            set
+            {
+                _pageService = value;
+            }
+        }
 
         /// <summary>
         /// Gets the note service.
@@ -170,7 +225,17 @@ namespace Booger
         /// <value>
         /// The note service.
         /// </value>
-        public NoteService NoteService { get; }
+        public NoteService NoteService
+        {
+            get
+            {
+                return _noteService;
+            }
+            set
+            {
+                _noteService = value;
+            }
+        }
 
         /// <summary>
         /// Gets the chat service.
@@ -178,7 +243,17 @@ namespace Booger
         /// <value>
         /// The chat service.
         /// </value>
-        public ChatService ChatService { get; }
+        public ChatService ChatService
+        {
+            get
+            {
+                return _chatService;
+            }
+            set
+            {
+                _chatService = value;
+            }
+        }
 
         /// <summary>
         /// Gets the chat page service.
@@ -186,7 +261,17 @@ namespace Booger
         /// <value>
         /// The chat page service.
         /// </value>
-        public ChatPageService ChatPageService { get; }
+        public ChatPageService ChatPageService
+        {
+            get
+            {
+                return _chatPageService;
+            }
+            set
+            {
+                _chatPageService = value;
+            }
+        }
 
         /// <summary>
         /// Gets the chat storage service.
@@ -194,7 +279,17 @@ namespace Booger
         /// <value>
         /// The chat storage service.
         /// </value>
-        public ChatStorageService ChatStorageService { get; }
+        public ChatStorageService ChatStorageService
+        {
+            get
+            {
+                return _chatStorageService;
+            }
+            set
+            {
+                _chatStorageService = value;
+            }
+        }
 
         /// <summary>
         /// Gets the configuration service.
@@ -202,7 +297,17 @@ namespace Booger
         /// <value>
         /// The configuration service.
         /// </value>
-        public ConfigurationService ConfigurationService { get; }
+        public ConfigurationService ConfigurationService
+        {
+            get
+            {
+                return _configurationService;
+            }
+            set
+            {
+                _configurationService = value;
+            }
+        }
 
         /// <summary>
         /// Goes to configuration page.
@@ -210,7 +315,7 @@ namespace Booger
         [ RelayCommand ]
         public void GoToConfigPage( )
         {
-            AppWindow.Navigate<ConfigPage>( );
+            _mainWindow.Navigate<ConfigurationPage>( );
         }
 
         /// <summary>
@@ -222,14 +327,14 @@ namespace Booger
             if( AppGlobalData.SelectedSession != null )
             {
                 var _sessionId = AppGlobalData.SelectedSession.Id;
-                ChatService.Cancel( );
-                ChatStorageService.ClearMessage( _sessionId );
-                ViewModel.CurrentChat?.ViewModel.Messages.Clear( );
-                await NoteService.ShowAndWaitAsync( "Chat has been reset.", 1500 );
+                _chatService.Cancel( );
+                _chatStorageService.ClearMessage( _sessionId );
+                _mainPageModel.CurrentChat?.ViewModel.Messages.Clear( );
+                await _noteService.ShowAndWaitAsync( "Chat has been reset.", 1500 );
             }
             else
             {
-                await NoteService.ShowAndWaitAsync( "You need to select a session.", 1500 );
+                await _noteService.ShowAndWaitAsync( "You need to select a session.", 1500 );
             }
         }
 
@@ -241,9 +346,9 @@ namespace Booger
         {
             var _session = ChatSession.Create( );
             var _sessionModel = new ChatSessionModel( _session );
-            ChatStorageService.SaveSession( _session );
-            AppGlobalData.Sessions.Add( _sessionModel );
-            AppGlobalData.SelectedSession = _sessionModel;
+            _chatStorageService.SaveSession( _session );
+            _appGlobalData.Sessions.Add( _sessionModel );
+            _appGlobalData.SelectedSession = _sessionModel;
         }
 
         /// <summary>
@@ -253,18 +358,18 @@ namespace Booger
         [ RelayCommand ]
         public void DeleteSession( ChatSessionModel session )
         {
-            if( AppGlobalData.Sessions.Count == 1 )
+            if( _appGlobalData.Sessions.Count == 1 )
             {
-                NoteService.Show( "You can't delete the last session.", 1500 );
+                _noteService.Show( "You can't delete the last session.", 1500 );
                 return;
             }
 
-            var _index = AppGlobalData.Sessions.IndexOf( session );
+            var _index = _appGlobalData.Sessions.IndexOf( session );
             var _newIndex = Math.Max( 0, _index - 1 );
-            ChatPageService.RemovePage( session.Id );
-            ChatStorageService.DeleteSession( session.Id );
-            AppGlobalData.Sessions.Remove( session );
-            AppGlobalData.SelectedSession = AppGlobalData.Sessions[ _newIndex ];
+            _chatPageService.RemovePage( session.Id );
+            _chatStorageService.DeleteSession( session.Id );
+            _appGlobalData.Sessions.Remove( session );
+            _appGlobalData.SelectedSession = _appGlobalData.Sessions[ _newIndex ];
         }
 
         /// <summary>
@@ -274,10 +379,10 @@ namespace Booger
         public void SwitchToNextSession( )
         {
             int _nextIndex;
-            var _lastIndex = AppGlobalData.Sessions.Count - 1;
-            if( AppGlobalData.SelectedSession != null )
+            var _lastIndex = _appGlobalData.Sessions.Count - 1;
+            if( _appGlobalData.SelectedSession != null )
             {
-                _nextIndex = AppGlobalData.Sessions.IndexOf( AppGlobalData.SelectedSession ) + 1;
+                _nextIndex = _appGlobalData.Sessions.IndexOf( _appGlobalData.SelectedSession ) + 1;
             }
             else
             {
@@ -285,7 +390,7 @@ namespace Booger
             }
 
             _nextIndex = Math.Clamp( _nextIndex, 0, _lastIndex );
-            AppGlobalData.SelectedSession = AppGlobalData.Sessions[ _nextIndex ];
+            _appGlobalData.SelectedSession = _appGlobalData.Sessions[ _nextIndex ];
         }
 
         /// <summary>
@@ -295,11 +400,11 @@ namespace Booger
         public void SwitchToPreviousSession( )
         {
             int _previousIndex;
-            var _lastIndex = AppGlobalData.Sessions.Count - 1;
-            if( AppGlobalData.SelectedSession != null )
+            var _lastIndex = _appGlobalData.Sessions.Count - 1;
+            if( _appGlobalData.SelectedSession != null )
             {
                 _previousIndex =
-                    AppGlobalData.Sessions.IndexOf( AppGlobalData.SelectedSession ) - 1;
+                    _appGlobalData.Sessions.IndexOf( _appGlobalData.SelectedSession ) - 1;
             }
             else
             {
@@ -307,7 +412,7 @@ namespace Booger
             }
 
             _previousIndex = Math.Clamp( _previousIndex, 0, _lastIndex );
-            AppGlobalData.SelectedSession = AppGlobalData.Sessions[ _previousIndex ];
+            _appGlobalData.SelectedSession = _appGlobalData.Sessions[ _previousIndex ];
         }
 
         /// <summary>
@@ -317,10 +422,10 @@ namespace Booger
         public void CycleSwitchToNextSession( )
         {
             int _nextIndex;
-            var _lastIndex = AppGlobalData.Sessions.Count - 1;
-            if( AppGlobalData.SelectedSession != null )
+            var _lastIndex = _appGlobalData.Sessions.Count - 1;
+            if( _appGlobalData.SelectedSession != null )
             {
-                _nextIndex = AppGlobalData.Sessions.IndexOf( AppGlobalData.SelectedSession ) + 1;
+                _nextIndex = _appGlobalData.Sessions.IndexOf( _appGlobalData.SelectedSession ) + 1;
             }
             else
             {
@@ -332,7 +437,7 @@ namespace Booger
                 _nextIndex = 0;
             }
 
-            AppGlobalData.SelectedSession = AppGlobalData.Sessions[ _nextIndex ];
+            _appGlobalData.SelectedSession = _appGlobalData.Sessions[ _nextIndex ];
         }
 
         /// <summary>
@@ -342,11 +447,11 @@ namespace Booger
         public void CycleSwitchToPreviousSession( )
         {
             int _previousIndex;
-            var _lastIndex = AppGlobalData.Sessions.Count - 1;
-            if( AppGlobalData.SelectedSession != null )
+            var _lastIndex = _appGlobalData.Sessions.Count - 1;
+            if( _appGlobalData.SelectedSession != null )
             {
                 _previousIndex =
-                    AppGlobalData.Sessions.IndexOf( AppGlobalData.SelectedSession ) - 1;
+                    _appGlobalData.Sessions.IndexOf( _appGlobalData.SelectedSession ) - 1;
             }
             else
             {
@@ -358,7 +463,7 @@ namespace Booger
                 _previousIndex = _lastIndex;
             }
 
-            AppGlobalData.SelectedSession = AppGlobalData.Sessions[ _previousIndex ];
+            _appGlobalData.SelectedSession = _appGlobalData.Sessions[ _previousIndex ];
         }
 
         /// <summary>
@@ -369,7 +474,7 @@ namespace Booger
         {
             if( AppGlobalData.SelectedSession != null )
             {
-                DeleteSession( AppGlobalData.SelectedSession );
+                DeleteSession( _appGlobalData.SelectedSession );
             }
         }
 
@@ -379,9 +484,9 @@ namespace Booger
         [ RelayCommand ]
         public void SwitchPageToCurrentSession( )
         {
-            if( AppGlobalData.SelectedSession != null )
+            if( _appGlobalData.SelectedSession != null )
             {
-                ViewModel.CurrentChat = ChatPageService.GetPage( AppGlobalData.SelectedSession.Id );
+                _mainPageModel.CurrentChat = _chatPageService.GetPage( _appGlobalData.SelectedSession.Id );
             }
         }
     }

@@ -42,9 +42,7 @@
 namespace Booger
 {
     using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Collections.Specialized;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows;
@@ -53,104 +51,301 @@ namespace Booger
     using System.Windows.Threading;
     using CommunityToolkit.Mvvm.Input;
 
+    /// <inheritdoc />
     /// <summary>
     /// Interaction logic for ChatPage.xaml
     /// </summary>
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    [ SuppressMessage( "ReSharper", "RedundantExtendsListEntry" ) ]
     public partial class ChatPage : Page
     {
-        public ChatPage( ChatPageModel viewModel,
-            AppGlobalData appGlobalData,
-            NoteService noteService,
-            ChatService chatService,
-            ChatStorageService chatStorageService,
-            ConfigurationService configurationService,
-            SmoothScrollingService smoothScrollingService,
-            TitleGenerationService titleGenerationService )
-        {
-            ViewModel = viewModel;
-            AppGlobalData = appGlobalData;
-            NoteService = noteService;
-            ChatService = chatService;
-            ChatStorageService = chatStorageService;
-            ConfigurationService = configurationService;
-            TitleGenerationService = titleGenerationService;
-            DataContext = this;
-            InitializeComponent( );
-            MessagesScrollViewer.PreviewMouseWheel += CloseAutoScrollWhileMouseWheel;
-            MessagesScrollViewer.ScrollChanged += MessageScrolled;
-            smoothScrollingService.Register( MessagesScrollViewer );
-        }
-
+        /// <summary>
+        /// The current session model
+        /// </summary>
         private ChatSessionModel _currentSessionModel;
 
-        public ChatPageModel ViewModel { get; }
+        /// <summary>
+        /// The view model
+        /// </summary>
+        private protected ChatPageModel _viewModel;
 
-        public AppGlobalData AppGlobalData { get; }
+        /// <summary>
+        /// The application global data
+        /// </summary>
+        private protected AppGlobalData _appGlobalData;
 
-        public ChatService ChatService { get; }
+        /// <summary>
+        /// The chat service
+        /// </summary>
+        private protected ChatService _chatService;
 
-        public ChatStorageService ChatStorageService { get; }
+        /// <summary>
+        /// The chat storage service
+        /// </summary>
+        private protected ChatStorageService _chatStorageService;
 
-        public NoteService NoteService { get; }
+        /// <summary>
+        /// The note service
+        /// </summary>
+        private protected NoteService _noteService;
 
-        public ConfigurationService ConfigurationService { get; }
+        /// <summary>
+        /// The configuration service
+        /// </summary>
+        private protected ConfigurationService _configurationService;
 
-        public TitleGenerationService TitleGenerationService { get; }
+        /// <summary>
+        /// The title generation service
+        /// </summary>
+        private protected TitleGenerationService _titleGenerationService;
 
-        public Guid SessionId { get; private set; }
+        /// <summary>
+        /// The automatic scroll to end
+        /// </summary>
+        private protected bool _autoScrollToEnd;
 
+        /// <summary>
+        /// The session identifier
+        /// </summary>
+        private protected Guid _sessionId;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChatPage"/> class.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        /// <param name="appGlobalData">The application global data.</param>
+        /// <param name="noteService">The note service.</param>
+        /// <param name="chatService">The chat service.</param>
+        /// <param name="chatStorageService">The chat storage service.</param>
+        /// <param name="configurationService">The configuration service.</param>
+        /// <param name="smoothScrollingService">The smooth scrolling service.</param>
+        /// <param name="titleGenerationService">The title generation service.</param>
+        public ChatPage( ChatPageModel viewModel, AppGlobalData appGlobalData,
+            NoteService noteService, ChatService chatService, ChatStorageService chatStorageService,
+            ConfigurationService configurationService, SmoothScrollingService smoothScrollingService,
+            TitleGenerationService titleGenerationService )
+        {
+            _viewModel = viewModel;
+            _appGlobalData = appGlobalData;
+            _noteService = noteService;
+            _chatService = chatService;
+            _chatStorageService = chatStorageService;
+            _configurationService = configurationService;
+            _titleGenerationService = titleGenerationService;
+            DataContext = this;
+            InitializeComponent( );
+            MessageScrollViewer.PreviewMouseWheel += CloseAutoScrollWhileMouseWheel;
+            MessageScrollViewer.ScrollChanged += MessageScrolled;
+            smoothScrollingService.Register( MessageScrollViewer );
+        }
+
+        /// <summary>
+        /// Gets or sets the view model.
+        /// </summary>
+        /// <value>
+        /// The view model.
+        /// </value>
+        public ChatPageModel ViewModel
+        {
+            get
+            {
+                return _viewModel;
+            }
+            set
+            {
+                _viewModel = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the application global data.
+        /// </summary>
+        /// <value>
+        /// The application global data.
+        /// </value>
+        public AppGlobalData AppGlobalData
+        {
+            get
+            {
+                return _appGlobalData;
+            }
+            set
+            {
+                _appGlobalData = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the chat service.
+        /// </summary>
+        /// <value>
+        /// The chat service.
+        /// </value>
+        public ChatService ChatService
+        {
+            get
+            {
+                return _chatService;
+            }
+            set
+            {
+                _chatService = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the chat storage service.
+        /// </summary>
+        /// <value>
+        /// The chat storage service.
+        /// </value>
+        public ChatStorageService ChatStorageService
+        {
+            get
+            {
+                return _chatStorageService;
+            }
+            set
+            {
+                _chatStorageService = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the note service.
+        /// </summary>
+        /// <value>
+        /// The note service.
+        /// </value>
+        public NoteService NoteService
+        {
+            get
+            {
+                return _noteService;
+            }
+            set
+            {
+                _noteService = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the configuration service.
+        /// </summary>
+        /// <value>
+        /// The configuration service.
+        /// </value>
+        public ConfigurationService ConfigurationService
+        {
+            get
+            {
+                return _configurationService;
+            }
+            set
+            {
+                _configurationService = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the title generation service.
+        /// </summary>
+        /// <value>
+        /// The title generation service.
+        /// </value>
+        public TitleGenerationService TitleGenerationService
+        {
+            get
+            {
+                return _titleGenerationService;
+            }
+            set
+            {
+                _titleGenerationService = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the session identifier.
+        /// </summary>
+        /// <value>
+        /// The session identifier.
+        /// </value>
+        public Guid SessionId
+        {
+            get
+            {
+                return _sessionId;
+            }
+            set
+            {
+                _sessionId = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the current session model.
+        /// </summary>
+        /// <value>
+        /// The current session model.
+        /// </value>
         public ChatSessionModel CurrentSessionModel
         {
             get
             {
                 return _currentSessionModel ??=
-                    AppGlobalData.Sessions.FirstOrDefault( session => session.Id == SessionId );
+                    _appGlobalData.Sessions.FirstOrDefault( session => session.Id == _sessionId );
             }
         }
 
+        /// <summary>
+        /// Initializes the session.
+        /// </summary>
+        /// <param name="sessionId">The session identifier.</param>
         public void InitSession( Guid sessionId )
         {
-            SessionId = sessionId;
-            ViewModel.Messages.Clear( );
-            foreach( var _msg in ChatStorageService.GetLastMessages( SessionId, 10 ) )
+            _sessionId = sessionId;
+            _viewModel.Messages.Clear( );
+            foreach( var _msg in _chatStorageService.GetLastMessages( _sessionId, 10 ) )
             {
-                ViewModel.Messages.Add( new ChatMessageModel( _msg ) );
+                _viewModel.Messages.Add( new ChatMessageModel( _msg ) );
             }
         }
 
-        [ RelayCommand ]
+        /// <summary>
+        /// Chats the asynchronous.
+        /// </summary>
+        [RelayCommand ]
         public async Task ChatAsync( )
         {
-            if( string.IsNullOrWhiteSpace( ViewModel.InputBoxText ) )
+            if( string.IsNullOrWhiteSpace( _viewModel.InputBoxText ) )
             {
-                _ = NoteService.ShowAndWaitAsync( "Empty message", 1500 );
+                _ = _noteService.ShowAndWaitAsync( "Empty message", 1500 );
                 return;
             }
 
-            if( string.IsNullOrWhiteSpace( ConfigurationService.Configuration.ApiKey ) )
+            if( string.IsNullOrWhiteSpace( _configurationService.Configuration.ApiKey ) )
             {
-                await NoteService.ShowAndWaitAsync(
-                    "You can't use OpenChat now, because you haven't set your api key yet", 3000 );
-
+                var _msg = "You can't use OpenChat now, because you haven't set your api key yet";
+                await _noteService.ShowAndWaitAsync( _msg, 3000 );
                 return;
             }
 
-            // 发个消息, 将自动滚动打开, 如果已经在底部, 则将自动滚动打开
-            if( MessagesScrollViewer.IsAtEnd( ) )
+            if( MessageScrollViewer.IsAtEnd( ) )
             {
                 _autoScrollToEnd = true;
             }
 
-            var _input = ViewModel.InputBoxText.Trim( );
-            ViewModel.InputBoxText = string.Empty;
+            var _input = _viewModel.InputBoxText.Trim( );
+            _viewModel.InputBoxText = string.Empty;
             var _requestMessageModel = new ChatMessageModel( "user", _input );
             var _responseMessageModel = new ChatMessageModel( "assistant", string.Empty );
             var _responseAdded = false;
-            ViewModel.Messages.Add( _requestMessageModel );
+            _viewModel.Messages.Add( _requestMessageModel );
             try
             {
                 var _dialogue =
-                    await ChatService.ChatAsync( SessionId, _input, content =>
+                    await _chatService.ChatAsync( _sessionId, _input, content =>
                     {
                         _responseMessageModel.Content = content;
                         if( !_responseAdded )
@@ -158,23 +353,23 @@ namespace Booger
                             _responseAdded = true;
                             Dispatcher.Invoke( ( ) =>
                             {
-                                ViewModel.Messages.Add( _responseMessageModel );
+                                _viewModel.Messages.Add( _responseMessageModel );
                             } );
                         }
                     } );
 
                 _requestMessageModel.Storage = _dialogue.Ask;
                 _responseMessageModel.Storage = _dialogue.Answer;
-                if( CurrentSessionModel is ChatSessionModel _currentSessionModel
-                    && string.IsNullOrEmpty( _currentSessionModel.Name ) )
+                if( _currentSessionModel is ChatSessionModel _currentSession
+                    && string.IsNullOrEmpty( _currentSession.Name ) )
                 {
-                    var _title = await TitleGenerationService.GenerateAsync( new[ ]
+                    var _title = await _titleGenerationService.GenerateAsync( new[ ]
                     {
                         _requestMessageModel.Content,
                         _responseMessageModel.Content
                     } );
 
-                    _currentSessionModel.Name = _title;
+                    _currentSession.Name = _title;
                 }
             }
             catch( TaskCanceledException )
@@ -182,40 +377,44 @@ namespace Booger
                 Rollback( _requestMessageModel, _responseMessageModel, _input );
             }
             catch( Exception ex )
-            {
-                _ = NoteService.ShowAndWaitAsync( $"{ex.GetType( ).Name}: {ex.Message}", 3000 );
+            { 
+                var _ = _noteService.ShowAndWaitAsync( $"{ex.GetType( ).Name}: {ex.Message}", 3000 );
                 Rollback( _requestMessageModel, _responseMessageModel, _input );
             }
 
-            void Rollback( ChatMessageModel requestMessageModel,
-                ChatMessageModel responseMessageModel,
-                string originInput )
+            void Rollback( ChatMessageModel request, ChatMessageModel response, string input )
             {
-                ViewModel.Messages.Remove( requestMessageModel );
-                ViewModel.Messages.Remove( responseMessageModel );
-                if( string.IsNullOrWhiteSpace( ViewModel.InputBoxText ) )
+                _viewModel.Messages.Remove( request );
+                _viewModel.Messages.Remove( response );
+                if( string.IsNullOrWhiteSpace( _viewModel.InputBoxText ) )
                 {
-                    ViewModel.InputBoxText = _input;
+                    _viewModel.InputBoxText = _input;
                 }
                 else
                 {
-                    ViewModel.InputBoxText = $"{_input} {ViewModel.InputBoxText}";
+                    _viewModel.InputBoxText = $"{_input} {_viewModel.InputBoxText}";
                 }
             }
         }
 
-        [ RelayCommand ]
+        /// <summary>
+        /// Cancels this instance.
+        /// </summary>
+        [RelayCommand ]
         public void Cancel( )
         {
-            ChatService.Cancel( );
+            _chatService.Cancel( );
         }
 
-        [ RelayCommand ]
+        /// <summary>
+        /// Chats the or cancel.
+        /// </summary>
+        [RelayCommand ]
         public void ChatOrCancel( )
         {
             if( ChatCommand.IsRunning )
             {
-                ChatService.Cancel( );
+                _chatService.Cancel( );
             }
             else
             {
@@ -223,27 +422,39 @@ namespace Booger
             }
         }
 
-        [ RelayCommand ]
+        /// <summary>
+        /// Copies the specified text.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        [RelayCommand ]
         public void Copy( string text )
         {
             Clipboard.SetText( text );
         }
 
-        private bool _autoScrollToEnd;
-
+        /// <summary>
+        /// Closes the automatic scroll while mouse wheel.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="MouseWheelEventArgs"/> instance containing the event data.</param>
         private void CloseAutoScrollWhileMouseWheel( object sender, MouseWheelEventArgs e )
         {
             _autoScrollToEnd = false;
         }
 
+        /// <summary>
+        /// Messages the scrolled.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="ScrollChangedEventArgs"/> instance containing the event data.</param>
         private void MessageScrolled( object sender, ScrollChangedEventArgs e )
         {
-            if( e.OriginalSource != MessagesScrollViewer )
+            if( e.OriginalSource != MessageScrollViewer )
             {
                 return;
             }
 
-            if( MessagesScrollViewer.IsAtEnd( ) )
+            if( MessageScrollViewer.IsAtEnd( ) )
             {
                 _autoScrollToEnd = true;
             }
@@ -251,17 +462,17 @@ namespace Booger
             if( e.VerticalChange != 0
                 && Messages.IsLoaded
                 && IsLoaded
-                && MessagesScrollViewer.IsAtTop( 10 )
-                && ViewModel.Messages.FirstOrDefault( )?.Storage?.Timestamp is DateTime _timestamp )
+                && MessageScrollViewer.IsAtTop( 10 )
+                && _viewModel.Messages.FirstOrDefault( )?.Storage?.Timestamp is DateTime _timestamp )
             {
-                foreach( var _msg in ChatStorageService.GetLastMessagesBefore( SessionId, 10,
+                foreach( var _msg in _chatStorageService.GetLastMessagesBefore( _sessionId, 10,
                     _timestamp ) )
                 {
-                    ViewModel.Messages.Insert( 0, new ChatMessageModel( _msg ) );
+                    _viewModel.Messages.Insert( 0, new ChatMessageModel( _msg ) );
                 }
 
-                var _distanceFromEnd = MessagesScrollViewer.ScrollableHeight
-                    - MessagesScrollViewer.VerticalOffset;
+                var _distanceFromEnd = MessageScrollViewer.ScrollableHeight
+                    - MessageScrollViewer.VerticalOffset;
 
                 Dispatcher.BeginInvoke( DispatcherPriority.Loaded,
                     new Action<ScrollChangedEventArgs>( e =>
@@ -274,12 +485,15 @@ namespace Booger
             }
         }
 
-        [ RelayCommand ]
+        /// <summary>
+        /// Scrolls to end while receiving.
+        /// </summary>
+        [RelayCommand ]
         public void ScrollToEndWhileReceiving( )
         {
             if( ChatCommand.IsRunning && _autoScrollToEnd )
             {
-                MessagesScrollViewer.ScrollToEnd( );
+                MessageScrollViewer.ScrollToEnd( );
             }
         }
     }

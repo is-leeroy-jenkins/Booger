@@ -6,6 +6,8 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:themelocal="clr-namespace:Syncfusion.Themes.FluentDark.WPF">
 
+        <!--  ***************************************** RESORCES ***********************************************  -->
+
         <ResourceDictionary.MergedDictionaries>
                 <sfskin:ResourceDictionaryProvider
                         DictionaryName="Common"
@@ -14,6 +16,8 @@
                         DictionaryName="Brushes"
                         ThemeName="FluentDark" />
         </ResourceDictionary.MergedDictionaries>
+
+        <!--  ***************************************** DATA TEMPLATE ***********************************************  -->
 
         <DataTemplate x:Key="ImageTileContentTemplate">
                 <Grid>
@@ -31,40 +35,46 @@
                 </Grid>
         </DataTemplate>
 
+        <!--  ***************************************** HUBTILE HEADER STYLE ***********************************************  -->
+
         <Style
                 x:Key="HubTileHeaderStyle"
                 TargetType="ContentPresenter">
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="VerticalAlignment" Value="Bottom" />
-                <Setter Property="TextElement.Foreground" Value="{StaticResource PrimaryForeground}" />
+                <Setter Property="TextElement.Foreground" Value="{StaticResource LightBlueBrush}" />
                 <Setter Property="Margin" Value="10,5" />
-                <Setter Property="TextElement.FontSize" Value="{StaticResource FluentDark.SubHeaderTextStyle}" />
+                <Setter Property="TextElement.FontSize" Value="10" />
                 <Setter Property="TextElement.FontWeight" Value="Normal" />
-                <Setter Property="TextElement.FontFamily" Value="{StaticResource FluentDark.ThemeFontFamily}" />
+                <Setter Property="TextElement.FontFamily" Value="Roboto" />
                 <Style.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="TextElement.Foreground" Value="{StaticResource PrimaryForegroundDisabled}" />
+                                <Setter Property="TextElement.Foreground" Value="{StaticResource MutedForeground}" />
                         </Trigger>
                 </Style.Triggers>
         </Style>
+
+        <!--  ***************************************** HUBTILE TITLE STYLE ***********************************************  -->
 
         <Style
                 x:Key="HubTileTitleStyle"
                 TargetType="ContentControl">
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="VerticalAlignment" Value="Top" />
-                <Setter Property="Foreground" Value="{StaticResource PrimaryForeground}" />
+                <Setter Property="Foreground" Value="{StaticResource LightBlueBrush}" />
                 <Setter Property="Margin" Value="5" />
                 <Setter Property="FontSize" Value="12" />
                 <Setter Property="FontWeight" Value="Normal" />
-                <Setter Property="FontFamily" Value="{StaticResource FluentDark.ThemeFontFamily}" />
+                <Setter Property="FontFamily" Value="Roboto" />
                 <Style.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Foreground" Value="{StaticResource PrimaryForeground}" />
+                                <Setter Property="Foreground" Value="{StaticResource LightBlueBrush}" />
                         </Trigger>
                 </Style.Triggers>
 
         </Style>
+
+        <!--  ***************************************** SF HUBTILE STYLE ***********************************************  -->
 
         <Style
                 x:Key="SyncfusionSfHubTileStyle"
@@ -72,8 +82,8 @@
                 <Setter Property="Padding" Value="2" />
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 <Setter Property="VerticalContentAlignment" Value="Stretch" />
-                <Setter Property="Background" Value="{StaticResource PrimaryBackground}" />
-                <Setter Property="BorderBrush" Value="{StaticResource PrimaryBackground}" />
+                <Setter Property="Background" Value="{StaticResource ControlBackground}" />
+                <Setter Property="BorderBrush" Value="{StaticResource ControlBackground}" />
                 <Setter Property="HeaderStyle" Value="{StaticResource HubTileHeaderStyle}" />
                 <Setter Property="TitleStyle" Value="{StaticResource HubTileTitleStyle}" />
                 <Setter Property="Width" Value="150" />
@@ -91,7 +101,7 @@
                                                         Background="{TemplateBinding Background}"
                                                         BorderBrush="{TemplateBinding BorderBrush}"
                                                         BorderThickness="{TemplateBinding BorderThickness}"
-                                                        CornerRadius="{StaticResource FluentDark.ThemeCornerRadiusVariant1}">
+                                                        CornerRadius="1">
                                                         <Grid Margin="{TemplateBinding Padding}">
                                                                 <Grid x:Name="PART_SlideRoot">
                                                                         <Grid x:Name="PART_LayoutRoot">
@@ -153,11 +163,11 @@
                                         </Grid>
                                         <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter TargetName="PointerOveRect" Property="Fill" Value="{StaticResource PrimaryColorDark1}" />
+                                                        <Setter TargetName="PointerOveRect" Property="Fill" Value="{StaticResource BlueBorderBrush}" />
                                                 </Trigger>
                                                 <Trigger Property="IsEnabled" Value="False">
-                                                        <Setter TargetName="Part_Border" Property="BorderBrush" Value="{StaticResource PrimaryBackground}" />
-                                                        <Setter TargetName="Part_Border" Property="Background" Value="{StaticResource PrimaryBackground}" />
+                                                        <Setter TargetName="Part_Border" Property="BorderBrush" Value="{StaticResource ControlBackground}" />
+                                                        <Setter TargetName="Part_Border" Property="Background" Value="{StaticResource ControlBackground}" />
                                                 </Trigger>
                                         </ControlTemplate.Triggers>
                                 </ControlTemplate>

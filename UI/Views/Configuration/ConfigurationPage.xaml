@@ -1,5 +1,5 @@
 ﻿<Page
-        x:Class="Booger.ConfigPage"
+        x:Class="Booger.ConfigurationPage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:b="clr-namespace:Booger"
@@ -9,14 +9,15 @@
         xmlns:sync="http://schemas.syncfusion.com/wpf"
         Title="Configuration"
         d:Background="{StaticResource FormBackground}"
-        d:DataContext="{d:DesignInstance Type=b:ConfigPage}"
+        d:DataContext="{d:DesignInstance Type=b:ConfigurationPage}"
         d:DesignHeight="1000"
         d:DesignWidth="880"
         FocusVisualStyle="{x:Null}"
         Style="{DynamicResource AnimatedPageStyle}"
-        mc:Ignorable="d">
+        mc:Ignorable="d"
+        sync:SfSkinManager.Theme="{skin:SkinManagerExtension ThemeName=FluentDark}">
 
-        <!--  **************************************  RESOURCES ***********************************************  -->
+<!--**************************************  RESOURCES ***********************************************-->
 
         <Page.Resources>
 
@@ -30,7 +31,7 @@
 
         </Page.Resources>
 
-        <!--  ***************************************** LAYOUT ***********************************************  -->
+        <!--***************************************** LAYOUT ***********************************************-->
 
         <Grid>
                 <Grid.RowDefinitions>
@@ -87,7 +88,7 @@
                                 <StackPanel Margin="0,5">
                                         <TextBlock
                                                 Margin="0,0,0,5"
-                                                Foreground="{StaticResource FormForeground}">
+                                                Foreground="{StaticResource LightBlueBrush}">
                                                 <Run Text="{DynamicResource StrAPIKey}" />
                                                 <Run Text=":" />
                                         </TextBlock>
@@ -96,13 +97,13 @@
                                                 Height="30"
                                                 Padding="5,3"
                                                 Background="{StaticResource BlackBackground}"
-                                                Foreground="{StaticResource FormForeground}"
+                                                Foreground="{StaticResource LightBlueBrush}"
                                                 Text="{Binding ConfigurationService.Configuration.ApiKey}" />
                                 </StackPanel>
                                 <StackPanel Margin="0,5">
                                         <TextBlock
                                                 Margin="0,0,0,5"
-                                                Foreground="{StaticResource FormForeground}">
+                                                Foreground="{StaticResource LightBlueBrush}">
                                                 <Run Text="{DynamicResource StrAPIHost}" />
                                                 <Run Text=":" />
                                         </TextBlock>
@@ -111,13 +112,13 @@
                                                 Height="30"
                                                 Padding="5,3"
                                                 Background="{StaticResource BlackBackground}"
-                                                Foreground="{StaticResource FormForeground}"
+                                                Foreground="{StaticResource LightBlueBrush}"
                                                 Text="{Binding ConfigurationService.Configuration.ApiHost}" />
                                 </StackPanel>
                                 <StackPanel Margin="0,5">
                                         <TextBlock
                                                 Margin="0,0,0,5"
-                                                Foreground="{StaticResource FormForeground}">
+                                                Foreground="{StaticResource LightBlueBrush}">
                                                 <Run Text="{DynamicResource StrOrganization}" />
                                                 <Run Text=":" />
                                         </TextBlock>
@@ -126,13 +127,13 @@
                                                 Height="30"
                                                 Padding="5,3"
                                                 Background="{StaticResource BlackBackground}"
-                                                Foreground="{StaticResource FormForeground}"
+                                                Foreground="{StaticResource LightBlueBrush}"
                                                 Text="{Binding ConfigurationService.Configuration.Organization}" />
                                 </StackPanel>
                                 <StackPanel Margin="0,5">
                                         <TextBlock
                                                 Margin="0,0,0,5"
-                                                Foreground="{StaticResource FormForeground}">
+                                                Foreground="{StaticResource LightBlueBrush}">
                                                 <Run Text="{DynamicResource StrModel}" />
                                                 <Run Text=":" />
                                         </TextBlock>
@@ -141,13 +142,13 @@
                                                 Height="30"
                                                 Padding="5,3"
                                                 Background="{StaticResource BlackBackground}"
-                                                Foreground="{StaticResource FormForeground}"
+                                                Foreground="{StaticResource LightBlueBrush}"
                                                 Text="{Binding ConfigurationService.Configuration.Model}" />
                                 </StackPanel>
                                 <StackPanel Margin="0,5">
                                         <TextBlock
                                                 Margin="0,0,0,5"
-                                                Foreground="{StaticResource FormForeground}">
+                                                Foreground="{StaticResource LightBlueBrush}">
                                                 <Run Text="{DynamicResource StrAPITimeout}" />
                                                 <Run Text=":" />
                                         </TextBlock>
@@ -156,13 +157,13 @@
                                                 Height="30"
                                                 Padding="5,3"
                                                 Background="{StaticResource BlackBackground}"
-                                                Foreground="{StaticResource FormForeground}"
+                                                Foreground="{StaticResource LightBlueBrush}"
                                                 Text="{Binding ConfigurationService.Configuration.ApiTimeout}" />
                                 </StackPanel>
                                 <StackPanel Margin="0,5">
                                         <TextBlock
                                                 Margin="0,0,0,5"
-                                                Foreground="{StaticResource FormForeground}">
+                                                Foreground="{StaticResource LightBlueBrush}">
                                                 <Run Text="{DynamicResource StrTemperature}" />
                                                 <Run Text=":" />
                                         </TextBlock>
@@ -171,14 +172,14 @@
                                                 Height="30"
                                                 Padding="5,3"
                                                 Background="{StaticResource BlackBackground}"
-                                                Foreground="{StaticResource FormForeground}"
+                                                Foreground="{StaticResource LightBlueBrush}"
                                                 Text="{Binding ConfigurationService.Configuration.Temerature}" />
                                 </StackPanel>
                                 <StackPanel Margin="0,5">
                                         <Grid>
                                                 <TextBlock
                                                         Margin="0,0,0,5"
-                                                        Foreground="{StaticResource FormForeground}">
+                                                        Foreground="{StaticResource LightBlueBrush}">
                                                         <Run Text="{DynamicResource StrSystemMessages}" />
                                                         <Run Text=":" />
                                                 </TextBlock>
@@ -227,7 +228,7 @@
                                                                                 Height="30"
                                                                                 AcceptsReturn="True"
                                                                                 Background="{StaticResource BlackBackground}"
-                                                                                Foreground="{StaticResource FormForeground}"
+                                                                                Foreground="{StaticResource LightBlueBrush}"
                                                                                 Text="{Binding Value}"
                                                                                 TextWrapping="Wrap" />
                                                                 </DataTemplate>
@@ -242,7 +243,7 @@
                                                         <ColumnDefinition />
                                                         <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Foreground="{StaticResource FormForeground}">
+                                                <TextBlock Foreground="{StaticResource LightBlueBrush}">
                                                         <Run Text="{DynamicResource StrEnableChatContext}" />
                                                         <Run Text=":" />
                                                 </TextBlock>
@@ -258,7 +259,7 @@
                                                         <ColumnDefinition />
                                                         <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Foreground="{StaticResource FormForeground}">
+                                                <TextBlock Foreground="{StaticResource LightBlueBrush}">
                                                         <Run Text="{DynamicResource StrEnableTitleGeneration}" />
                                                         <Run Text=":" />
                                                 </TextBlock>
@@ -274,7 +275,7 @@
                                                         <ColumnDefinition />
                                                         <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Foreground="{StaticResource FormForeground}">
+                                                <TextBlock Foreground="{StaticResource LightBlueBrush}">
                                                         <Run Text="{DynamicResource StrWindowAlwaysOnTop}" />
                                                         <Run Text=":" />
                                                 </TextBlock>
@@ -290,7 +291,7 @@
                                                         <ColumnDefinition />
                                                         <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Foreground="{StaticResource FormForeground}">
+                                                <TextBlock Foreground="{StaticResource LightBlueBrush}">
                                                         <Run Text="{DynamicResource StrDisableChatAnimation}" />
                                                         <Run Text=":" />
                                                 </TextBlock>
@@ -301,7 +302,7 @@
                                         </Grid>
                                 </StackPanel>
                                 <StackPanel Margin="0,30,0,5">
-                                        <TextBlock Foreground="{StaticResource FormForeground}">
+                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">
                                                 <Run Text="{DynamicResource StrHotkeyTips}" />
                                                 <Run Text=":" />
                                         </TextBlock>
@@ -319,68 +320,68 @@
                                                         Grid.Column="0"
                                                         Margin="0,0,20,0"
                                                         Columns="1">
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">Ctrl+H:</TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">Ctrl+Shift+H:</TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">Ctrl+Enter:</TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">Ctrl+Shift+Enter:</TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">Ctrl+R:</TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">Ctrl+T/N:</TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">Ctrl+W:</TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">Ctrl+J:</TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">Ctrl+K:</TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">Ctrl+Tab:</TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">Ctrl+Shift+Tab:</TextBlock>
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">Ctrl+H:</TextBlock>
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">Ctrl+Shift+H:</TextBlock>
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">Ctrl+Enter:</TextBlock>
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">Ctrl+Shift+Enter:</TextBlock>
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">Ctrl+R:</TextBlock>
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">Ctrl+T/N:</TextBlock>
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">Ctrl+W:</TextBlock>
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">Ctrl+J:</TextBlock>
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">Ctrl+K:</TextBlock>
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">Ctrl+Tab:</TextBlock>
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">Ctrl+Shift+Tab:</TextBlock>
                                                 </UniformGrid>
                                                 <UniformGrid
                                                         Grid.Column="1"
                                                         Columns="1">
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">
                                                                 <Run Text="{DynamicResource StrHideApplication}" />
                                                         </TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">
                                                                 <Run Text="{DynamicResource StrShowApplication}" />
                                                                 <Run>(</Run>
                                                                 <Run Text="{DynamicResource StrGlobalHotkey}" />
                                                                 <Run>)</Run>
                                                         </TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">
                                                                 <Run Text="{DynamicResource StrSendMessage}" />
                                                                 <Run>(</Run>
                                                                 <Run Text="{DynamicResource StrInputBox}" />
                                                                 <Run>)</Run>
                                                         </TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">
                                                                 <Run Text="{DynamicResource StrCancelSendingMessage}" />
                                                                 <Run>(</Run>
                                                                 <Run Text="{DynamicResource StrInputBox}" />
                                                                 <Run>)</Run>
                                                         </TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">
                                                                 <Run Text="{DynamicResource StrResetChat}" />
                                                         </TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">
                                                                 <Run Text="{DynamicResource StrCreateNewSession}" />
                                                         </TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">
                                                                 <Run Text="{DynamicResource StrRemoveCurrentSession}" />
                                                         </TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">
                                                                 <Run Text="{DynamicResource StrSwitchToNextSession}" />
                                                         </TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">
                                                                 <Run Text="{DynamicResource StrSwitchToPreviousSession}" />
                                                         </TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">
                                                                 <Run Text="{DynamicResource StrCycleSwitchToNextSession}" />
                                                         </TextBlock>
-                                                        <TextBlock Foreground="{StaticResource FormForeground}">
+                                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">
                                                                 <Run Text="{DynamicResource StrCycleSwitchToPreviousSession}" />
                                                         </TextBlock>
                                                 </UniformGrid>
                                         </Grid>
                                 </StackPanel>
                                 <StackPanel Margin="0,5,0,5">
-                                        <TextBlock Foreground="{StaticResource FormForeground}">
+                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">
                                                 <Run Text="{DynamicResource StrColorMode}" />
                                                 <Run Text=":" />
                                         </TextBlock>
@@ -391,7 +392,7 @@
                                                 SelectedItem="{Binding ColorModeService.CurrentMode}" />
                                 </StackPanel>
                                 <StackPanel Margin="0,5,0,5">
-                                        <TextBlock Foreground="{StaticResource FormForeground}">
+                                        <TextBlock Foreground="{StaticResource LightBlueBrush}">
                                                 <Run Text="{DynamicResource StrLanguage}" />
                                                 <Run Text=":" />
                                         </TextBlock>

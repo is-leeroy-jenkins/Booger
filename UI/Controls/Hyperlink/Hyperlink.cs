@@ -6,7 +6,7 @@
 //     Last Modified By:        Terry D. Eppler
 //     Last Modified On:        08-08-2024
 // ******************************************************************************************
-// <copyright file="MetroLinearProgress.cs" company="Terry D. Eppler">
+// <copyright file="MetroHyperlink.cs" company="Terry D. Eppler">
 //    Booger is a quick & dirty WPF application that interacts with OpenAI GPT-3.5 Turbo API
 //    based on NET6 and written in C-Sharp.
 // 
@@ -35,13 +35,15 @@
 //    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
-//   MetroLinearProgress.cs
+//   MetroHyperlink.cs
 // </summary>
 // ******************************************************************************************
 
+// ReSharper disable All
+
 namespace Booger
 {
-    using Syncfusion.UI.Xaml.ProgressBar;
+    using ModernWpf.Controls;
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Windows.Media;
@@ -49,36 +51,56 @@ namespace Booger
     /// <inheritdoc />
     /// <summary>
     /// </summary>
-    /// <seealso cref="T:Syncfusion.UI.Xaml.ProgressBar.SfLinearProgressBar" />
+    /// <seealso cref="T:Wpf.Ui.Controls.HyperlinkButton" />
     [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
-    [ SuppressMessage( "ReSharper", "InconsistentNaming" ) ]
-    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
-    public class MetroLinearProgress : SfLinearProgressBar
+    public class Hyperlink : HyperlinkButton
     {
         /// <summary>
         /// The theme
         /// </summary>
         private protected readonly DarkMode _theme = new DarkMode( );
 
-        /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="T:Booger.MetroLinearProgress" /> class.
+        /// <see cref="Hyperlink"/> class.
         /// </summary>
-        public MetroLinearProgress( )
+        public Hyperlink( )
             : base( )
         {
-            // Control Properties
-            SetResourceReference( StyleProperty,
-                typeof( SfLinearProgressBar ) );
-
+            // Basic Settings
+            Height = 22;
             FontFamily = new FontFamily( "Roboto" );
             FontSize = 12;
-            Background = _theme.Background;
+            Background = _theme.TransparentBrush;
             Foreground = _theme.BorderBrush;
-            BorderBrush = _theme.BorderBrush;
+            BorderBrush = _theme.TransparentBrush;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="Hyperlink"/> class.
+        /// </summary>
+        /// <param name = "text" > </param>
+        /// <param name="uri">The URI.</param>
+        public Hyperlink( string text, string uri )
+            : this( )
+        {
+            Content = text;
+            NavigateUri = new Uri( uri );
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="Hyperlink"/> class.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="uri">The URI.</param>
+        public Hyperlink(string text, Uri uri)
+            : this()
+        {
+            Content = text;
+            NavigateUri = uri;
+        }
         /// <summary>
         /// Fails the specified _ex.
         /// </summary>

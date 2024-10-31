@@ -43,16 +43,12 @@ namespace Booger
 {
     using System;
     using System.Collections.Generic;
-    using System.Reflection.Metadata;
-    using System.Security.Policy;
     using System.Threading;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using ColorCode;
-    using ColorCode.Common;
-    using ColorCode.Parsing;
     using ColorCode.Styling;
     using Markdig.Extensions.Tables;
     using Markdig.Extensions.TaskLists;

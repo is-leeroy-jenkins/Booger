@@ -42,11 +42,7 @@
 namespace Booger
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Runtime.InteropServices;
-    using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// 
@@ -208,7 +204,7 @@ namespace Booger
                 ? 1
                 : 0;
 
-            var _hr = NativeMethods.DwmSetWindowAttribute( hWnd,
+            var _hr = DwmSetWindowAttribute( hWnd,
                 DwmWindowAttribute.UseImmersiveDarkMode, ref _darkMode, sizeof( int ) );
 
             return _hr >= 0;

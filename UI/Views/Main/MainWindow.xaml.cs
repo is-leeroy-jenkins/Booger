@@ -65,7 +65,7 @@ namespace Booger
         /// <summary>
         /// The application window
         /// </summary>
-        private protected AppWindowModel _appWindowViewModel;
+        private protected AppWindowModel _viewModel;
 
         /// <summary>
         /// The view model
@@ -108,7 +108,7 @@ namespace Booger
             MinWidth = 1350;
             MinHeight = 800;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            _appWindowViewModel = viewModel;
+            _viewModel = viewModel;
             _pageService = pageService;
             _noteService = noteService;
             _languageService = languageService;
@@ -123,15 +123,15 @@ namespace Booger
         /// <value>
         /// The view model.
         /// </value>
-        public AppWindowModel AppWindowViewModel
+        public AppWindowModel ViewModel
         {
             get
             {
-                return _appWindowViewModel;
+                return _viewModel;
             }
             set
             {
-                _appWindowViewModel = value;
+                _viewModel = value;
             }
         }
 
@@ -214,7 +214,7 @@ namespace Booger
         public void Navigate<TPage>( ) 
             where TPage : class
         {
-            AppFrame.Navigate( PageService.GetPage( typeof( TPage ) ) );
+            AppFrame.Navigate( _pageService.GetPage( typeof( TPage ) ) );
         }
 
         /// <summary>
@@ -270,14 +270,14 @@ namespace Booger
         /// </summary>
         /// <param name="e">An <see cref="T:System.EventArgs" />
         /// that contains the event data.</param>
-        protected override void OnSourceInitialized(EventArgs e)
+        protected override void OnSourceInitialized( EventArgs e )
         {
-            base.OnSourceInitialized(e);
+            base.OnSourceInitialized( e );
             EntryPoint.MainWindowHandle =
-                new WindowInteropHelper(this).Handle;
+                new WindowInteropHelper( this ).Handle;
 
-            LanguageService.Init();
-            ColorModeService.Init();
+            _languageService.Init( );
+            _colorModeService.Init( );
         }
 
         /// <summary>
@@ -293,7 +293,6 @@ namespace Booger
                 var _calculator = new CalculatorWindow
                 {
                     WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                    Owner = this,
                     Topmost = true
                 };
 

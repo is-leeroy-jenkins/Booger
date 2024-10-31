@@ -41,12 +41,12 @@
 
 namespace Booger
 {
-    using Syncfusion.SfSkinManager;
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
+    using Syncfusion.SfSkinManager;
 
     /// <inheritdoc />
     /// <summary>

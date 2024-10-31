@@ -41,6 +41,7 @@
 
 namespace Booger
 {
+    using System;
     using System.Diagnostics;
     using System.IO;
 

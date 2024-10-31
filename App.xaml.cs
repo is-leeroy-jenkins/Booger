@@ -48,7 +48,6 @@ namespace Booger
     using System.Threading.Tasks;
     using System.Windows;
     using CommunityToolkit.Mvvm.Input;
-    using System.Configuration;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -227,19 +226,19 @@ namespace Booger
         /// The show application command
         /// </summary>
         public static IRelayCommand _showAppCommand =
-            new RelayCommand( App.ShowApp );
+            new RelayCommand( ShowApp );
 
         /// <summary>
         /// The hide application command
         /// </summary>
         public static IRelayCommand _hideAppCommand =
-            new RelayCommand( App.HideApp );
+            new RelayCommand( HideApp );
 
         /// <summary>
         /// The close application command
         /// </summary>
         public static IRelayCommand _closeAppCommand =
-            new RelayCommand( App.CloseApp );
+            new RelayCommand( CloseApp );
 
         /// <summary>
         /// Setups the restore window place.
@@ -276,7 +275,7 @@ namespace Booger
                 _mainWindow.Activate( );
             }
 
-            App.SetupRestoreWindowPlace( _mainWindow );
+            SetupRestoreWindowPlace( _mainWindow );
         }
 
         /// <summary>
@@ -322,7 +321,7 @@ namespace Booger
                         _singletonEvent.WaitOne( );
                         Dispatcher.Invoke( ( ) =>
                         {
-                            App.ShowApp( );
+                            ShowApp( );
                         } );
                     }
                 } );

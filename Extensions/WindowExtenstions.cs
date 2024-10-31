@@ -85,7 +85,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                WindowExtenstions.Fail( ex );
+                Fail( ex );
                 return default( Notifier );
             }
         }
@@ -107,7 +107,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                WindowExtenstions.Fail( ex );
+                Fail( ex );
             }
         }
 
@@ -124,7 +124,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                WindowExtenstions.Fail( ex );
+                Fail( ex );
             }
         }
 
@@ -148,7 +148,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                WindowExtenstions.Fail( ex );
+                Fail( ex );
             }
         }
 
@@ -172,7 +172,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                WindowExtenstions.Fail( ex );
+                Fail( ex );
             }
         }
 
@@ -197,7 +197,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                WindowExtenstions.Fail( ex );
+                Fail( ex );
             }
         }
 
@@ -222,7 +222,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                WindowExtenstions.Fail( ex );
+                Fail( ex );
             }
         }
 

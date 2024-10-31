@@ -47,15 +47,17 @@ namespace Booger
     using System.Windows.Controls;
     using CommunityToolkit.Mvvm.Input;
 
+    /// <inheritdoc />
     /// <summary>
-    /// 
     /// </summary>
-    /// <seealso cref="System.Windows.Controls.Page" />
-    /// <seealso cref="System.Windows.Markup.IComponentConnector" />
+    /// <seealso cref="T:System.Windows.Controls.Page" />
+    /// <seealso cref="T:System.Windows.Markup.IComponentConnector" />
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    [ SuppressMessage( "ReSharper", "HeuristicUnreachableCode" ) ]
+    [ SuppressMessage( "ReSharper", "RedundantExtendsListEntry" ) ]
     public partial class MainPage : Page
     {
         /// <summary>
@@ -113,38 +115,38 @@ namespace Booger
         /// <param name="noteService">The note service.</param>
         /// <param name="chatService">The chat service.</param>
         /// <param name="chatPageService">The chat page service.</param>
-        /// <param name="chatStorageService">The chat storage service.</param>
-        /// <param name="configurationService">The configuration service.</param>
-        /// <param name="smoothScrollingService">The smooth scrolling service.</param>
+        /// <param name="storageService">The chat storage service.</param>
+        /// <param name="configuration">The configuration service.</param>
+        /// <param name="scrollingService">The smooth scrolling service.</param>
         public MainPage( MainWindow mainWindow, MainPageModel mainPageModel, AppGlobalData appGlobalData,
             PageService pageService, NoteService noteService, ChatService chatService,
-            ChatPageService chatPageService, ChatStorageService chatStorageService,
-            ConfigurationService configurationService,
-            SmoothScrollingService smoothScrollingService )
+            ChatPageService chatPageService, ChatStorageService storageService,
+            ConfigurationService configuration,
+            SmoothScrollingService scrollingService )
         {
             _mainWindow = mainWindow;
             _mainPageModel = mainPageModel;
-            AppGlobalData = appGlobalData;
-            PageService = pageService;
-            NoteService = noteService;
-            ChatService = chatService;
-            ChatPageService = chatPageService;
-            ChatStorageService = chatStorageService;
-            ConfigurationService = configurationService;
+            _appGlobalData = appGlobalData;
+            _pageService = pageService;
+            _noteService = noteService;
+            _chatService = chatService;
+            _chatPageService = chatPageService;
+            _chatStorageService = storageService;
+            _configurationService = configuration;
             DataContext = this;
-            foreach( var _session in ChatStorageService.GetAllSessions( ) )
+            foreach( var _session in _chatStorageService.GetAllSessions( ) )
             {
-                AppGlobalData.Sessions.Add( new ChatSessionModel( _session ) );
+                _appGlobalData.Sessions.Add( new ChatSessionModel( _session ) );
             }
 
-            if( AppGlobalData.Sessions.Count == 0 )
+            if( _appGlobalData.Sessions.Count == 0 )
             {
                 NewSession( );
             }
 
             InitializeComponent( );
             SwitchPageToCurrentSession( );
-            smoothScrollingService.Register( SessionsScrollViewer );
+            scrollingService.Register( SessionsScrollViewer );
         }
 
         /// <summary>
@@ -472,7 +474,7 @@ namespace Booger
         [ RelayCommand ]
         public void DeleteCurrentSession( )
         {
-            if( AppGlobalData.SelectedSession != null )
+            if( _appGlobalData.SelectedSession != null )
             {
                 DeleteSession( _appGlobalData.SelectedSession );
             }

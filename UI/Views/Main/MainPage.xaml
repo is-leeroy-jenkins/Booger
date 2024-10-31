@@ -15,6 +15,7 @@
     d:DesignHeight="600"
     d:DesignWidth="880"
     sync:SfSkinManager.Theme="{skin:SkinManagerExtension ThemeName=FluentDark}"
+
     FocusVisualStyle="{x:Null}"
     Style="{DynamicResource AnimatedPageStyle}"
     mc:Ignorable="d">
@@ -103,10 +104,10 @@
                             Margin="0,0,3,0"
                             Padding="3"
                             Background="{StaticResource ControlBackground}"
+                            Foreground="{DynamicResource LightBlueBrush}"
                             BorderThickness="1"
                             Command="{Binding ResetChatCommand}"
-                            Content="♻"
-                            Foreground="{DynamicResource LightBlueBrush}">
+                            Content="♻">
 
                             <Button.ToolTip>
                                 <TextBlock>

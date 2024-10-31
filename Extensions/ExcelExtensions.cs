@@ -41,14 +41,14 @@
 
 namespace Booger
 {
-    using OfficeOpenXml;
-    using OfficeOpenXml.Style;
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Drawing;
     using System.Linq;
+    using OfficeOpenXml;
+    using OfficeOpenXml.Style;
 
     /// <summary>
     /// 
@@ -78,7 +78,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                ExcelExtensions.Fail( ex );
+                Fail( ex );
                 return default( DataSet );
             }
         }
@@ -141,7 +141,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                ExcelExtensions.Fail( ex );
+                Fail( ex );
                 return default( DataSet );
             }
         }
@@ -161,7 +161,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                ExcelExtensions.Fail( ex );
+                Fail( ex );
             }
         }
 
@@ -190,7 +190,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                ExcelExtensions.Fail( ex );
+                Fail( ex );
                 return false;
             }
         }
@@ -223,7 +223,7 @@ namespace Booger
                 }
                 catch( Exception ex )
                 {
-                    ExcelExtensions.Fail( ex );
+                    Fail( ex );
                 }
             }
         }
@@ -243,7 +243,7 @@ namespace Booger
                 }
                 catch( Exception ex )
                 {
-                    ExcelExtensions.Fail( ex );
+                    Fail( ex );
                 }
             }
         }
@@ -266,7 +266,7 @@ namespace Booger
                 }
                 catch( Exception ex )
                 {
-                    ExcelExtensions.Fail( ex );
+                    Fail( ex );
                     return default( int[ ] );
                 }
             }
@@ -292,7 +292,7 @@ namespace Booger
                 }
                 catch( Exception ex )
                 {
-                    ExcelExtensions.Fail( ex );
+                    Fail( ex );
                     return default( int[ ] );
                 }
             }
@@ -319,7 +319,7 @@ namespace Booger
                 }
                 catch( Exception ex )
                 {
-                    ExcelExtensions.Fail( ex );
+                    Fail( ex );
                     return default( int[ ] );
                 }
             }
@@ -346,7 +346,7 @@ namespace Booger
                 }
                 catch( Exception ex )
                 {
-                    ExcelExtensions.Fail( ex );
+                    Fail( ex );
                     return default( int[ ] );
                 }
             }
@@ -372,7 +372,7 @@ namespace Booger
                 }
                 catch( Exception ex )
                 {
-                    ExcelExtensions.Fail( ex );
+                    Fail( ex );
                 }
             }
         }

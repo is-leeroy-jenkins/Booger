@@ -10,7 +10,6 @@ namespace Booger
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
-    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
     [ SuppressMessage( "ReSharper", "BadSquareBracketsSpaces" ) ]
@@ -44,7 +43,7 @@ namespace Booger
                 try
                 {
                     if (e.Link != null)
-                        Process.Start("Explorer.exe", new string[] { e.Link });
+                        Process.Start("Explorer.exe", new[] { e.Link });
                 }
                 catch (Exception ex)
                 {

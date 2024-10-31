@@ -1,7 +1,7 @@
 ﻿
 namespace Booger
 {
-    using System.Collections;
+    using System;
     using CommunityToolkit.Mvvm.ComponentModel;
 
     public partial class ValueWrapper<T> : ObservableObject

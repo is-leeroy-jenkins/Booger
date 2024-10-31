@@ -43,12 +43,14 @@ namespace Booger
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.Diagnostics.CodeAnalysis;
     using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <inheritdoc />
     /// <summary>
     /// </summary>
     /// <seealso cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservableObject" />
+    [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
     public partial class ConfigPageModel : ObservableObject
     {
         /// <summary>

@@ -168,7 +168,7 @@ namespace Booger
         }
 
 
-        bool _disposed = false;
+        bool _disposed;
         public void Dispose()
         {
             if (_disposed)

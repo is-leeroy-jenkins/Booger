@@ -1,6 +1,7 @@
 ﻿
 namespace Booger
 {
+    using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Windows;
 
@@ -14,7 +15,7 @@ namespace Booger
 
         public object _data
         {
-            get { return (object)GetValue(_dataProperty); }
+            get { return GetValue(_dataProperty); }
             set { SetValue(_dataProperty, value); }
         }
 

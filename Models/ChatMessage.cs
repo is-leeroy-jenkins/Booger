@@ -8,11 +8,11 @@ namespace Booger
     {
         public ChatMessage(Guid id, Guid sessionId, string role, string content, DateTime timestamp)
         {
-            this.Id = id;
-            this.SessionId = sessionId;
-            this.Role = role;
-            this.Content = content;
-            this.Timestamp = timestamp;
+            Id = id;
+            SessionId = sessionId;
+            Role = role;
+            Content = content;
+            Timestamp = timestamp;
         }
 
         [BsonId]

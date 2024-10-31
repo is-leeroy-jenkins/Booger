@@ -40,9 +40,10 @@
 
 namespace Booger
 {
-    using System.Diagnostics.CodeAnalysis;
+    using System;
     using System.Collections;
     using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <inheritdoc />
     /// <summary>

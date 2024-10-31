@@ -53,12 +53,33 @@ namespace Booger
     /// 
     /// </summary>
     [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
+    [ SuppressMessage( "ReSharper", "FieldCanBeMadeReadOnly.Local" ) ]
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    [ SuppressMessage( "ReSharper", "ConvertToAutoPropertyWithPrivateSetter" ) ]
     public class ColorModeService
     {
         /// <summary>
         /// The resource URI prefix
         /// </summary>
-        private static string _resourceUriPrefix = "pack://application:,,,";
+        private static string _prefix = "pack://application:,,,";
+
+        /// <summary>
+        /// The configuration service
+        /// </summary>
+        private protected ConfigurationService _configurationService;
+
+        /// <summary>
+        /// The current mode
+        /// </summary>
+        private ColorMode _currentMode = ColorMode.Auto;
+
+        /// <summary>
+        /// The current actual mode
+        /// </summary>
+        private ColorMode _currentActualMode =
+            SystemHelper.IsDarkTheme()
+                ? ColorMode.Dark
+                : ColorMode.Light;
 
         /// <summary>
         /// The light mode
@@ -66,7 +87,7 @@ namespace Booger
         private ResourceDictionary _light =
             new ResourceDictionary( )
             {
-                Source = new Uri( $"{_resourceUriPrefix}/UI/Themes/ColorModes/LightMode.xaml" )
+                Source = new Uri( $"{_prefix}/UI/Themes/ColorModes/LightMode.xaml" )
             };
 
         /// <summary>
@@ -75,7 +96,7 @@ namespace Booger
         private ResourceDictionary _dark =
             new ResourceDictionary( )
             {
-                Source = new Uri( $"{_resourceUriPrefix}/UI/Themes/ColorModes/DarkMode.xaml" )
+                Source = new Uri( $"{_prefix}/UI/Themes/ColorModes/DarkMode.xaml" )
             };
 
         /// <summary>
@@ -84,7 +105,7 @@ namespace Booger
         /// <param name="configurationService">The configuration service.</param>
         public ColorModeService( ConfigurationService configurationService )
         {
-            ConfigurationService = configurationService;
+            _configurationService = configurationService;
         }
 
         /// <summary>
@@ -93,7 +114,17 @@ namespace Booger
         /// <value>
         /// The configuration service.
         /// </value>
-        private ConfigurationService ConfigurationService { get; }
+        private ConfigurationService ConfigurationService
+        {
+            get
+            {
+                return _configurationService;
+            }
+            set
+            {
+                _configurationService = value;
+            }
+        }
 
         /// <summary>
         /// Initializes the message hook.
@@ -101,7 +132,7 @@ namespace Booger
         private void InitMessageHook( )
         {
             SystemEvents.UserPreferenceChanged +=
-                SystemEvents_UserPreferenceChanged;
+                OnSystemEventsUserPreferenceChanged;
         }
 
         /// <summary>
@@ -109,7 +140,7 @@ namespace Booger
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="UserPreferenceChangedEventArgs"/> instance containing the event data.</param>
-        private void SystemEvents_UserPreferenceChanged( object sender,
+        private void OnSystemEventsUserPreferenceChanged( object sender,
             UserPreferenceChangedEventArgs e )
         {
             if( e.Category == UserPreferenceCategory.General )
@@ -124,7 +155,7 @@ namespace Booger
         public void Init( )
         {
             var _configurationColorMode =
-                ConfigurationService.Configuration.ColorMode;
+                _configurationService.Configuration.ColorMode;
 
             SwitchTo( _configurationColorMode );
             InitMessageHook( );
@@ -143,19 +174,6 @@ namespace Booger
                 return Enum.GetValues<ColorMode>( );
             }
         }
-
-        /// <summary>
-        /// The current mode
-        /// </summary>
-        private ColorMode _currentMode = ColorMode.Auto;
-
-        /// <summary>
-        /// The current actual mode
-        /// </summary>
-        private ColorMode _currentActualMode =
-            SystemHelper.IsDarkTheme( )
-                ? ColorMode.Dark
-                : ColorMode.Light;
 
         /// <summary>
         /// Gets or sets the current mode.
@@ -218,16 +236,25 @@ namespace Booger
             switch( mode )
             {
                 case ColorMode.Light:
+                {
                     SwitchToLightMode( );
                     break;
+                }
                 case ColorMode.Dark:
+                {
                     SwitchToDarkMode( );
                     break;
+                }
                 case ColorMode.Auto:
+                {
                     SwitchToAuto( );
                     break;
+                }
                 default:
-                    throw new ArgumentException( "Must be bright or dark" );
+                {
+                    SwitchToDarkMode( );
+                    break;
+                }
             }
         }
 
@@ -242,7 +269,7 @@ namespace Booger
 
             if( _hwnd != IntPtr.Zero )
             {
-                NativeMethods.EnableDarkModeForWindow( _hwnd, CurrentActualMode == ColorMode.Dark );
+                NativeMethods.EnableDarkModeForWindow( _hwnd, _currentActualMode == ColorMode.Dark );
             }
             else
             {
@@ -316,7 +343,7 @@ namespace Booger
         /// </summary>
         public void SwitchToAuto( )
         {
-            var _isDarkMode = (bool)SystemHelper.IsDarkTheme( );
+            var _isDarkMode = SystemHelper.IsDarkTheme( );
             if( _isDarkMode )
             {
                 SwitchToDarkModeCore( false );
@@ -364,39 +391,5 @@ namespace Booger
         /// Occurs when [color mode changed].
         /// </summary>
         public event EventHandler<ColorModeChangedEventArgs> ColorModeChanged;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <seealso cref="System.EventArgs" />
-    public class ColorModeChangedEventArgs : EventArgs
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ColorModeChangedEventArgs"/> class.
-        /// </summary>
-        /// <param name="colorMode">The color mode.</param>
-        /// <param name="actualColorMode">The actual color mode.</param>
-        public ColorModeChangedEventArgs( ColorMode colorMode, ColorMode actualColorMode )
-        {
-            ColorMode = colorMode;
-            ActualColorMode = actualColorMode;
-        }
-
-        /// <summary>
-        /// Gets the color mode.
-        /// </summary>
-        /// <value>
-        /// The color mode.
-        /// </value>
-        public ColorMode ColorMode { get; }
-
-        /// <summary>
-        /// Gets the actual color mode.
-        /// </summary>
-        /// <value>
-        /// The actual color mode.
-        /// </value>
-        public ColorMode ActualColorMode { get; }
     }
 }

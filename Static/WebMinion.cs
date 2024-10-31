@@ -76,7 +76,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                WebMinion.Fail( ex );
+                Fail( ex );
             }
         }
 
@@ -106,7 +106,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                WebMinion.Fail( ex );
+                Fail( ex );
             }
         }
 
@@ -133,7 +133,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                WebMinion.Fail( ex );
+                Fail( ex );
             }
         }
 
@@ -161,7 +161,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                WebMinion.Fail( ex );
+                Fail( ex );
             }
         }
 
@@ -191,7 +191,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                WebMinion.Fail( ex );
+                Fail( ex );
             }
         }
 
@@ -219,7 +219,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                WebMinion.Fail( ex );
+                Fail( ex );
             }
         }
 
@@ -249,7 +249,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                WebMinion.Fail( ex );
+                Fail( ex );
             }
         }
 

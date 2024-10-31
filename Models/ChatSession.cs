@@ -3,8 +3,6 @@
 namespace Booger
 {
     using System;
-    using System.ComponentModel;
-    using System.Windows.Documents;
     using LiteDB;
 
     public record class ChatSession

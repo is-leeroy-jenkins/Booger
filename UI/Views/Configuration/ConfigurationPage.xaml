@@ -12,12 +12,12 @@
         d:DataContext="{d:DesignInstance Type=b:ConfigurationPage}"
         d:DesignHeight="1000"
         d:DesignWidth="880"
+        sync:SfSkinManager.Theme="{skin:SkinManagerExtension ThemeName=FluentDark}"
         FocusVisualStyle="{x:Null}"
         Style="{DynamicResource AnimatedPageStyle}"
-        mc:Ignorable="d"
-        sync:SfSkinManager.Theme="{skin:SkinManagerExtension ThemeName=FluentDark}">
+        mc:Ignorable="d">
 
-<!--**************************************  RESOURCES ***********************************************-->
+        <!--  **************************************  RESOURCES ***********************************************  -->
 
         <Page.Resources>
 
@@ -31,7 +31,7 @@
 
         </Page.Resources>
 
-        <!--***************************************** LAYOUT ***********************************************-->
+        <!--  ***************************************** LAYOUT ***********************************************  -->
 
         <Grid>
                 <Grid.RowDefinitions>
@@ -46,6 +46,7 @@
                                 <Grid>
                                         <TextBlock
                                                 FontSize="26"
+                                                Foreground="{StaticResource LightBlueBrush}"
                                                 Text="{DynamicResource StrConfiguration}" />
                                         <StackPanel
                                                 HorizontalAlignment="Right"
@@ -56,22 +57,26 @@
                                                         </Style>
                                                 </StackPanel.Resources>
                                                 <ToggleButton
-                                                        Margin="0,0,3,0"
+                                                        Margin="3"
                                                         Padding="3"
-                                                        BorderThickness="0"
+                                                        Width="30"
+                                                        BorderThickness="1"
                                                         Content="📍"
                                                         IsChecked="{Binding ConfigurationService.Configuration.WindowAlwaysOnTop}"
                                                         ToolTip="{DynamicResource StrWindowAlwaysOnTop}" />
                                                 <Button
-                                                        Margin="0,0,3,0"
+                                                        Margin="3"
                                                         Padding="3"
-                                                        BorderThickness="0"
+                                                        Width="30"
+                                                        BorderThickness="1"
                                                         Command="{Binding AboutOpenChatCommand}"
                                                         Content="📄"
                                                         ToolTip="{DynamicResource StrAboutOpenGptChat}" />
                                                 <Button
+                                                        Margin="3"
                                                         Padding="3"
-                                                        BorderThickness="0"
+                                                        Width="30"
+                                                        BorderThickness="1"
                                                         Command="{Binding GoToMainPageCommand}"
                                                         Content="🏠︎"
                                                         ToolTip="{DynamicResource StrGoBackToMainPage}" />
@@ -87,7 +92,7 @@
                                 Margin="10">
                                 <StackPanel Margin="0,5">
                                         <TextBlock
-                                                Margin="0,0,0,5"
+                                                Margin="3"
                                                 Foreground="{StaticResource LightBlueBrush}">
                                                 <Run Text="{DynamicResource StrAPIKey}" />
                                                 <Run Text=":" />
@@ -96,6 +101,10 @@
                                                 Width="600"
                                                 Height="30"
                                                 Padding="5,3"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Left"
+                                                VerticalContentAlignment="Center"
                                                 Background="{StaticResource BlackBackground}"
                                                 Foreground="{StaticResource LightBlueBrush}"
                                                 Text="{Binding ConfigurationService.Configuration.ApiKey}" />
@@ -111,6 +120,10 @@
                                                 Width="600"
                                                 Height="30"
                                                 Padding="5,3"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Left"
+                                                VerticalContentAlignment="Center"
                                                 Background="{StaticResource BlackBackground}"
                                                 Foreground="{StaticResource LightBlueBrush}"
                                                 Text="{Binding ConfigurationService.Configuration.ApiHost}" />
@@ -126,6 +139,10 @@
                                                 Width="600"
                                                 Height="30"
                                                 Padding="5,3"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Left"
+                                                VerticalContentAlignment="Center"
                                                 Background="{StaticResource BlackBackground}"
                                                 Foreground="{StaticResource LightBlueBrush}"
                                                 Text="{Binding ConfigurationService.Configuration.Organization}" />
@@ -141,6 +158,10 @@
                                                 Width="600"
                                                 Height="30"
                                                 Padding="5,3"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Left"
+                                                VerticalContentAlignment="Center"
                                                 Background="{StaticResource BlackBackground}"
                                                 Foreground="{StaticResource LightBlueBrush}"
                                                 Text="{Binding ConfigurationService.Configuration.Model}" />
@@ -156,6 +177,10 @@
                                                 Width="600"
                                                 Height="30"
                                                 Padding="5,3"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Left"
+                                                VerticalContentAlignment="Center"
                                                 Background="{StaticResource BlackBackground}"
                                                 Foreground="{StaticResource LightBlueBrush}"
                                                 Text="{Binding ConfigurationService.Configuration.ApiTimeout}" />
@@ -171,6 +196,10 @@
                                                 Width="600"
                                                 Height="30"
                                                 Padding="5,3"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Left"
+                                                VerticalContentAlignment="Center"
                                                 Background="{StaticResource BlackBackground}"
                                                 Foreground="{StaticResource LightBlueBrush}"
                                                 Text="{Binding ConfigurationService.Configuration.Temerature}" />
@@ -179,6 +208,7 @@
                                         <Grid>
                                                 <TextBlock
                                                         Margin="0,0,0,5"
+                                                        Height="20"
                                                         Foreground="{StaticResource LightBlueBrush}">
                                                         <Run Text="{DynamicResource StrSystemMessages}" />
                                                         <Run Text=":" />
@@ -189,23 +219,27 @@
                                                         Orientation="Horizontal">
 
                                                         <Button
-                                                                Padding="3,0"
+                                                                Padding="3"
+                                                                Margin="3"
+                                                                Width="24"
                                                                 BorderThickness="0"
                                                                 Command="{Binding RemoveSystemMessageCommand}"
                                                                 Content=" - "
                                                                 ToolTip="Remove a system message" />
 
                                                         <Button
-                                                                Margin="5,0,0,0"
-                                                                Padding="3,0"
+                                                                Margin="3"
+                                                                Padding="3"
+                                                                Width="24"
                                                                 BorderThickness="0"
                                                                 Command="{Binding AddSystemMessageCommand}"
                                                                 Content=" + "
                                                                 ToolTip="Add a system message" />
 
                                                         <Button
-                                                                Margin="5,0,0,0"
-                                                                Padding="3,0"
+                                                                Margin="3"
+                                                                Padding="3"
+                                                                Width="40"
                                                                 BorderThickness="0"
                                                                 Command="{Binding ApplySystemMessagesCommand}"
                                                                 Content="{DynamicResource StrApply}"
@@ -215,8 +249,9 @@
                                         </Grid>
 
                                         <Border
-                                                MinHeight="10"
+                                                MinHeight="30"
                                                 Padding="5"
+                                                Background="{StaticResource ControlInteriorBrush}"
                                                 BorderBrush="{DynamicResource BlueBorderBrush}"
                                                 BorderThickness="1">
 
@@ -412,7 +447,7 @@
                                 </StackPanel>
                         </StackPanel>
                 </ScrollViewer>
-                <b:MetroTile
+                <Button
                         Grid.Row="1"
                         Width="60"
                         Height="40"

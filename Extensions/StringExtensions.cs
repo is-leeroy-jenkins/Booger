@@ -128,7 +128,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                StringExtensions.Fail( ex );
+                Fail( ex );
                 return default( string );
             }
         }
@@ -153,7 +153,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                StringExtensions.Fail( ex );
+                Fail( ex );
                 return string.Empty;
             }
         }
@@ -175,7 +175,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                StringExtensions.Fail( ex );
+                Fail( ex );
                 return false;
             }
         }
@@ -202,7 +202,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                StringExtensions.Fail( ex );
+                Fail( ex );
                 return string.Empty;
             }
         }
@@ -229,7 +229,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                StringExtensions.Fail( ex );
+                Fail( ex );
                 return string.Empty;
             }
         }
@@ -253,7 +253,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                StringExtensions.Fail( ex );
+                Fail( ex );
                 return string.Empty;
             }
         }
@@ -278,7 +278,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                StringExtensions.Fail( ex );
+                Fail( ex );
                 return default( DateTime );
             }
         }
@@ -301,7 +301,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                StringExtensions.Fail( ex );
+                Fail( ex );
                 return default( MemoryStream );
             }
         }
@@ -323,7 +323,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                StringExtensions.Fail( ex );
+                Fail( ex );
                 return default( XmlDocument );
             }
         }
@@ -344,7 +344,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                StringExtensions.Fail( ex );
+                Fail( ex );
                 return default( byte[ ] );
             }
         }
@@ -369,7 +369,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                StringExtensions.Fail( ex );
+                Fail( ex );
                 return _count;
             }
 
@@ -391,7 +391,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                StringExtensions.Fail( ex );
+                Fail( ex );
             }
         }
 
@@ -428,7 +428,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                StringExtensions.Fail( ex );
+                Fail( ex );
                 return false;
             }
         }
@@ -450,7 +450,7 @@ namespace Booger
                 }
                 catch( Exception ex )
                 {
-                    StringExtensions.Fail( ex );
+                    Fail( ex );
                     return text;
                 }
             }
@@ -477,7 +477,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                StringExtensions.Fail( ex );
+                Fail( ex );
                 return false;
             }
         }

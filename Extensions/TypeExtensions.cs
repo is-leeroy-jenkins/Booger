@@ -47,7 +47,6 @@ namespace Booger
     using System.Runtime.Serialization.Json;
     using System.Text;
     using System.Windows;
-    using System.Windows.Controls;
     using System.Xml.Serialization;
 
     /// <summary>
@@ -78,7 +77,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                TypeExtensions.Fail( ex );
+                Fail( ex );
                 return default( string );
             }
         }
@@ -104,7 +103,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                TypeExtensions.Fail( ex );
+                Fail( ex );
                 return default( string );
             }
         }
@@ -130,7 +129,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                TypeExtensions.Fail( ex );
+                Fail( ex );
             }
         }
 

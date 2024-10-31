@@ -42,52 +42,66 @@
 namespace Booger
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Data;
-    using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
-    using System.Windows.Shapes;
     using CommunityToolkit.Mvvm.Input;
 
     /// <inheritdoc />
     /// <summary>
     /// Interaction logic for ChatSessionConfigDialog.xaml
     /// </summary>
+    [ SuppressMessage( "ReSharper", "RedundantExtendsListEntry" ) ]
     public partial class ChatSessionConfigDialog : Window
     {
+        private protected ChatSessionModel _session;
+
+        private protected NoteService _noteService;
+
         public ChatSessionConfigDialog( ChatSessionModel session )
         {
-            Session = session;
+            _session = session;
             DataContext = this;
-            NoteService =
-                App.GetService<NoteService>( );
-
+            _noteService = App.GetService<NoteService>( );
             InitializeComponent( );
             if( !session.EnableChatContext.HasValue )
             {
-                //EnableChatContextComboBox.SelectedIndex = 0;
+                EnableChatContextComboBox.SelectedIndex = 0;
             }
             else if( session.EnableChatContext.Value )
             {
-                //EnableChatContextComboBox.SelectedIndex = 1;
+                EnableChatContextComboBox.SelectedIndex = 1;
             }
             else
             {
-                //EnableChatContextComboBox.SelectedIndex = 2;
+                EnableChatContextComboBox.SelectedIndex = 2;
             }
         }
 
-        public ChatSessionModel Session { get; }
+        public ChatSessionModel Session
+        {
+            get
+            {
+                return _session;
+            }
+            set
+            {
+                _session = value;
+            }
+        }
 
-        public NoteService NoteService { get; }
+        public NoteService NoteService
+        {
+            get
+            {
+                return _noteService;
+            }
+            set
+            {
+                _noteService = value;
+            }
+        }
 
         public ObservableCollection<bool?> _enableChatContextValues =
             new ObservableCollection<bool?>( )
@@ -100,15 +114,15 @@ namespace Booger
         [ RelayCommand ]
         public void AddSystemMessage( )
         {
-            Session.SystemMessages.Add( new ValueWrapper<string>( "New system message" ) );
+            _session.SystemMessages.Add( new ValueWrapper<string>( "New System Message" ) );
         }
 
         [ RelayCommand ]
         public void RemoveSystemMessage( )
         {
-            if( Session.SystemMessages.Count > 0 )
+            if( _session.SystemMessages.Count > 0 )
             {
-                Session.SystemMessages.RemoveAt( Session.SystemMessages.Count - 1 );
+                _session.SystemMessages.RemoveAt( _session.SystemMessages.Count - 1 );
             }
         }
 
@@ -119,21 +133,21 @@ namespace Booger
             Close( );
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OnComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var _combo = sender as MetroComboBox;
-            if(_combo.SelectedItem is not ComboBoxItem _item)
+            if( _combo?.SelectedItem is not ComboBoxItem _item )
             {
                 return;
             }
 
-            if(_item.Tag is bool _value)
+            if( _item.Tag is bool _value ) 
             {
-                Session.EnableChatContext = _value;
+                _session.EnableChatContext = _value;
             }
             else
             {
-                Session.EnableChatContext = null;
+                _session.EnableChatContext = null;
             }
         }
     }

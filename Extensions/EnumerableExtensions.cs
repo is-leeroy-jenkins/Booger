@@ -41,8 +41,6 @@
 
 namespace Booger
 {
-    using OfficeOpenXml;
-    using OfficeOpenXml.Table;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -51,6 +49,8 @@ namespace Booger
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Linq;
+    using OfficeOpenXml;
+    using OfficeOpenXml.Table;
 
     /// <summary>
     /// 
@@ -89,7 +89,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                EnumerableExtensions.Fail( ex );
+                Fail( ex );
                 return default( BindingList<T> );
             }
         }
@@ -123,7 +123,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                EnumerableExtensions.Fail( ex );
+                Fail( ex );
                 return default( ObservableCollection<DataRow> );
             }
         }
@@ -152,7 +152,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                EnumerableExtensions.Fail( ex );
+                Fail( ex );
                 return default( IEnumerable<T> );
             }
         }
@@ -181,7 +181,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                EnumerableExtensions.Fail( ex );
+                Fail( ex );
                 return default( IEnumerable<T> );
             }
         }
@@ -218,7 +218,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                EnumerableExtensions.Fail( ex );
+                Fail( ex );
                 return default( IEnumerable<DataRow> );
             }
         }
@@ -247,7 +247,7 @@ namespace Booger
                 }
                 catch( Exception ex )
                 {
-                    EnumerableExtensions.Fail( ex );
+                    Fail( ex );
                     return default( IEnumerable<DataRow> );
                 }
             }
@@ -286,7 +286,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                EnumerableExtensions.Fail( ex );
+                Fail( ex );
                 return default( ExcelPackage );
             }
         }

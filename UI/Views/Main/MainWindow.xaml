@@ -10,7 +10,7 @@
     xmlns:b="clr-namespace:Booger"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:tb="http://www.hardcodet.net/taskbar"
-    Title="{Binding ViewModel.ApplicationTitle}"
+    Title="Booger GPT"
     Width="1350"
     Height="800"
     d:DataContext="{d:DesignInstance Type=b:MainWindow}"

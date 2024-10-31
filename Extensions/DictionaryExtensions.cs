@@ -91,7 +91,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DictionaryExtensions.Fail( ex );
+                Fail( ex );
                 return default( TValue );
             }
         }
@@ -121,7 +121,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DictionaryExtensions.Fail( ex );
+                Fail( ex );
                 return default( NameValueCollection );
             }
         }
@@ -150,7 +150,7 @@ namespace Booger
                 }
                 catch( Exception ex )
                 {
-                    DictionaryExtensions.Fail( ex );
+                    Fail( ex );
                     return string.Empty;
                 }
             }
@@ -180,7 +180,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DictionaryExtensions.Fail( ex );
+                Fail( ex );
                 return default( BindingList<KeyValuePair<string, object>> );
             }
         }
@@ -192,7 +192,7 @@ namespace Booger
         /// <returns>
         /// SortedList( T, V )
         /// </returns>
-        public static SortedList<int, KeyValuePair<string, object>> ToSortedList(
+        public static SortedList<int, KeyValuePair<string, object>> ToSortedList( 
             this IDictionary<string, object> dict )
         {
             try
@@ -223,7 +223,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DictionaryExtensions.Fail( ex );
+                Fail( ex );
                 return default( SortedList<int, KeyValuePair<string, object>> );
             }
         }
@@ -323,7 +323,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DictionaryExtensions.Fail( ex );
+                Fail( ex );
                 return default( List<DbParameter> );
             }
         }
@@ -353,7 +353,7 @@ namespace Booger
                 }
                 catch( Exception ex )
                 {
-                    DictionaryExtensions.Fail( ex );
+                    Fail( ex );
                     return default( BindingList<string> );
                 }
             }
@@ -386,7 +386,7 @@ namespace Booger
                 }
                 catch( Exception ex )
                 {
-                    DictionaryExtensions.Fail( ex );
+                    Fail( ex );
                     return default( BindingList<object> );
                 }
             }

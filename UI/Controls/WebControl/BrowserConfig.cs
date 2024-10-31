@@ -43,8 +43,8 @@
 namespace Booger
 {
     using System;
-    using CefSharp;
     using System.Diagnostics.CodeAnalysis;
+    using CefSharp;
 
     /// <summary>
     /// 

@@ -46,7 +46,6 @@ namespace Booger
     using System.Collections.Specialized;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using System.Text;
 
     /// <summary>
@@ -95,7 +94,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                Static.Fail( ex );
+                Fail( ex );
                 return default( string );
             }
         }
@@ -122,7 +121,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                Static.Fail( ex );
+                Fail( ex );
                 return default( IDbCommand );
             }
         }
@@ -145,7 +144,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                Static.Fail( ex );
+                Fail( ex );
                 return default( int );
             }
         }
@@ -237,7 +236,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                Static.Fail( ex );
+                Fail( ex );
                 return string.Empty;
             }
         }
@@ -269,7 +268,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                Static.Fail( ex );
+                Fail( ex );
                 return default( IDictionary<string, object> );
             }
         }

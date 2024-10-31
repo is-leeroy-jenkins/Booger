@@ -41,10 +41,10 @@
 
 namespace Booger
 {
-    using Syncfusion.Windows.Controls.Notification;
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Windows.Input;
+    using Syncfusion.Windows.Controls.Notification;
 
     /// <inheritdoc />
     /// <summary>

@@ -1,6 +1,7 @@
 ﻿
 namespace Booger
 {
+    using System;
     using CommunityToolkit.Mvvm.ComponentModel;
 
     public partial class AppConfig : ObservableObject
@@ -27,8 +28,7 @@ namespace Booger
         private bool _enableChatContext = true;
 
         [ObservableProperty]
-        private string[] _systemMessages = new string[]
-        {
+        private string[] _systemMessages = {
 
         };
 
@@ -42,10 +42,10 @@ namespace Booger
         private bool _enableTitleGeneration = true;
 
         [ObservableProperty]
-        private bool _windowAlwaysOnTop = false;
+        private bool _windowAlwaysOnTop;
 
         [ObservableProperty]
-        private bool _disableChatAnimation = false;
+        private bool _disableChatAnimation;
 
         [ObservableProperty]
         private string _chatStoragePath = "AppChatStorage.db";

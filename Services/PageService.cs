@@ -4,7 +4,6 @@ namespace Booger
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Windows;
-    using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
     /// 

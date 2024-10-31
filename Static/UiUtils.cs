@@ -78,7 +78,7 @@ namespace Booger
         public static readonly DependencyProperty _cornerRadiusProperty =
             DependencyProperty.RegisterAttached( "_cornerRadius", typeof( CornerRadius ),
                 typeof( UiUtils ),
-                new PropertyMetadata( new CornerRadius( ), UiUtils.CornerRadiusChanged ) );
+                new PropertyMetadata( new CornerRadius( ), CornerRadiusChanged ) );
 
         /// <summary>
         /// Corners the radius changed.
@@ -96,7 +96,7 @@ namespace Booger
 
             void ApplyBorder( FrameworkElement ele )
             {
-                if( UiUtils.GetBorderFromControl( ele ) is not Border _border )
+                if( GetBorderFromControl( ele ) is not Border _border )
                 {
                     return;
                 }
@@ -146,7 +146,7 @@ namespace Booger
                     return _borderChild;
                 }
 
-                if( UiUtils.GetBorderFromControl( _childElement ) is Border _childBorderChild )
+                if( GetBorderFromControl( _childElement ) is Border _childBorderChild )
                 {
                     return _childBorderChild;
                 }

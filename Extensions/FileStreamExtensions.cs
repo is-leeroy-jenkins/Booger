@@ -86,7 +86,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                FileStreamExtensions.Fail( ex );
+                Fail( ex );
             }
         }
 
@@ -105,7 +105,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                FileStreamExtensions.Fail( ex );
+                Fail( ex );
                 return default( StreamReader );
             }
         }
@@ -127,7 +127,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                FileStreamExtensions.Fail( ex );
+                Fail( ex );
                 return default( StreamReader );
             }
         }
@@ -149,7 +149,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                FileStreamExtensions.Fail( ex );
+                Fail( ex );
                 return default( StreamWriter );
             }
         }
@@ -173,7 +173,7 @@ namespace Booger
                 }
                 catch( Exception ex )
                 {
-                    FileStreamExtensions.Fail( ex );
+                    Fail( ex );
                     return default( StreamWriter );
                 }
             }
@@ -196,7 +196,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                FileStreamExtensions.Fail( ex );
+                Fail( ex );
                 return string.Empty;
             }
         }
@@ -218,7 +218,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                FileStreamExtensions.Fail( ex );
+                Fail( ex );
                 return string.Empty;
             }
         }
@@ -241,7 +241,7 @@ namespace Booger
                 }
                 catch( Exception ex )
                 {
-                    FileStreamExtensions.Fail( ex );
+                    Fail( ex );
                     return default( Stream );
                 }
             }
@@ -267,7 +267,7 @@ namespace Booger
                 }
                 catch( Exception ex )
                 {
-                    FileStreamExtensions.Fail( ex );
+                    Fail( ex );
                     return default( Stream );
                 }
             }
@@ -303,7 +303,7 @@ namespace Booger
                 }
                 catch( Exception ex )
                 {
-                    FileStreamExtensions.Fail( ex );
+                    Fail( ex );
                     return default( MemoryStream );
                 }
             }
@@ -328,7 +328,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                FileStreamExtensions.Fail( ex );
+                Fail( ex );
                 return default( MemoryStream );
             }
         }
@@ -349,7 +349,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                FileStreamExtensions.Fail( ex );
+                Fail( ex );
                 return default( IEnumerable<byte> );
             }
         }
@@ -385,7 +385,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                FileStreamExtensions.Fail( ex );
+                Fail( ex );
                 return default( IEnumerable<byte> );
             }
         }
@@ -404,7 +404,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                FileStreamExtensions.Fail( ex );
+                Fail( ex );
             }
         }
 

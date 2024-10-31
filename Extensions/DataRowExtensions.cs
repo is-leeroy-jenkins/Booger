@@ -148,7 +148,7 @@ namespace Booger
                 }
                 catch( Exception ex )
                 {
-                    DataRowExtensions.Fail( ex );
+                    Fail( ex );
                     return default( IList<DbParameter> );
                 }
             }
@@ -188,7 +188,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DataRowExtensions.Fail( ex );
+                Fail( ex );
                 return default( IDictionary<string, object> );
             }
         }
@@ -229,7 +229,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DataRowExtensions.Fail( ex );
+                Fail( ex );
                 return default( SortedList<int, KeyValuePair<string, object>> );
             }
         }
@@ -251,7 +251,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DataRowExtensions.Fail( ex );
+                Fail( ex );
                 return default( IEnumerable<byte> );
             }
         }

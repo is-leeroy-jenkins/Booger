@@ -41,7 +41,6 @@
 
 namespace Booger
 {
-    using OfficeOpenXml;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -50,6 +49,7 @@ namespace Booger
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Xml.Linq;
+    using OfficeOpenXml;
 
     /// <summary>
     /// 
@@ -99,7 +99,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DataTableExtensions.Fail( ex );
+                Fail( ex );
                 return default( XDocument );
             }
         }
@@ -145,7 +145,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DataTableExtensions.Fail( ex );
+                Fail( ex );
             }
         }
 
@@ -190,7 +190,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DataTableExtensions.Fail( ex );
+                Fail( ex );
                 return default( IEnumerable<int> );
             }
         }
@@ -226,7 +226,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DataTableExtensions.Fail( ex );
+                Fail( ex );
                 return default( string[ ] );
             }
         }
@@ -265,7 +265,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DataTableExtensions.Fail( ex );
+                Fail( ex );
                 return default( string[ ] );
             }
         }
@@ -294,7 +294,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DataTableExtensions.Fail( ex );
+                Fail( ex );
                 return default( IEnumerable<DataRow> );
             }
         }
@@ -325,7 +325,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DataTableExtensions.Fail( ex );
+                Fail( ex );
                 return default( string[ ] );
             }
         }
@@ -364,7 +364,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DataTableExtensions.Fail( ex );
+                Fail( ex );
                 return default( IList<DataColumn> );
             }
         }
@@ -394,7 +394,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DataTableExtensions.Fail( ex );
+                Fail( ex );
                 return default( IList<DataColumn> );
             }
         }
@@ -429,7 +429,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DataTableExtensions.Fail( ex );
+                Fail( ex );
                 return default( IList<DataColumn> );
             }
         }
@@ -450,7 +450,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DataTableExtensions.Fail( ex );
+                Fail( ex );
             }
         }
 
@@ -475,7 +475,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DataTableExtensions.Fail( ex );
+                Fail( ex );
                 return default( BindingList<DataRow> );
             }
         }
@@ -510,7 +510,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DataTableExtensions.Fail( ex );
+                Fail( ex );
                 return default( SortedList<int, DataRow> );
             }
         }
@@ -543,7 +543,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DataTableExtensions.Fail( ex );
+                Fail( ex );
                 return default( ObservableCollection<DataRow> );
             }
         }

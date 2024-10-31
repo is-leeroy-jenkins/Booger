@@ -94,8 +94,8 @@ namespace Booger
         /// </returns>
         public static bool IsDarkTheme( )
         {
-            return SystemHelper.IsDarkThemeDependOnRegistry( )
-                ?? SystemHelper.IsDarkThemeDependOnColor( );
+            return IsDarkThemeDependOnRegistry( )
+                ?? IsDarkThemeDependOnColor( );
         }
     }
 }

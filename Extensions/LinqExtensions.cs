@@ -71,7 +71,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                LinqExtensions.Fail( ex );
+                Fail( ex );
                 return false;
             }
         }
@@ -96,7 +96,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                LinqExtensions.Fail( ex );
+                Fail( ex );
                 return false;
             }
         }
@@ -163,7 +163,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                LinqExtensions.Fail( ex );
+                Fail( ex );
                 return false;
             }
         }
@@ -207,7 +207,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                LinqExtensions.Fail( ex );
+                Fail( ex );
                 return false;
             }
         }
@@ -232,7 +232,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                LinqExtensions.Fail( ex );
+                Fail( ex );
                 return false;
             }
         }
@@ -275,7 +275,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                LinqExtensions.Fail( ex );
+                Fail( ex );
                 return false;
             }
         }

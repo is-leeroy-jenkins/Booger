@@ -41,10 +41,10 @@
 
 namespace Booger
 {
-    using Syncfusion.Windows.Tools.Controls;
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Windows;
+    using Syncfusion.Windows.Tools.Controls;
 
     /// <inheritdoc />
     /// <summary>
@@ -63,12 +63,6 @@ namespace Booger
         /// The theme
         /// </summary>
         private protected readonly DarkMode _theme = new DarkMode( );
-
-        /// <summary>
-        /// Gets or sets an arbitrary object value that can be used
-        /// to store custom information about this element.
-        /// </summary>
-        public new object Tag { get; set; }
 
         /// <inheritdoc />
         /// <summary>

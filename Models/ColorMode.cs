@@ -1,7 +1,6 @@
 ﻿namespace Booger
 {
-    using System.Collections;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using System;
 
     public enum ColorMode
     {

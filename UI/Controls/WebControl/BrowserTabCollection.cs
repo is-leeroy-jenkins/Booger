@@ -43,7 +43,6 @@
 namespace Booger
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Diagnostics.CodeAnalysis;
 

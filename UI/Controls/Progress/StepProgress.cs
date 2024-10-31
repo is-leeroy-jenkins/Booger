@@ -41,10 +41,10 @@
 
 namespace Booger
 {
-    using Syncfusion.UI.Xaml.ProgressBar;
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Windows.Media;
+    using Syncfusion.UI.Xaml.ProgressBar;
 
     /// <summary>
     /// 

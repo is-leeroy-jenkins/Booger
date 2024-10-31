@@ -69,7 +69,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DateTimeExtensions.Fail( ex );
+                Fail( ex );
                 return false;
             }
         }
@@ -91,7 +91,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DateTimeExtensions.Fail( ex );
+                Fail( ex );
                 return false;
             }
         }
@@ -113,7 +113,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DateTimeExtensions.Fail( ex );
+                Fail( ex );
                 return false;
             }
         }
@@ -166,7 +166,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DateTimeExtensions.Fail( ex );
+                Fail( ex );
                 return default( IEnumerable<DateTime> );
             }
         }
@@ -219,7 +219,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DateTimeExtensions.Fail( ex );
+                Fail( ex );
                 return default( IEnumerable<DateTime> );
             }
         }
@@ -274,7 +274,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DateTimeExtensions.Fail( ex );
+                Fail( ex );
                 return default( IEnumerable<DateTime> );
             }
         }
@@ -330,7 +330,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DateTimeExtensions.Fail( ex );
+                Fail( ex );
                 return default( IEnumerable<DateTime> );
             }
         }
@@ -356,7 +356,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DateTimeExtensions.Fail( ex );
+                Fail( ex );
                 return false;
             }
         }
@@ -392,7 +392,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DateTimeExtensions.Fail( ex );
+                Fail( ex );
                 return default( DateTime );
             }
         }
@@ -446,7 +446,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DateTimeExtensions.Fail( ex );
+                Fail( ex );
                 return 0;
             }
         }
@@ -501,7 +501,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DateTimeExtensions.Fail( ex );
+                Fail( ex );
                 return 0;
             }
         }
@@ -557,7 +557,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DateTimeExtensions.Fail( ex );
+                Fail( ex );
                 return 0;
             }
         }
@@ -608,7 +608,7 @@ namespace Booger
             }
             catch( Exception ex )
             {
-                DateTimeExtensions.Fail( ex );
+                Fail( ex );
                 return 0;
             }
         }

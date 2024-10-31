@@ -41,9 +41,9 @@
 
 namespace Booger
 {
-    using Syncfusion.Windows.Controls.Input;
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using Syncfusion.Windows.Controls.Input;
 
     /// <inheritdoc />
     /// <summary>

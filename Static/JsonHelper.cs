@@ -41,6 +41,7 @@
 
 namespace Booger
 {
+    using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Text.Encodings.Web;
     using System.Text.Json;

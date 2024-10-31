@@ -76,7 +76,7 @@ namespace Booger
             }
             catch( Exception _ex )
             {
-                TimeSpanExtensions.Fail( _ex );
+                Fail( _ex );
                 return 0;
             }
         }
@@ -94,7 +94,7 @@ namespace Booger
             }
             catch( Exception _ex )
             {
-                TimeSpanExtensions.Fail( _ex );
+                Fail( _ex );
                 return 0D;
             }
         }
@@ -113,7 +113,7 @@ namespace Booger
             }
             catch( Exception _ex )
             {
-                TimeSpanExtensions.Fail( _ex );
+                Fail( _ex );
                 return 0;
             }
         }
@@ -131,7 +131,7 @@ namespace Booger
             }
             catch( Exception _ex )
             {
-                TimeSpanExtensions.Fail( _ex );
+                Fail( _ex );
                 return 0D;
             }
         }
@@ -150,7 +150,7 @@ namespace Booger
             }
             catch( Exception _ex )
             {
-                TimeSpanExtensions.Fail( _ex );
+                Fail( _ex );
                 return 0;
             }
         }
@@ -168,7 +168,7 @@ namespace Booger
             }
             catch( Exception _ex )
             {
-                TimeSpanExtensions.Fail( _ex );
+                Fail( _ex );
                 return 0D;
             }
         }
@@ -186,7 +186,7 @@ namespace Booger
             }
             catch( Exception _ex )
             {
-                TimeSpanExtensions.Fail( _ex );
+                Fail( _ex );
                 return 0;
             }
         }
@@ -204,7 +204,7 @@ namespace Booger
             }
             catch( Exception _ex )
             {
-                TimeSpanExtensions.Fail( _ex );
+                Fail( _ex );
                 return 0D;
             }
         }
@@ -222,7 +222,7 @@ namespace Booger
             }
             catch( Exception _ex )
             {
-                TimeSpanExtensions.Fail( _ex );
+                Fail( _ex );
                 return 0D;
             }
         }
@@ -244,7 +244,7 @@ namespace Booger
             }
             catch( Exception _ex )
             {
-                TimeSpanExtensions.Fail( _ex );
+                Fail( _ex );
                 return default( TimeSpan );
             }
         }

@@ -65,7 +65,7 @@ namespace Booger
         /// <value>
         /// The item.
         /// </value>
-        public BrowserTabItem Item { get; }
+        public BrowserTab Item { get; }
 
         /// <inheritdoc />
         /// <summary>
@@ -75,7 +75,7 @@ namespace Booger
         /// </summary>
         /// <param name="item">The item.</param>
         /// <param name="type">The type.</param>
-        public BrowserTabChangedEventArgs( BrowserTabItem item, ChangeType type )
+        public BrowserTabChangedEventArgs( BrowserTab item, ChangeType type )
         {
             ChangeType = type;
             Item = item;

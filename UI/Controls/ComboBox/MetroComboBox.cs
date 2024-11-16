@@ -74,12 +74,11 @@ namespace Booger
         {
             // Control Properties
             SetResourceReference( StyleProperty, typeof( ComboBoxAdv ) );
-            Width = 150;
+            Width = 100;
             Height = 30;
             FontFamily = _theme.FontFamily;
             FontSize = _theme.FontSize;
             Padding = new Thickness( 10, 1, 1, 1 );
-            Margin = new Thickness( 1 );
             BorderThickness = new Thickness( 1 );
             IsEditable = true;
             AutoCompleteMode = AutoCompleteModes.None;
@@ -101,9 +100,9 @@ namespace Booger
             {
                 var _item = new MetroComboBoxItem
                 {
-                    Background = _theme.ControlInterior,
+                    Background = _theme.ControlBackground,
                     Foreground = _theme.Foreground,
-                    BorderBrush = _theme.BorderBrush,
+                    BorderBrush = _theme.ControlBackground,
                     Content = name,
                     Tag = name,
                     Height = 22

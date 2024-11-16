@@ -40,7 +40,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
-                    <ScrollViewer x:Name="PART_ContentHost"
+                    <ScrollViewer
+                        x:Name="PART_ContentHost"
                         Background="Transparent"
                         Focusable="false"
                         HorizontalScrollBarVisibility="Hidden"
@@ -148,19 +149,22 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
-                    <Border x:Name="templateRoot"
+                    <Border
+                        x:Name="templateRoot"
                         Background="{DynamicResource ControlInteriorBrush}"
                         BorderBrush="{DynamicResource BlueBorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         SnapsToDevicePixels="true">
-                        <Border x:Name="splitBorder"
+                        <Border
+                            x:Name="splitBorder"
                             Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}"
                             Margin="0"
                             HorizontalAlignment="Right"
                             BorderBrush="Transparent"
                             BorderThickness="1"
                             SnapsToDevicePixels="true">
-                            <Path x:Name="arrow"
+                            <Path
+                                x:Name="arrow"
                                 Margin="0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
@@ -252,7 +256,8 @@
     <ControlTemplate
         x:Key="ComboBoxEditableTemplate"
         TargetType="{x:Type ComboBox}">
-        <Grid x:Name="templateRoot"
+        <Grid
+            x:Name="templateRoot"
             SnapsToDevicePixels="true">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -260,34 +265,41 @@
                     Width="0"
                     MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" />
             </Grid.ColumnDefinitions>
-            <Popup x:Name="PART_Popup"
+            <Popup
+                x:Name="PART_Popup"
                 Grid.ColumnSpan="2"
                 AllowsTransparency="true"
                 IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
                 Placement="Bottom"
                 PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                <theme:SystemDropShadowChrome x:Name="shadow"
+                <theme:SystemDropShadowChrome
+                    x:Name="shadow"
                     MinWidth="{Binding ActualWidth, ElementName=templateRoot}"
                     MaxHeight="{TemplateBinding MaxDropDownHeight}"
                     Color="Transparent">
-                    <Border x:Name="dropDownBorder"
+                    <Border
+                        x:Name="dropDownBorder"
                         Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
                         BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}"
                         BorderThickness="1">
                         <ScrollViewer x:Name="DropDownScrollViewer">
-                            <Grid x:Name="grid"
+                            <Grid
+                                x:Name="grid"
                                 RenderOptions.ClearTypeHint="Enabled">
-                                <Canvas x:Name="canvas"
+                                <Canvas
+                                    x:Name="canvas"
                                     Width="0"
                                     Height="0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Top">
-                                    <Rectangle x:Name="opaqueRect"
+                                    <Rectangle
+                                        x:Name="opaqueRect"
                                         Width="{Binding ActualWidth, ElementName=dropDownBorder}"
                                         Height="{Binding ActualHeight, ElementName=dropDownBorder}"
                                         Fill="{Binding Background, ElementName=dropDownBorder}" />
                                 </Canvas>
-                                <ItemsPresenter x:Name="ItemsPresenter"
+                                <ItemsPresenter
+                                    x:Name="ItemsPresenter"
                                     KeyboardNavigation.DirectionalNavigation="Contained"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                             </Grid>
@@ -295,17 +307,20 @@
                     </Border>
                 </theme:SystemDropShadowChrome>
             </Popup>
-            <ToggleButton x:Name="toggleButton"
+            <ToggleButton
+                x:Name="toggleButton"
                 Grid.ColumnSpan="2"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
                 IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                 Style="{StaticResource ComboBoxToggleButton}" />
-            <Border x:Name="border"
+            <Border
+                x:Name="border"
                 Margin="{TemplateBinding BorderThickness}"
                 Background="{DynamicResource ControlInteriorBrush}">
-                <TextBox x:Name="PART_EditableTextBox"
+                <TextBox
+                    x:Name="PART_EditableTextBox"
                     Margin="{TemplateBinding Padding}"
                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -343,7 +358,8 @@
     <ControlTemplate
         x:Key="ComboBoxTemplate"
         TargetType="{x:Type ComboBox}">
-        <Grid x:Name="templateRoot"
+        <Grid
+            x:Name="templateRoot"
             SnapsToDevicePixels="true">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -351,35 +367,42 @@
                     Width="0"
                     MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" />
             </Grid.ColumnDefinitions>
-            <Popup x:Name="PART_Popup"
+            <Popup
+                x:Name="PART_Popup"
                 Grid.ColumnSpan="2"
                 Margin="1"
                 AllowsTransparency="true"
                 IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                 Placement="Bottom"
                 PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                <theme:SystemDropShadowChrome x:Name="shadow"
+                <theme:SystemDropShadowChrome
+                    x:Name="shadow"
                     MinWidth="{Binding ActualWidth, ElementName=templateRoot}"
                     MaxHeight="{TemplateBinding MaxDropDownHeight}"
                     Color="Transparent">
-                    <Border x:Name="dropDownBorder"
+                    <Border
+                        x:Name="dropDownBorder"
                         Background="{DynamicResource ControlInteriorBrush}"
                         BorderBrush="{DynamicResource BlueBorderBrush}"
                         BorderThickness="1">
                         <ScrollViewer x:Name="DropDownScrollViewer">
-                            <Grid x:Name="grid"
+                            <Grid
+                                x:Name="grid"
                                 RenderOptions.ClearTypeHint="Enabled">
-                                <Canvas x:Name="canvas"
+                                <Canvas
+                                    x:Name="canvas"
                                     Width="0"
                                     Height="0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Top">
-                                    <Rectangle x:Name="opaqueRect"
+                                    <Rectangle
+                                        x:Name="opaqueRect"
                                         Width="{Binding ActualWidth, ElementName=dropDownBorder}"
                                         Height="{Binding ActualHeight, ElementName=dropDownBorder}"
                                         Fill="{Binding Background, ElementName=dropDownBorder}" />
                                 </Canvas>
-                                <ItemsPresenter x:Name="ItemsPresenter"
+                                <ItemsPresenter
+                                    x:Name="ItemsPresenter"
                                     KeyboardNavigation.DirectionalNavigation="Contained"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                             </Grid>
@@ -387,14 +410,16 @@
                     </Border>
                 </theme:SystemDropShadowChrome>
             </Popup>
-            <ToggleButton x:Name="toggleButton"
+            <ToggleButton
+                x:Name="toggleButton"
                 Grid.ColumnSpan="2"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
                 IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                 Style="{StaticResource ComboBoxToggleButton}" />
-            <ContentPresenter x:Name="contentPresenter"
+            <ContentPresenter
+                x:Name="contentPresenter"
                 Margin="{TemplateBinding Padding}"
                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"

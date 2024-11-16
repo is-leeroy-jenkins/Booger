@@ -54,7 +54,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}">
-                        <Path x:Name="Token_Path"
+                        <Path
+                            x:Name="Token_Path"
                             Width="8"
                             Height="8"
                             Margin="3,2,3,2"
@@ -88,7 +89,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type sync:ComboBoxTokenItem}">
-                    <Border x:Name="rootBorder"
+                    <Border
+                        x:Name="rootBorder"
                         Margin="2"
                         Padding="3"
                         Background="{TemplateBinding Background}"
@@ -100,13 +102,15 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="24" />
                             </Grid.ColumnDefinitions>
-                            <ContentPresenter x:Name="Token_ContentPresenter"
+                            <ContentPresenter
+                                x:Name="Token_ContentPresenter"
                                 Grid.Column="0"
                                 Margin="4,0,0,0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Content="{TemplateBinding Content}" />
-                            <Button x:Name="Token_CloseButton"
+                            <Button
+                                x:Name="Token_CloseButton"
                                 Grid.Column="1"
                                 Padding="1"
                                 HorizontalAlignment="Right"
@@ -138,7 +142,8 @@
                     Width="0"
                     MinWidth="{StaticResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" />
             </Grid.ColumnDefinitions>
-            <Popup x:Name="PART_Popup"
+            <Popup
+                x:Name="PART_Popup"
                 Grid.ColumnSpan="2"
                 AllowsTransparency="true"
                 IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
@@ -146,7 +151,8 @@
                 SnapsToDevicePixels="True"
                 StaysOpen="False">
 
-                <Border x:Name="DropDownBorder"
+                <Border
+                    x:Name="DropDownBorder"
                     MinWidth="{TemplateBinding ActualWidth}"
                     MaxHeight="{TemplateBinding MaxDropDownHeight}"
                     Background="{StaticResource MenuBackground}"
@@ -168,7 +174,8 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <ScrollViewer x:Name="DropDownScrollViewer"
+                            <ScrollViewer
+                                x:Name="DropDownScrollViewer"
                                 Background="{StaticResource MenuBackground}">
                                 <ScrollViewer.Padding>
                                     <Thickness>0,4,0,4</Thickness>
@@ -183,16 +190,19 @@
                                         Height="0"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top">
-                                        <Rectangle x:Name="OpaqueRect"
+                                        <Rectangle
+                                            x:Name="OpaqueRect"
                                             Width="{Binding ActualWidth, ElementName=DropDownBorder}"
                                             Height="{Binding ActualHeight, ElementName=DropDownBorder}"
                                             Fill="{Binding Background, ElementName=DropDownBorder}" />
                                     </Canvas>
-                                    <ItemsPresenter x:Name="ItemsPresenter"
+                                    <ItemsPresenter
+                                        x:Name="ItemsPresenter"
                                         Grid.Row="1"
                                         ClipToBounds="True"
                                         SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                    <sync:ComboBoxItemAdv x:Name="PART_SelectAll"
+                                    <sync:ComboBoxItemAdv
+                                        x:Name="PART_SelectAll"
                                         Grid.Row="0"
                                         Margin="0.2,0,0,0.5"
                                         Content="{skin:SharedLocalizationResourceExtension ResourceName=SelectAll}"
@@ -204,7 +214,8 @@
                                         BorderThickness="0,0,0,1"
                                         SnapsToDevicePixels="True"
                                         Visibility="Collapsed" />
-                                    <TextBlock x:Name="No_Records"
+                                    <TextBlock
+                                        x:Name="No_Records"
                                         Padding="3"
                                         Background="{Binding Background, ElementName=DropDownBorder}"
                                         Focusable="False"
@@ -223,13 +234,15 @@
                                 Orientation="Horizontal"
                                 Visibility="{TemplateBinding EnableOKCancel,
                                                              Converter={StaticResource VisiblityConverter}}">
-                                <Button x:Name="PART_OKButton"
+                                <Button
+                                    x:Name="PART_OKButton"
                                     Width="70"
                                     Height="30"
                                     Margin="0,0,10,0"
                                     Content="{skin:SharedLocalizationResourceExtension ResourceName=OKText}"
                                     Style="{StaticResource WPFButtonStyle}" />
-                                <Button x:Name="PART_CancelButton"
+                                <Button
+                                    x:Name="PART_CancelButton"
                                     Width="70"
                                     Height="30"
                                     Content="{skin:SharedLocalizationResourceExtension ResourceName=CancelText}"
@@ -250,14 +263,16 @@
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
                 CornerRadius="2" />
-            <ToggleButton x:Name="PART_ToggleButton"
+            <ToggleButton
+                x:Name="PART_ToggleButton"
                 Grid.ColumnSpan="2"
                 Margin="0,0,5,0"
                 HorizontalContentAlignment="Right"
                 IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                 Style="{StaticResource WPFGlyphDropdownExpanderStyle}" />
 
-            <ContentPresenter x:Name="ContentPresenter"
+            <ContentPresenter
+                x:Name="ContentPresenter"
                 Margin="{TemplateBinding Padding}"
                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -268,7 +283,8 @@
                 IsHitTestVisible="false"
                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 
-            <ItemsControl x:Name="PART_SelectedItems"
+            <ItemsControl
+                x:Name="PART_SelectedItems"
                 Margin="{TemplateBinding Padding}"
                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -282,7 +298,8 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
 
-            <TextBlock x:Name="PART_DefaultText"
+            <TextBlock
+                x:Name="PART_DefaultText"
                 Margin="{TemplateBinding Padding}"
                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -290,14 +307,16 @@
                 Opacity="0.5"
                 Text="{TemplateBinding DefaultText}" />
 
-            <Border x:Name="PART_Border"
+            <Border
+                x:Name="PART_Border"
                 Margin="0"
                 Background="{StaticResource ControlBackground}"
                 BorderBrush="Transparent"
                 BorderThickness="1,1,0,1"
                 CornerRadius="0"
                 Visibility="Collapsed">
-                <ItemsControl x:Name="PART_TokenItems"
+                <ItemsControl
+                    x:Name="PART_TokenItems"
                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                     DisplayMemberPath="{Binding DisplayMemberPath, RelativeSource={RelativeSource Mode=TemplatedParent}}"
@@ -308,7 +327,8 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.Items>
-                        <TextBox x:Name="PART_Editable"
+                        <TextBox
+                            x:Name="PART_Editable"
                             Margin="1,2,0,2"
                             Padding="2,0,2,5"
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -325,7 +345,8 @@
                 </ItemsControl>
             </Border>
 
-            <TextBox x:Name="PART_IsEditDefaultText"
+            <TextBox
+                x:Name="PART_IsEditDefaultText"
                 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                 BorderThickness="0"
@@ -438,7 +459,8 @@
                                 MinWidth="{StaticResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" />
                         </Grid.ColumnDefinitions>
 
-                        <Popup x:Name="PART_Popup"
+                        <Popup
+                            x:Name="PART_Popup"
                             Grid.ColumnSpan="2"
                             AllowsTransparency="true"
                             IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
@@ -446,7 +468,8 @@
                             SnapsToDevicePixels="True"
                             StaysOpen="False">
 
-                            <Border x:Name="DropDownBorder"
+                            <Border
+                                x:Name="DropDownBorder"
                                 MinWidth="{TemplateBinding ActualWidth}"
                                 MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                 Background="{StaticResource ControlInteriorBrush}"
@@ -470,7 +493,8 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
-                                        <ScrollViewer x:Name="DropDownScrollViewer"
+                                        <ScrollViewer
+                                            x:Name="DropDownScrollViewer"
                                             Background="{StaticResource MenuBackground}">
                                             <ScrollViewer.Padding>
                                                 <Thickness>0,4,0,4</Thickness>
@@ -485,16 +509,19 @@
                                                     Height="0"
                                                     HorizontalAlignment="Left"
                                                     VerticalAlignment="Top">
-                                                    <Rectangle x:Name="OpaqueRect"
+                                                    <Rectangle
+                                                        x:Name="OpaqueRect"
                                                         Width="{Binding ActualWidth, ElementName=DropDownBorder}"
                                                         Height="{Binding ActualHeight, ElementName=DropDownBorder}"
                                                         Fill="{Binding Background, ElementName=DropDownBorder}" />
                                                 </Canvas>
-                                                <ItemsPresenter x:Name="ItemsPresenter"
+                                                <ItemsPresenter
+                                                    x:Name="ItemsPresenter"
                                                     Grid.Row="1"
                                                     ClipToBounds="True"
                                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                                <TextBlock x:Name="No_Records"
+                                                <TextBlock
+                                                    x:Name="No_Records"
                                                     Padding="3"
                                                     Background="{Binding Background, ElementName=DropDownBorder}"
                                                     Focusable="False"
@@ -517,14 +544,16 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="2" />
-                        <ToggleButton x:Name="PART_ToggleButton"
+                        <ToggleButton
+                            x:Name="PART_ToggleButton"
                             Grid.ColumnSpan="2"
                             Margin="0,0,5,0"
                             HorizontalContentAlignment="Right"
                             IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                             Style="{StaticResource WPFGlyphDropdownExpanderStyle}" />
 
-                        <ContentPresenter x:Name="ContentPresenter"
+                        <ContentPresenter
+                            x:Name="ContentPresenter"
                             Margin="{TemplateBinding Padding}"
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -541,7 +570,8 @@
                             </ContentPresenter.Resources>
                         </ContentPresenter>
 
-                        <TextBlock x:Name="PART_DefaultText"
+                        <TextBlock
+                            x:Name="PART_DefaultText"
                             Margin="{TemplateBinding Padding}"
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -549,7 +579,8 @@
                             Opacity="0.5"
                             Text="{TemplateBinding DefaultText}" />
 
-                        <TextBox x:Name="PART_Editable"
+                        <TextBox
+                            x:Name="PART_Editable"
                             Margin="1,2,0,2"
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -562,7 +593,8 @@
                             Style="{StaticResource WPFBorderlessTextBoxStyle}"
                             Visibility="Collapsed" />
 
-                        <TextBox x:Name="PART_IsEditDefaultText"
+                        <TextBox
+                            x:Name="PART_IsEditDefaultText"
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                             BorderThickness="0"
@@ -694,7 +726,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type sync:ComboBoxItemAdv}">
                     <Grid>
-                        <Border x:Name="SelectionIndicator"
+                        <Border
+                            x:Name="SelectionIndicator"
                             Width="2"
                             Height="12"
                             HorizontalAlignment="Left"
@@ -715,7 +748,8 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <CheckBox x:Name="PART_CheckBox"
+                                <CheckBox
+                                    x:Name="PART_CheckBox"
                                     Margin="2"
                                     IsHitTestVisible="False"
                                     Visibility="{Binding Path=AllowMultiSelect, Converter={StaticResource VisiblityConverter}, RelativeSource={RelativeSource AncestorType={x:Type sync:ComboBoxAdv}}}" />

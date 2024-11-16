@@ -176,7 +176,8 @@
                     Panel.ZIndex="2"
                     Content="{Binding}"
                     ContentTemplate="{TemplateBinding MarkerTemplate}" />
-                <stepprogressbar:SfLinearProgressBar x:Name="LinearProgressBar"
+                <stepprogressbar:SfLinearProgressBar
+                    x:Name="LinearProgressBar"
                     Grid.Row="1"
                     Grid.Column="1"
                     Width="{TemplateBinding ItemSpacing}"
@@ -193,7 +194,8 @@
                     ProgressColor="{TemplateBinding ActiveConnectorColor}"
                     TrackColor="{TemplateBinding ConnectorColor}" />
             </Grid>
-            <ContentPresenter x:Name="PrimaryContentPresenter"
+            <ContentPresenter
+                x:Name="PrimaryContentPresenter"
                 Grid.Row="2"
                 Grid.Column="0"
                 Margin="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TextSpacingConverter}, Path=TextSpacing, ConverterParameter=Horizontal}"
@@ -247,7 +249,8 @@
                     Panel.ZIndex="2"
                     Content="{Binding}"
                     ContentTemplate="{TemplateBinding MarkerTemplate}" />
-                <stepprogressbar:SfLinearProgressBar x:Name="LinearProgressBar"
+                <stepprogressbar:SfLinearProgressBar
+                    x:Name="LinearProgressBar"
                     Grid.Row="1"
                     Grid.Column="0"
                     Width="{TemplateBinding ItemSpacing}"
@@ -267,7 +270,8 @@
                     </stepprogressbar:SfLinearProgressBar.LayoutTransform>
                 </stepprogressbar:SfLinearProgressBar>
             </Grid>
-            <ContentPresenter x:Name="PrimaryContentPresenter"
+            <ContentPresenter
+                x:Name="PrimaryContentPresenter"
                 Grid.Row="0"
                 Grid.Column="2"
                 Margin="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TextSpacingConverter}, Path=TextSpacing, ConverterParameter=Vertical}"

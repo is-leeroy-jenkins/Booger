@@ -13,7 +13,7 @@
 
     <Style
         x:Key="BrowserTabStyle"
-        TargetType="{x:Type b:BrowserTabItem}">
+        TargetType="{x:Type b:BrowserTab}">
         <Setter Property="Background" Value="{DynamicResource FormBackground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource FormBackground}" />
         <Setter Property="Foreground" Value="{DynamicResource FormForeground}" />

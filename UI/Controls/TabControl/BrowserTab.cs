@@ -60,7 +60,7 @@ namespace Booger
     [ SuppressMessage( "ReSharper", "MissingBlankLines" ) ]
     [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
-    public class BrowserTabItem : TabItemExt, INotifyPropertyChanged
+    public class BrowserTab : TabItemExt, INotifyPropertyChanged
     {
         /// <summary>
         /// The path
@@ -160,7 +160,7 @@ namespace Booger
         /// <summary>
         /// The tab
         /// </summary>
-        private protected BrowserTabItem _tab;
+        private protected BrowserTab _tab;
 
         /// <inheritdoc />
         /// <summary>
@@ -173,7 +173,7 @@ namespace Booger
         /// Initializes a new instance of the
         /// <see cref="T:Baby.BrowserTab" /> class.
         /// </summary>
-        public BrowserTabItem( )
+        public BrowserTab( )
         {
         }
 
@@ -185,7 +185,7 @@ namespace Booger
         /// <param name="window">
         /// The display control.
         /// </param>
-        public BrowserTabItem( Window window )
+        public BrowserTab( Window window )
             : this( string.Empty, window )
         {
         }
@@ -196,7 +196,7 @@ namespace Booger
         /// </summary>
         /// <param name="caption">The caption.</param>
         /// <param name="window">The display control.</param>
-        public BrowserTabItem( string caption, Window window )
+        public BrowserTab( string caption, Window window )
         {
             _isSelected = false;
             _isVisible = true;
@@ -387,7 +387,7 @@ namespace Booger
         /// <value>
         /// The tab.
         /// </value>
-        public BrowserTabItem Tab
+        public BrowserTab Tab
         {
             get
             {
@@ -426,7 +426,7 @@ namespace Booger
         /// Assigns the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
-        public void Assign( BrowserTabItem item )
+        public void Assign( BrowserTab item )
         {
             IsVisible = item.IsVisible;
             Title = item.Title;

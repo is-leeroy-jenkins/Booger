@@ -39,7 +39,6 @@
 // </summary>
 // ******************************************************************************************
 
-
 namespace Booger
 {
     using System;
@@ -62,7 +61,7 @@ namespace Booger
         /// <summary>
         /// Initializes the <see cref="EntryPoint"/> class.
         /// </summary>
-        static EntryPoint()
+        static EntryPoint( )
         {
             AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
         }
@@ -73,7 +72,7 @@ namespace Booger
         [ STAThread ]
         private static void Main( )
         {
-            var _app = new App();
+            var _app = new App( );
             _app.InitializeComponent( );
             _app.Run( );
         }
@@ -85,8 +84,7 @@ namespace Booger
         /// <param name="e">The <see cref="UnhandledExceptionEventArgs"/> instance containing the event data.</param>
         private static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            NativeMethods.MessageBox(MainWindowHandle, $"{e.ExceptionObject}",
-                "UnhandledException", MessageBoxFlags.Ok | MessageBoxFlags.IconError);
+            Fail( new Exception( ) );
         }
 
         /// <summary>

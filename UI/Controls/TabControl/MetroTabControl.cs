@@ -47,21 +47,22 @@ namespace Booger
     using System.Windows.Controls;
     using System.Windows.Media;
 
+    /// <inheritdoc />
     /// <summary>
-    /// 
     /// </summary>
-    /// <seealso cref="System.Windows.Controls.TabControl" />
+    /// <seealso cref="T:System.Windows.Controls.TabControl" />
     [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
     [ SuppressMessage( "ReSharper", "InconsistentNaming" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
     [ SuppressMessage( "ReSharper", "ClassCanBeSealed.Global" ) ]
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
+    [ SuppressMessage( "ReSharper", "ClassNeverInstantiated.Global" ) ]
     public class MetroTabControl : TabControl
     {
         /// <summary>
         /// The theme
         /// </summary>
-        private protected DarkMode _theme = new DarkMode( );
+        private protected readonly DarkMode _theme = new DarkMode( );
 
         /// <inheritdoc />
         /// <summary>
@@ -74,12 +75,10 @@ namespace Booger
             // Control Properties
             FontFamily = new FontFamily( "Roboto" );
             FontSize = 12;
-            Width = 460;
-            Height = 400;
-            HorizontalAlignment = HorizontalAlignment.Center;
+            Width = 260;
+            Height = 200;
+            HorizontalAlignment = HorizontalAlignment.Stretch;
             VerticalAlignment = VerticalAlignment.Stretch;
-            HorizontalContentAlignment = HorizontalAlignment.Center;
-            VerticalContentAlignment = VerticalAlignment.Stretch;
             Margin = _theme.Margin;
             Padding = _theme.Padding;
             BorderThickness = _theme.BorderThickness;

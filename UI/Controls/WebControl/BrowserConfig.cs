@@ -45,6 +45,7 @@ namespace Booger
     using System;
     using System.Diagnostics.CodeAnalysis;
     using CefSharp;
+    using CefSharp.Wpf;
 
     /// <summary>
     /// 
@@ -52,6 +53,7 @@ namespace Booger
     [ SuppressMessage( "ReSharper", "MemberCanBeInternal" ) ]
     [ SuppressMessage( "ReSharper", "FieldCanBeMadeReadOnly.Global" ) ]
     [ SuppressMessage( "ReSharper", "InconsistentNaming" ) ]
+    [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
     public static class BrowserConfig
     {
         /// <summary>
@@ -69,7 +71,7 @@ namespace Booger
         /// </summary>
         public static string UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
             + " AppleWebKit/537.36 (KHTML, like Gecko)"
-            + " Chrome/104.0.5112.102 Safari/537.36 /CefSharp Browser" + Cef.CefSharpVersion;
+            + " Chrome/104.0.5112.102 Safari/537.36 /CefSharp Browser" ;
 
         /// <summary>
         /// 

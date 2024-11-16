@@ -288,7 +288,7 @@ namespace Booger
         public void AboutOpenChat( )
         {
             MessageBox.Show( Application.Current.MainWindow, $"""
-                                                              {nameof( Booger )}, by SlimeNull v{Assembly.GetEntryAssembly( )?.GetName( )?.Version}
+                                                              {nameof( Booger )}, by is-leeroy-jenkins v{Assembly.GetEntryAssembly( )?.GetName( )?.Version}
 
                                                               A simple chat client based on OpenAI Chat completion API.
 

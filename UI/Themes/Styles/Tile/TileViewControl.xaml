@@ -30,7 +30,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">
-                    <Border x:Name="outerBorder"
+                    <Border
+                        x:Name="outerBorder"
                         Width="{TemplateBinding Width}"
                         Height="{TemplateBinding Height}"
                         CornerRadius="2"
@@ -46,7 +47,8 @@
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 CornerRadius="2"
                                 SnapsToDevicePixels="True">
-                                <Path x:Name="Maximize"
+                                <Path
+                                    x:Name="Maximize"
                                     Width="10"
                                     Height="10"
                                     Data="M1 1V11H11V1H1Z"
@@ -54,7 +56,8 @@
                                     Stroke="{StaticResource BlueBorderBrush}" />
                             </Border>
                             <Grid x:Name="minButton">
-                                <Path x:Name="Minimize"
+                                <Path
+                                    x:Name="Minimize"
                                     Width="10"
                                     Height="2"
                                     Data="M0 1H10"
@@ -117,7 +120,8 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ToggleButton">
-                            <Border x:Name="outerBorder"
+                            <Border
+                                x:Name="outerBorder"
                                 Width="24"
                                 Height="32"
                                 Background="Transparent"
@@ -133,17 +137,20 @@
                                         Background="Transparent"
                                         BorderBrush="Transparent"
                                         SnapsToDevicePixels="True">
-                                        <Path x:Name="Maximize"
+                                        <Path
+                                            x:Name="Maximize"
                                             Data="M1 1V11H11V1H1Z"
                                             Stretch="Fill"
                                             Stroke="{StaticResource BlueBorderBrush}" />
                                     </Border>
-                                    <Grid x:Name="minButton"
+                                    <Grid
+                                        x:Name="minButton"
                                         Width="10"
                                         Height="2"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center">
-                                        <Path x:Name="Minimize"
+                                        <Path
+                                            x:Name="Minimize"
                                             Data="M0 1H10"
                                             Stretch="Fill"
                                             Stroke="{StaticResource BlueBorderBrush}" />
@@ -229,7 +236,8 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <Popup Name="Splitpopup" />
-                        <Border x:Name="TileViewItemBorder"
+                        <Border
+                            x:Name="TileViewItemBorder"
                             Grid.Row="{TemplateBinding BorderRow}"
                             Grid.Column="{TemplateBinding BorderColumn}"
                             Background="{TemplateBinding Background}"
@@ -237,7 +245,8 @@
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding CornerRadius}">
                             <DockPanel LastChildFill="True">
-                                <Border x:Name="FloatPanelArea"
+                                <Border
+                                    x:Name="FloatPanelArea"
                                     Height="{TemplateBinding HeaderHeight}"
                                     Background="{TemplateBinding HeaderBackground}"
                                     BorderBrush="{TemplateBinding HeaderBorderBrush}"
@@ -256,7 +265,8 @@
                                         <Grid
                                             Grid.Column="0"
                                             IsHitTestVisible="True">
-                                            <ContentPresenter x:Name="headercontent"
+                                            <ContentPresenter
+                                                x:Name="headercontent"
                                                 Margin="{TemplateBinding Padding}"
                                                 HorizontalAlignment="Stretch"
                                                 VerticalAlignment="Center"
@@ -271,7 +281,8 @@
                                             </ContentPresenter>
                                         </Grid>
                                         <Grid Grid.Column="1">
-                                            <ToggleButton x:Name="MinMaxButton"
+                                            <ToggleButton
+                                                x:Name="MinMaxButton"
                                                 Margin="{TemplateBinding MinMaxButtonMargin}"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
@@ -284,7 +295,8 @@
                                                 Visibility="{TemplateBinding MinMaxButtonVisibility}" />
                                         </Grid>
                                         <Grid Grid.Column="2">
-                                            <shared:TileViewItemCloseButton x:Name="CloseButton"
+                                            <shared:TileViewItemCloseButton
+                                                x:Name="CloseButton"
                                                 Width="24"
                                                 Height="24"
                                                 Margin="{TemplateBinding CloseButtonMargin}"
@@ -294,7 +306,8 @@
                                                 VerticalContentAlignment="Center"
                                                 Style="{TemplateBinding CloseButtonStyle}"
                                                 Visibility="{TemplateBinding CloseButtonVisibility}">
-                                                <Path x:Name="Close_Big"
+                                                <Path
+                                                    x:Name="Close_Big"
                                                     Width="10"
                                                     Height="10"
                                                     Data="M1 11L6 6M6 6L11 1M6 6L11 11M6 6L1 1"
@@ -304,9 +317,11 @@
                                         </Grid>
                                     </Grid>
                                 </Border>
-                                <Grid x:Name="PART_Content"
+                                <Grid
+                                    x:Name="PART_Content"
                                     Background="Transparent">
-                                    <ContentPresenter x:Name="tileviewcontent"
+                                    <ContentPresenter
+                                        x:Name="tileviewcontent"
                                         Margin="{TemplateBinding Margin}"
                                         Content="{TemplateBinding Content}"
                                         ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -314,7 +329,8 @@
                                 </Grid>
                             </DockPanel>
                         </Border>
-                        <Border x:Name="SplitBorder"
+                        <Border
+                            x:Name="SplitBorder"
                             Grid.Row="{TemplateBinding SplitRow}"
                             Grid.Column="{TemplateBinding SplitColumn}"
                             Background="{Binding SplitterColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type shared:TileViewControl}}}"
@@ -413,9 +429,11 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="shared:TileViewControl">
-                    <Grid x:Name="MainGrid"
+                    <Grid
+                        x:Name="MainGrid"
                         Background="{TemplateBinding Background}">
-                        <ScrollViewer x:Name="scrollviewer"
+                        <ScrollViewer
+                            x:Name="scrollviewer"
                             CanContentScroll="True"
                             Focusable="False"
                             HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"

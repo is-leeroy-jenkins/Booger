@@ -43,8 +43,10 @@
 namespace Booger
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Diagnostics.CodeAnalysis;
+    using System.Windows;
 
     /// <inheritdoc />
     /// <summary>
@@ -64,21 +66,21 @@ namespace Booger
 
         /// <summary>
         /// Gets or sets the
-        /// <see cref="BrowserTabItem"/>
+        /// <see cref="BrowserTab"/>
         /// at the specified index.
         /// </summary>
         /// <value>
-        /// The <see cref="BrowserTabItem"/>.
+        /// The <see cref="BrowserTab"/>.
         /// </value>
         /// <param name="index">The index.</param>
         /// <returns></returns>
-        public BrowserTabItem this[ int index ]
+        public BrowserTab this[ int index ]
         {
             get
             {
                 return index < 0 || List.Count - 1 < index
                     ? null
-                    : ( BrowserTabItem )List[ index ];
+                    : ( BrowserTab )List[ index ];
             }
             set
             {
@@ -122,7 +124,7 @@ namespace Booger
         /// <value>
         /// The last visible.
         /// </value>
-        public virtual BrowserTabItem LastVisible
+        public virtual BrowserTab LastVisible
         {
             get
             {
@@ -144,7 +146,7 @@ namespace Booger
         /// <value>
         /// The first visible.
         /// </value>
-        public virtual BrowserTabItem FirstVisible
+        public virtual BrowserTab FirstVisible
         {
             get
             {
@@ -210,7 +212,7 @@ namespace Booger
         /// Adds the range.
         /// </summary>
         /// <param name="items">The items.</param>
-        public virtual void AddRange( BrowserTabItem[ ] items )
+        public virtual void AddRange( BrowserTab[ ] items )
         {
             BeginUpdate( );
             try
@@ -239,7 +241,7 @@ namespace Booger
                 for( var _i = 0; _i < collection.Count; _i++ )
                 {
                     var _item = collection[ _i ];
-                    var _fATabStripItem = new BrowserTabItem( );
+                    var _fATabStripItem = new BrowserTab( );
                     _fATabStripItem.Assign( _item );
                     Add( _fATabStripItem );
                 }
@@ -255,7 +257,7 @@ namespace Booger
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns></returns>
-        public virtual int Add( BrowserTabItem item )
+        public virtual int Add( BrowserTab item )
         {
             var _num = IndexOf( item );
             if( _num == -1 )
@@ -270,7 +272,7 @@ namespace Booger
         /// Removes the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
-        public virtual void Remove( BrowserTabItem item )
+        public virtual void Remove( BrowserTab item )
         {
             if( List.Contains( item ) )
             {
@@ -284,7 +286,7 @@ namespace Booger
         /// <param name="newIndex">The new index.</param>
         /// <param name="item">The item.</param>
         /// <returns></returns>
-        public virtual BrowserTabItem MoveTo( int newIndex, BrowserTabItem item )
+        public virtual BrowserTab MoveTo( int newIndex, BrowserTab item )
         {
             var _num = List.IndexOf( item );
             if( _num >= 0 )
@@ -302,7 +304,7 @@ namespace Booger
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns></returns>
-        public virtual int IndexOf( BrowserTabItem item )
+        public virtual int IndexOf( BrowserTab item )
         {
             return List.IndexOf( item );
         }
@@ -316,7 +318,7 @@ namespace Booger
         /// [the specified item]; otherwise,
         /// <c>false</c>.
         /// </returns>
-        public virtual bool Contains( BrowserTabItem item )
+        public virtual bool Contains( BrowserTab item )
         {
             return List.Contains( item );
         }
@@ -326,7 +328,7 @@ namespace Booger
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="item">The item.</param>
-        public virtual void Insert( int index, BrowserTabItem item )
+        public virtual void Insert( int index, BrowserTab item )
         {
             if( !Contains( item ) )
             {
@@ -375,7 +377,7 @@ namespace Booger
         /// <param name="item">The item.</param>
         protected override void OnInsertComplete( int index, object item )
         {
-            var _fATabStripItem = item as BrowserTabItem;
+            var _fATabStripItem = item as BrowserTab;
             _fATabStripItem.PropertyChanged += OnItemChanged;
             OnCollectionChanged( new CollectionChangeEventArgs( CollectionChangeAction.Add, item ) );
         }
@@ -389,7 +391,7 @@ namespace Booger
         protected override void OnRemove( int index, object item )
         {
             base.OnRemove( index, item );
-            var _fATabStripItem = item as BrowserTabItem;
+            var _fATabStripItem = item as BrowserTab;
             _fATabStripItem.PropertyChanged -= OnItemChanged;
             OnCollectionChanged( new CollectionChangeEventArgs( CollectionChangeAction.Remove, item ) );
         }

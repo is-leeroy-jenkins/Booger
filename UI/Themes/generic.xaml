@@ -281,7 +281,7 @@
                 <ResourceDictionary Source="/UI/Themes/Styles/Progress/SfCircularProgressBar.xaml" />
                 <ResourceDictionary Source="/UI/Themes/Styles/Progress/SfLinearProgressBar.xaml" />
                 <ResourceDictionary Source="/UI/Themes/Styles/Progress/SfStepProgressBar.xaml" />
-                <ResourceDictionary Source="/UI/Themes/Styles/TabControl/BrowserTabItem.xaml" />
+                <ResourceDictionary Source="/UI/Themes/Styles/TabControl/BrowserTab.xaml" />
                 <ResourceDictionary Source="/UI/Themes/Styles/TabControl/TabControl.xaml" />
                 <ResourceDictionary Source="/UI/Themes/Styles/TabControl/TabControlExt.xaml" />
                 <ResourceDictionary Source="/UI/Themes/Styles/Tile/Tile.xaml" />

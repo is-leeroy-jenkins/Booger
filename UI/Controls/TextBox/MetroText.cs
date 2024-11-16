@@ -1,16 +1,16 @@
 ﻿// ******************************************************************************************
-//     Assembly:                Booger
+//     Assembly:                Badger
 //     Author:                  Terry D. Eppler
-//     Created:                 10-19-2024
+//     Created:                 08-01-2024
 // 
 //     Last Modified By:        Terry D. Eppler
-//     Last Modified On:        10-19-2024
+//     Last Modified On:        08-01-2024
 // ******************************************************************************************
-// <copyright file="MetroTabItem.cs" company="Terry D. Eppler">
-//   An open source data analysis application for EPA Analysts developed
-//   in C-Sharp using WPF and released under the MIT license
+// <copyright file="MetroText.cs" company="Terry D. Eppler">
+//    Badger is data analysis and reporting tool for EPA Analysts
+//    based on WPF, NET6.0, and written in C-Sharp.
 // 
-//    Copyright ©  2020-2024 Terry D. Eppler
+//    Copyright ©  2024  Terry D. Eppler
 // 
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the “Software”),
@@ -32,10 +32,10 @@
 //    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //    DEALINGS IN THE SOFTWARE.
 // 
-//    You can contact me at:  terryeppler@gmail.com or eppler.terry@epa.gov
+//    You can contact me at: terryeppler@gmail.com or eppler.terry@epa.gov
 // </copyright>
 // <summary>
-//   MetroTabItem.cs
+//   MetroText.cs
 // </summary>
 // ******************************************************************************************
 
@@ -43,32 +43,46 @@ namespace Booger
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Media;
 
+    /// <inheritdoc />
+    /// <summary>
+    /// </summary>
+    /// <seealso cref="T:System.Windows.Controls.TextBlock" />
     [ SuppressMessage( "ReSharper", "UnusedType.Global" ) ]
-    public class MetroTabItem : TabItem
+    [ SuppressMessage( "ReSharper", "MemberCanBePrivate.Global" ) ]
+    [ SuppressMessage( "ReSharper", "InconsistentNaming" ) ]
+    public class MetroText : TextBlock
     {
         /// <summary>
-        /// The theme
+        /// The dark
         /// </summary>
-        private protected DarkMode _theme = new DarkMode( );
+        private protected readonly DarkMode _theme = new DarkMode( );
 
         /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="T:Booger.MetroTabItem" /> class.
+        /// <see cref="T:Badger.MetroTextBlock" /> class.
         /// </summary>
-        public MetroTabItem( )
+        public MetroText( )
             : base( )
         {
-            Width = 100;
-            Height = 24;
-            Margin = new Thickness( 0 );
-            Padding = new Thickness( 6, 2, 6, 5 );
             Background = _theme.TransparentBrush;
-            BorderBrush = _theme.TransparentBrush;
-            Foreground = _theme.Foreground;
+            Foreground = _theme.BorderBrush;
+            FontSize = 12;
+            FontFamily = new FontFamily( "Roboto Regular" );
+        }
+
+        /// <summary>
+        /// Fails the specified _ex.
+        /// </summary>
+        /// <param name="_ex">The _ex.</param>
+        private protected void Fail( Exception _ex )
+        {
+            var _error = new ErrorWindow( _ex );
+            _error?.SetText( );
+            _error?.ShowDialog( );
         }
     }
 }

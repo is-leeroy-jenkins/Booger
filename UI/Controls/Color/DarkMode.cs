@@ -185,10 +185,9 @@ namespace Booger
             LightBlueBrush = new SolidColorBrush( _lightBlue );
             BlackBrush = new SolidColorBrush( _blackColor );
             WhiteForeground = new SolidColorBrush( _whiteColor );
-            FontFamily = new FontFamily( "Roboto Regular" );
-            FontSize = 11;
+            FontFamily = new FontFamily( "Roboto" );
+            FontSize = 12;
             Padding = new Thickness( 1 );
-            Margin = new Thickness( 1 );
             BorderThickness = new Thickness( 1 );
             WindowStyle = WindowStyle.SingleBorderWindow;
             SizeMode = ResizeMode.CanResize;

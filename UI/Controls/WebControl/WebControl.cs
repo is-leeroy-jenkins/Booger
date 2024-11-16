@@ -129,7 +129,7 @@ namespace Booger
         /// <summary>
         /// The selected item
         /// </summary>
-        private BrowserTabItem _selectedItem;
+        private BrowserTab _selectedItem;
 
         /// <summary>
         /// The rectangle
@@ -191,7 +191,7 @@ namespace Booger
         /// Gets or sets the first item in the current selection
         /// or returns null if the selection is empty.
         /// </summary>
-        public new BrowserTabItem SelectedItem
+        public new BrowserTab SelectedItem
         {
             get
             {
@@ -219,7 +219,7 @@ namespace Booger
                     _selectedItem = value;
                 }
 
-                foreach( BrowserTabItem _item in Items )
+                foreach( BrowserTab _item in Items )
                 {
                     if( _item == _selectedItem )
                     {
@@ -254,7 +254,7 @@ namespace Booger
         /// Adds the tab.
         /// </summary>
         /// <param name="tabItem">The tab item.</param>
-        public void AddTab( BrowserTabItem tabItem )
+        public void AddTab( BrowserTab tabItem )
         {
             AddTab( tabItem, false );
         }
@@ -264,7 +264,7 @@ namespace Booger
         /// </summary>
         /// <param name="tabItem">The tab item.</param>
         /// <param name="autoSelect">if set to <c>true</c> [automatic select].</param>
-        public void AddTab( BrowserTabItem tabItem, bool autoSelect )
+        public void AddTab( BrowserTab tabItem, bool autoSelect )
         {
             Items.Add( tabItem );
             if( ( autoSelect && tabItem.IsVisible )
@@ -279,7 +279,7 @@ namespace Booger
         /// Removes the tab.
         /// </summary>
         /// <param name="tabItem">The tab item.</param>
-        public void RemoveTab( BrowserTabItem tabItem )
+        public void RemoveTab( BrowserTab tabItem )
         {
             var _num = Items.IndexOf( tabItem );
             if( _num >= 0 )
@@ -306,9 +306,9 @@ namespace Booger
         /// </summary>
         /// <param name="pt">The pt.</param>
         /// <returns></returns>
-        public BrowserTabItem GetTabItemByPoint( Point pt )
+        public BrowserTab GetTabItemByPoint( Point pt )
         {
-            BrowserTabItem _result = null;
+            BrowserTab _result = null;
             var _flag = false;
             for( var _i = 0; _i < Items.Count; _i++ )
             {
@@ -369,7 +369,7 @@ namespace Booger
         /// Selects the item.
         /// </summary>
         /// <param name="tabItem">The tab item.</param>
-        public void SelectItem( BrowserTabItem tabItem )
+        public void SelectItem( BrowserTab tabItem )
         {
             tabItem.IsVisible = true;
             tabItem.Selected = true;
@@ -379,7 +379,7 @@ namespace Booger
         /// Uns the select item.
         /// </summary>
         /// <param name="tabItem">The tab item.</param>
-        public void UnSelectItem( BrowserTabItem tabItem )
+        public void UnSelectItem( BrowserTab tabItem )
         {
             tabItem.Selected = false;
         }
@@ -404,7 +404,6 @@ namespace Booger
         /// <summary>
         /// Raises the <see cref="E:TabStripItemClosing" /> event.
         /// </summary>
-        /// <param name="e">The <see cref="TabClosingEventArgs"/>
         /// instance containing the event data.</param>
         protected virtual void OnTabStripItemClosing( TabClosingEventArgs e )
         {
@@ -483,7 +482,7 @@ namespace Booger
         /// instance containing the event data.</param>
         private void OnCollectionChanged( object sender, CollectionChangeEventArgs e )
         {
-            var _tab = ( BrowserTabItem )e.Element;
+            var _tab = ( BrowserTab )e.Element;
             if( e.Action == CollectionChangeAction.Add )
             {
                 OnBrowserTabItemChanged( new BrowserTabChangedEventArgs( _tab, ChangeType.Added ) );

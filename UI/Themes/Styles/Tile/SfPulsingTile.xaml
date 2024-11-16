@@ -87,12 +87,14 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:SfPulsingTile">
                     <Grid x:Name="PART_Layout">
-                        <Rectangle x:Name="PointerOveRect"
+                        <Rectangle
+                            x:Name="PointerOveRect"
                             Margin="-2"
                             Fill="Transparent"
                             RadiusX="0"
                             RadiusY="0" />
-                        <Border x:Name="PART_Border"
+                        <Border
+                            x:Name="PART_Border"
                             Margin="{TemplateBinding Padding}"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
@@ -100,10 +102,12 @@
                             CornerRadius="1">
                             <Grid Margin="{TemplateBinding Padding}">
                                 <Grid ClipToBounds="false">
-                                    <Border x:Name="MaskBorder"
+                                    <Border
+                                        x:Name="MaskBorder"
                                         Background="{TemplateBinding Background}"
                                         CornerRadius="{Binding ElementName=PART_Border, Path=CornerRadius}" />
-                                    <ContentPresenter x:Name="PART_Content"
+                                    <ContentPresenter
+                                        x:Name="PART_Content"
                                         HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                                         VerticalAlignment="{TemplateBinding VerticalAlignment}" />
                                     <ContentPresenter
@@ -126,7 +130,8 @@
                                                 TargetType="TextBlock" />
                                         </ContentPresenter.Resources>
                                     </ContentPresenter>
-                                    <Grid x:Name="ImageGrid"
+                                    <Grid
+                                        x:Name="ImageGrid"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         Visibility="Collapsed">

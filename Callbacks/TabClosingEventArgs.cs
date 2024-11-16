@@ -56,7 +56,7 @@ namespace Booger
         /// <value>
         /// The item.
         /// </value>
-        public BrowserTabItem Item { get; set; }
+        public BrowserTab Item { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="TabClosingEventArgs"/> is cancel.
@@ -71,7 +71,7 @@ namespace Booger
         /// Initializes a new instance of the <see cref="T:Booger.TabClosingEventArgs" /> class.
         /// </summary>
         /// <param name="item">The item.</param>
-        public TabClosingEventArgs( BrowserTabItem item )
+        public TabClosingEventArgs( BrowserTab item )
         {
             Item = item;
         }

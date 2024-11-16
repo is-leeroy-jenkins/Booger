@@ -13,11 +13,11 @@
 
     <Style
         x:Key="MetroRichTextBoxStyle"
-        TargetType="{x:Type b:MetroRichText}">
-        <Setter Property="Background" Value="{DynamicResource ControlInteriorBrush}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource BlueBorderBrush}" />
-        <Setter Property="Foreground" Value="{DynamicResource WhiteForeground}" />
-        <Setter Property="SelectionBrush" Value="{DynamicResource SteelBlueBackground}" />
+        TargetType="{x:Type b:MetroRichTextBox}">
+        <Setter Property="Background" Value="{StaticResource ControlInteriorBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource BlueBorderBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource WhiteForeground}" />
+        <Setter Property="SelectionBrush" Value="{StaticResource SteelBlueBackground}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
@@ -27,6 +27,24 @@
         <Setter Property="Margin" Value="1" />
         <Setter Property="FontFamily" Value="Roboto" />
         <Setter Property="FontSize" Value="12" />
+
+
+        <Style.Triggers>
+
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Background" Value="{StaticResource DarkBlueBackground}" />
+                <Setter Property="BorderBrush" Value="{StaticResource LightBlueBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource WhiteForeground}" />
+            </Trigger>
+
+            <Trigger Property="IsFocused" Value="False">
+                <Setter Property="Background" Value="{StaticResource ControlInteriorBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource ControlInteriorBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource LightBlueBrush}" />
+            </Trigger>
+
+
+        </Style.Triggers>
 
     </Style>
 

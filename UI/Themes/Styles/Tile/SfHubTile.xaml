@@ -92,12 +92,14 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:SfHubTile">
                     <Grid x:Name="PART_Root">
-                        <Rectangle x:Name="PointerOveRect"
+                        <Rectangle
+                            x:Name="PointerOveRect"
                             Margin="-2"
                             Fill="Transparent"
                             RadiusX="0"
                             RadiusY="0" />
-                        <Border x:Name="Part_Border"
+                        <Border
+                            x:Name="Part_Border"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
@@ -105,7 +107,8 @@
                             <Grid Margin="{TemplateBinding Padding}">
                                 <Grid x:Name="PART_SlideRoot">
                                     <Grid x:Name="PART_LayoutRoot">
-                                        <Border x:Name="MaskBorder"
+                                        <Border
+                                            x:Name="MaskBorder"
                                             Background="{TemplateBinding Background}"
                                             CornerRadius="{Binding ElementName=Part_Border, Path=CornerRadius}" />
                                         <ContentPresenter
@@ -139,7 +142,8 @@
                                             </ContentControl.Resources>
                                         </ContentControl>
                                     </Grid>
-                                    <ContentControl x:Name="PART_HubTileContent"
+                                    <ContentControl
+                                        x:Name="PART_HubTileContent"
                                         HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                         VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                         Content="{TemplateBinding SecondaryContent}"

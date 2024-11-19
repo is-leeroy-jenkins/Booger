@@ -1,4 +1,4 @@
-## Booger
+##.
 ﻿![](https://github.com/is-leeroy-jenkins/Booger/blob/main/Resources/Assets/Github/Repo.png)
 
 - A small Windows Presentation Foundation (WPF) application that interacts with OpenAI GPT-3.5 Turbo API
@@ -19,7 +19,7 @@ Build Booger.sln with Visual Studio 2022 (Community version okay).  This app is 
 If you don't have .NET 8 installed, remove net8.0-windows in Booger.csproj.
 
 
-## Code
+## ![](https://github.com/is-leeroy-jenkins/Booger/blob/main/Resources/Assets/Github/csharp.png)Code
 
 - [Static](https://github.com/is-leeroy-jenkins/Booger/tree/main/Static) - other tools available.
 - [Converters](https://github.com/is-leeroy-jenkins/Booger/tree/main/Converters) - various conversions.
@@ -49,7 +49,7 @@ Pre-built and binaries (setup, portable and archive) are available on the with i
 
 
 
-## ![](https://github.com/is-leeroy-jenkins/Booger/blob/main/Resources/Assets/GitHubImages/tools.png) Build
+## ![](https://github.com/is-leeroy-jenkins/Booger/blob/main/Resources/Assets/Github/tools.png) Build
 
 - [x] VisualStudio 2022
 - [x] Based on .NET8 and WPF

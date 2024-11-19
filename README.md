@@ -1,4 +1,4 @@
-##.
+
 ﻿![](https://github.com/is-leeroy-jenkins/Booger/blob/main/Resources/Assets/Github/Repo.png)
 
 - A small Windows Presentation Foundation (WPF) application that interacts with OpenAI GPT-3.5 Turbo API

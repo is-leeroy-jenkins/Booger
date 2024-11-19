@@ -1,5 +1,16 @@
-_
+<div align="left">
+  <p>
+    <a href="https://github.com/is-leeroy-jenkins/Bubba/tree/master/Resources/Github/Users.md">Download</a> •  <a href="">Documentation</a> •<a href="https://github.com/is-leeroy-jenkins/Bubba/tree/master/Resources/Github/Compilation.md">Build</a> • <a href="#-license">License</a>
+  </p>
+  <p>
+    
+  </p>
+</div>
+
 ﻿![](https://github.com/is-leeroy-jenkins/Booger/blob/main/Resources/Assets/Github/Repo.png)
+
+
+## ![](https://github.com/is-leeroy-jenkins/Bubba/blob/master/Resources/Assets/GitHubImages/features.png) Features
 
 - A small Windows Presentation Foundation (WPF) application that interacts with OpenAI GPT-3.5 Turbo API
 - Based on .NET6 and written in C#.

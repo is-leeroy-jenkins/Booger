@@ -4,7 +4,7 @@ _
 - A small Windows Presentation Foundation (WPF) application that interacts with OpenAI GPT-3.5 Turbo API
 - Based on .NET6 and written in C#.
 
-## Setup
+## ![](https://github.com/is-leeroy-jenkins/Booger/blob/main/Resources/Assets/Github/install.png) Setup
 Create an Open AI account to obtain an API key (free):
 https://platform.openai.com/account/api-keys
 

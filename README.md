@@ -34,6 +34,68 @@ If you don't have .NET 8 installed, remove net8.0-windows in Booger.csproj.
 - [Resources](https://github.com/is-leeroy-jenkins/Booger/tree/main/Resources)- images, documents, files, etc
 
 
+## ![](https://github.com/is-leeroy-jenkins/Booger/blob/master/Resources/Assets/GitHubImages/documentation.png)  Documentation
+
+- [User Guide](https://github.com/is-leeroy-jenkins/Booger/tree/master/Resources/Github/Users.md) - how to use Booger.
+- [Compilation Guide](https://github.com/is-leeroy-jenkins/Booger/tree/master/Resources/Github/Compilation.md) - instructions on how to compile Booger.
+- [Configuration Guide](https://github.com/is-leeroy-jenkins/Booger/tree/master/Resources/Github/Configuration.md) - information for the Booger configuration file. 
+- [Distribution Guide](https://github.com/is-leeroy-jenkins/Booger/tree/master/Resources/Github/Distribution.md) -  distributing Booger.
+
+
+## 📦 Download
+
+Pre-built and binaries (setup, portable and archive) are available on the with install instructions (e.g. silent install). 
+
+
+
+
+## ![](https://github.com/is-leeroy-jenkins/Booger/blob/master/Resources/Assets/GitHubImages/tools.png) Build
+
+- [x] VisualStudio 2022
+- [x] Based on .NET8 and WPF
+
+
+```bash
+$ git clone https://github.com/is-leeroy-jenkins/Booger.git
+$ cd Booger
+```
+Run `Booger.sln`
+
+
+You can build the application like any other .NET / WPF application on Windows.
+
+1. Make sure that the following requirements are installed:
+
+   - [.NET 8.x - SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+   - Visual Studio 2022 with `.NET desktop development` and `Universal Windows Platform development`
+
+2. Clone the repository with all submodules:
+
+   ```PowerShell
+   # Clone the repository
+   git clone https://github.com/is-leeroy-jenkins/Booger
+
+   # Navigate to the repository
+   cd Booger
+
+   # Clone the submodules
+   git submodule update --init
+   ```
+
+3. Open the project file `.\Source\Booger.sln` with Visual Studio or JetBrains Rider to build (or debug)
+   the solution.
+
+   > **ALTERNATIVE**
+   >
+   > With the following commands you can directly build the binaries from the command line:
+   >
+   > ```PowerShell
+   > dotnet restore .\Source\Booger.sln
+   >
+   > dotnet build .\Source\Booger.sln --configuration Release --no-restore
+   > ```
+
+
 
 ## 🙏 Acknowledgements
 

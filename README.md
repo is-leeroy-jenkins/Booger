@@ -34,7 +34,7 @@ If you don't have .NET 8 installed, remove net8.0-windows in Booger.csproj.
 - [Resources](https://github.com/is-leeroy-jenkins/Booger/tree/main/Resources)- images, documents, files, etc
 
 
-## ![](https://github.com/is-leeroy-jenkins/Booger/blob/master/Resources/Assets/GitHubImages/documentation.png)  Documentation
+## ![](https://github.com/is-leeroy-jenkins/Booger/blob/main/Resources/Assets/Github/documentation.png)  Documentation
 
 - [User Guide](https://github.com/is-leeroy-jenkins/Booger/tree/master/Resources/Github/Users.md) - how to use Booger.
 - [Compilation Guide](https://github.com/is-leeroy-jenkins/Booger/tree/master/Resources/Github/Compilation.md) - instructions on how to compile Booger.
@@ -49,7 +49,7 @@ Pre-built and binaries (setup, portable and archive) are available on the with i
 
 
 
-## ![](https://github.com/is-leeroy-jenkins/Booger/blob/master/Resources/Assets/GitHubImages/tools.png) Build
+## ![](https://github.com/is-leeroy-jenkins/Booger/blob/main/Resources/Assets/GitHubImages/tools.png) Build
 
 - [x] VisualStudio 2022
 - [x] Based on .NET8 and WPF

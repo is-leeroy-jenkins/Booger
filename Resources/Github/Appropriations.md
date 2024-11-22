@@ -1,10 +1,9 @@
 ![](https://github.com/is-leeroy-jenkins/Bubba/blob/master/Resources/Assets/GitHubImages/Appropriation.png)
-## Bubba's AI layer provides access to the OpenAI VectorStores and Files
+## Boogers's AI layer provides access to the OpenAI VectorStores and Files
 
 
-## Bubba's AI layer provides access to the OpenAI VectorStores for fine-tuning using the OpenAI API
 
-### ![](https://github.com/is-leeroy-jenkins/Bubba/blob/master/Resources/Assets/GitHubImages/Appropriation.png)Federal Appropriations
+### ![](https://github.com/is-leeroy-jenkins/Bubba/blob/master/Resources/Assets/GitHubImages/Appropriation.png) Federal Appropriations
 
 
 |               Public Law                     |           Explanatory Statement       |	  	Appropriation Title			                                                  |   

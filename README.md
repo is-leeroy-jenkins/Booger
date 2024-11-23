@@ -44,10 +44,10 @@ If you don't have .NET 8 installed, remove net8.0-windows in Booger.csproj.
 - [Styles](https://github.com/is-leeroy-jenkins/Booger/tree/main/Resources/Styles) - other look and feel stuff.
 - [Resources](https://github.com/is-leeroy-jenkins/Booger/tree/main/Resources)- images, documents, files, etc
 
-## ![](https://github.com/is-leeroy-jenkins/Booger/blob/main/Resources/Assets/Github/openai.png)  Machine Learning 
+## ![](https://github.com/is-leeroy-jenkins/Booger/blob/main/Resources/Assets/Github/openai.png)  OpenAI Vector Stores 
 
-- [Federal Appropriations](https://github.com/is-leeroy-jenkins/Booger/blob/main/Resources/Github/Appropriations.md) - federal funding data available for fine-tuning learning models
-- [Federal Regulations](https://github.com/is-leeroy-jenkins/Booger/blob/main/Resources/Github/Regulations.md) - regulatory data available for fine-tuning learning models
+- [Federal Appropriations](https://github.com/is-leeroy-jenkins/Booger/blob/main/Resources/Github/Appropriations.md) - federal appropriations data vectorized for embedding & fine-tuning learning models
+- [Federal Regulations](https://github.com/is-leeroy-jenkins/Booger/blob/main/Resources/Github/Regulations.md) - regulatory text data vectorized for embedding & fine-tuning learning models
 
 
 
